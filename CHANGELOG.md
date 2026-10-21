@@ -28,3 +28,7 @@ All notable changes to this project are documented here. Format: [Keep a Changel
   public, connect to the validated IP with SNI), OpenSSL ≥ 3.5 gate with 503 `PQ_TLS_UNAVAILABLE`, P1–P5 + HEAD
   within a 15 s budget, per-IP token bucket, 24 h result cache + `s-maxage=86400`; `/check` live-check page with
   GitHub-issue fallback; `.github/workflows/on-demand.yml`; `/api/badge` edge SVG badges from build-time data.
+- `/org` combined report (live TLS grade + in-browser code scan + prioritised migration plan mapped to the DST
+  roadmap phases for CII and enterprise tracks), `/qday` Mosca calculator (sector presets, findings-based migration
+  heuristic, timeline), `/report/[month]` State of the Nation (sector shares, movers, CDN effect, legacy stragglers,
+  plain-language summary), `/learn` primer with animated HNDL diagram and an interactive Shor-factors-15 explainer.

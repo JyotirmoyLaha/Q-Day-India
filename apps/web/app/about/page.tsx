@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 const SOURCES = [
   {
     title: 'DST Task Force — Implementation of Quantum Safe Ecosystem in India (Feb 2026)',
-    href: 'https://dst.gov.in/sites/default/files/Report_TaskForce_PQMigration_4Feb26%20%28v1%29.pdf',
+    href: 'https://dst.gov.in/quantum-safe-ecosystem-in-india',
   },
   { title: 'NIST FIPS 203 — ML-KEM', href: 'https://csrc.nist.gov/pubs/fips/203/final' },
   { title: 'NIST FIPS 204 — ML-DSA', href: 'https://csrc.nist.gov/pubs/fips/204/final' },
@@ -109,7 +109,7 @@ ${HNDL_FORMULA}`}</code>
       <ul>
         <li>
           <strong>Quantum Exposure (0–100)</strong>: a weighted sum of findings, normalised by repository size on a
-          logarithmic curve. Weights: key agreement and KEM 10, public-key encryption 8, signatures 6, classically
+          logarithmic curve. Weights: key agreement and KEM 10, public-key encryption and signatures 8, classically
           broken 3, Grover-affected 1. Formula:{' '}
           <code>100 × (1 − e^(−weighted / (6 × log2(2 + files))))</code>, where &ldquo;weighted&rdquo; is
           confidence-adjusted (high 1, medium 0.7, low 0.4).

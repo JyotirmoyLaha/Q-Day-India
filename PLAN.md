@@ -58,10 +58,10 @@ Progress view for the autonomous build (PROJECT_SPEC.md §0). `[x]` = done and v
 - [x] Done-when: SSRF suite passes (60+ cases); live scan of cloudflare.com graded A in ~1 s
 
 ## M7 — Glue features
-- [ ] `/org` combined report + prioritised migration plan mapped to DST phases
-- [ ] `/qday` Mosca calculator (prefill from sector / findings)
-- [ ] `/report/[month]` generator (sector shares, movers, CDN effect, stragglers)
-- [ ] `/learn` primer + animated HNDL diagram
+- [x] `/org` combined report + prioritised migration plan mapped to DST phases
+- [x] `/qday` Mosca calculator (prefill from sector / findings)
+- [x] `/report/[month]` generator (sector shares, movers, CDN effect, stragglers)
+- [x] `/learn` primer + animated HNDL diagram
 
 ## M8 — GitHub Action + launch polish
 - [ ] `action/` composite action + bundled CLI, SARIF upload, CBOM artifact, threshold
