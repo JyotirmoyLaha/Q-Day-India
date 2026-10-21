@@ -51,11 +51,11 @@ Progress view for the autonomous build (PROJECT_SPEC.md §0). `[x]` = done and v
 - [x] Quantum Exposure + Crypto-Agility scores with explainable inputs
 
 ## M6 — On-demand scan + badge
-- [ ] SSRF guard (hostname validation, IDN→punycode, DNS check of every address, connect to validated IP) + tests (private, localhost, rebinding, IP literals, ports)
-- [ ] `/api/scan` (Node runtime, OpenSSL ≥ 3.5 check, probes, 15 s budget, token bucket, cache headers)
-- [ ] Fallback UI → prefilled GitHub issue; `.github/workflows/on-demand.yml`
-- [ ] `/api/badge` (edge, served from build-time data)
-- [ ] Done-when: SSRF suite passes; live scan < 15 s
+- [x] SSRF guard (hostname validation, IDN→punycode, DNS check of every address, connect to validated IP) + tests (private, localhost, rebinding, IP literals, ports)
+- [x] `/api/scan` (Node runtime, OpenSSL ≥ 3.5 check, probes, 15 s budget, token bucket, cache headers)
+- [x] Fallback UI → prefilled GitHub issue; `.github/workflows/on-demand.yml`
+- [x] `/api/badge` (edge, served from build-time data)
+- [x] Done-when: SSRF suite passes (60+ cases); live scan of cloudflare.com graded A in ~1 s
 
 ## M7 — Glue features
 - [ ] `/org` combined report + prioritised migration plan mapped to DST phases

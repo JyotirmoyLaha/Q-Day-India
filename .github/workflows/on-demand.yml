@@ -1,0 +1,101 @@
+name: on-demand-scan
+
+# Fallback for the live checker: open an issue labelled "scan-request" (the site
+# pre-fills one) and this workflow scans the host once and replies.
+on:
+  issues:
+    types: [labeled]
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: on-demand-${{ github.event.issue.number }}
+  cancel-in-progress: true
+
+jobs:
+  scan:
+    if: github.event.label.name == 'scan-request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Extract and validate the hostname
+        id: host
+        uses: actions/github-script@v9
+        with:
+          script: |
+            // Issue text is untrusted: parse it here and only pass a validated
+            // hostname on (never interpolate issue text into a shell command).
+            const { title = '', body = '' } = context.payload.issue;
+            const text = `${title}\n${body}`;
+            const m = /(?:scan-request:|host:)\s*([A-Za-z0-9.-]{3,253})/i.exec(text);
+            const host = m ? m[1].toLowerCase().replace(/\.$/, '') : '';
+            const ok = /^(?=.{4,253}$)([a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z][a-z0-9-]{0,61}[a-z0-9]$/.test(host);
+            if (!ok) {
+              await github.rest.issues.createComment({ ...context.repo, issue_number: context.issue.number,
+                body: 'Sorry — I could not find a valid public hostname in this request. Please use the format `scan-request: example.in`.' });
+              core.setFailed('invalid host');
+              return;
+            }
+            core.setOutput('host', host);
+
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-go@v7
+        with:
+          go-version: '1.27.3'
+          cache-dependency-path: scanner/go.sum
+
+      - name: Scan (public addresses only; the scanner refuses private/reserved IPs)
+        id: scan
+        working-directory: scanner
+        env:
+          HOST: ${{ steps.host.outputs.host }}
+          SITE_URL: ${{ vars.SITE_URL || 'https://qday-india.vercel.app' }}
+        run: |
+          go run ./cmd/qday-scan --host "$HOST" --json --site-url "$SITE_URL" > "$RUNNER_TEMP/result.json" || true
+          cat "$RUNNER_TEMP/result.json"
+
+      - name: Reply on the issue
+        uses: actions/github-script@v9
+        env:
+          HOST: ${{ steps.host.outputs.host }}
+          SITE_URL: ${{ vars.SITE_URL || 'https://qday-india.vercel.app' }}
+        with:
+          script: |
+            const fs = require('fs');
+            const host = process.env.HOST;
+            let r;
+            try { r = JSON.parse(fs.readFileSync(`${process.env.RUNNER_TEMP}/result.json`, 'utf8')); } catch { r = null; }
+            const date = new Date().toISOString().slice(0, 10);
+            let body;
+            if (!r) {
+              body = `The scan of \`${host}\` did not produce a result. It may have been refused (non-public address) or failed; see the workflow log.`;
+            } else if (!r.reachable) {
+              body = `**${host}** could not be graded on ${date}: ${r.error?.code} — ${r.error?.detail ?? ''}\n\nNothing is implied about the site's security; it may be down or not serving HTTPS on this hostname.`;
+            } else {
+              const pq = r.tls.pqHybrid.x25519mlkem768 ? 'yes' : 'no';
+              const advice = ['A+', 'A'].includes(r.grade)
+                ? 'This host already uses quantum-safe key exchange.'
+                : `Not yet quantum-safe. Migration recommended — see ${process.env.SITE_URL}/check?host=${host} for step-by-step fixes.`;
+              body = [
+                `### Quantum-safe TLS check: \`${host}\` — grade **${r.grade}** (scanned ${date})`,
+                '',
+                '| | |',
+                '|---|---|',
+                `| X25519MLKEM768 (hybrid PQ key exchange) | ${pq} |`,
+                `| Default group | ${r.tls.defaultGroup} |`,
+                `| Highest TLS version | ${r.tls.maxVersion} |`,
+                `| TLS 1.0/1.1 accepted | ${r.tls.legacyEnabled ? 'yes' : 'no'} |`,
+                `| Certificate | ${r.cert.keyAlgorithm}-${r.cert.keySize} (classical — PQ certificates are not yet available in WebPKI) |`,
+                `| Harvest-now-decrypt-later exposure | ${r.hndlRisk}/100 |`,
+                `| Hygiene flags | ${r.hygieneFlags.join(', ') || 'none'} |`,
+                '',
+                advice,
+                '',
+                `_Methodology: ${process.env.SITE_URL}/about_`,
+              ].join('\n');
+            }
+            await github.rest.issues.createComment({ ...context.repo, issue_number: context.issue.number, body });
+            await github.rest.issues.update({ ...context.repo, issue_number: context.issue.number, state: 'closed' });

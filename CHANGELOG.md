@@ -24,3 +24,7 @@ All notable changes to this project are documented here. Format: [Keep a Changel
   streamed progress, Exposure/Agility gauges with score inputs, findings grouped by risk and file, fix panels,
   CBOM/SARIF/Markdown export, lz-string URL-fragment sharing (JSON download fallback > 30 KB), production CSP that
   restricts network access to the site itself and GitHub.
+- `/api/scan` (Node runtime): SSRF guard (bare-hostname validation, IDN→punycode, every resolved address must be
+  public, connect to the validated IP with SNI), OpenSSL ≥ 3.5 gate with 503 `PQ_TLS_UNAVAILABLE`, P1–P5 + HEAD
+  within a 15 s budget, per-IP token bucket, 24 h result cache + `s-maxage=86400`; `/check` live-check page with
+  GitHub-issue fallback; `.github/workflows/on-demand.yml`; `/api/badge` edge SVG badges from build-time data.

@@ -33,6 +33,8 @@ export function CodeScanner({ onReport }: { onReport?: (r: import("@qday/cbom-en
     if (window.location.hash.startsWith('#r=')) {
       const r = decodeReport(window.location.hash);
       if (r) {
+        // Reading the URL fragment on mount is SSR-safe only inside an effect.
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setShared(true);
         showReport(r);
         return;
@@ -41,6 +43,7 @@ export function CodeScanner({ onReport }: { onReport?: (r: import("@qday/cbom-en
     const repo = new URLSearchParams(window.location.search).get('repo');
     if (repo && !autoStarted.current) {
       autoStarted.current = true;
+       
       setUrl(repo);
       start({ kind: 'github', url: repo });
     }
