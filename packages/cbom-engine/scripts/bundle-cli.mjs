@@ -3,7 +3,7 @@
 //   dist/cli.mjs, dist/wasm/*.wasm           (package bin)
 //   ../../action/dist/cli.mjs, .../wasm/*    (GitHub Action, committed)
 import { build } from 'esbuild';
-import { copyFileSync, mkdirSync, rmSync } from 'node:fs';
+import { chmodSync, copyFileSync, mkdirSync, rmSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -29,7 +29,10 @@ for (const out of targets) {
     },
     logLevel: 'warning',
   });
-  for (const [name, spec] of Object.entries(WASM_FILES))
+  for (const [name, spec] of Object.entries(WASM_FILES)) {
     copyFileSync(require.resolve(spec), join(out, 'wasm', name));
+    // npm ships some .wasm files as executable; normalise so the committed bundle is identical on every OS.
+    chmodSync(join(out, 'wasm', name), 0o644);
+  }
   console.log(`bundle: ${out}`);
 }
