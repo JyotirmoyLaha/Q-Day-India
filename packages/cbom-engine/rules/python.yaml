@@ -1,0 +1,327 @@
+# Python rules (tree-sitter). Call rules match the dotted callee text of every call;
+# see src/types.ts (Rule) for the fields.
+
+- id: py-cryptography-rsa-generate
+  language: python
+  kind: treesitter
+  callee: '(^|\.)rsa\.generate_private_key$'
+  key_size: 'kwarg:key_size|arg1'
+  algorithm: RSA
+  primitive: pke
+  quantum_risk: HIGH
+  fix: py-rsa-to-mlkem
+  message: RSA key generation (pyca/cryptography) — not quantum-safe.
+
+- id: py-cryptography-rsa-padding
+  language: python
+  kind: treesitter
+  callee: '(^|\.)padding\.(OAEP|PKCS1v15|PSS)$'
+  variant_from: callee
+  variants:
+    - { match: 'OAEP|PKCS1v15', algorithm: RSA, primitive: pke, message: RSA encryption padding in use — RSA is not quantum-safe., fix: py-rsa-to-mlkem }
+    - { match: 'PSS', algorithm: RSA-PSS, primitive: signature, message: RSA-PSS signature padding in use — not quantum-safe., fix: signatures-to-mldsa }
+  algorithm: RSA
+  primitive: pke
+  quantum_risk: HIGH
+  confidence: medium
+  message: RSA operation (pyca/cryptography).
+
+- id: py-cryptography-ec-generate
+  language: python
+  kind: treesitter
+  callee: '(^|\.)ec\.generate_private_key$'
+  parameter: 'regex:(SECP\d+[RK]1|BrainpoolP\d+R1|SECT\d+[RK]1)'
+  algorithm: ECC
+  primitive: signature
+  quantum_risk: HIGH
+  fix: signatures-to-mldsa
+  message: Elliptic-curve key generation (pyca/cryptography) — not quantum-safe.
+
+- id: py-cryptography-ecdh
+  language: python
+  kind: treesitter
+  callee: '\.exchange$'
+  args: { '0': '(^|\.)ECDH\(\)$' }
+  algorithm: ECDH
+  primitive: key-agreement
+  quantum_risk: HIGH
+  fix: ecdh-to-hybrid
+  message: ECDH key agreement — exposed to harvest-now-decrypt-later.
+
+- id: py-cryptography-ecdsa
+  language: python
+  kind: treesitter
+  callee: '(^|\.)ec\.ECDSA$'
+  algorithm: ECDSA
+  primitive: signature
+  quantum_risk: HIGH
+  fix: signatures-to-mldsa
+  message: ECDSA signature (pyca/cryptography) — not quantum-safe.
+
+- id: py-cryptography-dh
+  language: python
+  kind: treesitter
+  callee: '(^|\.)dh\.generate_parameters$'
+  key_size: 'kwarg:key_size|arg1'
+  algorithm: DH
+  primitive: key-agreement
+  quantum_risk: HIGH
+  fix: ecdh-to-hybrid
+  message: Finite-field Diffie-Hellman — exposed to harvest-now-decrypt-later.
+
+- id: py-cryptography-dsa
+  language: python
+  kind: treesitter
+  callee: '(^|\.)dsa\.generate_private_key$'
+  key_size: 'kwarg:key_size|arg0'
+  algorithm: DSA
+  primitive: signature
+  quantum_risk: HIGH
+  fix: signatures-to-mldsa
+  message: DSA key generation — deprecated and not quantum-safe.
+
+- id: py-cryptography-x25519
+  language: python
+  kind: treesitter
+  callee: '(^|\.)(X25519|X448)PrivateKey\.generate$'
+  variant_from: callee
+  variants:
+    - { match: 'X448', algorithm: X448 }
+    - { match: 'X25519', algorithm: X25519 }
+  algorithm: X25519
+  primitive: key-agreement
+  quantum_risk: HIGH
+  fix: ecdh-to-hybrid
+  message: X25519/X448 key agreement — exposed to harvest-now-decrypt-later without an ML-KEM hybrid.
+
+- id: py-cryptography-ed25519
+  language: python
+  kind: treesitter
+  callee: '(^|\.)(Ed25519|Ed448)PrivateKey\.generate$'
+  variant_from: callee
+  variants:
+    - { match: 'Ed448', algorithm: Ed448 }
+    - { match: 'Ed25519', algorithm: Ed25519 }
+  algorithm: Ed25519
+  primitive: signature
+  quantum_risk: HIGH
+  fix: signatures-to-mldsa
+  message: EdDSA key generation — not quantum-safe.
+
+- id: py-cryptography-weak-hash
+  language: python
+  kind: treesitter
+  callee: '(^|\.)hashes\.(MD5|SHA1)$'
+  variant_from: callee
+  variants:
+    - { match: 'MD5$', algorithm: MD5 }
+    - { match: 'SHA1$', algorithm: SHA-1 }
+  algorithm: MD5
+  primitive: hash
+  quantum_risk: CLASSICAL_BROKEN
+  fix: hash-md5-sha1
+  message: MD5/SHA-1 hash — collision attacks exist today.
+
+- id: py-cryptography-pq
+  language: python
+  kind: treesitter
+  callee: '(^|\.)(MLKEM\d+|MLDSA\d+)PrivateKey\.generate$'
+  variant_from: callee
+  variants:
+    - { match: 'MLKEM512', algorithm: ML-KEM-512, primitive: kem }
+    - { match: 'MLKEM768', algorithm: ML-KEM-768, primitive: kem }
+    - { match: 'MLKEM1024', algorithm: ML-KEM-1024, primitive: kem }
+    - { match: 'MLDSA44', algorithm: ML-DSA-44 }
+    - { match: 'MLDSA65', algorithm: ML-DSA-65 }
+    - { match: 'MLDSA87', algorithm: ML-DSA-87 }
+  algorithm: ML-DSA
+  primitive: signature
+  quantum_risk: NONE
+  fix: pq-library-present
+  message: Post-quantum algorithm in use (pyca/cryptography).
+
+- id: py-hashlib-weak
+  language: python
+  kind: treesitter
+  callee: '^hashlib\.(md5|sha1)$'
+  variant_from: callee
+  variants:
+    - { match: 'md5$', algorithm: MD5 }
+    - { match: 'sha1$', algorithm: SHA-1 }
+  algorithm: MD5
+  primitive: hash
+  quantum_risk: CLASSICAL_BROKEN
+  fix: hash-md5-sha1
+  message: MD5/SHA-1 via hashlib — collision attacks exist today.
+
+- id: py-hashlib-new-weak
+  language: python
+  kind: treesitter
+  callee: '^hashlib\.new$'
+  args: { '0': '^(md5|sha1|sha-1|md4)$' }
+  variants:
+    - { match: '^md[45]$', algorithm: MD5 }
+    - { match: '^sha-?1$', algorithm: SHA-1 }
+  algorithm: MD5
+  primitive: hash
+  quantum_risk: CLASSICAL_BROKEN
+  fix: hash-md5-sha1
+  message: Weak hash via hashlib.new — collision attacks exist today.
+
+- id: py-pycryptodome-pubkey
+  language: python
+  kind: treesitter
+  callee: '^(Crypto\.PublicKey\.|Cryptodome\.PublicKey\.)?(RSA|ECC|DSA)\.(generate|construct|import_key|importKey)$'
+  variant_from: callee
+  key_size: 'kwarg:bits|arg0'
+  parameter: 'kwarg:curve'
+  variants:
+    - { match: '(^|\.)RSA\.', algorithm: RSA, primitive: pke, fix: python-pqc }
+    - { match: '(^|\.)ECC\.', algorithm: ECC, primitive: signature, fix: python-pqc }
+    - { match: '(^|\.)DSA\.', algorithm: DSA, primitive: signature, fix: python-pqc }
+  algorithm: RSA
+  primitive: pke
+  quantum_risk: HIGH
+  message: Public-key operation with PyCryptodome — not quantum-safe.
+
+- id: py-pycryptodome-schemes
+  language: python
+  kind: treesitter
+  callee: '^(PKCS1_OAEP|PKCS1_v1_5|pkcs1_15|pss|DSS)\.new$'
+  variant_from: callee
+  variants:
+    - { match: '^PKCS1_(OAEP|v1_5)', algorithm: RSA, primitive: pke, fix: rsa-to-mlkem }
+    - { match: '^(pkcs1_15|pss)', algorithm: RSA, primitive: signature, fix: signatures-to-mldsa }
+    - { match: '^DSS', algorithm: ECDSA/DSA, primitive: signature, fix: signatures-to-mldsa }
+  algorithm: RSA
+  primitive: pke
+  quantum_risk: HIGH
+  confidence: medium
+  message: RSA/DSA scheme (PyCryptodome) — not quantum-safe.
+
+- id: py-pycryptodome-legacy-cipher
+  language: python
+  kind: treesitter
+  callee: '^(DES|DES3|ARC4|ARC2|Blowfish|CAST)\.new$'
+  variant_from: callee
+  variants:
+    - { match: '^DES3', algorithm: 3DES }
+    - { match: '^DES', algorithm: DES }
+    - { match: '^ARC4', algorithm: RC4 }
+    - { match: '^ARC2', algorithm: RC2 }
+    - { match: '^Blowfish', algorithm: Blowfish }
+    - { match: '^CAST', algorithm: CAST5 }
+  algorithm: DES
+  primitive: symmetric
+  quantum_risk: CLASSICAL_BROKEN
+  fix: legacy-ciphers
+  message: Legacy cipher — already weak against classical attacks.
+
+- id: py-pycryptodome-weak-hash
+  language: python
+  kind: treesitter
+  callee: '^(MD5|SHA1|SHA)\.new$'
+  variant_from: callee
+  variants:
+    - { match: '^MD5', algorithm: MD5 }
+    - { match: '^SHA1?\.', algorithm: SHA-1 }
+  algorithm: MD5
+  primitive: hash
+  quantum_risk: CLASSICAL_BROKEN
+  fix: hash-md5-sha1
+  message: MD5/SHA-1 (PyCryptodome) — collision attacks exist today.
+
+- id: py-rsa-lib
+  language: python
+  kind: treesitter
+  callee: '^rsa\.newkeys$'
+  key_size: arg0
+  algorithm: RSA
+  primitive: pke
+  quantum_risk: HIGH
+  fix: python-pqc
+  message: RSA key generation (python-rsa) — not quantum-safe.
+
+- id: py-ssl-legacy-protocol
+  language: python
+  kind: treesitter
+  query: |
+    ((attribute object: (identifier) @mod attribute: (identifier) @attr) @match
+      (#eq? @mod "ssl")
+      (#match? @attr "^PROTOCOL_(TLSv1|TLSv1_1|SSLv2|SSLv3)$"))
+  variant_from: 'capture:attr'
+  variants:
+    - { match: 'TLSv1_1', algorithm: TLS 1.1, parameter: '1.1' }
+    - { match: 'TLSv1$', algorithm: TLS 1.0, parameter: '1.0' }
+    - { match: 'SSLv', algorithm: SSLv3, parameter: '3.0' }
+  algorithm: TLS 1.0
+  primitive: key-agreement
+  quantum_risk: CLASSICAL_BROKEN
+  asset_type: protocol
+  fix: tls-legacy-protocols
+  message: Deprecated TLS/SSL protocol version pinned.
+
+- id: py-ssl-tlsversion-legacy
+  language: python
+  kind: treesitter
+  query: |
+    ((attribute object: (attribute object: (identifier) @mod attribute: (identifier) @cls) attribute: (identifier) @attr) @match
+      (#eq? @mod "ssl") (#eq? @cls "TLSVersion")
+      (#match? @attr "^(TLSv1|TLSv1_1|SSLv3)$"))
+  variant_from: 'capture:attr'
+  variants:
+    - { match: 'TLSv1_1', algorithm: TLS 1.1, parameter: '1.1' }
+    - { match: 'TLSv1$', algorithm: TLS 1.0, parameter: '1.0' }
+    - { match: 'SSLv3', algorithm: SSLv3, parameter: '3.0' }
+  algorithm: TLS 1.0
+  primitive: key-agreement
+  quantum_risk: CLASSICAL_BROKEN
+  asset_type: protocol
+  fix: tls-legacy-protocols
+  message: Minimum/maximum TLS version set to a deprecated protocol.
+
+- id: py-ssl-ecdh-curve
+  language: python
+  kind: treesitter
+  callee: '\.set_ecdh_curve$'
+  parameter: arg0
+  algorithm: ECDH
+  primitive: key-agreement
+  quantum_risk: HIGH
+  asset_type: protocol
+  fix: tls-library-pq
+  message: TLS key exchange pinned to one classical curve — disables the post-quantum hybrid default.
+
+- id: py-paramiko-keys
+  language: python
+  kind: treesitter
+  callee: '^(paramiko\.)?(RSAKey|DSSKey|ECDSAKey|Ed25519Key)\.generate$'
+  variant_from: callee
+  key_size: 'kwarg:bits|arg0'
+  variants:
+    - { match: 'RSAKey', algorithm: RSA }
+    - { match: 'DSSKey', algorithm: DSA }
+    - { match: 'ECDSAKey', algorithm: ECDSA }
+    - { match: 'Ed25519Key', algorithm: Ed25519 }
+  algorithm: RSA
+  primitive: signature
+  quantum_risk: HIGH
+  fix: ssh-keys
+  message: SSH key generation with paramiko — classical signature key.
+
+- id: py-jwt-algorithm
+  language: python
+  kind: treesitter
+  callee: '^(jwt|jws|jose\.jwt|jose\.jws)\.(encode|decode|sign|verify)$'
+  variant_from: 'kwarg:algorithm|kwarg:algorithms'
+  variants:
+    - { match: '^PS\d{3}$', algorithm: RSA-PSS }
+    - { match: '^RS\d{3}$', algorithm: RSA }
+    - { match: '^ES\d{3}K?$', algorithm: ECDSA }
+    - { match: '^EdDSA$', algorithm: Ed25519 }
+    - { match: '.', skip: true }
+  algorithm: RSA
+  primitive: signature
+  quantum_risk: HIGH
+  fix: jwt-crypto-agility
+  message: JWT signed/verified with a classical public-key algorithm — plan for crypto-agility.

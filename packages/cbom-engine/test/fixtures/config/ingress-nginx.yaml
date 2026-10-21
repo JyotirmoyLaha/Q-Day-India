@@ -1,0 +1,16 @@
+# Fixture: ingress-nginx ConfigMap and Istio.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ingress-nginx-controller
+data:
+  ssl-protocols: "TLSv1.1 TLSv1.2" # expect: k8s-ingress-ssl-protocols
+  ssl-ecdh-curve: "secp384r1" # expect: k8s-ingress-ecdh-curve
+---
+apiVersion: networking.istio.io/v1
+kind: Gateway
+spec:
+  servers:
+    - tls:
+        mode: SIMPLE
+        minProtocolVersion: TLSV1_0 # expect: mesh-min-protocol

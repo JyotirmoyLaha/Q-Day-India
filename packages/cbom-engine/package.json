@@ -1,0 +1,40 @@
+{
+  "name": "@qday/cbom-engine",
+  "version": "1.0.0",
+  "description": "QuantumBOM: finds quantum-vulnerable cryptography in source code and emits CycloneDX 1.6 CBOM, SARIF and Markdown. No DOM dependencies; runs in a Web Worker or Node.",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./node": "./src/node.ts",
+    "./wasm-files": "./scripts/wasm-files.mjs"
+  },
+  "bin": {
+    "quantumbom": "./dist/cli.mjs"
+  },
+  "scripts": {
+    "compile": "node scripts/compile.mjs",
+    "build": "node scripts/compile.mjs && node scripts/bundle-cli.mjs",
+    "test": "node scripts/compile.mjs && vitest run",
+    "typecheck": "node scripts/compile.mjs && tsc --noEmit",
+    "lint": "node scripts/compile.mjs && tsc --noEmit"
+  },
+  "dependencies": {
+    "tree-sitter-go": "0.25.0",
+    "tree-sitter-java": "0.23.5",
+    "tree-sitter-javascript": "0.25.0",
+    "tree-sitter-python": "0.25.0",
+    "tree-sitter-typescript": "0.23.2",
+    "web-tree-sitter": "0.27.1"
+  },
+  "devDependencies": {
+    "@types/node": "24.*",
+    "ajv": "8.20.0",
+    "ajv-draft-04": "1.0.0",
+    "ajv-formats": "3.0.1",
+    "esbuild": "0.28.2",
+    "typescript": "5.9.3",
+    "vitest": "5.0.5",
+    "yaml": "2.9.1"
+  }
+}

@@ -1,0 +1,281 @@
+# JavaScript / TypeScript rules (tree-sitter; "js" covers .js, .ts and .tsx).
+
+- id: js-generate-keypair
+  language: js
+  kind: treesitter
+  callee: '(^|\.)generateKeyPair(Sync)?$'
+  variant_from: arg0
+  key_size: 'prop:modulusLength|prop:divisorLength|prop:primeLength'
+  parameter: 'prop:namedCurve'
+  variants:
+    - { match: '^rsa$', algorithm: RSA, primitive: pke, fix: node-crypto-migration }
+    - { match: '^rsa-pss$', algorithm: RSA-PSS, primitive: signature, fix: signatures-to-mldsa }
+    - { match: '^dsa$', algorithm: DSA, primitive: signature, fix: signatures-to-mldsa }
+    - { match: '^ec$', algorithm: ECC, primitive: signature, fix: node-crypto-migration }
+    - { match: '^ed(25519|448)$', algorithm: Ed25519, primitive: signature, fix: signatures-to-mldsa }
+    - { match: '^x25519$', algorithm: X25519, primitive: key-agreement, fix: ecdh-to-hybrid }
+    - { match: '^x448$', algorithm: X448, primitive: key-agreement, fix: ecdh-to-hybrid }
+    - { match: '^dh$', algorithm: DH, primitive: key-agreement, fix: ecdh-to-hybrid }
+    - { match: '^ml-kem-512$', algorithm: ML-KEM-512, primitive: kem, quantum_risk: NONE, fix: pq-library-present, message: Post-quantum ML-KEM key generation. }
+    - { match: '^ml-kem-768$', algorithm: ML-KEM-768, primitive: kem, quantum_risk: NONE, fix: pq-library-present, message: Post-quantum ML-KEM key generation. }
+    - { match: '^ml-kem-1024$', algorithm: ML-KEM-1024, primitive: kem, quantum_risk: NONE, fix: pq-library-present, message: Post-quantum ML-KEM key generation. }
+    - { match: '^ml-dsa-(44|65|87)$', algorithm: ML-DSA, primitive: signature, quantum_risk: NONE, fix: pq-library-present, message: Post-quantum ML-DSA key generation. }
+  algorithm: RSA
+  primitive: pke
+  quantum_risk: HIGH
+  message: Key pair generation with a classical algorithm (node:crypto) — not quantum-safe.
+
+- id: js-jose-generate-keypair
+  language: js
+  kind: treesitter
+  callee: '(^|\.)generateKeyPair$'
+  args: { '0': '^((RS|PS|ES)\d{3}|EdDSA|ECDH-ES.*|RSA-OAEP.*)$' }
+  variants:
+    - { match: '^PS', algorithm: RSA-PSS, primitive: signature }
+    - { match: '^RS', algorithm: RSA, primitive: signature }
+    - { match: '^ES', algorithm: ECDSA, primitive: signature }
+    - { match: '^EdDSA', algorithm: Ed25519, primitive: signature }
+    - { match: '^ECDH', algorithm: ECDH, primitive: key-agreement, fix: ecdh-to-hybrid }
+    - { match: '^RSA-OAEP', algorithm: RSA, primitive: pke, fix: rsa-to-mlkem }
+  algorithm: RSA
+  primitive: signature
+  quantum_risk: HIGH
+  fix: jwt-crypto-agility
+  message: JOSE key generation with a classical algorithm.
+
+- id: js-webcrypto-algorithm
+  language: js
+  kind: treesitter
+  query: |
+    ((object (pair key: (property_identifier) @k value: (string) @alg)) @match
+      (#eq? @k "name")
+      (#match? @alg "^['\"](RSA-OAEP|RSASSA-PKCS1-v1_5|RSA-PSS|ECDSA|ECDH|Ed25519|X25519|Ed448|X448)['\"]$"))
+  variant_from: 'capture:alg'
+  key_size: 'regex:modulusLength\s*:\s*(\d+)'
+  variants:
+    - { match: '^RSA-OAEP$', algorithm: RSA, primitive: pke, fix: rsa-to-mlkem }
+    - { match: '^RSASSA-PKCS1-v1_5$', algorithm: RSA, primitive: signature, fix: signatures-to-mldsa }
+    - { match: '^RSA-PSS$', algorithm: RSA-PSS, primitive: signature, fix: signatures-to-mldsa }
+    - { match: '^ECDSA$', algorithm: ECDSA, primitive: signature, fix: signatures-to-mldsa }
+    - { match: '^ECDH$', algorithm: ECDH, primitive: key-agreement, fix: ecdh-to-hybrid }
+    - { match: '^(Ed25519|Ed448)$', algorithm: Ed25519, primitive: signature, fix: signatures-to-mldsa }
+    - { match: '^(X25519|X448)$', algorithm: X25519, primitive: key-agreement, fix: ecdh-to-hybrid }
+  algorithm: RSA
+  primitive: pke
+  quantum_risk: HIGH
+  message: WebCrypto algorithm that is not quantum-safe.
+
+- id: js-create-sign
+  language: js
+  kind: treesitter
+  callee: '(^|\.)(createSign|createVerify)$'
+  variants:
+    - { match: 'rsa', algorithm: RSA }
+    - { match: 'ecdsa', algorithm: ECDSA }
+    - { match: 'dsa', algorithm: DSA }
+    - { match: '^(sha|SHA)-?(1|224|256|384|512)$', algorithm: RSA/ECDSA, confidence: medium, message: Signature with a key-dependent classical algorithm (RSA or ECDSA) — not quantum-safe. }
+    - { match: '.', skip: true }
+  algorithm: RSA
+  primitive: signature
+  quantum_risk: HIGH
+  fix: signatures-to-mldsa
+  message: Digital signature with a classical algorithm (node:crypto).
+
+- id: js-crypto-sign
+  language: js
+  kind: treesitter
+  callee: '^crypto\.(sign|verify)$'
+  algorithm: RSA/ECDSA/EdDSA
+  primitive: signature
+  quantum_risk: HIGH
+  confidence: low
+  fix: signatures-to-mldsa
+  message: crypto.sign/verify — the algorithm depends on the key; classical unless it is an ML-DSA key.
+
+- id: js-create-ecdh
+  language: js
+  kind: treesitter
+  callee: '(^|\.)createECDH$'
+  parameter: arg0
+  algorithm: ECDH
+  primitive: key-agreement
+  quantum_risk: HIGH
+  fix: ecdh-to-hybrid
+  message: ECDH key agreement — exposed to harvest-now-decrypt-later.
+
+- id: js-create-dh
+  language: js
+  kind: treesitter
+  callee: '(^|\.)(createDiffieHellman|getDiffieHellman|createDiffieHellmanGroup)$'
+  key_size: arg0
+  algorithm: DH
+  primitive: key-agreement
+  quantum_risk: HIGH
+  fix: ecdh-to-hybrid
+  message: Diffie-Hellman key agreement — exposed to harvest-now-decrypt-later.
+
+- id: js-rsa-encrypt
+  language: js
+  kind: treesitter
+  callee: '^(crypto\.)?(publicEncrypt|privateDecrypt)$'
+  algorithm: RSA
+  primitive: pke
+  quantum_risk: HIGH
+  fix: rsa-to-mlkem
+  message: RSA encryption (node:crypto publicEncrypt/privateDecrypt) — not quantum-safe.
+
+- id: js-weak-hash
+  language: js
+  kind: treesitter
+  callee: '(^|\.)createHash$'
+  args: { '0': '^(md5|md4|sha1|sha-1)$' }
+  variants:
+    - { match: '^md[45]$', algorithm: MD5 }
+    - { match: '^sha-?1$', algorithm: SHA-1 }
+  algorithm: MD5
+  primitive: hash
+  quantum_risk: CLASSICAL_BROKEN
+  fix: hash-md5-sha1
+  message: MD5/SHA-1 hash — collision attacks exist today.
+
+- id: js-cipher
+  language: js
+  kind: treesitter
+  callee: '(^|\.)(createCipheriv|createDecipheriv|createCipher|createDecipher)$'
+  variants:
+    - { match: '^(des-ede3|des3|des-ede)', algorithm: 3DES, quantum_risk: CLASSICAL_BROKEN, fix: legacy-ciphers, message: Triple-DES — withdrawn by NIST. }
+    - { match: '^des', algorithm: DES, quantum_risk: CLASSICAL_BROKEN, fix: legacy-ciphers, message: DES — 56-bit keys are brute-forceable today. }
+    - { match: '^(rc4|rc2|bf|blowfish|cast)', algorithm: RC4/Blowfish, quantum_risk: CLASSICAL_BROKEN, fix: legacy-ciphers, message: Legacy cipher — already weak against classical attacks. }
+    - { match: '^aes-?128', algorithm: AES-128, quantum_risk: LOW, fix: symmetric-aes256, message: AES-128 — Grover's algorithm halves its effective strength; AES-256 recommended for long-lived data. }
+    - { match: '.', skip: true }
+  algorithm: AES-128
+  primitive: symmetric
+  quantum_risk: LOW
+  message: Symmetric cipher.
+
+- id: js-tls-ecdh-curve
+  language: js
+  kind: treesitter
+  query: |
+    ((pair key: (property_identifier) @k value: (string) @v) @match
+      (#eq? @k "ecdhCurve"))
+  variant_from: 'capture:v'
+  variants:
+    - { match: 'mlkem|^auto$', skip: true }
+    - { match: '.' }
+  algorithm: ECDH
+  primitive: key-agreement
+  quantum_risk: HIGH
+  asset_type: protocol
+  fix: node-tls-pq
+  message: TLS ecdhCurve list without a post-quantum hybrid group.
+
+- id: js-tls-version
+  language: js
+  kind: treesitter
+  query: |
+    ((pair key: (property_identifier) @k value: (string) @v) @match
+      (#match? @k "^(minVersion|maxVersion|secureProtocol)$"))
+  variant_from: match
+  variants:
+    - { match: "minVersion\\s*:\\s*['\"]TLSv1(\\.1)?['\"]", algorithm: TLS 1.0/1.1, quantum_risk: CLASSICAL_BROKEN, fix: tls-legacy-protocols, message: TLS minimum version allows deprecated TLS 1.0/1.1. }
+    - { match: "secureProtocol\\s*:\\s*['\"](TLSv1|TLSv1_1|SSLv3)_", algorithm: TLS 1.0/1.1, quantum_risk: CLASSICAL_BROKEN, fix: tls-legacy-protocols, message: Deprecated TLS protocol pinned. }
+    - { match: "maxVersion\\s*:\\s*['\"]TLSv1(\\.[12])?['\"]", algorithm: TLS ≤ 1.2, quantum_risk: HIGH, fix: node-tls-pq, message: TLS maximum version below 1.3 — post-quantum key exchange impossible. }
+    - { match: '.', skip: true }
+  algorithm: TLS
+  primitive: key-agreement
+  quantum_risk: CLASSICAL_BROKEN
+  asset_type: protocol
+  message: TLS version setting.
+
+- id: js-node-forge
+  language: js
+  kind: treesitter
+  callee: '(^|\.)(pki\.rsa\.generateKeyPair|pki\.ed25519\.generateKeyPair|md\.(md5|sha1)\.create|ed25519\.generateKeyPair)$'
+  variant_from: callee
+  key_size: 'prop:bits|arg0'
+  variants:
+    - { match: 'rsa\.generateKeyPair', algorithm: RSA, primitive: pke, quantum_risk: HIGH, fix: node-crypto-migration }
+    - { match: 'ed25519', algorithm: Ed25519, primitive: signature, quantum_risk: HIGH, fix: signatures-to-mldsa }
+    - { match: 'md5', algorithm: MD5, primitive: hash, quantum_risk: CLASSICAL_BROKEN, fix: hash-md5-sha1 }
+    - { match: 'sha1', algorithm: SHA-1, primitive: hash, quantum_risk: CLASSICAL_BROKEN, fix: hash-md5-sha1 }
+  algorithm: RSA
+  primitive: pke
+  quantum_risk: HIGH
+  message: node-forge classical primitive.
+
+- id: js-jsrsasign
+  language: js
+  kind: treesitter
+  callee: '(^|\.)(KEYUTIL\.generateKeypair|JWS\.sign)$|^new (\w+\.)*Signature$'
+  variant_from: 'arg0|prop:alg'
+  key_size: arg1
+  variants:
+    - { match: 'andMGF1|^PS\d', algorithm: RSA-PSS, primitive: signature }
+    - { match: '^RSA$|withRSA|^RS\d', algorithm: RSA, primitive: signature }
+    - { match: '^EC$|withECDSA|^ES\d', algorithm: ECDSA, primitive: signature }
+    - { match: 'withDSA', algorithm: DSA, primitive: signature }
+    - { match: '.', skip: true }
+  algorithm: RSA
+  primitive: signature
+  quantum_risk: HIGH
+  fix: signatures-to-mldsa
+  message: jsrsasign classical signature.
+
+- id: js-elliptic
+  language: js
+  kind: treesitter
+  callee: '^new (\w+\.)*(ec|EC|eddsa|EdDSA)$'
+  args: { '0': "^(secp256k1|p192|p224|p256|p384|p521|curve25519|ed25519)$" }
+  variant_from: arg0
+  parameter: arg0
+  variants:
+    - { match: 'ed25519', algorithm: Ed25519 }
+    - { match: '.', algorithm: ECC }
+  algorithm: ECC
+  primitive: signature
+  quantum_risk: HIGH
+  fix: node-crypto-migration
+  message: Elliptic-curve cryptography (elliptic) — not quantum-safe.
+
+- id: js-tweetnacl
+  language: js
+  kind: treesitter
+  callee: '(^|\.)(nacl|tweetnacl)\.(box(\.keyPair(\.fromSecretKey)?|\.before)?|sign(\.keyPair(\.fromSeed|\.fromSecretKey)?|\.detached)?|scalarMult)$'
+  variant_from: callee
+  variants:
+    - { match: '\.(box|scalarMult)', algorithm: X25519, primitive: key-agreement, fix: ecdh-to-hybrid }
+    - { match: '\.sign', algorithm: Ed25519, primitive: signature, fix: signatures-to-mldsa }
+  algorithm: X25519
+  primitive: key-agreement
+  quantum_risk: HIGH
+  message: TweetNaCl public-key primitive (X25519 / Ed25519) — not quantum-safe.
+
+- id: js-jsonwebtoken
+  language: js
+  kind: treesitter
+  callee: '(^|\.)(jwt|jsonwebtoken|JWT)\.(sign|verify)$|(^|\.)setProtectedHeader$'
+  variant_from: 'prop:algorithm|prop:algorithms|prop:alg'
+  variants:
+    - { match: '^PS\d{3}$', algorithm: RSA-PSS }
+    - { match: '^RS\d{3}$', algorithm: RSA }
+    - { match: '^ES\d{3}K?$', algorithm: ECDSA }
+    - { match: '^EdDSA$', algorithm: Ed25519 }
+    - { match: '.', skip: true }
+  algorithm: RSA
+  primitive: signature
+  quantum_risk: HIGH
+  fix: jwt-crypto-agility
+  message: JWT signed/verified with a classical public-key algorithm — plan for crypto-agility.
+
+- id: js-node-rsa
+  language: js
+  kind: treesitter
+  callee: '^new (NodeRSA|RSAKey)$'
+  key_size: 'prop:b|arg0'
+  algorithm: RSA
+  primitive: pke
+  quantum_risk: HIGH
+  confidence: medium
+  fix: node-crypto-migration
+  message: RSA via node-rsa — not quantum-safe.

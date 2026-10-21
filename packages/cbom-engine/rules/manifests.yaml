@@ -1,0 +1,39 @@
+# Dependency manifests. Library presence alone is low-confidence: it shows where
+# migration work will land; call-site findings show actual use.
+
+- id: manifest-crypto-libraries
+  kind: manifest
+  algorithm: library
+  primitive: pke
+  quantum_risk: NONE
+  confidence: low
+  fix: library-pqc-status
+  message: Cryptography library dependency.
+  libraries:
+    # --- npm ---
+    - { name: 'node-forge', ecosystem: npm, algorithm: RSA/ECC (node-forge), primitive: pke, quantum_risk: HIGH, message: 'node-forge {version}: RSA/Ed25519 toolkit with no post-quantum algorithms.', fix: node-crypto-migration }
+    - { name: 'jsrsasign', ecosystem: npm, algorithm: RSA/ECDSA (jsrsasign), primitive: signature, quantum_risk: HIGH, message: 'jsrsasign {version}: classical RSA/ECDSA signatures only.', fix: signatures-to-mldsa }
+    - { name: 'elliptic', ecosystem: npm, algorithm: ECC (elliptic), primitive: signature, quantum_risk: HIGH, message: 'elliptic {version}: elliptic-curve only library.', fix: node-crypto-migration }
+    - { name: 'tweetnacl|tweetnacl-util|libsodium-wrappers', ecosystem: npm, algorithm: X25519/Ed25519, primitive: key-agreement, quantum_risk: HIGH, message: '{name} {version}: X25519/Ed25519 only.', fix: ecdh-to-hybrid }
+    - { name: 'node-rsa', ecosystem: npm, algorithm: RSA (node-rsa), primitive: pke, quantum_risk: HIGH, confidence: medium, message: 'node-rsa {version}: RSA only.', fix: node-crypto-migration }
+    - { name: 'crypto-js', ecosystem: npm, algorithm: crypto-js (MD5/SHA-1/DES available), primitive: symmetric, quantum_risk: CLASSICAL_BROKEN, message: 'crypto-js {version}: discontinued; exposes MD5, SHA-1, DES and RC4.', fix: deprecated-library }
+    - { name: '@noble/curves|secp256k1', ecosystem: npm, algorithm: ECC (noble/secp256k1), primitive: signature, quantum_risk: HIGH, message: '{name} {version}: elliptic-curve cryptography.', fix: node-crypto-migration }
+    - { name: 'jsonwebtoken|jose|jwk-to-pem|express-jwt|passport-jwt', ecosystem: npm, algorithm: JWT/JOSE, primitive: signature, quantum_risk: NONE, message: '{name} {version}: JWT/JOSE library — check which algorithms you use; ML-DSA support is still emerging.', fix: jwt-crypto-agility }
+    - { name: '@noble/post-quantum|mlkem|crystals-kyber-js|@openpgp/pqc', ecosystem: npm, algorithm: ML-KEM/ML-DSA, primitive: kem, quantum_risk: NONE, message: '{name} {version}: post-quantum library present.', fix: pq-library-present }
+    - { name: 'node', ecosystem: npm, version_below: '22.20', algorithm: Node.js < 22.20 (engines), primitive: key-agreement, quantum_risk: HIGH, message: 'engines.node "{version}" allows Node.js versions without OpenSSL 3.5 (no X25519MLKEM768).', fix: node-tls-pq }
+    # --- PyPI ---
+    - { name: 'cryptography', ecosystem: pypi, version_below: '48', algorithm: pyca/cryptography < 48, primitive: pke, quantum_risk: NONE, message: 'cryptography {version}: ML-KEM/ML-DSA need version 48 or later.', fix: python-pqc }
+    - { name: 'pycrypto', ecosystem: pypi, algorithm: PyCrypto (unmaintained), primitive: pke, quantum_risk: CLASSICAL_BROKEN, confidence: high, message: 'pycrypto {version}: unmaintained since 2013.', fix: deprecated-library }
+    - { name: 'pycryptodome|pycryptodomex', ecosystem: pypi, algorithm: PyCryptodome, primitive: pke, quantum_risk: NONE, message: '{name} {version}: no ML-KEM/ML-DSA; classical RSA/ECC/DSA APIs.', fix: python-pqc }
+    - { name: 'rsa', ecosystem: pypi, algorithm: RSA (python-rsa), primitive: pke, quantum_risk: HIGH, confidence: medium, message: 'rsa {version}: pure-Python RSA library.', fix: python-pqc }
+    - { name: 'ecdsa', ecosystem: pypi, algorithm: ECDSA (python-ecdsa), primitive: signature, quantum_risk: HIGH, confidence: medium, message: 'ecdsa {version}: pure-Python ECDSA library.', fix: python-pqc }
+    - { name: 'paramiko', ecosystem: pypi, algorithm: SSH (paramiko), primitive: key-agreement, quantum_risk: NONE, message: 'paramiko {version}: check its key-exchange list for post-quantum hybrids.', fix: ssh-keys }
+    - { name: 'pyjwt|python-jose|jwcrypto|authlib', ecosystem: pypi, algorithm: JWT/JOSE, primitive: signature, quantum_risk: NONE, message: '{name} {version}: JWT/JOSE library — keep the algorithm configurable.', fix: jwt-crypto-agility }
+    - { name: 'liboqs-python|oqs|pqcrypto|kyber-py|dilithium-py', ecosystem: pypi, algorithm: ML-KEM/ML-DSA, primitive: kem, quantum_risk: NONE, message: '{name} {version}: post-quantum library present.', fix: pq-library-present }
+    # --- Maven / Gradle ---
+    - { name: 'org\.bouncycastle:bcprov-[\w.-]+', ecosystem: maven, version_below: '1.79', algorithm: BouncyCastle < 1.79, primitive: pke, quantum_risk: NONE, message: 'BouncyCastle {version}: ML-KEM/ML-DSA/SLH-DSA need 1.79 or later.', fix: java-mlkem }
+    - { name: 'io\.jsonwebtoken:jjwt[\w-]*|com\.nimbusds:nimbus-jose-jwt|com\.auth0:java-jwt', ecosystem: maven, algorithm: JWT/JOSE, primitive: signature, quantum_risk: NONE, message: '{name} {version}: JWT/JOSE library — keep the algorithm configurable.', fix: jwt-crypto-agility }
+    # --- Go ---
+    - { name: 'go', ecosystem: go, version_below: '1.24', algorithm: Go < 1.24, primitive: key-agreement, quantum_risk: HIGH, confidence: medium, message: 'go {version}: crypto/tls offers X25519MLKEM768 by default only from Go 1.24.', fix: go-tls-pq }
+    - { name: 'github\.com/cloudflare/circl', ecosystem: go, algorithm: ML-KEM/ML-DSA (CIRCL), primitive: kem, quantum_risk: NONE, message: 'CIRCL {version}: post-quantum library present.', fix: pq-library-present }
+    - { name: 'github\.com/golang-jwt/jwt(/v\d+)?|github\.com/go-jose/go-jose(/v\d+)?|github\.com/lestrrat-go/jwx(/v\d+)?', ecosystem: go, algorithm: JWT/JOSE, primitive: signature, quantum_risk: NONE, message: '{name} {version}: JWT/JOSE library — keep the algorithm configurable.', fix: jwt-crypto-agility }

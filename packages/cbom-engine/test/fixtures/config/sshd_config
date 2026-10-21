@@ -1,0 +1,4 @@
+# Fixture: OpenSSH server config.
+Port 22
+KexAlgorithms curve25519-sha256,ecdh-sha2-nistp256 # expect: sshd-kex-classical
+# KexAlgorithms mlkem768x25519-sha256   <- comment, ignored

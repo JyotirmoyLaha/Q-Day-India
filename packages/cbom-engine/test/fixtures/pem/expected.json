@@ -1,0 +1,13 @@
+[
+  { "file": "server.crt", "line": 1, "ruleId": "pem-certificate", "algorithm": "RSA-2048", "quantumRisk": "HIGH" },
+  { "file": "server.key", "line": 1, "ruleId": "pem-private-key", "algorithm": "RSA-2048", "quantumRisk": "HIGH" },
+  { "file": "ec-p256.crt", "line": 1, "ruleId": "pem-certificate", "algorithm": "ECC P-256", "quantumRisk": "HIGH" },
+  { "file": "ec-p256.key", "line": 1, "ruleId": "pem-private-key", "algorithm": "ECC P-256", "quantumRisk": "HIGH" },
+  { "file": "weak-1024.pub.pem", "line": 1, "ruleId": "pem-public-key", "algorithm": "RSA-1024", "quantumRisk": "CLASSICAL_BROKEN" },
+  { "file": "mlkem-768.pub.pem", "line": 1, "ruleId": "pem-public-key", "algorithm": "ML-KEM-768", "quantumRisk": "NONE" },
+  { "file": "sha1-legacy.crt", "line": 1, "ruleId": "pem-certificate", "algorithm": "RSA-2048", "quantumRisk": "CLASSICAL_BROKEN" },
+  { "file": "id_rsa", "line": 1, "ruleId": "pem-private-key", "algorithm": "RSA-3072", "quantumRisk": "HIGH" },
+  { "file": "id_rsa.pub", "line": 1, "ruleId": "ssh-public-key", "algorithm": "RSA-3072", "quantumRisk": "HIGH" },
+  { "file": "authorized_keys", "line": 1, "ruleId": "ssh-public-key", "algorithm": "RSA-3072", "quantumRisk": "HIGH" },
+  { "file": "authorized_keys", "line": 2, "ruleId": "ssh-public-key", "algorithm": "Ed25519", "quantumRisk": "HIGH" }
+]

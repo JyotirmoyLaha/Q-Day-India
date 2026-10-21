@@ -1,0 +1,4 @@
+[
+  { "file": "openssl.cnf", "line": 11, "ruleId": "openssl-cnf-minprotocol" },
+  { "file": "openssl.cnf", "line": 12, "ruleId": "openssl-cnf-groups" }
+]

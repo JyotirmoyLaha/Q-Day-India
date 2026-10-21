@@ -1,0 +1,169 @@
+# Java rules (tree-sitter). Kotlin/Scala use the regex rules in jvm-regex.yaml.
+
+- id: java-keypairgenerator
+  language: java
+  kind: treesitter
+  callee: '(^|\.)KeyPairGenerator\.getInstance$'
+  variants:
+    - { match: '^RSASSA-PSS$', algorithm: RSA-PSS, primitive: signature, fix: signatures-to-mldsa }
+    - { match: '^RSA$', algorithm: RSA, primitive: pke }
+    - { match: '^(EC|ECDSA)$', algorithm: ECC, primitive: signature }
+    - { match: '^(DH|DiffieHellman)$', algorithm: DH, primitive: key-agreement, fix: ecdh-to-hybrid }
+    - { match: '^DSA$', algorithm: DSA, primitive: signature }
+    - { match: '^(Ed25519|Ed448|EdDSA)$', algorithm: Ed25519, primitive: signature }
+    - { match: '^(X25519|X448|XDH)$', algorithm: X25519, primitive: key-agreement, fix: ecdh-to-hybrid }
+    - { match: '^ML-KEM', algorithm: ML-KEM, primitive: kem, quantum_risk: NONE, fix: pq-library-present, message: Post-quantum ML-KEM key generation. }
+    - { match: '^ML-DSA', algorithm: ML-DSA, primitive: signature, quantum_risk: NONE, fix: pq-library-present, message: Post-quantum ML-DSA key generation. }
+  algorithm: RSA
+  primitive: pke
+  quantum_risk: HIGH
+  fix: java-mlkem
+  message: KeyPairGenerator with a classical algorithm — not quantum-safe.
+
+- id: java-keyagreement
+  language: java
+  kind: treesitter
+  callee: '(^|\.)KeyAgreement\.getInstance$'
+  variants:
+    - { match: '^ECDH', algorithm: ECDH }
+    - { match: '^(DH|DiffieHellman)$', algorithm: DH }
+    - { match: '^(X25519|X448|XDH)$', algorithm: X25519 }
+  algorithm: ECDH
+  primitive: key-agreement
+  quantum_risk: HIGH
+  fix: java-mlkem
+  message: Classical key agreement — exposed to harvest-now-decrypt-later.
+
+- id: java-signature
+  language: java
+  kind: treesitter
+  callee: '(^|\.)Signature\.getInstance$'
+  variants:
+    - { match: 'andMGF1|RSASSA-PSS', algorithm: RSA-PSS }
+    - { match: 'withRSA', algorithm: RSA }
+    - { match: 'ECDSA', algorithm: ECDSA }
+    - { match: 'withDSA|^DSA$', algorithm: DSA }
+    - { match: '^(Ed25519|Ed448|EdDSA)$', algorithm: Ed25519 }
+    - { match: '^ML-DSA', algorithm: ML-DSA, quantum_risk: NONE, fix: pq-library-present, message: Post-quantum ML-DSA signature. }
+  algorithm: RSA
+  primitive: signature
+  quantum_risk: HIGH
+  fix: signatures-to-mldsa
+  message: Classical digital signature — not quantum-safe.
+
+- id: java-signature-weak-hash
+  language: java
+  kind: treesitter
+  callee: '(^|\.)Signature\.getInstance$'
+  args: { '0': '^(MD2|MD5|SHA1|SHA-1)with' }
+  variants:
+    - { match: '^MD', algorithm: MD5 }
+    - { match: '^SHA', algorithm: SHA-1 }
+  algorithm: SHA-1
+  primitive: hash
+  quantum_risk: CLASSICAL_BROKEN
+  fix: hash-md5-sha1
+  message: Signature over an MD5/SHA-1 digest — already deprecated.
+
+- id: java-cipher
+  language: java
+  kind: treesitter
+  callee: '(^|\.)Cipher\.getInstance$'
+  variants:
+    - { match: '^RSA', algorithm: RSA, primitive: pke, quantum_risk: HIGH, fix: java-mlkem, message: RSA encryption — not quantum-safe. }
+    - { match: '^ECIES', algorithm: ECIES, primitive: pke, quantum_risk: HIGH, fix: java-mlkem, message: ECIES encryption — not quantum-safe. }
+    - { match: '^(DESede|TripleDES)', algorithm: 3DES, primitive: symmetric, quantum_risk: CLASSICAL_BROKEN, fix: legacy-ciphers, message: Triple-DES — withdrawn by NIST. }
+    - { match: '^DES', algorithm: DES, primitive: symmetric, quantum_risk: CLASSICAL_BROKEN, fix: legacy-ciphers, message: DES — brute-forceable today. }
+    - { match: '^(RC4|ARCFOUR|RC2|Blowfish)', algorithm: RC4/Blowfish, primitive: symmetric, quantum_risk: CLASSICAL_BROKEN, fix: legacy-ciphers, message: Legacy cipher — weak against classical attacks. }
+    - { match: '^AES_128', algorithm: AES-128, primitive: symmetric, quantum_risk: LOW, fix: symmetric-aes256, message: AES-128 — AES-256 recommended for long-lived data. }
+    - { match: '.', skip: true }
+  algorithm: RSA
+  primitive: pke
+  quantum_risk: HIGH
+  message: Cipher.
+
+- id: java-messagedigest-weak
+  language: java
+  kind: treesitter
+  callee: '(^|\.)MessageDigest\.getInstance$'
+  args: { '0': '^(MD2|MD5|SHA|SHA1|SHA-1)$' }
+  variants:
+    - { match: '^MD', algorithm: MD5 }
+    - { match: '^SHA', algorithm: SHA-1 }
+  algorithm: MD5
+  primitive: hash
+  quantum_risk: CLASSICAL_BROKEN
+  fix: hash-md5-sha1
+  message: MD5/SHA-1 digest — collision attacks exist today.
+
+- id: java-keyfactory
+  language: java
+  kind: treesitter
+  callee: '(^|\.)KeyFactory\.getInstance$'
+  variants:
+    - { match: '^RSA$', algorithm: RSA, primitive: pke }
+    - { match: '^(EC|ECDSA)$', algorithm: ECC, primitive: signature }
+    - { match: '^DSA$', algorithm: DSA, primitive: signature }
+    - { match: '^(DH|DiffieHellman|X25519|XDH)$', algorithm: DH/X25519, primitive: key-agreement }
+    - { match: '^(Ed25519|EdDSA)$', algorithm: Ed25519, primitive: signature }
+    - { match: '.', skip: true }
+  algorithm: RSA
+  primitive: pke
+  quantum_risk: HIGH
+  confidence: medium
+  fix: java-mlkem
+  message: Classical key material loaded via KeyFactory.
+
+- id: java-sslcontext-legacy
+  language: java
+  kind: treesitter
+  callee: '(^|\.)SSLContext\.getInstance$'
+  args: { '0': '^(SSL|SSLv3|TLSv1|TLSv1\.1)$' }
+  variants:
+    - { match: '^TLSv1\.1$', algorithm: TLS 1.1, parameter: '1.1' }
+    - { match: '^TLSv1$', algorithm: TLS 1.0, parameter: '1.0' }
+    - { match: '^SSL', algorithm: SSLv3, parameter: '3.0' }
+  algorithm: TLS 1.0
+  primitive: key-agreement
+  quantum_risk: CLASSICAL_BROKEN
+  asset_type: protocol
+  fix: tls-legacy-protocols
+  message: SSLContext pinned to a deprecated protocol.
+
+- id: java-tls-named-groups
+  language: java
+  kind: treesitter
+  callee: '(^|\.)System\.setProperty$'
+  args: { '0': '^jdk\.tls\.namedGroups$' }
+  variant_from: arg1
+  variants:
+    - { match: 'mlkem', skip: true }
+    - { match: '.' }
+  algorithm: ECDH
+  primitive: key-agreement
+  quantum_risk: HIGH
+  asset_type: protocol
+  fix: tls-library-pq
+  message: jdk.tls.namedGroups without a post-quantum hybrid group.
+
+- id: java-bouncycastle
+  language: java
+  kind: treesitter
+  callee: '^new (RSAKeyPairGenerator|ECKeyPairGenerator|DSAKeyPairGenerator|DHKeyPairGenerator|Ed25519KeyPairGenerator|X25519KeyPairGenerator|RSAEngine|ECDSASigner|DSASigner|Ed25519Signer|ECDHBasicAgreement|DHBasicAgreement|X25519Agreement|ECIESKeyEncapsulation|RSADigestSigner|PSSSigner|MD5Digest|SHA1Digest|DESEngine|DESedeEngine|RC4Engine|BlowfishEngine|MLKEMKeyPairGenerator|MLDSASigner)$'
+  variant_from: callee
+  variants:
+    - { match: 'MLKEM|MLDSA', algorithm: ML-KEM/ML-DSA, primitive: kem, quantum_risk: NONE, fix: pq-library-present, message: Post-quantum BouncyCastle primitive. }
+    - { match: 'RSA|PSS', algorithm: RSA, primitive: pke }
+    - { match: 'ECDH|X25519|DH', algorithm: ECDH/DH, primitive: key-agreement, fix: ecdh-to-hybrid }
+    - { match: 'EC|ECIES', algorithm: ECC, primitive: signature }
+    - { match: 'DSA', algorithm: DSA, primitive: signature }
+    - { match: 'Ed25519', algorithm: Ed25519, primitive: signature }
+    - { match: 'MD5', algorithm: MD5, primitive: hash, quantum_risk: CLASSICAL_BROKEN, fix: hash-md5-sha1 }
+    - { match: 'SHA1', algorithm: SHA-1, primitive: hash, quantum_risk: CLASSICAL_BROKEN, fix: hash-md5-sha1 }
+    - { match: 'DESede', algorithm: 3DES, primitive: symmetric, quantum_risk: CLASSICAL_BROKEN, fix: legacy-ciphers }
+    - { match: 'DES|RC4|Blowfish', algorithm: DES/RC4, primitive: symmetric, quantum_risk: CLASSICAL_BROKEN, fix: legacy-ciphers }
+  algorithm: RSA
+  primitive: pke
+  quantum_risk: HIGH
+  fix: java-mlkem
+  message: BouncyCastle classical primitive.

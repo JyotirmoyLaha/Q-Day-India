@@ -32,13 +32,13 @@ Progress view for the autonomous build (PROJECT_SPEC.md §0). `[x]` = done and v
 - [x] Done-when: index renders real data, filtered & sorted; `pnpm build` passes
 
 ## M3 — CBOM engine (Python, JS/TS, config, PEM)
-- [ ] `packages/cbom-engine` (no DOM): file walker/filters, tree-sitter loader abstraction (Node + Worker), regex engine
-- [ ] YAML rules → compiled JSON; fixes Markdown → compiled JSON
-- [ ] Rules: Python, JS/TS, nginx/Apache/HAProxy/OpenSSL/Docker/Terraform/K8s config, PEM/keys, manifests
-- [ ] Own DER/PEM/OpenSSH key parser (never outputs key material)
-- [ ] Exporters: CycloneDX 1.6 CBOM, SARIF 2.1.0, Markdown — ajv validation vs official schemas
-- [ ] Fixture repos + expected findings; precision ≥ 90 %; no private key contents in output
-- [ ] Done-when: fixtures produce expected findings and valid CBOM/SARIF
+- [x] `packages/cbom-engine` (no DOM): file walker/filters, tree-sitter loader abstraction (Node + Worker), regex engine
+- [x] YAML rules → compiled JSON; fixes Markdown → compiled JSON
+- [x] Rules: Python, JS/TS, nginx/Apache/HAProxy/OpenSSL/Docker/Terraform/K8s config, PEM/keys, manifests
+- [x] Own DER/PEM/OpenSSH key parser (never outputs key material)
+- [x] Exporters: CycloneDX 1.6 CBOM, SARIF 2.1.0, Markdown — ajv validation vs official schemas
+- [x] Fixture repos + expected findings; precision ≥ 90 %; no private key contents in output
+- [x] Done-when: fixtures produce expected findings and valid CBOM/SARIF
 
 ## M4 — `/code` page
 - [ ] Web Worker running the engine, streaming progress

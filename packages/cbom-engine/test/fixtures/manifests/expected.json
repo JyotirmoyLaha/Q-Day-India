@@ -1,0 +1,14 @@
+[
+  { "file": "package.json", "line": 4, "ruleId": "manifest-crypto-libraries", "algorithm": "Node.js < 22.20 (engines)" },
+  { "file": "package.json", "line": 9, "ruleId": "manifest-crypto-libraries", "algorithm": "JWT/JOSE" },
+  { "file": "package.json", "line": 10, "ruleId": "manifest-crypto-libraries", "algorithm": "RSA/ECC (node-forge)" },
+  { "file": "package.json", "line": 11, "ruleId": "manifest-crypto-libraries", "algorithm": "crypto-js (MD5/SHA-1/DES available)" },
+  { "file": "package.json", "line": 12, "ruleId": "manifest-crypto-libraries", "algorithm": "ML-KEM/ML-DSA" },
+  { "file": "requirements.txt", "line": 3, "ruleId": "manifest-crypto-libraries", "algorithm": "pyca/cryptography < 48" },
+  { "file": "requirements.txt", "line": 4, "ruleId": "manifest-crypto-libraries", "algorithm": "PyCrypto (unmaintained)" },
+  { "file": "requirements.txt", "line": 5, "ruleId": "manifest-crypto-libraries", "algorithm": "JWT/JOSE" },
+  { "file": "requirements.txt", "line": 6, "ruleId": "manifest-crypto-libraries", "algorithm": "ML-KEM/ML-DSA" },
+  { "file": "pom.xml", "line": 8, "ruleId": "manifest-crypto-libraries", "algorithm": "BouncyCastle < 1.79" },
+  { "file": "go.mod", "line": 3, "ruleId": "manifest-crypto-libraries", "algorithm": "Go < 1.24" },
+  { "file": "go.mod", "line": 6, "ruleId": "manifest-crypto-libraries", "algorithm": "ML-KEM/ML-DSA (CIRCL)" }
+]

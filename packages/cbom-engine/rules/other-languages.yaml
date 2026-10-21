@@ -1,0 +1,104 @@
+# Regex rules for languages without a shipped tree-sitter grammar
+# (Kotlin/Scala, C/C++, C#, Rust, PHP). Confidence is medium or low.
+
+- id: jvm-regex-getinstance
+  kind: regex
+  files: ['*.kt', '*.kts', '*.scala', '*.groovy']
+  pattern: '\b(?<cls>KeyPairGenerator|KeyAgreement|Signature|Cipher|MessageDigest)\.getInstance\(\s*"(?<alg>[^"]+)"'
+  variant_from: match
+  variants:
+    - { match: 'ML-(KEM|DSA)', skip: true }
+    - { match: 'KeyPairGenerator.*"RSA"', algorithm: RSA, primitive: pke }
+    - { match: 'KeyPairGenerator.*"(EC|ECDSA)"', algorithm: ECC, primitive: signature }
+    - { match: 'KeyPairGenerator.*"(DH|XDH|X25519)"', algorithm: DH/X25519, primitive: key-agreement }
+    - { match: 'KeyPairGenerator.*"(DSA|Ed25519|EdDSA)"', algorithm: DSA/EdDSA, primitive: signature }
+    - { match: 'KeyAgreement', algorithm: ECDH/DH, primitive: key-agreement }
+    - { match: 'Signature.*"(MD5|SHA1|SHA-1)with', algorithm: SHA-1/MD5 signature, primitive: hash, quantum_risk: CLASSICAL_BROKEN, fix: hash-md5-sha1 }
+    - { match: 'Signature.*(RSA|ECDSA|DSA|Ed25519|EdDSA)', algorithm: RSA/ECDSA, primitive: signature }
+    - { match: 'Cipher.*"RSA', algorithm: RSA, primitive: pke }
+    - { match: 'Cipher.*"(DES|DESede|RC4|Blowfish)', algorithm: DES/RC4, primitive: symmetric, quantum_risk: CLASSICAL_BROKEN, fix: legacy-ciphers }
+    - { match: 'MessageDigest.*"(MD5|SHA-?1|SHA)"', algorithm: MD5/SHA-1, primitive: hash, quantum_risk: CLASSICAL_BROKEN, fix: hash-md5-sha1 }
+    - { match: '.', skip: true }
+  algorithm: RSA
+  primitive: pke
+  quantum_risk: HIGH
+  confidence: medium
+  fix: java-mlkem
+  message: JCA call with a classical algorithm (Kotlin/Scala/Groovy).
+
+- id: c-openssl-classical
+  kind: regex
+  files: ['*.c', '*.h', '*.cc', '*.cpp', '*.cxx', '*.hpp']
+  pattern: '\b(?<alg>RSA_generate_key(?:_ex)?|EVP_PKEY_RSA\b|EC_KEY_new_by_curve_name|EVP_PKEY_EC\b|DH_generate_key|EVP_PKEY_DH\b|EVP_PKEY_ED25519|EVP_PKEY_X25519|ECDSA_sign|RSA_public_encrypt|MD5_Init|MD5\s*\(|SHA1_Init|SHA1\s*\(|EVP_md5|EVP_sha1|DES_ecb_encrypt|DES_set_key|EVP_des_\w+|EVP_rc4)'
+  variants:
+    - { match: 'RSA', algorithm: RSA, primitive: pke }
+    - { match: 'EC_KEY|EVP_PKEY_EC|ECDSA', algorithm: ECC, primitive: signature }
+    - { match: 'DH', algorithm: DH, primitive: key-agreement }
+    - { match: 'ED25519', algorithm: Ed25519, primitive: signature }
+    - { match: 'X25519', algorithm: X25519, primitive: key-agreement }
+    - { match: 'MD5|md5', algorithm: MD5, primitive: hash, quantum_risk: CLASSICAL_BROKEN, fix: hash-md5-sha1 }
+    - { match: 'SHA1|sha1', algorithm: SHA-1, primitive: hash, quantum_risk: CLASSICAL_BROKEN, fix: hash-md5-sha1 }
+    - { match: 'DES|des_|rc4', algorithm: DES/RC4, primitive: symmetric, quantum_risk: CLASSICAL_BROKEN, fix: legacy-ciphers }
+  algorithm: RSA
+  primitive: pke
+  quantum_risk: HIGH
+  confidence: medium
+  fix: c-openssl-pq
+  message: OpenSSL classical primitive (C/C++).
+
+- id: csharp-classical
+  kind: regex
+  files: ['*.cs']
+  pattern: '\b(?<alg>RSA\.Create|RSACryptoServiceProvider|RSACng|ECDsa\.Create|ECDsaCng|ECDiffieHellman\.Create|DSA\.Create|DSACryptoServiceProvider|MD5\.Create|MD5CryptoServiceProvider|SHA1\.Create|SHA1Managed|SHA1CryptoServiceProvider|TripleDES\.Create|DES\.Create|RC2\.Create)\b'
+  variants:
+    - { match: '^RSA', algorithm: RSA, primitive: pke }
+    - { match: '^ECDsa', algorithm: ECDSA, primitive: signature }
+    - { match: '^ECDiffieHellman', algorithm: ECDH, primitive: key-agreement, fix: ecdh-to-hybrid }
+    - { match: '^DSA', algorithm: DSA, primitive: signature }
+    - { match: '^MD5', algorithm: MD5, primitive: hash, quantum_risk: CLASSICAL_BROKEN, fix: hash-md5-sha1 }
+    - { match: '^SHA1', algorithm: SHA-1, primitive: hash, quantum_risk: CLASSICAL_BROKEN, fix: hash-md5-sha1 }
+    - { match: '^(TripleDES|DES|RC2)', algorithm: DES/3DES/RC2, primitive: symmetric, quantum_risk: CLASSICAL_BROKEN, fix: legacy-ciphers }
+  algorithm: RSA
+  primitive: pke
+  quantum_risk: HIGH
+  confidence: medium
+  fix: dotnet-pqc
+  message: .NET classical cryptography class.
+
+- id: rust-classical-crates
+  kind: regex
+  files: ['*.rs']
+  pattern: '^\s*use\s+(?<alg>rsa|p256|p384|p521|k256|ecdsa|ed25519_dalek|x25519_dalek|md5|sha1|des)::'
+  flags: im
+  variants:
+    - { match: '^rsa$', algorithm: RSA, primitive: pke }
+    - { match: '^(p256|p384|p521|k256|ecdsa)$', algorithm: ECC, primitive: signature }
+    - { match: '^ed25519_dalek$', algorithm: Ed25519, primitive: signature }
+    - { match: '^x25519_dalek$', algorithm: X25519, primitive: key-agreement, fix: ecdh-to-hybrid }
+    - { match: '^md5$', algorithm: MD5, primitive: hash, quantum_risk: CLASSICAL_BROKEN, fix: hash-md5-sha1 }
+    - { match: '^sha1$', algorithm: SHA-1, primitive: hash, quantum_risk: CLASSICAL_BROKEN, fix: hash-md5-sha1 }
+    - { match: '^des$', algorithm: DES, primitive: symmetric, quantum_risk: CLASSICAL_BROKEN, fix: legacy-ciphers }
+  algorithm: RSA
+  primitive: pke
+  quantum_risk: HIGH
+  confidence: medium
+  fix: signatures-to-mldsa
+  message: Rust crate providing classical public-key cryptography.
+
+- id: php-classical
+  kind: regex
+  files: ['*.php']
+  pattern: '\b(?<alg>OPENSSL_KEYTYPE_RSA|OPENSSL_KEYTYPE_EC|OPENSSL_KEYTYPE_DH|OPENSSL_KEYTYPE_DSA|sodium_crypto_box_keypair|sodium_crypto_sign_keypair|openssl_public_encrypt)\b'
+  variants:
+    - { match: 'RSA|public_encrypt', algorithm: RSA, primitive: pke }
+    - { match: '_EC$', algorithm: ECC, primitive: signature }
+    - { match: '_DH$', algorithm: DH, primitive: key-agreement, fix: ecdh-to-hybrid }
+    - { match: '_DSA$', algorithm: DSA, primitive: signature }
+    - { match: 'box_keypair', algorithm: X25519, primitive: key-agreement, fix: ecdh-to-hybrid }
+    - { match: 'sign_keypair', algorithm: Ed25519, primitive: signature }
+  algorithm: RSA
+  primitive: pke
+  quantum_risk: HIGH
+  confidence: medium
+  fix: signatures-to-mldsa
+  message: PHP classical public-key primitive.

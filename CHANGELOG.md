@@ -15,3 +15,8 @@ All notable changes to this project are documented here. Format: [Keep a Changel
 - Next.js 16 web app: `/`, `/index`, `/site/[host]`, `/about`, `/about/scanner`; light/dark themes, i18n message
   catalogue, build-time data pipeline (`apps/web/scripts/prebuild.mjs`), grading TS twin with Go parity tests,
   axe accessibility tests, wording-rule and contrast tests.
+- `packages/cbom-engine` (QuantumBOM): web-tree-sitter engine with data-only YAML rules (82 rules: Python,
+  JS/TS/TSX, Java, Go, Kotlin/Scala, C/C++, C#, Rust, PHP, nginx/Apache/HAProxy/OpenSSL/Docker/Terraform/K8s/SSH
+  configs, dependency manifests), own DER/PEM/OpenSSH key parser (no key material in output), 31 dated fix guides,
+  Quantum Exposure + Crypto-Agility scores, CycloneDX 1.6 / SARIF 2.1.0 / Markdown exporters validated against the
+  official schemas, fixture suite (100% recall, ≥ 90% precision), bundled `quantumbom` CLI.

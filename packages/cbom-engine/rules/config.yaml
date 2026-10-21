@@ -1,0 +1,289 @@
+# Config / infrastructure rules (regex). Lines starting with a comment prefix are ignored.
+# Named group "alg" selects the variant unless variant_from says otherwise.
+
+- id: nginx-ecdh-curve
+  kind: regex
+  files: ['*.conf', 'nginx*', '*.nginx', '*.vhost', 'sites-available/*', 'sites-enabled/*']
+  pattern: '^[ \t]*ssl_ecdh_curve[ \t]+(?<alg>[^;\n]+);'
+  flags: im
+  parameter: 'group:alg'
+  variants:
+    - { match: 'mlkem', skip: true }
+    - { match: '.' }
+  algorithm: TLS groups without ML-KEM
+  primitive: key-agreement
+  quantum_risk: HIGH
+  asset_type: protocol
+  fix: tls-nginx-pq
+  message: nginx ssl_ecdh_curve offers no post-quantum hybrid — connections use classical key exchange.
+
+- id: nginx-ssl-protocols-legacy
+  kind: regex
+  files: ['*.conf', 'nginx*', '*.nginx', '*.vhost', 'sites-available/*', 'sites-enabled/*']
+  pattern: '^[ \t]*ssl_protocols[ \t]+(?<alg>[^;\n]+);'
+  flags: im
+  variants:
+    - { match: '(^|\s)(SSLv2|SSLv3|TLSv1|TLSv1\.1)(\s|$)', parameter: '1.0/1.1' }
+    - { match: '.', skip: true }
+  algorithm: TLS 1.0/1.1
+  primitive: key-agreement
+  quantum_risk: CLASSICAL_BROKEN
+  asset_type: protocol
+  fix: tls-legacy-protocols
+  message: nginx ssl_protocols still enables TLS 1.0/1.1 (deprecated by RFC 8996).
+
+- id: nginx-ssl-protocols-no-tls13
+  kind: regex
+  files: ['*.conf', 'nginx*', '*.nginx', '*.vhost', 'sites-available/*', 'sites-enabled/*']
+  pattern: '^[ \t]*ssl_protocols[ \t]+(?<alg>[^;\n]+);'
+  flags: im
+  variants:
+    - { match: 'TLSv1\.3', skip: true }
+    - { match: '.' }
+  algorithm: TLS without 1.3
+  primitive: key-agreement
+  quantum_risk: HIGH
+  asset_type: protocol
+  fix: tls-nginx-pq
+  message: nginx ssl_protocols lacks TLSv1.3 — post-quantum key exchange impossible.
+
+- id: nginx-ssl-ciphers-weak
+  kind: regex
+  files: ['*.conf', 'nginx*', '*.nginx', '*.vhost']
+  pattern: "^[ \\t]*ssl_ciphers[ \\t]+['\"]?(?<alg>[^;'\"\\n]+)"
+  flags: im
+  variants:
+    - { match: '(^|:)(?!!)[A-Z0-9-]*(RC4|DES|NULL|EXPORT|MD5)', algorithm: RC4/3DES/NULL cipher suites }
+    - { match: '.', skip: true }
+  algorithm: Weak cipher suites
+  primitive: symmetric
+  quantum_risk: CLASSICAL_BROKEN
+  fix: legacy-ciphers
+  message: ssl_ciphers enables RC4/DES/NULL/EXPORT/MD5 suites.
+
+- id: apache-curves
+  kind: regex
+  files: ['*.conf', 'httpd*', 'apache*', 'ssl.conf', '.htaccess']
+  pattern: '^[ \t]*SSLOpenSSLConfCmd[ \t]+(Curves|Groups)[ \t]+(?<alg>\S+)'
+  flags: im
+  parameter: 'group:alg'
+  variants:
+    - { match: 'mlkem', skip: true }
+    - { match: '.' }
+  algorithm: TLS groups without ML-KEM
+  primitive: key-agreement
+  quantum_risk: HIGH
+  asset_type: protocol
+  fix: tls-apache-pq
+  message: Apache SSLOpenSSLConfCmd Curves/Groups offers no post-quantum hybrid.
+
+- id: apache-protocol-legacy
+  kind: regex
+  files: ['*.conf', 'httpd*', 'apache*', 'ssl.conf', '.htaccess']
+  pattern: '^[ \t]*SSLProtocol[ \t]+(?<alg>[^\n#]+)'
+  flags: im
+  variants:
+    - { match: '(^|\s)\+?(SSLv3|TLSv1|TLSv1\.1)(\s|$)', parameter: '1.0/1.1' }
+    - { match: '^(?!.*-TLSv1(\s|$)).*(^|\s)all(\s|$)', parameter: '1.0/1.1' }
+    - { match: '.', skip: true }
+  algorithm: TLS 1.0/1.1
+  primitive: key-agreement
+  quantum_risk: CLASSICAL_BROKEN
+  asset_type: protocol
+  fix: tls-apache-pq
+  message: Apache SSLProtocol still enables TLS 1.0/1.1 ("all" includes them unless removed).
+
+- id: haproxy-curves
+  kind: regex
+  files: ['haproxy*.cfg', 'haproxy*.conf', '*.cfg']
+  pattern: '(?:^|\s)(?:ssl-default-bind-curves|ssl-default-server-curves|curves)[ \t]+(?<alg>[\w:.-]+)'
+  flags: im
+  parameter: 'group:alg'
+  variants:
+    - { match: 'mlkem', skip: true }
+    - { match: '.' }
+  algorithm: TLS groups without ML-KEM
+  primitive: key-agreement
+  quantum_risk: HIGH
+  asset_type: protocol
+  fix: tls-haproxy-pq
+  message: HAProxy curves list offers no post-quantum hybrid.
+
+- id: haproxy-min-ver
+  kind: regex
+  files: ['haproxy*.cfg', 'haproxy*.conf', '*.cfg']
+  pattern: 'ssl-min-ver[ \t]+(?<alg>SSLv3|TLSv1\.0|TLSv1\.1)\b'
+  flags: im
+  algorithm: TLS 1.0/1.1
+  primitive: key-agreement
+  quantum_risk: CLASSICAL_BROKEN
+  asset_type: protocol
+  fix: tls-legacy-protocols
+  message: HAProxy ssl-min-ver allows deprecated TLS versions.
+
+- id: openssl-cnf-groups
+  kind: regex
+  files: ['openssl*.cnf', '*.cnf']
+  pattern: '^[ \t]*(Groups|Curves)[ \t]*=[ \t]*(?<alg>[^\n#]+)'
+  flags: im
+  parameter: 'group:alg'
+  variants:
+    - { match: 'mlkem', skip: true }
+    - { match: '.' }
+  algorithm: TLS groups without ML-KEM
+  primitive: key-agreement
+  quantum_risk: HIGH
+  asset_type: protocol
+  fix: tls-openssl-cnf-pq
+  message: openssl.cnf group list overrides the post-quantum default with classical groups only.
+
+- id: openssl-cnf-minprotocol
+  kind: regex
+  files: ['openssl*.cnf', '*.cnf']
+  pattern: '^[ \t]*MinProtocol[ \t]*=[ \t]*(?<alg>SSLv3|TLSv1|TLSv1\.1)[ \t]*$'
+  flags: im
+  algorithm: TLS 1.0/1.1
+  primitive: key-agreement
+  quantum_risk: CLASSICAL_BROKEN
+  asset_type: protocol
+  fix: tls-legacy-protocols
+  message: openssl.cnf MinProtocol allows deprecated TLS versions.
+
+- id: docker-old-tls-stack
+  kind: regex
+  files: ['Dockerfile', 'Dockerfile.*', '*.dockerfile', 'Containerfile']
+  pattern: '^[ \t]*FROM[ \t]+(?:--platform=\S+[ \t]+)?(?<alg>\S+)'
+  flags: im
+  parameter: 'group:alg'
+  variants:
+    - { match: '(^|/)debian:(stretch|buster|bullseye|bookworm|9|10|11|12)\b', algorithm: Debian ≤ 12 (OpenSSL < 3.5) }
+    - { match: '(^|/)ubuntu:(xenial|bionic|focal|jammy|noble|oracular|plucky|1[0-9]\.\d+|2[0-4]\.\d+|25\.04)\b', algorithm: Ubuntu ≤ 25.04 (OpenSSL < 3.5) }
+    - { match: '(^|/)alpine:3\.([0-9]|1[0-9]|2[01])(\.|$|-)', algorithm: Alpine ≤ 3.21 (OpenSSL < 3.5) }
+    - { match: '(^|/)(centos|amazonlinux:2\b|rockylinux:8|almalinux:8)', algorithm: EL8 / CentOS / AL2 (OpenSSL < 3.5) }
+    - { match: '-(stretch|buster|bullseye|bookworm|focal|jammy|noble)\b', algorithm: Debian/Ubuntu-based image (OpenSSL < 3.5) }
+    - { match: '(^|/)golang:1\.(1[0-9]|2[0-3])\b', algorithm: Go < 1.24 toolchain (no PQ TLS default), fix: go-tls-pq }
+    - { match: '(^|/)node:(1[0-9]|20|21|23)(\b|$)', algorithm: Node.js < 22.20 (OpenSSL < 3.5), fix: node-tls-pq }
+    - { match: '.', skip: true }
+  algorithm: TLS stack without ML-KEM
+  primitive: key-agreement
+  quantum_risk: HIGH
+  confidence: medium
+  fix: docker-openssl
+  message: Base image ships a TLS stack that cannot negotiate X25519MLKEM768.
+
+- id: docker-apt-old-openssl
+  kind: regex
+  files: ['Dockerfile', 'Dockerfile.*', '*.dockerfile', 'Containerfile']
+  pattern: '(?:apt-get|apt|apk|yum|dnf)[ \t]+(?:-\S+[ \t]+)*(?:install|add)[^\n]*?\b(?<alg>openssl=1\.[\w.*-]*|openssl=3\.[0-4][\w.*-]*|libssl1\.\d|openssl1\.1[\w-]*|openssl-1\.[\w.*-]*)'
+  flags: im
+  algorithm: OpenSSL < 3.5 pinned
+  primitive: key-agreement
+  quantum_risk: HIGH
+  fix: docker-openssl
+  message: Image pins an OpenSSL version that cannot negotiate X25519MLKEM768.
+
+- id: terraform-aws-ssl-policy
+  kind: regex
+  files: ['*.tf', '*.tf.json', '*.yaml', '*.yml', '*.json', '*.template']
+  pattern: "(?:ssl_?policy|SslPolicy)['\"]?[ \\t]*[=:][ \\t]*['\"](?<alg>ELBSecurityPolicy-[\\w.-]+)['\"]"
+  flags: im
+  parameter: 'group:alg'
+  variants:
+    - { match: '-PQ-', skip: true }
+    - { match: '(TLS-1-0|TLS-1-1|2015-0|2016-08|FS-2018|FS-1-1|TLS13-1-0|TLS13-1-1)', algorithm: ELB policy allowing TLS 1.0/1.1 without PQ, quantum_risk: CLASSICAL_BROKEN }
+    - { match: '.', algorithm: ELB policy without PQ hybrid }
+  algorithm: ELB policy without PQ hybrid
+  primitive: key-agreement
+  quantum_risk: HIGH
+  asset_type: protocol
+  fix: cloud-tls-policy
+  message: AWS load-balancer TLS policy offers no post-quantum hybrid (use a *-PQ-2025-09 policy).
+
+- id: terraform-min-tls-version
+  kind: regex
+  files: ['*.tf', '*.tf.json', '*.yaml', '*.yml', '*.json', '*.bicep']
+  pattern: "(?:minimum_protocol_version|min_tls_version|minimum_tls_version|minTlsVersion|MinimumProtocolVersion)['\"]?[ \\t]*[=:][ \\t]*['\"](?<alg>[^'\"]+)['\"]"
+  flags: im
+  variants:
+    - { match: '^(SSLv3|TLSv1|TLSv1_2016|TLSv1\.1_2016|1\.0|1\.1|TLS1_0|TLS1_1|TLS_1_0|TLS_1_1|Tls|Tls11)$' }
+    - { match: '.', skip: true }
+  algorithm: TLS 1.0/1.1
+  primitive: key-agreement
+  quantum_risk: CLASSICAL_BROKEN
+  asset_type: protocol
+  fix: cloud-tls-policy
+  message: Cloud resource allows TLS 1.0/1.1.
+
+- id: k8s-ingress-ssl-protocols
+  kind: regex
+  files: ['*.yaml', '*.yml']
+  pattern: "^[ \\t]*ssl-protocols:[ \\t]*['\"]?(?<alg>[^'\"\\n]+)"
+  flags: im
+  variants:
+    - { match: '(^|\s)(SSLv3|TLSv1|TLSv1\.1)(\s|$)' }
+    - { match: '.', skip: true }
+  algorithm: TLS 1.0/1.1
+  primitive: key-agreement
+  quantum_risk: CLASSICAL_BROKEN
+  asset_type: protocol
+  fix: k8s-ingress-tls
+  message: Ingress ssl-protocols still enables TLS 1.0/1.1.
+
+- id: k8s-ingress-ecdh-curve
+  kind: regex
+  files: ['*.yaml', '*.yml']
+  pattern: "^[ \\t]*ssl-ecdh-curve:[ \\t]*['\"]?(?<alg>[^'\"\\n]+)"
+  flags: im
+  parameter: 'group:alg'
+  variants:
+    - { match: 'mlkem|^auto$', skip: true }
+    - { match: '.' }
+  algorithm: TLS groups without ML-KEM
+  primitive: key-agreement
+  quantum_risk: HIGH
+  asset_type: protocol
+  fix: k8s-ingress-tls
+  message: Ingress ssl-ecdh-curve offers no post-quantum hybrid.
+
+- id: mesh-min-protocol
+  kind: regex
+  files: ['*.yaml', '*.yml']
+  pattern: '^[ \t]*(?:minProtocolVersion|tls_minimum_protocol_version):[ \t]*(?<alg>TLSV1_0|TLSV1_1|TLSv1_0|TLSv1_1)\b'
+  flags: im
+  algorithm: TLS 1.0/1.1
+  primitive: key-agreement
+  quantum_risk: CLASSICAL_BROKEN
+  asset_type: protocol
+  fix: k8s-ingress-tls
+  message: Service mesh / proxy allows TLS 1.0/1.1.
+
+- id: spring-ssl-protocols
+  kind: regex
+  files: ['application*.properties', 'application*.yml', 'application*.yaml']
+  pattern: '(?:server\.ssl\.(?:enabled-protocols|protocol)|enabled-protocols)[ \t]*[=:][ \t]*(?<alg>[^\n]+)'
+  flags: im
+  variants:
+    - { match: '(^|[\s,\[])(SSLv3|TLSv1|TLSv1\.1)($|[\s,\]])' }
+    - { match: '.', skip: true }
+  algorithm: TLS 1.0/1.1
+  primitive: key-agreement
+  quantum_risk: CLASSICAL_BROKEN
+  asset_type: protocol
+  fix: tls-legacy-protocols
+  message: Spring Boot server SSL enables TLS 1.0/1.1.
+
+- id: sshd-kex-classical
+  kind: regex
+  files: ['sshd_config', 'ssh_config', '*.sshd_config', 'sshd_config.d/*']
+  pattern: '^[ \t]*KexAlgorithms[ \t]+(?<alg>\S+)'
+  flags: im
+  variants:
+    - { match: 'mlkem|sntrup', skip: true }
+    - { match: '^[+^-]', skip: true }
+    - { match: '.' }
+  algorithm: SSH KEX without PQ hybrid
+  primitive: key-agreement
+  quantum_risk: HIGH
+  asset_type: protocol
+  fix: ssh-keys
+  message: SSH KexAlgorithms list excludes post-quantum hybrids (mlkem768x25519-sha256 / sntrup761x25519-sha512).
