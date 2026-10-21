@@ -15,6 +15,7 @@ import (
 	"net/http/httptest"
 	"os"
 	"slices"
+	"strings"
 	"testing"
 	"time"
 
@@ -273,5 +274,23 @@ func TestLiveNegativeFixture(t *testing.T) {
 	}
 	if r.TLS.PQHybrid.X25519MLKEM768 {
 		t.Fatal("negative fixture now supports PQ — choose a new negative fixture")
+	}
+}
+
+// Servers that only offer RSA key transport (no ECDHE) reject Go's default
+// ClientHello; the compatibility probe must still grade them instead of
+// reporting them as unreachable.
+func TestRSAKeyTransportOnlyIsGradedViaCompat(t *testing.T) {
+	p := newPKI(t, 2048, time.Now().Add(90*24*time.Hour))
+	o := server(t, p, true, func(c *tls.Config) {
+		c.MaxVersion = tls.VersionTLS12
+		c.CipherSuites = []uint16{tls.TLS_RSA_WITH_AES_128_GCM_SHA256}
+	})
+	r := Host(context.Background(), bank, o)
+	if !r.Reachable || gradeOf(r) != "D" {
+		t.Fatalf("grade %s reachable %v err %+v", gradeOf(r), r.Reachable, r.Error)
+	}
+	if r.TLS.DefaultGroup != "RSA" || !strings.Contains(r.Probes.Default.Detail, "compatibility") {
+		t.Fatalf("tls %+v probes %+v", r.TLS, r.Probes.Default)
 	}
 }

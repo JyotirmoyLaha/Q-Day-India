@@ -86,10 +86,14 @@ const (
 	P3PQAlt
 	P4TLS13
 	P5Legacy
+	// P1Compat is a fallback when P1 fails: classical groups only (a small ClientHello)
+	// and every TLS 1.2 cipher suite, including RSA key transport, so servers that
+	// choke on a post-quantum key share or only offer old suites can still be graded.
+	P1Compat
 )
 
 func (k Kind) String() string {
-	return [...]string{"", "P1-default", "P2-pq-only", "P3-pq-alt", "P4-tls13", "P5-legacy"}[k]
+	return [...]string{"", "P1-default", "P2-pq-only", "P3-pq-alt", "P4-tls13", "P5-legacy", "P1-compat"}[k]
 }
 
 // tlsConfig returns the client configuration for a probe. Verification is done
@@ -114,13 +118,22 @@ func (c *Config) tlsConfig(k Kind, host string) *tls.Config {
 	case P5Legacy:
 		cfg.MinVersion, cfg.MaxVersion = tls.VersionTLS10, tls.VersionTLS11
 		// Old servers only speak CBC/RSA-kex suites; offer everything in this probe only.
-		var ids []uint16
-		for _, s := range append(tls.CipherSuites(), tls.InsecureCipherSuites()...) {
-			ids = append(ids, s.ID)
-		}
-		cfg.CipherSuites = ids
+		cfg.CipherSuites = allSuites()
+	case P1Compat:
+		cfg.NextProtos = []string{"h2", "http/1.1"}
+		cfg.CurvePreferences = []tls.CurveID{tls.X25519, tls.CurveP256, tls.CurveP384}
+		cfg.CipherSuites = allSuites()
 	}
 	return cfg
+}
+
+// allSuites returns every cipher suite Go implements, including legacy ones.
+func allSuites() []uint16 {
+	var ids []uint16
+	for _, s := range append(tls.CipherSuites(), tls.InsecureCipherSuites()...) {
+		ids = append(ids, s.ID)
+	}
+	return ids
 }
 
 // Run performs one probe, retrying once on network errors.

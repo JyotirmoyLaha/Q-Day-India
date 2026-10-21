@@ -56,8 +56,31 @@ func Run(ctx context.Context, ts []targets.Target, o Options) []model.SiteResult
 	}
 	close(jobs)
 	wg.Wait()
+	retryTimeouts(ctx, ts, results, o)
 	sort.Slice(results, func(i, j int) bool { return results[i].Host < results[j].Host })
 	return results
+}
+
+// retryTimeouts gives hosts that timed out a second, slower pass after the main
+// scan: some government and bank sites are slow or rate-limit bursts, and a
+// timeout says nothing about their TLS configuration.
+func retryTimeouts(ctx context.Context, ts []targets.Target, results []model.SiteResult, o Options) {
+	if o.Probe == nil || ctx.Err() != nil {
+		return
+	}
+	slow := *o.Probe
+	slow.Timeout = 2 * o.Probe.Timeout
+	so := o
+	so.Probe = &slow
+	so.Gap = 2 * o.Gap
+	for i := range results {
+		if results[i].Error == nil || results[i].Error.Code != model.ErrTimeout || ctx.Err() != nil {
+			continue
+		}
+		if r := Host(ctx, ts[i], so); r.Reachable {
+			results[i] = r
+		}
+	}
 }
 
 // Host runs P1–P5 and H1 against one target.
@@ -76,6 +99,13 @@ func Host(ctx context.Context, t targets.Target, o Options) model.SiteResult {
 	}
 
 	p1 := pc.Run(ctx, probe.P1Default, t.Host)
+	compat := false
+	if !p1.OK && p1.Err != nil && p1.Err.Code == model.ErrTLS {
+		pause()
+		if c := pc.Run(ctx, probe.P1Compat, t.Host); c.OK {
+			p1, compat = c, true
+		}
+	}
 	if !p1.OK && p1.Err != nil && p1.Err.Code != model.ErrTLS {
 		// DNS failure, timeout or refusal: the host is not reachable on 443.
 		res.Error = &model.ErrorInfo{Code: p1.Err.Code, Detail: p1.Err.Detail}
@@ -96,7 +126,11 @@ func Host(ctx context.Context, t targets.Target, o Options) model.SiteResult {
 		pause()
 		head, headErr = pc.Head(ctx, t.Host)
 	}
-	return Assemble(res, p1, p2, p3, p4, p5, head, headErr, pc.Now())
+	res = Assemble(res, p1, p2, p3, p4, p5, head, headErr, pc.Now())
+	if compat && res.Probes != nil {
+		res.Probes.Default.Detail += " (compatibility handshake: the server rejected the default ClientHello)"
+	}
+	return res
 }
 
 // Assemble turns raw probe outcomes into a SiteResult. It is pure so that it
