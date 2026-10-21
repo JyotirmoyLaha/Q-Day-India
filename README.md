@@ -2,9 +2,9 @@
 
 > **Scan India's websites and your code for quantum risk — then fix it.**
 
-[![ci](https://github.com/YOUR_GITHUB_USER/qday-india/actions/workflows/ci.yml/badge.svg)](https://github.com/YOUR_GITHUB_USER/qday-india/actions/workflows/ci.yml)
-[![quantum exposure](https://qday-india.vercel.app/api/badge?repo=YOUR_GITHUB_USER/qday-india)](https://qday-india.vercel.app/code)
-[![weekly scan](https://github.com/YOUR_GITHUB_USER/qday-india/actions/workflows/weekly-scan.yml/badge.svg)](https://github.com/YOUR_GITHUB_USER/qday-india/actions/workflows/weekly-scan.yml)
+[![ci](https://github.com/JyotirmoyLaha/Q-Day-India/actions/workflows/ci.yml/badge.svg)](https://github.com/JyotirmoyLaha/Q-Day-India/actions/workflows/ci.yml)
+[![quantum exposure](https://qday-india.vercel.app/api/badge?repo=JyotirmoyLaha/Q-Day-India)](https://qday-india.vercel.app/code)
+[![weekly scan](https://github.com/JyotirmoyLaha/Q-Day-India/actions/workflows/weekly-scan.yml/badge.svg)](https://github.com/JyotirmoyLaha/Q-Day-India/actions/workflows/weekly-scan.yml)
 
 A future large quantum computer running Shor's algorithm will break RSA, Diffie-Hellman and elliptic-curve cryptography. Attackers can **record encrypted traffic today and decrypt it later** ("harvest now, decrypt later"). Q-Day India measures both halves of the migration to post-quantum cryptography (PQC):
 
@@ -70,7 +70,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: YOUR_GITHUB_USER/qday-india/action@v1
+      - uses: JyotirmoyLaha/Q-Day-India/action@v1
         with:
           exclude: 'test/fixtures/**'
           fail-above: '80'

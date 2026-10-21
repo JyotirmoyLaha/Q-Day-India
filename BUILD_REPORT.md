@@ -46,20 +46,16 @@ node action/dist/cli.mjs scan <dir> --cbom out.cdx.json --sarif out.sarif --md o
 
 ## 3. Deploy (steps only you can do)
 
-1. **Create the GitHub repository** (public, so Actions minutes are free), e.g. `qday-india`, and push:
+1. **GitHub repository:** done. The code is pushed to https://github.com/JyotirmoyLaha/Q-Day-India (keep it public so Actions minutes are free).
+2. **Set the site URL and contact email** once Vercel gives you a URL (the GitHub owner is already set to JyotirmoyLaha/Q-Day-India):
    ```bash
-   git remote add origin https://github.com/<you>/qday-india.git
-   git push -u origin main
-   ```
-2. **Replace placeholders** (owner, site URL, contact email), then commit and push:
-   ```bash
-   node scripts/set-owner.mjs <you> https://<your-project>.vercel.app <contact@email>
+   node scripts/set-owner.mjs JyotirmoyLaha https://<your-project>.vercel.app <contact@email>
    git commit -am "chore: set owner and site URL" && git push
    ```
 3. **Vercel** (Hobby): *Add New → Project → Import* the repo.
    - **Root Directory:** `apps/web`. Framework: Next.js (from `apps/web/vercel.json`). Leave "Include files outside the root directory" **on**, because the build reads `../../data` and `../../packages`.
    - **Node.js version:** 24.x (pinned by `engines` in `apps/web/package.json`; Node ≥ 24.5 bundles OpenSSL 3.5, which `/api/scan` requires).
-   - **Environment variables:** `NEXT_PUBLIC_SITE_URL=https://<your-project>.vercel.app`, `NEXT_PUBLIC_REPO_SLUG=<you>/qday-india`, `NEXT_PUBLIC_CONTACT_EMAIL=<email>`. Optional: `NEXT_PUBLIC_SHOW_UNVERIFIED=0` to hide unverified hosts.
+   - **Environment variables:** `NEXT_PUBLIC_SITE_URL=https://<your-project>.vercel.app`, `NEXT_PUBLIC_REPO_SLUG=JyotirmoyLaha/Q-Day-India`, `NEXT_PUBLIC_CONTACT_EMAIL=<email>`. Optional: `NEXT_PUBLIC_SHOW_UNVERIFIED=0` to hide unverified hosts.
    - Region: `bom1` (Mumbai) is set in `vercel.json` for the live-scan function.
    - Every push to `main`, including the weekly `scan: DATE` commits, redeploys automatically.
 4. **GitHub Actions settings:**
@@ -68,7 +64,7 @@ node action/dist/cli.mjs scan <dir> --cbom out.cdx.json --sarif out.sarif --md o
    - *Issues → Labels:* create **`scan-request`** (used by `on-demand.yml` and the "Request a scan" links) and **`opt-out`**.
    - *Security → Code scanning:* SARIF uploads work on public repos. If the dogfood upload fails, enable code scanning there.
 5. **Run the weekly scan once by hand:** *Actions → weekly-scan → Run workflow*. Check that it commits `scan: <date>` and that Vercel redeploys.
-6. **Publish the Action:** `git tag v1 && git push origin v1`. Users then reference `<you>/qday-india/action@v1`.
+6. **Publish the Action:** `git tag v1 && git push origin v1`. Users then reference `JyotirmoyLaha/Q-Day-India/action@v1`.
 7. Optional: point a custom domain at Vercel and re-run step 2 with it.
 
 ## 4. Test results (final run, 2026-10-21)
@@ -113,7 +109,7 @@ node action/dist/cli.mjs scan <dir> --cbom out.cdx.json --sarif out.sarif --md o
 - [ ] **Verify the target domains** in `targets/india.yaml`. Flip `verified: true` per host once confirmed, and fix or remove wrong ones. Start with the unreachable hosts:
   - DNS_FAIL (hostname probably wrong): `edistricts.up.gov.in`, `enps.nsdl.com`, `omni.axisbank.co.in`, `punjabandsindbank.co.in`, `www.aiimsbhubaneswar.nic.in`, `www.aiimsjodhpur.edu.in`, `www.futuregenerali.in`, `www.ippbonline.com`, `www.kvb.co.in`, `www.onlineservices.nsdl.com`
   - TIMEOUT / REFUSED / TLS_FAIL (possibly geo-blocked or not HTTPS on that name): `assam.gov.in`, `bankofmaharashtra.in`, `canarabank.com`, `gujaratindia.gov.in`, `jk.gov.in`, `mp.gov.in`, `mtnl.in`, `nciipc.gov.in`, `nitkkr.ac.in`, `www.cdac.in`, `www.drdo.gov.in`, `www.idbibank.in`, `www.iitdh.ac.in`, `www.iob.in`, `www.jiopaymentsbank.com`, `www.ap.gov.in`, `www.iiml.ac.in`, `eportal.incometax.gov.in`, `unifiedportal-mem.epfindia.gov.in`, `www.indianrail.gov.in`, `www.karnataka.gov.in`, `www.nta.ac.in`
-- [ ] Do the deployment steps in §3 (GitHub repo, `set-owner`, Vercel, Actions permissions, labels, `SITE_URL` variable, tag `v1`).
+- [ ] Do the deployment steps in §3 (`set-owner` for the site URL, Vercel, Actions permissions, labels, `SITE_URL` variable, tag `v1`).
 - [ ] **Run the live tests once** on a machine with internet: `QDAY_LIVE_TESTS=1 pnpm go:test` and `cd apps/web && QDAY_LIVE_TESTS=1 pnpm test`. They passed during the build; re-run them from your own network.
 - [ ] **Browser check of `/code`:** scan `https://github.com/auth0/node-jsonwebtoken`. Findings should stream in, an RSA finding should open its fix, the CBOM should download, and Share should copy a `#r=` link that reopens the report. DevTools → Network should show only `api.github.com`, `raw.githubusercontent.com` and the site itself.
 - [ ] **Browser check of every page** in light and dark mode, at phone width (the index should become cards), with keyboard-only navigation.

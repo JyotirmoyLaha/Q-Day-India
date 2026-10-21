@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: YOUR_GITHUB_USER/qday-india/action@v1
+      - uses: JyotirmoyLaha/Q-Day-India/action@v1
         with:
           exclude: 'test/fixtures/**'
           fail-above: '80'      # optional

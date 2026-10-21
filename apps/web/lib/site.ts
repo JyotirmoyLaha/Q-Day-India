@@ -4,7 +4,7 @@ export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://qday-india
   /\/$/,
   '',
 );
-export const REPO_SLUG = process.env.NEXT_PUBLIC_REPO_SLUG ?? 'YOUR_GITHUB_USER/qday-india';
+export const REPO_SLUG = process.env.NEXT_PUBLIC_REPO_SLUG ?? 'JyotirmoyLaha/Q-Day-India';
 export const REPO_URL = `https://github.com/${REPO_SLUG}`;
 export const CONTACT_EMAIL = process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? 'qday-india@example.org';
 export const USER_AGENT = `QDayIndiaScanner/1.0 (+${SITE_URL}/about/scanner)`;

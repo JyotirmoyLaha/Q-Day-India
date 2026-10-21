@@ -8,7 +8,7 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const repo = process.argv[2] ?? process.env.REPO_SLUG ?? 'YOUR_GITHUB_USER/qday-india';
+const repo = process.argv[2] ?? process.env.REPO_SLUG ?? 'JyotirmoyLaha/Q-Day-India';
 const tmp = join(root, '.venv', 'tmp');
 mkdirSync(tmp, { recursive: true });
 const out = join(tmp, 'dogfood.json');
