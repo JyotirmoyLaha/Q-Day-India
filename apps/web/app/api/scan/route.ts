@@ -14,7 +14,9 @@ const deps = defaultDeps((host) => {
 });
 
 function clientIP(req: NextRequest): string {
-  return req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || req.headers.get('x-real-ip') || 'unknown';
+  return (
+    req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || req.headers.get('x-real-ip') || 'unknown'
+  );
 }
 
 async function respond(host: unknown, req: NextRequest) {

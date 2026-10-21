@@ -11,9 +11,11 @@ export function detectCDN(headers: Record<string, string | string[] | undefined>
   const via = h('via');
   const servedBy = h('x-served-by');
   if (h('cf-ray') || server === 'cloudflare') return 'cloudflare';
-  if (keys.some((k) => k.startsWith('x-akamai')) || server.includes('akamai') || h('akamai-grn')) return 'akamai';
+  if (keys.some((k) => k.startsWith('x-akamai')) || server.includes('akamai') || h('akamai-grn'))
+    return 'akamai';
   if (h('x-amz-cf-id') || via.includes('cloudfront')) return 'cloudfront';
-  if (servedBy.includes('cache-') || h('x-fastly-request-id') || (via.includes('varnish') && servedBy)) return 'fastly';
+  if (servedBy.includes('cache-') || h('x-fastly-request-id') || (via.includes('varnish') && servedBy))
+    return 'fastly';
   if (via || h('x-cache') || servedBy) return 'other';
   return null;
 }

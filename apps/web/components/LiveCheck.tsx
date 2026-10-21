@@ -18,17 +18,40 @@ export async function fetchLiveScan(host: string, fetchFn: typeof fetch = fetch)
   try {
     const res = await fetchFn(`/api/scan?host=${encodeURIComponent(host)}`);
     const body = await res.json();
-    if (res.ok) return { phase: 'done', result: body.result, scannedAt: body.scannedAt, cached: body.cached, durationMs: body.durationMs };
+    if (res.ok)
+      return {
+        phase: 'done',
+        result: body.result,
+        scannedAt: body.scannedAt,
+        cached: body.cached,
+        durationMs: body.durationMs,
+      };
     if (res.status === 503 || res.status === 429)
-      return { phase: 'unavailable', host, message: body.message ?? 'Live scan unavailable.', url: body.requestScanURL ?? scanRequestURL(host) };
+      return {
+        phase: 'unavailable',
+        host,
+        message: body.message ?? 'Live scan unavailable.',
+        url: body.requestScanURL ?? scanRequestURL(host),
+      };
     return { phase: 'error', host, message: body.message ?? `Error ${res.status}` };
   } catch {
-    return { phase: 'unavailable', host, message: 'The live scanner could not be reached.', url: scanRequestURL(host) };
+    return {
+      phase: 'unavailable',
+      host,
+      message: 'The live scanner could not be reached.',
+      url: scanRequestURL(host),
+    };
   }
 }
 
 /** Live single-host check used by /check (and the /org report). */
-export function LiveCheck({ initialHost, onResult }: { initialHost?: string; onResult?: (r: SiteResult | null, scannedAt?: string) => void }) {
+export function LiveCheck({
+  initialHost,
+  onResult,
+}: {
+  initialHost?: string;
+  onResult?: (r: SiteResult | null, scannedAt?: string) => void;
+}) {
   const [host, setHost] = useState(initialHost ?? '');
   const [state, setState] = useState<State>({ phase: 'idle' });
 
@@ -73,14 +96,18 @@ export function LiveCheck({ initialHost, onResult }: { initialHost?: string; onR
           spellCheck={false}
           autoComplete="off"
         />
-        <button className="rounded-lg bg-fg px-5 py-2.5 font-medium text-bg disabled:opacity-50" disabled={state.phase === 'loading'}>
+        <button
+          className="rounded-lg bg-fg px-5 py-2.5 font-medium text-bg disabled:opacity-50"
+          disabled={state.phase === 'loading'}
+        >
           {state.phase === 'loading' ? 'Checking…' : 'Check'}
         </button>
       </form>
 
       {state.phase === 'loading' && (
         <p aria-live="polite" className="rounded-xl border border-line bg-card p-5 text-sm">
-          Running TLS handshakes against <span className="font-mono">{state.host}</span> (takes up to 15 seconds)…
+          Running TLS handshakes against <span className="font-mono">{state.host}</span> (takes up to 15
+          seconds)…
         </p>
       )}
       {state.phase === 'unavailable' && (
@@ -91,7 +118,9 @@ export function LiveCheck({ initialHost, onResult }: { initialHost?: string; onR
             <a href={state.url} className="font-medium underline">
               Request a scan of {state.host} on GitHub
             </a>{' '}
-            <span className="text-sm text-muted">— a workflow runs the scanner and replies on the issue.</span>
+            <span className="text-sm text-muted">
+              — a workflow runs the scanner and replies on the issue.
+            </span>
           </p>
         </div>
       )}
@@ -103,8 +132,13 @@ export function LiveCheck({ initialHost, onResult }: { initialHost?: string; onR
       {state.phase === 'done' && (
         <>
           <p className="text-sm text-muted">
-            {state.cached ? 'Cached result from the last 24 hours.' : `Live result${state.durationMs ? ` in ${(state.durationMs / 1000).toFixed(1)} s` : ''}.`}{' '}
-            Not in the weekly index yet? <Link href="/about/scanner" className="underline">How scanning works</Link>
+            {state.cached
+              ? 'Cached result from the last 24 hours.'
+              : `Live result${state.durationMs ? ` in ${(state.durationMs / 1000).toFixed(1)} s` : ''}.`}{' '}
+            Not in the weekly index yet?{' '}
+            <Link href="/about/scanner" className="underline">
+              How scanning works
+            </Link>
           </p>
           <SiteReport site={state.result} scannedAt={state.scannedAt} live />
         </>

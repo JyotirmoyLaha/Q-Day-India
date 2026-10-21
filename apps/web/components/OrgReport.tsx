@@ -32,7 +32,8 @@ export function OrgReport() {
     const s = await fetchLiveScan(h);
     setChecking(false);
     if (s.phase === 'done') setSite({ result: s.result, at: s.scannedAt });
-    else if (s.phase === 'unavailable') setSiteMsg({ text: `${s.message} You can still build the code half of the report.`, url: s.url });
+    else if (s.phase === 'unavailable')
+      setSiteMsg({ text: `${s.message} You can still build the code half of the report.`, url: s.url });
     else if (s.phase === 'error') setSiteMsg({ text: s.message });
   }
 
@@ -59,7 +60,10 @@ export function OrgReport() {
             spellCheck={false}
             autoComplete="off"
           />
-          <button className="rounded-lg bg-fg px-5 py-2.5 font-medium text-bg disabled:opacity-50" disabled={checking}>
+          <button
+            className="rounded-lg bg-fg px-5 py-2.5 font-medium text-bg disabled:opacity-50"
+            disabled={checking}
+          >
             {checking ? 'Checking…' : 'Check TLS'}
           </button>
         </form>
@@ -107,16 +111,21 @@ export function OrgReport() {
                 3 · Prioritised migration plan
               </h2>
               <p className="mt-1 max-w-3xl text-sm text-muted">
-                Public TLS first (it protects traffic that can be recorded today), then key exchange in code, then
-                signatures, then hashes and symmetric strength. Each step maps to a phase of the DST Task Force roadmap
-                (&ldquo;Implementation of Quantum Safe Ecosystem in India&rdquo;, 2026).
+                Public TLS first (it protects traffic that can be recorded today), then key exchange in code,
+                then signatures, then hashes and symmetric strength. Each step maps to a phase of the DST Task
+                Force roadmap (&ldquo;Implementation of Quantum Safe Ecosystem in India&rdquo;, 2026).
               </p>
             </div>
             <fieldset className="flex gap-3 text-sm">
               <legend className="sr-only">Roadmap track</legend>
               {(['cii', 'enterprise'] as const).map((tr) => (
                 <label key={tr} className="flex items-center gap-1.5">
-                  <input type="radio" name="track" checked={track === tr} onChange={() => setTrackChoice(tr)} />
+                  <input
+                    type="radio"
+                    name="track"
+                    checked={track === tr}
+                    onChange={() => setTrackChoice(tr)}
+                  />
                   {tr === 'cii' ? 'Critical Information Infrastructure' : 'Regular enterprise'}
                 </label>
               ))}
@@ -127,7 +136,8 @@ export function OrgReport() {
             {(Object.keys(DST_PHASES) as (keyof typeof DST_PHASES)[]).map((k) => (
               <div key={k} className="rounded-lg border border-line bg-card p-3 text-sm">
                 <p className="font-semibold">
-                  {DST_PHASES[k].name} <span className="font-normal text-muted">· by {DST_PHASES[k][track]}</span>
+                  {DST_PHASES[k].name}{' '}
+                  <span className="font-normal text-muted">· by {DST_PHASES[k][track]}</span>
                 </p>
                 <p className="mt-1 text-muted">{DST_PHASES[k].summary}</p>
               </div>
@@ -136,8 +146,13 @@ export function OrgReport() {
 
           <ol className="space-y-3">
             {plan.map((p) => (
-              <li key={p.order} className="grid grid-cols-[2rem_1fr] gap-3 rounded-xl border border-line bg-card p-4">
-                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-subtle font-semibold">{p.order}</span>
+              <li
+                key={p.order}
+                className="grid grid-cols-[2rem_1fr] gap-3 rounded-xl border border-line bg-card p-4"
+              >
+                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-subtle font-semibold">
+                  {p.order}
+                </span>
                 <div>
                   <div className="flex flex-wrap items-baseline justify-between gap-2">
                     <h3 className="font-semibold">{p.title}</h3>
@@ -149,7 +164,9 @@ export function OrgReport() {
                     <span className="font-medium text-fg">{p.area}.</span> {p.detail}
                     {p.count ? ` ${p.count} finding${p.count === 1 ? '' : 's'}.` : ''}
                   </p>
-                  {p.files && p.files.length > 0 && <p className="mt-1 break-all font-mono text-xs text-muted">{p.files.join(' · ')}</p>}
+                  {p.files && p.files.length > 0 && (
+                    <p className="mt-1 break-all font-mono text-xs text-muted">{p.files.join(' · ')}</p>
+                  )}
                 </div>
               </li>
             ))}
@@ -161,7 +178,12 @@ export function OrgReport() {
               {code && (
                 <button
                   className="rounded-lg border border-line px-3 py-1.5 hover:border-accent"
-                  onClick={() => download(`${code.source.name.replace(/[^\w.-]+/g, '_')}.cdx.json`, JSON.stringify(toCycloneDX(code), null, 2))}
+                  onClick={() =>
+                    download(
+                      `${code.source.name.replace(/[^\w.-]+/g, '_')}.cdx.json`,
+                      JSON.stringify(toCycloneDX(code), null, 2),
+                    )
+                  }
                 >
                   Download the CBOM (CycloneDX 1.6)
                 </button>
@@ -175,9 +197,9 @@ export function OrgReport() {
             </div>
           </div>
           <p className="text-xs text-muted">
-            Roadmap phases and years are taken from public summaries of the DST Task Force report; check the official
-            document for your sector&apos;s obligations. Banking and other regulated sectors may be classed as critical
-            infrastructure by their regulator.
+            Roadmap phases and years are taken from public summaries of the DST Task Force report; check the
+            official document for your sector&apos;s obligations. Banking and other regulated sectors may be
+            classed as critical infrastructure by their regulator.
           </p>
         </section>
       )}

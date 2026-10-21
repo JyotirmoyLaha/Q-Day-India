@@ -16,13 +16,50 @@ describe('hostname validation', () => {
 
   it.each([
     // IP literals in every spelling
-    '127.0.0.1', '10.0.0.1', '169.254.169.254', '::1', '[::1]', '::ffff:127.0.0.1', 'fe80::1', '2130706433', '0x7f000001', '0177.0.0.1', '127.1', '0.0.0.0',
+    '127.0.0.1',
+    '10.0.0.1',
+    '169.254.169.254',
+    '::1',
+    '[::1]',
+    '::ffff:127.0.0.1',
+    'fe80::1',
+    '2130706433',
+    '0x7f000001',
+    '0177.0.0.1',
+    '127.1',
+    '0.0.0.0',
     // localhost and reserved names
-    'localhost', 'localhost.', 'foo.localhost', 'metadata.google.internal', 'printer.local', 'router.lan', 'svc.corp', 'a.test', 'x.example', 'hidden.onion', '1.0.0.127.in-addr.arpa',
+    'localhost',
+    'localhost.',
+    'foo.localhost',
+    'metadata.google.internal',
+    'printer.local',
+    'router.lan',
+    'svc.corp',
+    'a.test',
+    'x.example',
+    'hidden.onion',
+    '1.0.0.127.in-addr.arpa',
     // ports, paths, schemes, credentials, whitespace
-    'example.com:8443', 'example.com:443', 'https://example.com', 'example.com/admin', 'user@example.com', 'example.com?x=1', 'example.com#frag', 'exa mple.com', 'example.com\\..\\x', '%6c%6f%63%61%6c%68%6f%73%74',
+    'example.com:8443',
+    'example.com:443',
+    'https://example.com',
+    'example.com/admin',
+    'user@example.com',
+    'example.com?x=1',
+    'example.com#frag',
+    'exa mple.com',
+    'example.com\\..\\x',
+    '%6c%6f%63%61%6c%68%6f%73%74',
     // malformed
-    '', '.', 'a..b', '-bad.com', 'bad-.com', 'nodot', `${'a'.repeat(64)}.com`, 'x'.repeat(254),
+    '',
+    '.',
+    'a..b',
+    '-bad.com',
+    'bad-.com',
+    'nodot',
+    `${'a'.repeat(64)}.com`,
+    'x'.repeat(254),
   ])('rejects %j', (input) => {
     expect(() => normalizeHost(input)).toThrow(HostError);
   });
@@ -35,33 +72,91 @@ describe('hostname validation', () => {
 
 describe('address classification', () => {
   it.each([
-    '10.1.2.3', '172.16.0.1', '172.31.255.255', '192.168.0.10', '127.0.0.1', '127.255.255.254', '169.254.169.254', '100.64.0.1', '100.127.255.255',
-    '0.0.0.0', '224.0.0.251', '239.255.255.250', '255.255.255.255', '192.0.2.1', '198.18.0.1', '::', '::1', 'fe80::1', 'fc00::1', 'fd00:ec2::254',
-    'ff02::1', '::ffff:10.0.0.1', '::ffff:7f00:1', '64:ff9b::a00:1', '2002:a00:1::', '2001:db8::1', 'not-an-ip',
+    '10.1.2.3',
+    '172.16.0.1',
+    '172.31.255.255',
+    '192.168.0.10',
+    '127.0.0.1',
+    '127.255.255.254',
+    '169.254.169.254',
+    '100.64.0.1',
+    '100.127.255.255',
+    '0.0.0.0',
+    '224.0.0.251',
+    '239.255.255.250',
+    '255.255.255.255',
+    '192.0.2.1',
+    '198.18.0.1',
+    '::',
+    '::1',
+    'fe80::1',
+    'fc00::1',
+    'fd00:ec2::254',
+    'ff02::1',
+    '::ffff:10.0.0.1',
+    '::ffff:7f00:1',
+    '64:ff9b::a00:1',
+    '2002:a00:1::',
+    '2001:db8::1',
+    'not-an-ip',
   ])('%s is not public', (a) => expect(isPublicAddress(a)).toBe(false));
 
-  it.each(['1.1.1.1', '8.8.8.8', '104.16.132.229', '172.32.0.1', '100.128.0.1', '2606:4700::6810:85e5', '2404:6800:4007::200e', '::ffff:8.8.8.8'])(
-    '%s is public',
-    (a) => expect(isPublicAddress(a)).toBe(true),
-  );
+  it.each([
+    '1.1.1.1',
+    '8.8.8.8',
+    '104.16.132.229',
+    '172.32.0.1',
+    '100.128.0.1',
+    '2606:4700::6810:85e5',
+    '2404:6800:4007::200e',
+    '::ffff:8.8.8.8',
+  ])('%s is public', (a) => expect(isPublicAddress(a)).toBe(true));
 });
 
 describe('DNS checks', () => {
   it('rejects if ANY resolved address is private (mixed answers / rebinding setup)', async () => {
-    await expect(resolvePublic('mixed.example.in', async () => ['104.16.1.1', '10.0.0.5'])).rejects.toMatchObject({ reason: 'NON_PUBLIC_ADDRESS' });
-    await expect(resolvePublic('v6.example.in', async () => ['2606:4700::1', '::1'])).rejects.toMatchObject({ reason: 'NON_PUBLIC_ADDRESS' });
-    await expect(resolvePublic('meta.example.in', async () => ['169.254.169.254'])).rejects.toMatchObject({ reason: 'NON_PUBLIC_ADDRESS' });
-    await expect(resolvePublic('nip.example.in', async () => ['127.0.0.1'])).rejects.toMatchObject({ reason: 'NON_PUBLIC_ADDRESS' });
+    await expect(
+      resolvePublic('mixed.example.in', async () => ['104.16.1.1', '10.0.0.5']),
+    ).rejects.toMatchObject({ reason: 'NON_PUBLIC_ADDRESS' });
+    await expect(resolvePublic('v6.example.in', async () => ['2606:4700::1', '::1'])).rejects.toMatchObject({
+      reason: 'NON_PUBLIC_ADDRESS',
+    });
+    await expect(resolvePublic('meta.example.in', async () => ['169.254.169.254'])).rejects.toMatchObject({
+      reason: 'NON_PUBLIC_ADDRESS',
+    });
+    await expect(resolvePublic('nip.example.in', async () => ['127.0.0.1'])).rejects.toMatchObject({
+      reason: 'NON_PUBLIC_ADDRESS',
+    });
   });
   it('reports DNS failures', async () => {
-    await expect(resolvePublic('nx.example.in', async () => { throw new Error('ENOTFOUND'); })).rejects.toMatchObject({ reason: 'DNS_FAIL' });
-    await expect(resolvePublic('empty.example.in', async () => [])).rejects.toMatchObject({ reason: 'DNS_FAIL' });
+    await expect(
+      resolvePublic('nx.example.in', async () => {
+        throw new Error('ENOTFOUND');
+      }),
+    ).rejects.toMatchObject({ reason: 'DNS_FAIL' });
+    await expect(resolvePublic('empty.example.in', async () => [])).rejects.toMatchObject({
+      reason: 'DNS_FAIL',
+    });
   });
 });
 
 const fakeResult = (host: string): SiteResult => ({
-  host, org: host, sector: 'other', verified: false, shelfLifeYears: 10, reachable: true, grade: 'C', hygieneFlags: [], hndlRisk: 50,
-  tls: { maxVersion: 'TLS1.3', defaultGroup: 'X25519', pqHybrid: { x25519mlkem768: false }, legacyEnabled: false, cipherSuite: 'TLS_AES_128_GCM_SHA256' },
+  host,
+  org: host,
+  sector: 'other',
+  verified: false,
+  shelfLifeYears: 10,
+  reachable: true,
+  grade: 'C',
+  hygieneFlags: [],
+  hndlRisk: 50,
+  tls: {
+    maxVersion: 'TLS1.3',
+    defaultGroup: 'X25519',
+    pqHybrid: { x25519mlkem768: false },
+    legacyEnabled: false,
+    cipherSuite: 'TLS_AES_128_GCM_SHA256',
+  },
 });
 
 function deps(over: Partial<ScanDeps> = {}): ScanDeps {
@@ -84,13 +179,24 @@ describe('/api/scan handler', () => {
       expect(ip).toBe('104.16.1.1');
       return fakeResult(host);
     });
-    const r = await handleScan('rebind.example.in', '1.2.3.4', deps({ resolver: async () => answers[calls++]!, scan }));
+    const r = await handleScan(
+      'rebind.example.in',
+      '1.2.3.4',
+      deps({ resolver: async () => answers[calls++]!, scan }),
+    );
     expect(r.status).toBe(200);
     expect(calls).toBe(1); // resolved exactly once
     expect(scan).toHaveBeenCalledWith('rebind.example.in', '104.16.1.1');
   });
 
-  it.each(['localhost', '127.0.0.1', 'example.com:22', 'http://10.0.0.1/', '[::1]', 'metadata.google.internal'])('rejects %s with 400 before any DNS or probe', async (h) => {
+  it.each([
+    'localhost',
+    '127.0.0.1',
+    'example.com:22',
+    'http://10.0.0.1/',
+    '[::1]',
+    'metadata.google.internal',
+  ])('rejects %s with 400 before any DNS or probe', async (h) => {
     const resolver = vi.fn(async () => ['104.16.1.1']);
     const scan = vi.fn();
     const r = await handleScan(h, '1.2.3.4', deps({ resolver, scan }));
@@ -102,7 +208,11 @@ describe('/api/scan handler', () => {
 
   it('rejects hostnames that resolve to private addresses', async () => {
     const scan = vi.fn();
-    const r = await handleScan('internal.example.in', '1.2.3.4', deps({ resolver: async () => ['192.168.1.10'], scan }));
+    const r = await handleScan(
+      'internal.example.in',
+      '1.2.3.4',
+      deps({ resolver: async () => ['192.168.1.10'], scan }),
+    );
     expect(r.status).toBe(400);
     expect(r.body.reason).toBe('NON_PUBLIC_ADDRESS');
     expect(scan).not.toHaveBeenCalled();
@@ -128,7 +238,15 @@ describe('/api/scan handler', () => {
   });
 
   it('turns DNS failure into an ungraded result', async () => {
-    const r = await handleScan('nx.example.in', '1.2.3.4', deps({ resolver: async () => { throw new Error('ENOTFOUND'); } }));
+    const r = await handleScan(
+      'nx.example.in',
+      '1.2.3.4',
+      deps({
+        resolver: async () => {
+          throw new Error('ENOTFOUND');
+        },
+      }),
+    );
     expect(r.status).toBe(200);
     expect((r.body.result as SiteResult).error?.code).toBe('DNS_FAIL');
     expect(r.headers['Cache-Control']).toBe('no-store');

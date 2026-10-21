@@ -34,9 +34,15 @@ function mockGitHub() {
     const u = new URL(url);
     if (u.host === 'api.github.com') {
       if (u.pathname === '/repos/acme/bank') return Response.json({ default_branch: 'main', private: false });
-      if (u.pathname === '/repos/acme/bank/commits/main') return new Response('abc1234def5678abc1234def5678abc1234def56\n');
+      if (u.pathname === '/repos/acme/bank/commits/main')
+        return new Response('abc1234def5678abc1234def5678abc1234def56\n');
       if (u.pathname.startsWith('/repos/acme/bank/git/trees/'))
-        return Response.json({ truncated: false, tree: Object.entries(files).map(([path, c]) => ({ path, type: 'blob', size: c.length })).concat([{ path: 'src', type: 'tree', size: 0 }]) });
+        return Response.json({
+          truncated: false,
+          tree: Object.entries(files)
+            .map(([path, c]) => ({ path, type: 'blob', size: c.length }))
+            .concat([{ path: 'src', type: 'tree', size: 0 }]),
+        });
       return new Response('not found', { status: 404 });
     }
     if (u.host === 'raw.githubusercontent.com') {
@@ -52,7 +58,10 @@ describe('GitHub URL parsing', () => {
   it.each([
     ['https://github.com/acme/bank', { owner: 'acme', repo: 'bank' }],
     ['github.com/acme/bank.git', { owner: 'acme', repo: 'bank' }],
-    ['https://github.com/acme/bank/tree/dev/services/api', { owner: 'acme', repo: 'bank', ref: 'dev', subpath: 'services/api' }],
+    [
+      'https://github.com/acme/bank/tree/dev/services/api',
+      { owner: 'acme', repo: 'bank', ref: 'dev', subpath: 'services/api' },
+    ],
     ['acme/bank', { owner: 'acme', repo: 'bank' }],
     ['git@github.com:acme/bank.git', { owner: 'acme', repo: 'bank' }],
   ])('%s', (input, want) => expect(parseGitHubURL(input)).toMatchObject(want));
@@ -65,9 +74,16 @@ describe('GitHub URL parsing', () => {
 describe('GitHub source (mocked)', () => {
   it('uses 3 API calls, filters irrelevant files and never sends the token to raw.githubusercontent.com', async () => {
     const { calls, fetchFn } = mockGitHub();
-    const plan = await planGitHub({ owner: 'acme', repo: 'bank' }, (p) => engine.isRelevant(p), { token: 'ghp_secret', fetchFn });
+    const plan = await planGitHub({ owner: 'acme', repo: 'bank' }, (p) => engine.isRelevant(p), {
+      token: 'ghp_secret',
+      fetchFn,
+    });
     expect(calls.filter((c) => c.url.startsWith('https://api.github.com'))).toHaveLength(3);
-    expect(plan.files.map((f) => f.path).sort()).toEqual(['deploy/nginx.conf', 'src/crypto_utils.py', 'web/server.js']);
+    expect(plan.files.map((f) => f.path).sort()).toEqual([
+      'deploy/nginx.conf',
+      'src/crypto_utils.py',
+      'web/server.js',
+    ]);
     const got = [];
     for await (const f of fetchGitHubFiles(plan, { fetchFn })) got.push(f);
     expect(got).toHaveLength(3);
@@ -75,13 +91,17 @@ describe('GitHub source (mocked)', () => {
     expect(raw).toHaveLength(3);
     expect(raw.every((c) => !c.auth)).toBe(true);
     expect(calls.filter((c) => c.auth).every((c) => c.url.startsWith('https://api.github.com/'))).toBe(true);
-    expect(calls.every((c) => /^https:\/\/(api\.github\.com|raw\.githubusercontent\.com)\//.test(c.url))).toBe(true);
+    expect(
+      calls.every((c) => /^https:\/\/(api\.github\.com|raw\.githubusercontent\.com)\//.test(c.url)),
+    ).toBe(true);
   });
 
   it('end-to-end: plan → download → scan → CBOM', async () => {
     const { fetchFn } = mockGitHub();
     const plan = await planGitHub({ owner: 'acme', repo: 'bank' }, (p) => engine.isRelevant(p), { fetchFn });
-    const report = await engine.scan(fetchGitHubFiles(plan, { fetchFn }), { source: { kind: 'github', name: 'acme/bank' } });
+    const report = await engine.scan(fetchGitHubFiles(plan, { fetchFn }), {
+      source: { kind: 'github', name: 'acme/bank' },
+    });
     expect(report.stats.filesScanned).toBe(3);
     expect(report.findings.some((f) => f.ruleId === 'py-cryptography-rsa-generate')).toBe(true);
     expect(report.findings.some((f) => f.ruleId === 'nginx-ecdh-curve')).toBe(true);
@@ -89,10 +109,15 @@ describe('GitHub source (mocked)', () => {
   });
 
   it('reports rate limits and private repos clearly', async () => {
-    const limited: FetchLike = async () => new Response('', { status: 403, headers: { 'x-ratelimit-reset': '0' } });
-    await expect(planGitHub({ owner: 'a', repo: 'b' }, () => true, { fetchFn: limited })).rejects.toThrow(/rate limit/);
+    const limited: FetchLike = async () =>
+      new Response('', { status: 403, headers: { 'x-ratelimit-reset': '0' } });
+    await expect(planGitHub({ owner: 'a', repo: 'b' }, () => true, { fetchFn: limited })).rejects.toThrow(
+      /rate limit/,
+    );
     const priv: FetchLike = async () => Response.json({ default_branch: 'main', private: true });
-    await expect(planGitHub({ owner: 'a', repo: 'b' }, () => true, { fetchFn: priv })).rejects.toThrow(/private/);
+    await expect(planGitHub({ owner: 'a', repo: 'b' }, () => true, { fetchFn: priv })).rejects.toThrow(
+      /private/,
+    );
   });
 });
 
@@ -103,7 +128,10 @@ describe('zip source', () => {
     zip.file('bank-main/node_modules/x/index.js', "require('crypto').createHash('md5')");
     zip.file('bank-main/img/logo.png', 'binary');
     const data = await zip.generateAsync({ type: 'arraybuffer' });
-    const report = await engine.scan(zipFiles(data, (p) => engine.isRelevant(p)), { source: { kind: 'zip', name: 'bank-main' } });
+    const report = await engine.scan(
+      zipFiles(data, (p) => engine.isRelevant(p)),
+      { source: { kind: 'zip', name: 'bank-main' } },
+    );
     expect(report.stats.filesScanned).toBe(1);
     expect(report.findings[0]!.file).toBe('src/crypto_utils.py');
   });
@@ -111,13 +139,22 @@ describe('zip source', () => {
 
 describe('share via URL fragment', () => {
   it('round-trips a report and refuses oversized ones', async () => {
-    const report = await engine.scan([{ path: 'a.py', content: files['src/crypto_utils.py']! }], { source: { kind: 'paste', name: 'a.py' } });
+    const report = await engine.scan([{ path: 'a.py', content: files['src/crypto_utils.py']! }], {
+      source: { kind: 'paste', name: 'a.py' },
+    });
     const back = decodeReport(`#r=${encodeReport(report)}`);
     expect(back?.findings).toEqual(report.findings);
     expect(back?.scores).toEqual(report.scores);
     const url = shareURL(report, 'https://x.in/code?q=1#old');
     expect(url).toMatch(/^https:\/\/x\.in\/code\?q=1#r=/);
-    const huge = { ...report, findings: Array.from({ length: 4000 }, (_, i) => ({ ...report.findings[0]!, line: i, snippet: `s${i}${Math.random()}` })) };
+    const huge = {
+      ...report,
+      findings: Array.from({ length: 4000 }, (_, i) => ({
+        ...report.findings[0]!,
+        line: i,
+        snippet: `s${i}${Math.random()}`,
+      })),
+    };
     expect(encodeReport(huge).length).toBeGreaterThan(MAX_FRAGMENT_CHARS);
     expect(shareURL(huge, 'https://x.in/code')).toBeNull();
     expect(decodeReport('#r=garbage')).toBeNull();
@@ -128,8 +165,12 @@ describe.runIf(process.env.QDAY_LIVE_TESTS === '1')('live GitHub scan', () => {
   it('scans a real public repository', async () => {
     const ref = parseGitHubURL('https://github.com/auth0/node-jsonwebtoken')!;
     const plan = await planGitHub(ref, (p) => engine.isRelevant(p), { token: process.env.GITHUB_TOKEN });
-    const report = await engine.scan(fetchGitHubFiles(plan), { source: { kind: 'github', name: 'auth0/node-jsonwebtoken' } });
-    console.log(`live: ${report.stats.filesScanned} files, ${report.findings.length} findings, exposure ${report.scores.exposure}`);
+    const report = await engine.scan(fetchGitHubFiles(plan), {
+      source: { kind: 'github', name: 'auth0/node-jsonwebtoken' },
+    });
+    console.log(
+      `live: ${report.stats.filesScanned} files, ${report.findings.length} findings, exposure ${report.scores.exposure}`,
+    );
     expect(report.stats.filesScanned).toBeGreaterThan(10);
     expect(report.findings.length).toBeGreaterThan(0);
   }, 120_000);

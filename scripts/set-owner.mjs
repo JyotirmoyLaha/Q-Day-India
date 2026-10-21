@@ -9,7 +9,9 @@ import { fileURLToPath } from 'node:url';
 
 const [owner, siteURL, email] = process.argv.slice(2);
 if (!owner || !/^[\w.-]+$/.test(owner)) {
-  console.error('usage: node scripts/set-owner.mjs <github-owner> [https://your-site.vercel.app] [contact@email]');
+  console.error(
+    'usage: node scripts/set-owner.mjs <github-owner> [https://your-site.vercel.app] [contact@email]',
+  );
   process.exit(2);
 }
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -20,7 +22,8 @@ const walk = (d) => {
     if (['node_modules', '.git', '.venv', '.next', 'dist', 'generated'].includes(f)) continue;
     const p = join(d, f);
     if (statSync(p).isDirectory()) walk(p);
-    else if (/\.(md|ts|tsx|mjs|yml|yaml|json)$/.test(f) && !p.includes(`${join('data', 'scans')}`)) files.push(p);
+    else if (/\.(md|ts|tsx|mjs|yml|yaml|json)$/.test(f) && !p.includes(`${join('data', 'scans')}`))
+      files.push(p);
   }
 };
 walk(root);
@@ -35,4 +38,6 @@ for (const p of files) {
     console.log(`updated ${relative(root, p)}`);
   }
 }
-console.log(`${changed} files updated. Commit the changes, then set NEXT_PUBLIC_REPO_SLUG=${owner}/qday-india in Vercel.`);
+console.log(
+  `${changed} files updated. Commit the changes, then set NEXT_PUBLIC_REPO_SLUG=${owner}/qday-india in Vercel.`,
+);

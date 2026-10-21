@@ -1,6 +1,9 @@
 // Deployment-specific values. Set these in Vercel → Settings → Environment Variables
 // (or run `node scripts/set-owner.mjs <github-owner> <site-url>` once).
-export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://qday-india.vercel.app').replace(/\/$/, '');
+export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://qday-india.vercel.app').replace(
+  /\/$/,
+  '',
+);
 export const REPO_SLUG = process.env.NEXT_PUBLIC_REPO_SLUG ?? 'YOUR_GITHUB_USER/qday-india';
 export const REPO_URL = `https://github.com/${REPO_SLUG}`;
 export const CONTACT_EMAIL = process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? 'qday-india@example.org';

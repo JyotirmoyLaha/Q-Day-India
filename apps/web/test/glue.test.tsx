@@ -34,13 +34,36 @@ describe('Mosca', () => {
 });
 
 const f = (over: Partial<Finding>): Finding => ({
-  ruleId: 'r', file: 'a.py', line: 1, column: 1, snippet: '', algorithm: 'RSA', primitive: 'pke', quantumRisk: 'HIGH',
-  confidence: 'high', message: '', assetType: 'algorithm', kind: 'treesitter', ...over,
+  ruleId: 'r',
+  file: 'a.py',
+  line: 1,
+  column: 1,
+  snippet: '',
+  algorithm: 'RSA',
+  primitive: 'pke',
+  quantumRisk: 'HIGH',
+  confidence: 'high',
+  message: '',
+  assetType: 'algorithm',
+  kind: 'treesitter',
+  ...over,
 });
 const codeReport = (findings: Finding[]): ScanReport => ({
-  tool: { name: 'q', version: '1' }, scannedAt: '2026-10-21T00:00:00Z', source: { kind: 'zip', name: 'bank-app' },
-  stats: { filesSeen: 3, filesScanned: 3, skipped: {}, bytesScanned: 1, durationMs: 1, byLanguage: {}, suppressed: 0 }, findings,
-  scores: computeScores(findings, 3), warnings: [],
+  tool: { name: 'q', version: '1' },
+  scannedAt: '2026-10-21T00:00:00Z',
+  source: { kind: 'zip', name: 'bank-app' },
+  stats: {
+    filesSeen: 3,
+    filesScanned: 3,
+    skipped: {},
+    bytesScanned: 1,
+    durationMs: 1,
+    byLanguage: {},
+    suppressed: 0,
+  },
+  findings,
+  scores: computeScores(findings, 3),
+  warnings: [],
 });
 
 describe('migration plan', () => {
@@ -75,18 +98,51 @@ describe('migration plan', () => {
 });
 
 describe('monthly report', () => {
-  const row = (h: string, s: Snapshot['rows'][number]['s'], g: Snapshot['rows'][number]['g'], cdn?: string, leg = false) => ({ h, s, g, r: 0, cdn: cdn as never, leg, v: false, o: h });
+  const row = (
+    h: string,
+    s: Snapshot['rows'][number]['s'],
+    g: Snapshot['rows'][number]['g'],
+    cdn?: string,
+    leg = false,
+  ) => ({ h, s, g, r: 0, cdn: cdn as never, leg, v: false, o: h });
   const snaps: Snapshot[] = [
-    { date: '2026-09-28', scannedAt: '2026-09-28T03:17:00Z', rows: [row('a.in', 'banking', 'C'), row('b.in', 'banking', 'A+', 'cloudflare'), row('c.in', 'media', 'D', undefined, true)] },
-    { date: '2026-10-05', scannedAt: '2026-10-05T03:17:00Z', rows: [row('a.in', 'banking', 'A', 'akamai'), row('b.in', 'banking', 'A+', 'cloudflare'), row('c.in', 'media', 'F', undefined, true), row('d.in', 'government', null)] },
+    {
+      date: '2026-09-28',
+      scannedAt: '2026-09-28T03:17:00Z',
+      rows: [
+        row('a.in', 'banking', 'C'),
+        row('b.in', 'banking', 'A+', 'cloudflare'),
+        row('c.in', 'media', 'D', undefined, true),
+      ],
+    },
+    {
+      date: '2026-10-05',
+      scannedAt: '2026-10-05T03:17:00Z',
+      rows: [
+        row('a.in', 'banking', 'A', 'akamai'),
+        row('b.in', 'banking', 'A+', 'cloudflare'),
+        row('c.in', 'media', 'F', undefined, true),
+        row('d.in', 'government', null),
+      ],
+    },
   ];
   it('computes shares, movers vs the previous month, CDN effect and stragglers', () => {
     const r = buildMonthReport(snaps, '2026-10')!;
     expect(r.reachable).toBe(3);
     expect(r.safeShare).toBe(67);
     expect(r.baselineDate).toBe('2026-09-28');
-    expect(r.movers.map((m) => [m.host, m.direction])).toEqual([['a.in', 'up'], ['c.in', 'down']]);
-    expect(r.cdn).toMatchObject({ behindCdn: 2, behindCdnSafe: 2, selfHosted: 1, selfHostedSafe: 0, cdnShare: 100, selfShare: 0 });
+    expect(r.movers.map((m) => [m.host, m.direction])).toEqual([
+      ['a.in', 'up'],
+      ['c.in', 'down'],
+    ]);
+    expect(r.cdn).toMatchObject({
+      behindCdn: 2,
+      behindCdnSafe: 2,
+      selfHosted: 1,
+      selfHostedSafe: 0,
+      cdnShare: 100,
+      selfShare: 0,
+    });
     expect(r.stragglers.map((s) => s.host)).toEqual(['c.in']);
     expect(r.summary.join(' ')).not.toMatch(/vulnerable|insecure|hacked|breach|failing|shame/i);
     expect(reportMonths(snaps)).toEqual(['2026-09', '2026-10']);

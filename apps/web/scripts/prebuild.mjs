@@ -55,7 +55,8 @@ const snapshots = scanFiles.map((f) => {
 write('history.json', { snapshots });
 
 const badges = {};
-for (const r of latest.results) badges[r.host] = { g: r.grade, d: latest.scannedAt.slice(0, 10), v: r.verified };
+for (const r of latest.results)
+  badges[r.host] = { g: r.grade, d: latest.scannedAt.slice(0, 10), v: r.verified };
 write('badges.json', badges);
 
 // --- repo results produced by the GitHub Action (dogfooding) ----------------
@@ -76,7 +77,9 @@ if (existsSync(join(engine, 'scripts', 'compile.mjs'))) {
   const wasmOut = join(web, 'public', 'tree-sitter');
   mkdirSync(wasmOut, { recursive: true });
   const require = createRequire(join(engine, 'package.json'));
-  const { WASM_FILES } = await import(new URL(`file:///${join(engine, 'scripts', 'wasm-files.mjs').replace(/\\/g, '/')}`).href);
+  const { WASM_FILES } = await import(
+    new URL(`file:///${join(engine, 'scripts', 'wasm-files.mjs').replace(/\\/g, '/')}`).href
+  );
   for (const [name, spec] of Object.entries(WASM_FILES)) {
     copyFileSync(require.resolve(spec), join(wasmOut, name));
   }

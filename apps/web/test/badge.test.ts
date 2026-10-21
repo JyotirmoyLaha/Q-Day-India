@@ -2,7 +2,10 @@ import { describe, expect, it } from 'vitest';
 import { badgeFor, badgeSVG, gradeColor } from '@/lib/badge';
 
 const data = {
-  hosts: { 'bank.example.in': { g: 'C', d: '2026-10-19', v: false }, 'www.safe.in': { g: 'A+', d: '2026-10-19', v: true } },
+  hosts: {
+    'bank.example.in': { g: 'C', d: '2026-10-19', v: false },
+    'www.safe.in': { g: 'A+', d: '2026-10-19', v: true },
+  },
   repos: { 'acme/app': { repo: 'acme/app', exposure: 42, agility: 80, scannedAt: '2026-10-21T00:00:00Z' } },
 };
 

@@ -164,7 +164,14 @@ export function sec1Info(der: Uint8Array): KeyInfo {
 }
 
 function nameString(n: Node): string {
-  const short: Record<string, string> = { '2.5.4.3': 'CN', '2.5.4.10': 'O', '2.5.4.11': 'OU', '2.5.4.6': 'C', '2.5.4.7': 'L', '2.5.4.8': 'ST' };
+  const short: Record<string, string> = {
+    '2.5.4.3': 'CN',
+    '2.5.4.10': 'O',
+    '2.5.4.11': 'OU',
+    '2.5.4.6': 'C',
+    '2.5.4.7': 'L',
+    '2.5.4.8': 'ST',
+  };
   const parts: string[] = [];
   for (const rdn of children(n))
     for (const atv of children(rdn)) {
@@ -246,7 +253,8 @@ export function sshPublicKeyInfo(blob: Uint8Array): KeyInfo {
     const bits = Number(type.slice('ecdsa-sha2-nistp'.length));
     return { algorithm: 'EC', bits, curve: `P-${bits}` };
   }
-  if (type === 'ssh-ed25519' || type === 'sk-ssh-ed25519@openssh.com') return { algorithm: 'Ed25519', bits: 256 };
+  if (type === 'ssh-ed25519' || type === 'sk-ssh-ed25519@openssh.com')
+    return { algorithm: 'Ed25519', bits: 256 };
   if (type === 'sk-ecdsa-sha2-nistp256@openssh.com') return { algorithm: 'EC', bits: 256, curve: 'P-256' };
   return { algorithm: type };
 }

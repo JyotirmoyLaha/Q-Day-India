@@ -17,7 +17,8 @@ import {
 } from '../der';
 
 const PEM_RE = /-----BEGIN ([A-Z0-9 ]+)-----([\s\S]*?)-----END \1-----/g;
-const SSH_PUB_RE = /(?:^|\s)(ssh-rsa|ssh-dss|ssh-ed25519|ecdsa-sha2-nistp(?:256|384|521)|sk-ssh-ed25519@openssh\.com|sk-ecdsa-sha2-nistp256@openssh\.com) (AAAA[A-Za-z0-9+/=]+)/g;
+const SSH_PUB_RE =
+  /(?:^|\s)(ssh-rsa|ssh-dss|ssh-ed25519|ecdsa-sha2-nistp(?:256|384|521)|sk-ssh-ed25519@openssh\.com|sk-ecdsa-sha2-nistp256@openssh\.com) (AAAA[A-Za-z0-9+/=]+)/g;
 
 const PQ = /^(ML-KEM|ML-DSA|SLH-DSA)/;
 
@@ -34,7 +35,13 @@ function risk(k: KeyInfo): QuantumRisk {
 }
 
 const primitiveOf = (k: KeyInfo) =>
-  /X25519|X448|DH/.test(k.algorithm) ? ('key-agreement' as const) : PQ.test(k.algorithm) && k.algorithm.startsWith('ML-KEM') ? ('kem' as const) : k.algorithm === 'RSA' ? ('pke' as const) : ('signature' as const);
+  /X25519|X448|DH/.test(k.algorithm)
+    ? ('key-agreement' as const)
+    : PQ.test(k.algorithm) && k.algorithm.startsWith('ML-KEM')
+      ? ('kem' as const)
+      : k.algorithm === 'RSA'
+        ? ('pke' as const)
+        : ('signature' as const);
 
 const lineAt = (text: string, offset: number) => text.slice(0, offset).split('\n').length;
 
@@ -63,7 +70,13 @@ export function scanKeyMaterial(file: string, text: string): Finding[] {
           fixId: 'certificate-classical',
           assetType: 'certificate',
           message: `X.509 certificate with a ${label(c)} key, signed with ${c.signatureAlgorithm}${weakSig ? ' (SHA-1/MD5 signatures are already deprecated)' : ''}. Expires ${c.notAfter.slice(0, 10)}.`,
-          details: { subject: c.subject, issuer: c.issuer, notBefore: c.notBefore, notAfter: c.notAfter, signatureAlgorithm: c.signatureAlgorithm },
+          details: {
+            subject: c.subject,
+            issuer: c.issuer,
+            notBefore: c.notBefore,
+            notAfter: c.notAfter,
+            signatureAlgorithm: c.signatureAlgorithm,
+          },
         });
         continue;
       }

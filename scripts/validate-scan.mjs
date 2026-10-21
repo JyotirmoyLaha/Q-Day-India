@@ -17,7 +17,12 @@ let files = process.argv.slice(2);
 if (files.length === 0) {
   const scans = join(root, 'data/scans');
   files = [join(root, 'data/latest.json')].filter(existsSync);
-  if (existsSync(scans)) files.push(...readdirSync(scans).filter((f) => f.endsWith('.json')).map((f) => join(scans, f)));
+  if (existsSync(scans))
+    files.push(
+      ...readdirSync(scans)
+        .filter((f) => f.endsWith('.json'))
+        .map((f) => join(scans, f)),
+    );
 }
 let failed = 0;
 for (const f of files) {

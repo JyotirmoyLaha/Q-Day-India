@@ -59,7 +59,12 @@ describe('probes against local servers', () => {
   });
 
   it('TLS 1.2-only server with legacy versions enabled', async () => {
-    const connect = await local({ minVersion: 'TLSv1', maxVersion: 'TLSv1.2', ciphers: 'DEFAULT@SECLEVEL=0', ecdhCurve: 'prime256v1' });
+    const connect = await local({
+      minVersion: 'TLSv1',
+      maxVersion: 'TLSv1.2',
+      ciphers: 'DEFAULT@SECLEVEL=0',
+      ecdhCurve: 'prime256v1',
+    });
     const r = await scanHost('test.example.in', '127.0.0.1', { connect, headFn: noHead });
     expect(r.tls?.maxVersion).toBe('TLS1.2');
     expect(r.tls?.legacyEnabled).toBe(true);
@@ -70,7 +75,11 @@ describe('probes against local servers', () => {
   it('respects the time budget', async () => {
     const t0 = Date.now();
     const connect = () => new tls.TLSSocket(new Socket()); // never connects
-    const r = await scanHost('slow.example.in', '192.0.2.1', { connect: connect as never, budgetMs: 1500, headFn: noHead });
+    const r = await scanHost('slow.example.in', '192.0.2.1', {
+      connect: connect as never,
+      budgetMs: 1500,
+      headFn: noHead,
+    });
     expect(Date.now() - t0).toBeLessThan(4000);
     expect(r.reachable).toBe(false);
     expect(r.error?.code).toBe('TIMEOUT');
@@ -103,7 +112,10 @@ describe.runIf(process.env.QDAY_LIVE_TESTS === '1')('live hosts', () => {
 
   it('negative fixture www.aiims.edu does not offer PQ', async () => {
     const ips = await resolvePublic('www.aiims.edu');
-    const r = await scanHost('www.aiims.edu', ips.find((a) => !a.includes(':')) ?? ips[0]!, { budgetMs: 13_000, sector: 'healthcare' });
+    const r = await scanHost('www.aiims.edu', ips.find((a) => !a.includes(':')) ?? ips[0]!, {
+      budgetMs: 13_000,
+      sector: 'healthcare',
+    });
     console.log(`www.aiims.edu: ${r.grade} ${r.tls?.defaultGroup}`);
     if (!r.reachable) return;
     expect(r.tls?.pqHybrid.x25519mlkem768).toBe(false);

@@ -1,17 +1,42 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { assetName, getFix, toCycloneDX, toMarkdown, toSARIF, type Finding, type QuantumRisk, type ScanReport } from '@qday/cbom-engine';
+import {
+  assetName,
+  getFix,
+  toCycloneDX,
+  toMarkdown,
+  toSARIF,
+  type Finding,
+  type QuantumRisk,
+  type ScanReport,
+} from '@qday/cbom-engine';
 import { download, shareURL } from '@/lib/share';
 import { formatDate } from '@/lib/format';
 import { Gauge } from './Gauge';
 import { FixPanel } from './FixPanel';
 
 export const RISK_META: Record<QuantumRisk, { title: string; tone: string; desc: string }> = {
-  HIGH: { title: 'Not quantum-safe (Shor)', tone: 'border-exposed bg-exposed-soft', desc: 'Public-key algorithms a future quantum computer can break. Migration recommended.' },
-  CLASSICAL_BROKEN: { title: 'Already weak today', tone: 'border-danger bg-danger-soft', desc: 'Weak against classical attacks too (MD5, SHA-1, DES, RC4, short RSA, TLS 1.0/1.1). Fix first.' },
-  LOW: { title: 'Grover-affected', tone: 'border-line bg-subtle', desc: 'Symmetric strength halved in theory (e.g. AES-128). Prefer 256-bit keys for long-lived data.' },
-  NONE: { title: 'Informational / quantum-safe', tone: 'border-accent bg-accent-soft', desc: 'Inventory items with no quantum risk, including post-quantum algorithms already in use.' },
+  HIGH: {
+    title: 'Not quantum-safe (Shor)',
+    tone: 'border-exposed bg-exposed-soft',
+    desc: 'Public-key algorithms a future quantum computer can break. Migration recommended.',
+  },
+  CLASSICAL_BROKEN: {
+    title: 'Already weak today',
+    tone: 'border-danger bg-danger-soft',
+    desc: 'Weak against classical attacks too (MD5, SHA-1, DES, RC4, short RSA, TLS 1.0/1.1). Fix first.',
+  },
+  LOW: {
+    title: 'Grover-affected',
+    tone: 'border-line bg-subtle',
+    desc: 'Symmetric strength halved in theory (e.g. AES-128). Prefer 256-bit keys for long-lived data.',
+  },
+  NONE: {
+    title: 'Informational / quantum-safe',
+    tone: 'border-accent bg-accent-soft',
+    desc: 'Inventory items with no quantum risk, including post-quantum algorithms already in use.',
+  },
 };
 const ORDER: QuantumRisk[] = ['HIGH', 'CLASSICAL_BROKEN', 'LOW', 'NONE'];
 
@@ -19,9 +44,22 @@ export function CodeResults({ report, shared = false }: { report: ScanReport; sh
   const [risk, setRisk] = useState<QuantumRisk | 'ALL'>('ALL');
   const [q, setQ] = useState('');
   const [shareMsg, setShareMsg] = useState('');
-  const counts = useMemo(() => Object.fromEntries(ORDER.map((r) => [r, report.findings.filter((f) => f.quantumRisk === r).length])) as Record<QuantumRisk, number>, [report]);
+  const counts = useMemo(
+    () =>
+      Object.fromEntries(
+        ORDER.map((r) => [r, report.findings.filter((f) => f.quantumRisk === r).length]),
+      ) as Record<QuantumRisk, number>,
+    [report],
+  );
   const visible = useMemo(
-    () => report.findings.filter((f) => (risk === 'ALL' || f.quantumRisk === risk) && (!q || f.file.toLowerCase().includes(q.toLowerCase()) || f.algorithm.toLowerCase().includes(q.toLowerCase()))),
+    () =>
+      report.findings.filter(
+        (f) =>
+          (risk === 'ALL' || f.quantumRisk === risk) &&
+          (!q ||
+            f.file.toLowerCase().includes(q.toLowerCase()) ||
+            f.algorithm.toLowerCase().includes(q.toLowerCase())),
+      ),
     [report, risk, q],
   );
   const slug = report.source.name.replace(/[^\w.-]+/g, '_');
@@ -30,15 +68,21 @@ export function CodeResults({ report, shared = false }: { report: ScanReport; sh
     const url = shareURL(report, window.location.href);
     if (!url) {
       download(`${slug}.quantumbom.json`, JSON.stringify(report, null, 2));
-      setShareMsg('This report is too large for a link (> 30 KB compressed), so it was downloaded as JSON instead. Share the file.');
+      setShareMsg(
+        'This report is too large for a link (> 30 KB compressed), so it was downloaded as JSON instead. Share the file.',
+      );
       return;
     }
     window.history.replaceState(null, '', url);
     try {
       await navigator.clipboard.writeText(url);
-      setShareMsg('Link copied. The report lives in the URL fragment (#…), which browsers never send to a server.');
+      setShareMsg(
+        'Link copied. The report lives in the URL fragment (#…), which browsers never send to a server.',
+      );
     } catch {
-      setShareMsg('Link is in the address bar. The report lives in the URL fragment (#…), which browsers never send to a server.');
+      setShareMsg(
+        'Link is in the address bar. The report lives in the URL fragment (#…), which browsers never send to a server.',
+      );
     }
   }
 
@@ -47,7 +91,9 @@ export function CodeResults({ report, shared = false }: { report: ScanReport; sh
     <section aria-labelledby="results-title" className="space-y-6">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="text-sm text-muted">{shared ? 'Shared report (decoded in your browser)' : 'Results'}</p>
+          <p className="text-sm text-muted">
+            {shared ? 'Shared report (decoded in your browser)' : 'Results'}
+          </p>
           <h2 id="results-title" className="font-serif text-3xl font-semibold">
             {report.source.url ? (
               <a href={report.source.url} className="hover:underline">
@@ -58,20 +104,33 @@ export function CodeResults({ report, shared = false }: { report: ScanReport; sh
             )}
           </h2>
           <p className="mt-1 text-sm text-muted">
-            {report.source.ref ? `${report.source.ref} · ` : ''}scanned {formatDate(report.scannedAt)} · {report.stats.filesScanned} files analysed
-            {report.stats.filesSeen > report.stats.filesScanned ? ` of ${report.stats.filesSeen}` : ''} in {(report.stats.durationMs / 1000).toFixed(1)} s ·{' '}
-            {report.findings.length} findings
+            {report.source.ref ? `${report.source.ref} · ` : ''}scanned {formatDate(report.scannedAt)} ·{' '}
+            {report.stats.filesScanned} files analysed
+            {report.stats.filesSeen > report.stats.filesScanned
+              ? ` of ${report.stats.filesSeen}`
+              : ''} in {(report.stats.durationMs / 1000).toFixed(1)} s · {report.findings.length} findings
             {report.stats.suppressed ? ` (${report.stats.suppressed} suppressed)` : ''}
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
-          <button className={btn} onClick={() => download(`${slug}.quantumbom.cdx.json`, JSON.stringify(toCycloneDX(report), null, 2))}>
+          <button
+            className={btn}
+            onClick={() =>
+              download(`${slug}.quantumbom.cdx.json`, JSON.stringify(toCycloneDX(report), null, 2))
+            }
+          >
             CBOM (CycloneDX 1.6)
           </button>
-          <button className={btn} onClick={() => download(`${slug}.quantumbom.sarif`, JSON.stringify(toSARIF(report), null, 2))}>
+          <button
+            className={btn}
+            onClick={() => download(`${slug}.quantumbom.sarif`, JSON.stringify(toSARIF(report), null, 2))}
+          >
             SARIF
           </button>
-          <button className={btn} onClick={() => download(`${slug}.quantumbom.md`, toMarkdown(report), 'text/markdown')}>
+          <button
+            className={btn}
+            onClick={() => download(`${slug}.quantumbom.md`, toMarkdown(report), 'text/markdown')}
+          >
             Markdown
           </button>
           <button className={`${btn} border-accent`} onClick={share}>
@@ -92,21 +151,39 @@ export function CodeResults({ report, shared = false }: { report: ScanReport; sh
 
       <div className="grid gap-6 rounded-xl border border-line bg-card p-5 md:grid-cols-2">
         <div>
-          <Gauge value={report.scores.exposure} label="Quantum Exposure" caption="0 = no classical public-key crypto found" />
+          <Gauge
+            value={report.scores.exposure}
+            label="Quantum Exposure"
+            caption="0 = no classical public-key crypto found"
+          />
           <ScoreInputs inputs={report.scores.exposureInputs} />
         </div>
         <div>
-          <Gauge value={report.scores.agility} label="Crypto-Agility" goodHigh caption="100 = algorithm choices live in one place" />
+          <Gauge
+            value={report.scores.agility}
+            label="Crypto-Agility"
+            goodHigh
+            caption="100 = algorithm choices live in one place"
+          />
           <ScoreInputs inputs={report.scores.agilityInputs} />
         </div>
       </div>
 
       <div className="flex flex-wrap items-center gap-2" role="group" aria-label="Filter by risk">
-        <button className={`${btn} ${risk === 'ALL' ? 'border-fg' : ''}`} aria-pressed={risk === 'ALL'} onClick={() => setRisk('ALL')}>
+        <button
+          className={`${btn} ${risk === 'ALL' ? 'border-fg' : ''}`}
+          aria-pressed={risk === 'ALL'}
+          onClick={() => setRisk('ALL')}
+        >
           All ({report.findings.length})
         </button>
         {ORDER.map((r) => (
-          <button key={r} className={`${btn} ${risk === r ? 'border-fg' : ''}`} aria-pressed={risk === r} onClick={() => setRisk(r)}>
+          <button
+            key={r}
+            className={`${btn} ${risk === r ? 'border-fg' : ''}`}
+            aria-pressed={risk === r}
+            onClick={() => setRisk(r)}
+          >
             {RISK_META[r].title} ({counts[r]})
           </button>
         ))}
@@ -124,8 +201,8 @@ export function CodeResults({ report, shared = false }: { report: ScanReport; sh
 
       {report.findings.length === 0 && (
         <p className="rounded-xl border border-accent bg-accent-soft p-6 text-center">
-          No cryptography findings. Either this code uses no public-key crypto directly, or it chooses algorithms at runtime
-          (which static analysis cannot see).
+          No cryptography findings. Either this code uses no public-key crypto directly, or it chooses
+          algorithms at runtime (which static analysis cannot see).
         </p>
       )}
 
@@ -141,7 +218,9 @@ export function CodeResults({ report, shared = false }: { report: ScanReport; sh
 function ScoreInputs({ inputs }: { inputs: { label: string; value: string | number }[] }) {
   return (
     <details className="mt-3 text-sm">
-      <summary className="cursor-pointer text-center text-muted hover:text-fg">How is this calculated?</summary>
+      <summary className="cursor-pointer text-center text-muted hover:text-fg">
+        How is this calculated?
+      </summary>
       <dl className="mt-2 grid grid-cols-[1fr_auto] gap-x-4 gap-y-1">
         {inputs.map((i) => (
           <div key={i.label} className="contents">
@@ -159,7 +238,10 @@ function RiskGroup({ risk, findings }: { risk: QuantumRisk; findings: Finding[] 
   for (const f of findings) byFile.set(f.file, [...(byFile.get(f.file) ?? []), f]);
   const meta = RISK_META[risk];
   return (
-    <section className={`rounded-xl border-l-4 ${meta.tone.split(' ')[0]} border border-line bg-card`} aria-label={meta.title}>
+    <section
+      className={`rounded-xl border-l-4 ${meta.tone.split(' ')[0]} border border-line bg-card`}
+      aria-label={meta.title}
+    >
       <header className="border-b border-line px-5 py-3">
         <h3 className="font-serif text-xl font-semibold">
           {meta.title} <span className="text-base font-normal text-muted">· {findings.length}</span>
@@ -196,7 +278,10 @@ function FindingItem({ f }: { f: Finding }) {
         <span className="font-mono text-xs text-muted">L{f.line}</span>
         <span className="font-semibold">{assetName(f)}</span>
         <span className="text-muted">{f.primitive}</span>
-        <span className="rounded border border-line px-1.5 text-xs text-muted" title="How sure the scanner is that this is a real use">
+        <span
+          className="rounded border border-line px-1.5 text-xs text-muted"
+          title="How sure the scanner is that this is a real use"
+        >
           {f.confidence} confidence
         </span>
       </div>

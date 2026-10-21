@@ -1,11 +1,13 @@
 // Shields-style SVG badges for /api/badge. Pure function so it runs on the edge.
 
-const esc = (s: string) => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
+const esc = (s: string) =>
+  s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
 
 // Approximate Verdana 11px advance widths (good enough for badge layout).
 function textWidth(s: string): number {
   let w = 0;
-  for (const ch of s) w += /[ijlI.,:;!|' ]/.test(ch) ? 3.4 : /[mwMW@]/.test(ch) ? 9.5 : /[A-Z+0-9]/.test(ch) ? 7.4 : 6.4;
+  for (const ch of s)
+    w += /[ijlI.,:;!|' ]/.test(ch) ? 3.4 : /[mwMW@]/.test(ch) ? 9.5 : /[A-Z+0-9]/.test(ch) ? 7.4 : 6.4;
   return Math.ceil(w);
 }
 
@@ -50,12 +52,28 @@ export function badgeFor(params: URLSearchParams, data: BadgeData): { svg: strin
     const h = data.hosts[host] ?? data.hosts[`www.${host}`];
     if (!h) return { svg: badgeSVG('quantum-safe TLS', 'not tracked', BADGE_COLORS.unknown), found: false };
     const msg = h.g ?? 'unreachable';
-    return { svg: badgeSVG('quantum-safe TLS', msg, gradeColor(h.g), `quantum-safe TLS grade ${msg} for ${host}, scanned ${h.d}`), found: true };
+    return {
+      svg: badgeSVG(
+        'quantum-safe TLS',
+        msg,
+        gradeColor(h.g),
+        `quantum-safe TLS grade ${msg} for ${host}, scanned ${h.d}`,
+      ),
+      found: true,
+    };
   }
   if (repo) {
     const r = data.repos[repo];
     if (!r) return { svg: badgeSVG('quantum exposure', 'unknown', BADGE_COLORS.unknown), found: false };
-    return { svg: badgeSVG('quantum exposure', `${r.exposure}/100`, exposureColor(r.exposure), `QuantumBOM quantum exposure ${r.exposure}/100 for ${r.repo}, scanned ${r.scannedAt.slice(0, 10)}`), found: true };
+    return {
+      svg: badgeSVG(
+        'quantum exposure',
+        `${r.exposure}/100`,
+        exposureColor(r.exposure),
+        `QuantumBOM quantum exposure ${r.exposure}/100 for ${r.repo}, scanned ${r.scannedAt.slice(0, 10)}`,
+      ),
+      found: true,
+    };
   }
   return { svg: badgeSVG('quantum-safe TLS', 'host or repo required', BADGE_COLORS.unknown), found: false };
 }

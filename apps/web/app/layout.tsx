@@ -12,7 +12,10 @@ const mono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono', displ
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: { default: `${t('site.name')} — quantum readiness of Indian websites and code`, template: `%s · ${t('site.name')}` },
+  title: {
+    default: `${t('site.name')} — quantum readiness of Indian websites and code`,
+    template: `%s · ${t('site.name')}`,
+  },
   description: t('site.description'),
   openGraph: { title: t('site.name'), description: t('site.tagline'), type: 'website' },
   icons: { icon: '/icon.svg' },
@@ -30,7 +33,11 @@ const themeScript = `(function(){try{var t=localStorage.getItem('qd-theme');if(t
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${serif.variable} ${mono.variable}`} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${inter.variable} ${serif.variable} ${mono.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>

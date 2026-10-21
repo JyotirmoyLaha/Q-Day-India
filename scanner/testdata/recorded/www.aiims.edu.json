@@ -22,10 +22,7 @@
     "signatureAlgorithm": "SHA256-RSA",
     "issuer": "CN=YR1,O=Let's Encrypt,C=US",
     "notAfter": "2027-01-05T10:55:54Z",
-    "chainSignatureAlgorithms": [
-      "SHA256-RSA",
-      "SHA256-RSA"
-    ],
+    "chainSignatureAlgorithms": ["SHA256-RSA", "SHA256-RSA"],
     "valid": true
   },
   "http": {
@@ -59,9 +56,6 @@
     }
   },
   "grade": "D",
-  "hygieneFlags": [
-    "LEGACY_TLS",
-    "NO_HSTS"
-  ],
+  "hygieneFlags": ["LEGACY_TLS", "NO_HSTS"],
   "hndlRisk": 100
 }

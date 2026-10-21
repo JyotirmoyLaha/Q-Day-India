@@ -3,7 +3,12 @@
 import type { ManifestLibrary } from '../types';
 import { basename } from '../files';
 
-export type Dependency = { name: string; version?: string; line: number; ecosystem: ManifestLibrary['ecosystem'] };
+export type Dependency = {
+  name: string;
+  version?: string;
+  line: number;
+  ecosystem: ManifestLibrary['ecosystem'];
+};
 
 const lineOf = (text: string, index: number) => text.slice(0, index).split('\n').length;
 
@@ -23,7 +28,8 @@ export function extractDependencies(path: string, text: string): Dependency[] {
           deps.push({ name, version: String(version), line: findLine(text, `"${name}"`), ecosystem: 'npm' });
       }
       const engines = (j.engines as Record<string, string> | undefined)?.node;
-      if (engines) deps.push({ name: 'node', version: engines, line: findLine(text, '"engines"'), ecosystem: 'npm' });
+      if (engines)
+        deps.push({ name: 'node', version: engines, line: findLine(text, '"engines"'), ecosystem: 'npm' });
     } catch {
       // invalid JSON: ignore
     }
@@ -41,17 +47,33 @@ export function extractDependencies(path: string, text: string): Dependency[] {
     text.split('\n').forEach((raw, i) => {
       const l = raw.replace(/#.*/, '');
       // PEP 508 strings: "cryptography>=42", 'pyjwt[crypto]'
-      for (const m of l.matchAll(/["']([A-Za-z0-9][A-Za-z0-9._-]*)(?:\[[^\]]*\])?\s*(?:(?:[<>=!~]=?|\^)\s*([\w.*+-]+))?[^"']*["']/g))
+      for (const m of l.matchAll(
+        /["']([A-Za-z0-9][A-Za-z0-9._-]*)(?:\[[^\]]*\])?\s*(?:(?:[<>=!~]=?|\^)\s*([\w.*+-]+))?[^"']*["']/g,
+      ))
         deps.push({ name: m[1]!, version: m[2], line: i + 1, ecosystem: 'pypi' });
       // Poetry / Pipfile tables: name = "^1.2"
       const t = /^\s*([A-Za-z0-9][A-Za-z0-9._-]*)\s*=\s*(?:\{[^}]*version\s*=\s*)?["']([^"']*)["']/.exec(l);
-      if (t && !['name', 'version', 'description', 'python', 'readme', 'license', 'requires-python', 'build-backend'].includes(t[1]!))
+      if (
+        t &&
+        ![
+          'name',
+          'version',
+          'description',
+          'python',
+          'readme',
+          'license',
+          'requires-python',
+          'build-backend',
+        ].includes(t[1]!)
+      )
         deps.push({ name: t[1]!, version: t[2]!.replace(/^[\^~>=<]+/, ''), line: i + 1, ecosystem: 'pypi' });
     });
     return deps;
   }
   if (b === 'pom.xml') {
-    for (const m of text.matchAll(/<groupId>\s*([^<\s]+)\s*<\/groupId>\s*<artifactId>\s*([^<\s]+)\s*<\/artifactId>(?:\s*<version>\s*([^<\s]+)\s*<\/version>)?/g))
+    for (const m of text.matchAll(
+      /<groupId>\s*([^<\s]+)\s*<\/groupId>\s*<artifactId>\s*([^<\s]+)\s*<\/artifactId>(?:\s*<version>\s*([^<\s]+)\s*<\/version>)?/g,
+    ))
       deps.push({ name: `${m[1]}:${m[2]}`, version: m[3], line: lineOf(text, m.index!), ecosystem: 'maven' });
     return deps;
   }

@@ -36,7 +36,13 @@ export type Connector = (opts: ConnectionOptions) => TLSSocket;
 
 const GROUPS_DEFAULT = 'X25519MLKEM768:X25519:prime256v1:secp384r1';
 
-function probe(ip: string, host: string, extra: ConnectionOptions, timeoutMs: number, connect: Connector): Promise<Outcome> {
+function probe(
+  ip: string,
+  host: string,
+  extra: ConnectionOptions,
+  timeoutMs: number,
+  connect: Connector,
+): Promise<Outcome> {
   return new Promise((resolve) => {
     let settled = false;
     const done = (o: Outcome) => {
@@ -47,7 +53,10 @@ function probe(ip: string, host: string, extra: ConnectionOptions, timeoutMs: nu
       resolve(o);
     };
     const socket = connect({ host: ip, servername: host, port: 443, rejectUnauthorized: false, ...extra });
-    const timer = setTimeout(() => done({ ok: false, code: 'TIMEOUT', error: 'timed out', chain: [] }), timeoutMs);
+    const timer = setTimeout(
+      () => done({ ok: false, code: 'TIMEOUT', error: 'timed out', chain: [] }),
+      timeoutMs,
+    );
     socket.once('secureConnect', () => {
       const eph = socket.getEphemeralKeyInfo() as { name?: string } | null;
       // X509Certificate API only: getPeerCertificate() can come back empty for
@@ -95,7 +104,12 @@ const VERSION: Record<string, NonNullable<SiteResult['tls']>['maxVersion']> = {
   'TLSv1.1': 'TLS1.1',
   TLSv1: 'TLS1.0',
 };
-const GROUP_NAMES: Record<string, string> = { prime256v1: 'P-256', secp384r1: 'P-384', secp521r1: 'P-521', X25519: 'X25519' };
+const GROUP_NAMES: Record<string, string> = {
+  prime256v1: 'P-256',
+  secp384r1: 'P-384',
+  secp521r1: 'P-521',
+  X25519: 'X25519',
+};
 
 function certInfo(o: Outcome): SiteResult['cert'] {
   const c = o.cert;
@@ -103,10 +117,21 @@ function certInfo(o: Outcome): SiteResult['cert'] {
   const pk = c.publicKey;
   const d = pk.asymmetricKeyDetails ?? {};
   const type = pk.asymmetricKeyType;
-  const keyAlgorithm = type === 'rsa' || type === 'rsa-pss' ? 'RSA' : type === 'ec' ? 'ECDSA' : type === 'ed25519' ? 'Ed25519' : String(type);
-  const curve = d.namedCurve ? ({ prime256v1: 'P-256', secp384r1: 'P-384', secp521r1: 'P-521' }[d.namedCurve] ?? d.namedCurve) : undefined;
-  const keySize = d.modulusLength ?? (curve ? Number(curve.replace(/\D/g, '')) || 0 : type === 'ed25519' ? 256 : 0);
-  const sig = (x: X509Certificate) => (x as X509Certificate & { signatureAlgorithm?: string }).signatureAlgorithm ?? 'unknown';
+  const keyAlgorithm =
+    type === 'rsa' || type === 'rsa-pss'
+      ? 'RSA'
+      : type === 'ec'
+        ? 'ECDSA'
+        : type === 'ed25519'
+          ? 'Ed25519'
+          : String(type);
+  const curve = d.namedCurve
+    ? ({ prime256v1: 'P-256', secp384r1: 'P-384', secp521r1: 'P-521' }[d.namedCurve] ?? d.namedCurve)
+    : undefined;
+  const keySize =
+    d.modulusLength ?? (curve ? Number(curve.replace(/\D/g, '')) || 0 : type === 'ed25519' ? 256 : 0);
+  const sig = (x: X509Certificate) =>
+    (x as X509Certificate & { signatureAlgorithm?: string }).signatureAlgorithm ?? 'unknown';
   const valid = Boolean(o.authorized) && !o.hostnameError;
   return {
     keyAlgorithm,
@@ -126,7 +151,16 @@ function head(ip: string, host: string, timeoutMs: number): Promise<SiteResult['
   const one = (path: string, hops: number): Promise<void> =>
     new Promise((resolve) => {
       const req = https.request(
-        { host: ip, servername: host, port: 443, method: 'HEAD', path, headers: { Host: host, 'User-Agent': USER_AGENT }, rejectUnauthorized: false, timeout: timeoutMs },
+        {
+          host: ip,
+          servername: host,
+          port: 443,
+          method: 'HEAD',
+          path,
+          headers: { Host: host, 'User-Agent': USER_AGENT },
+          rejectUnauthorized: false,
+          timeout: timeoutMs,
+        },
         (res) => {
           seen.push(res.headers);
           res.resume();
@@ -134,7 +168,8 @@ function head(ip: string, host: string, timeoutMs: number): Promise<SiteResult['
           if (res.statusCode && res.statusCode >= 300 && res.statusCode < 400 && loc && hops < 3) {
             try {
               const u = new URL(loc, `https://${host}${path}`);
-              if (u.protocol === 'https:' && u.hostname === host) return void one(u.pathname + u.search, hops + 1).then(resolve);
+              if (u.protocol === 'https:' && u.hostname === host)
+                return void one(u.pathname + u.search, hops + 1).then(resolve);
             } catch {
               // bad Location header
             }
@@ -194,7 +229,11 @@ export async function scanHost(host: string, ip: string, o: ProbeOptions = {}): 
   };
 
   const p1 = await run({ ecdhCurve: GROUPS_DEFAULT, ALPNProtocols: ['h2', 'http/1.1'] });
-  if (!p1.ok && p1.code !== 'TLS_FAIL') return { ...base, error: { code: (p1.code as 'TIMEOUT' | 'REFUSED') ?? 'TLS_FAIL', detail: p1.error ?? '' } };
+  if (!p1.ok && p1.code !== 'TLS_FAIL')
+    return {
+      ...base,
+      error: { code: (p1.code as 'TIMEOUT' | 'REFUSED') ?? 'TLS_FAIL', detail: p1.error ?? '' },
+    };
   const p2 = await run({ minVersion: 'TLSv1.3', ecdhCurve: 'X25519MLKEM768' });
   const p3 = await run({ minVersion: 'TLSv1.3', ecdhCurve: 'SecP256r1MLKEM768:SecP384r1MLKEM1024' });
   const p4 = await run({ minVersion: 'TLSv1.3', maxVersion: 'TLSv1.3', ecdhCurve: GROUPS_DEFAULT });
@@ -205,19 +244,29 @@ export async function scanHost(host: string, ip: string, o: ProbeOptions = {}): 
   const p3b = p3.ok ? await run({ minVersion: 'TLSv1.3', ecdhCurve: 'SecP384r1MLKEM1024' }) : p3;
   const main = p1.ok ? p1 : p4.ok ? p4 : p5;
   const probes = {
-    default: { ok: p1.ok, ...(p1.ok ? { detail: `${VERSION[p1.version ?? ''] ?? p1.version} ${p1.group ?? ''}`.trim() } : { detail: p1.code }) },
+    default: {
+      ok: p1.ok,
+      ...(p1.ok
+        ? { detail: `${VERSION[p1.version ?? ''] ?? p1.version} ${p1.group ?? ''}`.trim() }
+        : { detail: p1.code }),
+    },
     pqOnly: { ok: p2.ok, ...(p2.ok ? {} : { detail: p2.code }) },
     pqAlt: { ok: p3.ok, ...(p3.ok ? {} : { detail: p3.code }) },
     tls13: { ok: p4.ok, ...(p4.ok ? {} : { detail: p4.code }) },
     legacy: { ok: p5.ok, ...(p5.ok ? { detail: VERSION[p5.version ?? ''] } : { detail: p5.code }) },
     head: { ok: false } as { ok: boolean; detail?: string },
   };
-  if (!main.ok) return { ...base, probes, error: { code: 'TLS_FAIL', detail: p1.error ?? 'handshake failed' } };
+  if (!main.ok)
+    return { ...base, probes, error: { code: 'TLS_FAIL', detail: p1.error ?? 'handshake failed' } };
 
   const maxVersion = VERSION[main.version ?? ''] ?? 'TLS1.2';
   // Node cannot name hybrid groups via getEphemeralKeyInfo(); in TLS 1.3 with only
   // X25519MLKEM768 offered as a PQ group, an unnamed group means the hybrid was used.
-  const defaultGroup = main.group ? (GROUP_NAMES[main.group] ?? main.group) : maxVersion === 'TLS1.3' && p2.ok ? 'X25519MLKEM768' : 'unknown';
+  const defaultGroup = main.group
+    ? (GROUP_NAMES[main.group] ?? main.group)
+    : maxVersion === 'TLS1.3' && p2.ok
+      ? 'X25519MLKEM768'
+      : 'unknown';
   const defaultPQ = defaultGroup === 'X25519MLKEM768';
   const http = left() > 500 ? await (o.headFn ?? head)(ip, host, Math.min(5_000, left())) : undefined;
   probes.head = http ? { ok: true } : { ok: false, detail: 'TIMEOUT' };
@@ -236,7 +285,12 @@ export async function scanHost(host: string, ip: string, o: ProbeOptions = {}): 
   const flags: HygieneFlag[] = [];
   if (cert) {
     if (cert.keyAlgorithm === 'RSA' && cert.keySize < 2048) flags.push('RSA_LT_2048');
-    if ([cert.signatureAlgorithm, ...cert.chainSignatureAlgorithms.slice(0, -1)].some((s) => /sha1|md5/i.test(s))) flags.push('SHA1_IN_CHAIN');
+    if (
+      [cert.signatureAlgorithm, ...cert.chainSignatureAlgorithms.slice(0, -1)].some((s) =>
+        /sha1|md5/i.test(s),
+      )
+    )
+      flags.push('SHA1_IN_CHAIN');
     if (new Date(cert.notAfter).getTime() - now() < 14 * 86_400_000) flags.push('CERT_EXPIRING_SOON');
     if (!cert.valid) flags.push('CERT_INVALID');
   }
@@ -250,7 +304,11 @@ export async function scanHost(host: string, ip: string, o: ProbeOptions = {}): 
     tls: {
       maxVersion,
       defaultGroup,
-      pqHybrid: { x25519mlkem768: p2.ok, secp256r1mlkem768: p3.ok && !p3b.ok ? true : p3.ok && p3b.ok ? undefined : false, secp384r1mlkem1024: p3b.ok },
+      pqHybrid: {
+        x25519mlkem768: p2.ok,
+        secp256r1mlkem768: p3.ok && !p3b.ok ? true : p3.ok && p3b.ok ? undefined : false,
+        secp384r1mlkem1024: p3b.ok,
+      },
       legacyEnabled: p5.ok,
       cipherSuite: main.cipher ?? 'unknown',
       ...(main.alpn ? { alpn: main.alpn } : {}),

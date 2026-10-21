@@ -18,8 +18,20 @@
   callee: '(^|\.)padding\.(OAEP|PKCS1v15|PSS)$'
   variant_from: callee
   variants:
-    - { match: 'OAEP|PKCS1v15', algorithm: RSA, primitive: pke, message: RSA encryption padding in use — RSA is not quantum-safe., fix: py-rsa-to-mlkem }
-    - { match: 'PSS', algorithm: RSA-PSS, primitive: signature, message: RSA-PSS signature padding in use — not quantum-safe., fix: signatures-to-mldsa }
+    - {
+        match: 'OAEP|PKCS1v15',
+        algorithm: RSA,
+        primitive: pke,
+        message: RSA encryption padding in use — RSA is not quantum-safe.,
+        fix: py-rsa-to-mlkem,
+      }
+    - {
+        match: 'PSS',
+        algorithm: RSA-PSS,
+        primitive: signature,
+        message: RSA-PSS signature padding in use — not quantum-safe.,
+        fix: signatures-to-mldsa,
+      }
   algorithm: RSA
   primitive: pke
   quantum_risk: HIGH

@@ -25,7 +25,12 @@ export function ShorDemo() {
       <label htmlFor="shor-a" className="text-sm font-medium">
         Pick a number a (coprime to 15):
       </label>
-      <select id="shor-a" value={a} onChange={(e) => setA(Number(e.target.value))} className="ml-2 rounded border border-line bg-card px-2 py-1">
+      <select
+        id="shor-a"
+        value={a}
+        onChange={(e) => setA(Number(e.target.value))}
+        className="ml-2 rounded border border-line bg-card px-2 py-1"
+      >
         {[2, 4, 7, 8, 11, 13, 14].map((v) => (
           <option key={v} value={v}>
             {v}
@@ -37,30 +42,44 @@ export function ShorDemo() {
           <caption className="sr-only">Powers of {a} modulo 15</caption>
           <tbody>
             <tr>
-              <th scope="row" className="pr-3 text-left font-medium text-muted">x</th>
+              <th scope="row" className="pr-3 text-left font-medium text-muted">
+                x
+              </th>
               {seq.map((_, x) => (
-                <td key={x} className="w-10 text-center font-mono">{x}</td>
+                <td key={x} className="w-10 text-center font-mono">
+                  {x}
+                </td>
               ))}
             </tr>
             <tr>
-              <th scope="row" className="pr-3 text-left font-medium text-muted">{a}^x mod 15</th>
+              <th scope="row" className="pr-3 text-left font-medium text-muted">
+                {a}^x mod 15
+              </th>
               {seq.map((v, x) => (
-                <td key={x} className={`w-10 text-center font-mono ${v === 1 && x > 0 ? 'rounded bg-accent-soft font-bold' : ''}`}>{v}</td>
+                <td
+                  key={x}
+                  className={`w-10 text-center font-mono ${v === 1 && x > 0 ? 'rounded bg-accent-soft font-bold' : ''}`}
+                >
+                  {v}
+                </td>
               ))}
             </tr>
           </tbody>
         </table>
       </div>
       <p className="mt-3 text-sm" aria-live="polite">
-        The sequence repeats with <strong>period r = {r}</strong>. A quantum computer finds this period exponentially
-        faster than any known classical method, for numbers with hundreds of digits.{' '}
+        The sequence repeats with <strong>period r = {r}</strong>. A quantum computer finds this period
+        exponentially faster than any known classical method, for numbers with hundreds of digits.{' '}
         {works ? (
           <>
-            Then gcd({a}^{r / 2} − 1, 15) = <strong>{f1}</strong> and gcd({a}^{r / 2} + 1, 15) = <strong>{f2}</strong>: the
-            factors of 15. RSA&apos;s security rests on that factoring being hard.
+            Then gcd({a}^{r / 2} − 1, 15) = <strong>{f1}</strong> and gcd({a}^{r / 2} + 1, 15) ={' '}
+            <strong>{f2}</strong>: the factors of 15. RSA&apos;s security rests on that factoring being hard.
           </>
         ) : (
-          <>For this a the trick doesn&apos;t yield a factor ({r % 2 ? 'r is odd' : `a^(r/2) ≡ −1`}); Shor&apos;s algorithm simply tries another a.</>
+          <>
+            For this a the trick doesn&apos;t yield a factor ({r % 2 ? 'r is odd' : `a^(r/2) ≡ −1`});
+            Shor&apos;s algorithm simply tries another a.
+          </>
         )}
       </p>
     </div>

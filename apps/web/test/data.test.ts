@@ -60,13 +60,51 @@ describe('summary', () => {
 
 describe('index filters', () => {
   const rows: IndexRow[] = [
-    { host: 'a.bank.in', org: 'Alpha Bank', sector: 'banking', verified: false, grade: 'C', hndlRisk: 60, history: [] },
-    { host: 'b.gov.in', org: 'Beta Portal', sector: 'government', verified: true, grade: 'C', hndlRisk: 100, history: [] },
-    { host: 'c.edu.in', org: 'Gamma Uni', sector: 'education', verified: false, grade: 'A+', hndlRisk: 0, history: [] },
-    { host: 'd.in', org: 'Delta', sector: 'media', verified: false, grade: null, hndlRisk: 0, error: 'TIMEOUT', history: [] },
+    {
+      host: 'a.bank.in',
+      org: 'Alpha Bank',
+      sector: 'banking',
+      verified: false,
+      grade: 'C',
+      hndlRisk: 60,
+      history: [],
+    },
+    {
+      host: 'b.gov.in',
+      org: 'Beta Portal',
+      sector: 'government',
+      verified: true,
+      grade: 'C',
+      hndlRisk: 100,
+      history: [],
+    },
+    {
+      host: 'c.edu.in',
+      org: 'Gamma Uni',
+      sector: 'education',
+      verified: false,
+      grade: 'A+',
+      hndlRisk: 0,
+      history: [],
+    },
+    {
+      host: 'd.in',
+      org: 'Delta',
+      sector: 'media',
+      verified: false,
+      grade: null,
+      hndlRisk: 0,
+      error: 'TIMEOUT',
+      history: [],
+    },
   ];
   it('sorts by HNDL exposure, ungraded last', () => {
-    expect(filterRows(rows, '', '', '', 'risk').map((r) => r.host)).toEqual(['b.gov.in', 'a.bank.in', 'c.edu.in', 'd.in']);
+    expect(filterRows(rows, '', '', '', 'risk').map((r) => r.host)).toEqual([
+      'b.gov.in',
+      'a.bank.in',
+      'c.edu.in',
+      'd.in',
+    ]);
   });
   it('searches org and host, filters sector and grade', () => {
     expect(filterRows(rows, 'gamma', '', '', 'host').map((r) => r.host)).toEqual(['c.edu.in']);
@@ -80,7 +118,9 @@ describe('index filters', () => {
 describe('site fixes', () => {
   it('a D-grade nginx site gets TLS 1.3, PQ, legacy and HSTS fixes, PQ first', () => {
     const ids = siteFixes(recorded('www.aiims.edu.json')).map((f) => f.id);
-    expect(ids).toEqual(expect.arrayContaining(['enable-tls13', 'enable-pq-kex', 'disable-legacy', 'hsts', 'pq-certs']));
+    expect(ids).toEqual(
+      expect.arrayContaining(['enable-tls13', 'enable-pq-kex', 'disable-legacy', 'hsts', 'pq-certs']),
+    );
     expect(ids.indexOf('enable-pq-kex')).toBeLessThan(ids.indexOf('hsts'));
   });
   it('an A site only gets legacy + certificate planning', () => {
@@ -89,7 +129,10 @@ describe('site fixes', () => {
   });
   it('every low grade is paired with a fix', () => {
     for (const s of getSites().filter((s) => s.grade && !['A+', 'A'].includes(s.grade)))
-      expect(siteFixes(s).some((f) => f.priority === 1), s.host).toBe(true);
+      expect(
+        siteFixes(s).some((f) => f.priority === 1),
+        s.host,
+      ).toBe(true);
   });
 });
 

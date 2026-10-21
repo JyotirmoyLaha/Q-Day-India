@@ -17,7 +17,9 @@ const recorded = (name: string) =>
 describe('pages render accessibly', () => {
   it('home', async () => {
     const { container } = render(<HomePage />);
-    expect(screen.getAllByText(/of tracked Indian sites use quantum-safe key exchange/).length).toBeGreaterThan(0);
+    expect(
+      screen.getAllByText(/of tracked Indian sites use quantum-safe key exchange/).length,
+    ).toBeGreaterThan(0);
     await expectNoAxeViolations(container);
   });
 
@@ -30,7 +32,9 @@ describe('pages render accessibly', () => {
   it('index search filters rows', () => {
     render(<IndexPage />);
     const first = getSites()[0]!;
-    fireEvent.change(screen.getByPlaceholderText(/Search organisation or host/), { target: { value: first.host } });
+    fireEvent.change(screen.getByPlaceholderText(/Search organisation or host/), {
+      target: { value: first.host },
+    });
     expect(screen.getAllByText(first.host).length).toBeGreaterThan(0);
     expect(screen.getByText(/^Showing \d+ of \d+ sites$/).textContent).toMatch(/Showing [1-9]\d* of/);
   });

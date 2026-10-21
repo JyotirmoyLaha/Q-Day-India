@@ -8,7 +8,8 @@ import { SECTORS } from '@/lib/types';
 
 export const metadata: Metadata = {
   title: 'Quantum Readiness Index',
-  description: 'Weekly post-quantum TLS readiness of Indian banks, government portals, payment and education sites.',
+  description:
+    'Weekly post-quantum TLS readiness of Indian banks, government portals, payment and education sites.',
 };
 
 export default function IndexPage() {
@@ -31,16 +32,18 @@ export default function IndexPage() {
       <h1 className="font-serif text-4xl font-semibold tracking-tight">{t('index.title')}</h1>
       <p className="mt-3 max-w-3xl text-muted">{t('index.intro')}</p>
       <p className="mt-2 text-sm text-muted">
-        Last scan: {formatDate(latestScanDate())}. Grades: A+/A use quantum-safe key exchange by default · B supports it
-        but not by default · C/D are not yet quantum-safe · F means legacy-only TLS or an invalid chain.{' '}
+        Last scan: {formatDate(latestScanDate())}. Grades: A+/A use quantum-safe key exchange by default · B
+        supports it but not by default · C/D are not yet quantum-safe · F means legacy-only TLS or an invalid
+        chain.{' '}
         <Link href="/about#grading" className="underline">
           How grades work
         </Link>
       </p>
       {SHOW_UNVERIFIED && unverified > 0 && (
         <p className="mt-3 rounded-lg border border-dashed border-line bg-subtle px-4 py-3 text-sm text-muted">
-          {unverified} of {sites.length} hostnames are marked <strong>unverified</strong>: they were drafted from public
-          information and are waiting for a maintainer to confirm that they belong to the organisation shown.
+          {unverified} of {sites.length} hostnames are marked <strong>unverified</strong>: they were drafted
+          from public information and are waiting for a maintainer to confirm that they belong to the
+          organisation shown.
         </p>
       )}
       <div className="mt-8">

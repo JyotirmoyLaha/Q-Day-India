@@ -27,7 +27,15 @@ const SKIP_DIRS = new Set([
   'target',
 ]);
 
-const LOCKFILES = new Set(['package-lock.json', 'pnpm-lock.yaml', 'yarn.lock', 'poetry.lock', 'go.sum', 'Cargo.lock', 'composer.lock']);
+const LOCKFILES = new Set([
+  'package-lock.json',
+  'pnpm-lock.yaml',
+  'yarn.lock',
+  'poetry.lock',
+  'go.sum',
+  'Cargo.lock',
+  'composer.lock',
+]);
 
 const TREE_EXT: Record<string, TreeLanguage> = {
   py: 'python',
@@ -63,11 +71,37 @@ const REGEX_EXT: Record<string, string> = {
 };
 
 const KEY_EXT = new Set(['pem', 'crt', 'cer', 'key', 'pub', 'csr']);
-const KEY_NAMES = /^(id_(rsa|dsa|ecdsa|ed25519)(\.pub)?|authorized_keys2?|known_hosts|ssh_host_\w+_key(\.pub)?)$/;
-const MANIFESTS = new Set(['package.json', 'pyproject.toml', 'pom.xml', 'build.gradle', 'build.gradle.kts', 'go.mod', 'Pipfile', 'setup.py', 'setup.cfg']);
+const KEY_NAMES =
+  /^(id_(rsa|dsa|ecdsa|ed25519)(\.pub)?|authorized_keys2?|known_hosts|ssh_host_\w+_key(\.pub)?)$/;
+const MANIFESTS = new Set([
+  'package.json',
+  'pyproject.toml',
+  'pom.xml',
+  'build.gradle',
+  'build.gradle.kts',
+  'go.mod',
+  'Pipfile',
+  'setup.py',
+  'setup.cfg',
+]);
 const CONFIG_NAME =
   /^(nginx\.conf|httpd\.conf|apache2?\.conf|ssl\.conf|haproxy\.cfg|openssl\.cnf|Dockerfile(\..+)?|Containerfile|.*\.dockerfile|\.htaccess|docker-compose.*\.ya?ml|Caddyfile|envoy\.ya?ml|traefik\.(ya?ml|toml)|sshd?_config)$/i;
-const CONFIG_EXT = new Set(['conf', 'cnf', 'cfg', 'tf', 'tfvars', 'yaml', 'yml', 'hcl', 'ini', 'properties', 'toml', 'env', 'xml', 'json']);
+const CONFIG_EXT = new Set([
+  'conf',
+  'cnf',
+  'cfg',
+  'tf',
+  'tfvars',
+  'yaml',
+  'yml',
+  'hcl',
+  'ini',
+  'properties',
+  'toml',
+  'env',
+  'xml',
+  'json',
+]);
 
 export type FileClass =
   | { kind: 'tree'; language: TreeLanguage }
@@ -152,12 +186,48 @@ export function matchesGlobs(path: string, globs: RegExp[], raw: string[]): bool
 export function commentPrefixes(path: string): string[] {
   const e = ext(path);
   const b = basename(path);
-  if (['kt', 'kts', 'scala', 'c', 'h', 'cc', 'cpp', 'cxx', 'hpp', 'cs', 'rs', 'swift', 'go', 'java', 'js', 'ts'].includes(e))
+  if (
+    [
+      'kt',
+      'kts',
+      'scala',
+      'c',
+      'h',
+      'cc',
+      'cpp',
+      'cxx',
+      'hpp',
+      'cs',
+      'rs',
+      'swift',
+      'go',
+      'java',
+      'js',
+      'ts',
+    ].includes(e)
+  )
     return ['//', '/*', '*'];
   if (e === 'php') return ['//', '#', '/*', '*'];
   if (e === 'ini' || e === 'cnf') return ['#', ';'];
   if (e === 'xml') return ['<!--'];
-  if (/^Dockerfile/i.test(b) || ['conf', 'cfg', 'tf', 'tfvars', 'hcl', 'yaml', 'yml', 'toml', 'env', 'properties', 'rb', 'py', 'txt'].includes(e))
+  if (
+    /^Dockerfile/i.test(b) ||
+    [
+      'conf',
+      'cfg',
+      'tf',
+      'tfvars',
+      'hcl',
+      'yaml',
+      'yml',
+      'toml',
+      'env',
+      'properties',
+      'rb',
+      'py',
+      'txt',
+    ].includes(e)
+  )
     return ['#', '//'];
   return ['#', '//'];
 }

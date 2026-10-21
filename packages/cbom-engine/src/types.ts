@@ -1,6 +1,7 @@
 // Engine data contract (PROJECT_SPEC.md §10.2) plus the compiled rule format.
 
-export type Primitive = 'pke' | 'signature' | 'kem' | 'key-agreement' | 'hash' | 'symmetric' | 'mac' | 'kdf' | 'rng';
+export type Primitive =
+  'pke' | 'signature' | 'kem' | 'key-agreement' | 'hash' | 'symmetric' | 'mac' | 'kdf' | 'rng';
 export type QuantumRisk = 'HIGH' | 'LOW' | 'NONE' | 'CLASSICAL_BROKEN';
 export type Confidence = 'high' | 'medium' | 'low';
 export type AssetType = 'algorithm' | 'certificate' | 'protocol' | 'related-crypto-material';
@@ -127,7 +128,12 @@ export type Scores = {
   agilityInputs: ScoreInput[];
 };
 
-export type ScanSource = { kind: 'github' | 'zip' | 'paste' | 'local'; name: string; ref?: string; url?: string };
+export type ScanSource = {
+  kind: 'github' | 'zip' | 'paste' | 'local';
+  name: string;
+  ref?: string;
+  url?: string;
+};
 
 export type ScanReport = {
   tool: { name: string; version: string };

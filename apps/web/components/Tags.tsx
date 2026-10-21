@@ -25,7 +25,11 @@ export function Pill({
     exposed: 'border-exposed text-fg bg-exposed-soft',
     danger: 'border-danger text-fg bg-danger-soft',
   }[tone];
-  return <span className={`inline-flex items-center rounded-full border px-2 py-0.5 text-xs ${cls}`}>{children}</span>;
+  return (
+    <span className={`inline-flex items-center rounded-full border px-2 py-0.5 text-xs ${cls}`}>
+      {children}
+    </span>
+  );
 }
 
 export function Card({ children, className = '' }: { children: React.ReactNode; className?: string }) {

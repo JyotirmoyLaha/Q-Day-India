@@ -18,7 +18,11 @@ export function CopyField({ label, value }: { label: string; value: string }) {
     <div>
       <div className="flex items-center justify-between gap-2">
         <span className="text-xs font-medium text-muted">{label}</span>
-        <button type="button" onClick={copy} className="rounded border border-line px-2 py-0.5 text-xs hover:border-accent">
+        <button
+          type="button"
+          onClick={copy}
+          className="rounded border border-line px-2 py-0.5 text-xs hover:border-accent"
+        >
           {copied ? 'Copied' : 'Copy'}
         </button>
       </div>

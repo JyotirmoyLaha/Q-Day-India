@@ -53,16 +53,30 @@ export function toCycloneDX(report: ScanReport): Record<string, unknown> {
         certificateFormat: 'X.509',
       };
     } else if (f.assetType === 'related-crypto-material') {
-      const type = f.details?.materialType === 'private-key' ? 'private-key' : f.details?.materialType === 'public-key' ? 'public-key' : 'key';
+      const type =
+        f.details?.materialType === 'private-key'
+          ? 'private-key'
+          : f.details?.materialType === 'public-key'
+            ? 'public-key'
+            : 'key';
       name = `${assetName(f)} ${type.replace('-', ' ')}`;
       crypto.relatedCryptoMaterialProperties = { type, ...(f.keySize ? { size: f.keySize } : {}) };
     } else if (f.assetType === 'protocol') {
-      crypto.protocolProperties = { type: /ssh/i.test(f.algorithm) ? 'ssh' : 'tls', ...(f.parameter ? { version: f.parameter } : {}) };
+      crypto.protocolProperties = {
+        type: /ssh/i.test(f.algorithm) ? 'ssh' : 'tls',
+        ...(f.parameter ? { version: f.parameter } : {}),
+      };
     } else {
       crypto.algorithmProperties = {
         primitive: /RC4/i.test(f.algorithm) ? 'stream-cipher' : CDX_PRIMITIVE[f.primitive],
-        ...(f.keySize ? { parameterSetIdentifier: String(f.keySize) } : f.parameter ? { parameterSetIdentifier: f.parameter } : {}),
-        ...(f.parameter && /^(P-|secp|prime|curve|brainpool)/i.test(f.parameter) ? { curve: f.parameter } : {}),
+        ...(f.keySize
+          ? { parameterSetIdentifier: String(f.keySize) }
+          : f.parameter
+            ? { parameterSetIdentifier: f.parameter }
+            : {}),
+        ...(f.parameter && /^(P-|secp|prime|curve|brainpool)/i.test(f.parameter)
+          ? { curve: f.parameter }
+          : {}),
         cryptoFunctions: CRYPTO_FUNCTIONS[f.primitive],
         ...(meta.classical !== undefined ? { classicalSecurityLevel: meta.classical } : {}),
         ...(meta.nist !== undefined ? { nistQuantumSecurityLevel: meta.nist } : {}),

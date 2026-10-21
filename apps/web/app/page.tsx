@@ -13,14 +13,16 @@ export default function HomePage() {
   return (
     <div className="space-y-14">
       <section className="pt-4">
-        <p className="text-sm font-medium uppercase tracking-[0.14em] text-accent">Quantum Readiness Index · India</p>
+        <p className="text-sm font-medium uppercase tracking-[0.14em] text-accent">
+          Quantum Readiness Index · India
+        </p>
         <h1 className="mt-3 max-w-3xl font-serif text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
           {t('site.tagline')}
         </h1>
         <p className="mt-4 max-w-2xl text-lg text-muted">
-          Data recorded today can be decrypted once large quantum computers arrive. We track which Indian banks,
-          government portals, payment and education sites already use quantum-safe key exchange, and we help you
-          find the classical crypto in your own code.
+          Data recorded today can be decrypted once large quantum computers arrive. We track which Indian
+          banks, government portals, payment and education sites already use quantum-safe key exchange, and we
+          help you find the classical crypto in your own code.
         </p>
         <div className="mt-8">
           <HomeForms trackedHosts={latest.results.map((r) => r.host)} />
@@ -38,8 +40,8 @@ export default function HomePage() {
           <Stat value={String(s.legacy)} label={t('home.statLegacy')} />
         </dl>
         <p className="mt-2 text-xs text-muted">
-          {t('home.lastScan')}: {formatDate(latest.scannedAt)} · {s.reachable} of {s.tracked} hosts reachable ·
-          percentages are of reachable hosts ·{' '}
+          {t('home.lastScan')}: {formatDate(latest.scannedAt)} · {s.reachable} of {s.tracked} hosts reachable
+          · percentages are of reachable hosts ·{' '}
           <Link href="/about" className="underline">
             methodology
           </Link>
@@ -63,8 +65,8 @@ export default function HomePage() {
           Mosca&apos;s inequality: data shelf life + migration time vs. the arrival of a quantum computer.
         </Teaser>
         <Teaser href="/org" title="One report for your organisation">
-          Your public TLS grade and your code&apos;s crypto inventory, with a migration plan mapped to India&apos;s
-          roadmap.
+          Your public TLS grade and your code&apos;s crypto inventory, with a migration plan mapped to
+          India&apos;s roadmap.
         </Teaser>
         <Teaser href="/report" title="State of the Nation">
           Monthly report on India&apos;s quantum readiness: sectors, movers, and the CDN effect.
@@ -78,7 +80,9 @@ function Stat({ value, label, accent }: { value: string; label: string; accent?:
   return (
     <div className="bg-card p-5">
       <dt className="sr-only">{label}</dt>
-      <dd className={`font-serif text-4xl font-semibold tabular-nums ${accent ? 'text-accent' : ''}`}>{value}</dd>
+      <dd className={`font-serif text-4xl font-semibold tabular-nums ${accent ? 'text-accent' : ''}`}>
+        {value}
+      </dd>
       <dd className="mt-1 text-sm text-muted">{label}</dd>
     </div>
   );

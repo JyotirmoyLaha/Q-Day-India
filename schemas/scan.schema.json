@@ -14,7 +14,19 @@
   },
   "definitions": {
     "sector": {
-      "enum": ["banking", "payments", "government", "stock_broking", "insurance", "healthcare", "telecom", "ecommerce", "education", "media", "other"]
+      "enum": [
+        "banking",
+        "payments",
+        "government",
+        "stock_broking",
+        "insurance",
+        "healthcare",
+        "telecom",
+        "ecommerce",
+        "education",
+        "media",
+        "other"
+      ]
     },
     "grade": { "enum": ["A+", "A", "B", "C", "D", "F", null] },
     "probeOutcome": {
@@ -26,7 +38,17 @@
     "siteResult": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["host", "org", "sector", "verified", "shelfLifeYears", "reachable", "grade", "hygieneFlags", "hndlRisk"],
+      "required": [
+        "host",
+        "org",
+        "sector",
+        "verified",
+        "shelfLifeYears",
+        "reachable",
+        "grade",
+        "hygieneFlags",
+        "hndlRisk"
+      ],
       "properties": {
         "host": { "type": "string", "pattern": "^[a-z0-9.-]+$" },
         "org": { "type": "string", "minLength": 1 },
@@ -69,7 +91,15 @@
         "cert": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["keyAlgorithm", "keySize", "signatureAlgorithm", "issuer", "notAfter", "chainSignatureAlgorithms", "valid"],
+          "required": [
+            "keyAlgorithm",
+            "keySize",
+            "signatureAlgorithm",
+            "issuer",
+            "notAfter",
+            "chainSignatureAlgorithms",
+            "valid"
+          ],
           "properties": {
             "keyAlgorithm": { "type": "string" },
             "keySize": { "type": "integer", "minimum": 0 },
@@ -108,13 +138,28 @@
         "grade": { "$ref": "#/definitions/grade" },
         "hygieneFlags": {
           "type": "array",
-          "items": { "enum": ["RSA_LT_2048", "SHA1_IN_CHAIN", "CERT_EXPIRING_SOON", "NO_HSTS", "LEGACY_TLS", "CERT_INVALID"] }
+          "items": {
+            "enum": [
+              "RSA_LT_2048",
+              "SHA1_IN_CHAIN",
+              "CERT_EXPIRING_SOON",
+              "NO_HSTS",
+              "LEGACY_TLS",
+              "CERT_INVALID"
+            ]
+          }
         },
         "hndlRisk": { "type": "integer", "minimum": 0, "maximum": 100 }
       },
       "allOf": [
-        { "if": { "properties": { "reachable": { "const": true } } }, "then": { "required": ["tls", "cert"], "properties": { "grade": { "not": { "const": null } } } } },
-        { "if": { "properties": { "reachable": { "const": false } } }, "then": { "required": ["error"], "properties": { "grade": { "const": null } } } }
+        {
+          "if": { "properties": { "reachable": { "const": true } } },
+          "then": { "required": ["tls", "cert"], "properties": { "grade": { "not": { "const": null } } } }
+        },
+        {
+          "if": { "properties": { "reachable": { "const": false } } },
+          "then": { "required": ["error"], "properties": { "grade": { "const": null } } }
+        }
       ]
     }
   }

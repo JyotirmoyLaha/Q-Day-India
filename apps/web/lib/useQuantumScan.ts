@@ -8,7 +8,14 @@ export type { ScanInput };
 
 export type ScanState =
   | { phase: 'idle' }
-  | { phase: 'running'; status: string; filesDone: number; filesTotal?: number; findings: Finding[]; current?: string }
+  | {
+      phase: 'running';
+      status: string;
+      filesDone: number;
+      filesTotal?: number;
+      findings: Finding[];
+      current?: string;
+    }
   | { phase: 'done'; report: ScanReport }
   | { phase: 'error'; message: string };
 
@@ -19,7 +26,9 @@ export function useQuantumScan() {
 
   const ensureWorker = useCallback(() => {
     if (!worker.current) {
-      worker.current = new Worker(new URL('../workers/quantumbom.worker.ts', import.meta.url), { type: 'module' });
+      worker.current = new Worker(new URL('../workers/quantumbom.worker.ts', import.meta.url), {
+        type: 'module',
+      });
       worker.current.onmessage = (e: MessageEvent<WorkerMessage>) => {
         const m = e.data;
         setState((s) => {
@@ -27,7 +36,14 @@ export function useQuantumScan() {
             case 'status':
               return s.phase === 'running' ? { ...s, status: m.message } : s;
             case 'progress':
-              return s.phase === 'running' ? { ...s, filesDone: m.filesDone, filesTotal: m.filesTotal ?? s.filesTotal, current: m.current } : s;
+              return s.phase === 'running'
+                ? {
+                    ...s,
+                    filesDone: m.filesDone,
+                    filesTotal: m.filesTotal ?? s.filesTotal,
+                    current: m.current,
+                  }
+                : s;
             case 'findings':
               return s.phase === 'running' ? { ...s, findings: [...s.findings, ...m.findings] } : s;
             case 'done':
@@ -37,7 +53,8 @@ export function useQuantumScan() {
           }
         });
       };
-      worker.current.onerror = (e) => setState({ phase: 'error', message: e.message || 'The scanner worker failed to start.' });
+      worker.current.onerror = (e) =>
+        setState({ phase: 'error', message: e.message || 'The scanner worker failed to start.' });
     }
     return worker.current;
   }, []);

@@ -8,7 +8,11 @@ export async function expectNoAxeViolations(container: Element) {
     rules: { 'color-contrast': { enabled: false }, region: { enabled: false } },
   });
   const summary = results.violations.map(
-    (v) => `${v.id}: ${v.help}\n  ${v.nodes.map((n) => n.target.join(' ')).slice(0, 5).join('\n  ')}`,
+    (v) =>
+      `${v.id}: ${v.help}\n  ${v.nodes
+        .map((n) => n.target.join(' '))
+        .slice(0, 5)
+        .join('\n  ')}`,
   );
   expect(summary, summary.join('\n')).toEqual([]);
 }

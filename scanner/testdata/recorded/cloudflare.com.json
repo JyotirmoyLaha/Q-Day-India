@@ -24,10 +24,7 @@
     "signatureAlgorithm": "ECDSA-SHA256",
     "issuer": "CN=WE1,O=Google Trust Services,C=US",
     "notAfter": "2026-12-04T23:29:33Z",
-    "chainSignatureAlgorithms": [
-      "ECDSA-SHA384",
-      "SHA256-RSA"
-    ],
+    "chainSignatureAlgorithms": ["ECDSA-SHA384", "SHA256-RSA"],
     "valid": true
   },
   "http": {
@@ -59,8 +56,6 @@
     }
   },
   "grade": "A",
-  "hygieneFlags": [
-    "LEGACY_TLS"
-  ],
+  "hygieneFlags": ["LEGACY_TLS"],
   "hndlRisk": 0
 }

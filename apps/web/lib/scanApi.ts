@@ -52,20 +52,32 @@ export async function handleScan(rawHost: unknown, clientIP: string, deps: ScanD
   if (!opensslSupportsPQ(deps.opensslVersion)) {
     return {
       status: 503,
-      body: { reason: 'PQ_TLS_UNAVAILABLE', message: 'Live scanning needs OpenSSL 3.5 in the server runtime.', requestScanURL: scanRequestURL(host) },
+      body: {
+        reason: 'PQ_TLS_UNAVAILABLE',
+        message: 'Live scanning needs OpenSSL 3.5 in the server runtime.',
+        requestScanURL: scanRequestURL(host),
+      },
       headers: noStore,
     };
   }
 
   const cached = deps.cache.get(host);
   if (cached && deps.now() - cached.at < CACHE_TTL_MS) {
-    return { status: 200, body: { result: cached.result, scannedAt: new Date(cached.at).toISOString(), cached: true }, headers: cacheHeaders() };
+    return {
+      status: 200,
+      body: { result: cached.result, scannedAt: new Date(cached.at).toISOString(), cached: true },
+      headers: cacheHeaders(),
+    };
   }
 
   if (!deps.limiter.take(clientIP || 'unknown', deps.now())) {
     return {
       status: 429,
-      body: { reason: 'RATE_LIMITED', message: 'Too many live scans from your address. Please wait a minute.', requestScanURL: scanRequestURL(host) },
+      body: {
+        reason: 'RATE_LIMITED',
+        message: 'Too many live scans from your address. Please wait a minute.',
+        requestScanURL: scanRequestURL(host),
+      },
       headers: { ...noStore, 'Retry-After': '30' },
     };
   }
@@ -76,7 +88,15 @@ export async function handleScan(rawHost: unknown, clientIP: string, deps: ScanD
   } catch (e) {
     const err = e as HostError;
     if (err.reason === 'DNS_FAIL') {
-      return { status: 200, body: { result: unreachable(host, 'DNS_FAIL', err.message, deps), scannedAt: new Date(deps.now()).toISOString(), cached: false }, headers: noStore };
+      return {
+        status: 200,
+        body: {
+          result: unreachable(host, 'DNS_FAIL', err.message, deps),
+          scannedAt: new Date(deps.now()).toISOString(),
+          cached: false,
+        },
+        headers: noStore,
+      };
     }
     return { status: 400, body: { reason: err.reason, message: err.message }, headers: noStore };
   }
@@ -90,7 +110,12 @@ export async function handleScan(rawHost: unknown, clientIP: string, deps: ScanD
   if (final.reachable) deps.cache.set(host, { at: started, result: final });
   return {
     status: 200,
-    body: { result: final, scannedAt: new Date(started).toISOString(), cached: false, durationMs: deps.now() - started },
+    body: {
+      result: final,
+      scannedAt: new Date(started).toISOString(),
+      cached: false,
+      durationMs: deps.now() - started,
+    },
     headers: final.reachable ? cacheHeaders() : noStore,
   };
 }
@@ -119,7 +144,12 @@ export function defaultDeps(tracked?: ScanDeps['tracked']): ScanDeps {
     resolver: systemResolver,
     scan: (host, ip) => {
       const t = tracked?.(host);
-      return scanHost(host, ip, { budgetMs: TOTAL_BUDGET_MS - 2_000, sector: t?.sector, org: t?.org, shelfLifeYears: t?.shelfLifeYears });
+      return scanHost(host, ip, {
+        budgetMs: TOTAL_BUDGET_MS - 2_000,
+        sector: t?.sector,
+        org: t?.org,
+        shelfLifeYears: t?.shelfLifeYears,
+      });
     },
     opensslVersion: process.versions.openssl ?? '',
     now: Date.now,

@@ -17,7 +17,11 @@ token = jwt.encode({"sub": "42"}, private_pem, algorithm="RS256")
 `;
 
 /** Input tabs → worker scan → streamed progress → results. Optional onReport for /org. */
-export function CodeScanner({ onReport }: { onReport?: (r: import("@qday/cbom-engine").ScanReport | null) => void }) {
+export function CodeScanner({
+  onReport,
+}: {
+  onReport?: (r: import('@qday/cbom-engine').ScanReport | null) => void;
+}) {
   const { state, start, cancel, showReport } = useQuantumScan();
   const [tab, setTab] = useState<Tab>('github');
   const [url, setUrl] = useState('');
@@ -43,7 +47,7 @@ export function CodeScanner({ onReport }: { onReport?: (r: import("@qday/cbom-en
     const repo = new URLSearchParams(window.location.search).get('repo');
     if (repo && !autoStarted.current) {
       autoStarted.current = true;
-       
+
       setUrl(repo);
       start({ kind: 'github', url: repo });
     }
@@ -79,11 +83,16 @@ export function CodeScanner({ onReport }: { onReport?: (r: import("@qday/cbom-en
       {label}
     </button>
   );
-  const field = 'w-full rounded-lg border border-line bg-card px-3 py-2.5 text-sm focus:border-accent focus:outline-none';
+  const field =
+    'w-full rounded-lg border border-line bg-card px-3 py-2.5 text-sm focus:border-accent focus:outline-none';
 
   return (
     <div className="space-y-8">
-      <form onSubmit={submit} className="rounded-xl border border-line bg-card p-5" aria-label="Choose code to scan">
+      <form
+        onSubmit={submit}
+        className="rounded-xl border border-line bg-card p-5"
+        aria-label="Choose code to scan"
+      >
         <div role="tablist" aria-label="Input" className="flex flex-wrap gap-1 border-b border-line">
           {tabBtn('github', 'Public GitHub repo')}
           {tabBtn('zip', 'Upload a zip')}
@@ -96,17 +105,36 @@ export function CodeScanner({ onReport }: { onReport?: (r: import("@qday/cbom-en
               <label className="block text-sm font-medium" htmlFor="repo-url">
                 Repository URL
               </label>
-              <input id="repo-url" className={field} value={url} onChange={(e) => setUrl(e.target.value)} placeholder="https://github.com/owner/repo" required spellCheck={false} autoComplete="off" />
+              <input
+                id="repo-url"
+                className={field}
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
+                placeholder="https://github.com/owner/repo"
+                required
+                spellCheck={false}
+                autoComplete="off"
+              />
               <details className="text-sm">
-                <summary className="cursor-pointer text-muted hover:text-fg">Optional: GitHub token for higher rate limits</summary>
+                <summary className="cursor-pointer text-muted hover:text-fg">
+                  Optional: GitHub token for higher rate limits
+                </summary>
                 <label className="mt-2 block text-sm" htmlFor="gh-token">
                   Token (held in memory only; sent only to api.github.com, never stored)
                 </label>
-                <input id="gh-token" type="password" className={`${field} mt-1`} value={token} onChange={(e) => setToken(e.target.value)} autoComplete="off" spellCheck={false} />
+                <input
+                  id="gh-token"
+                  type="password"
+                  className={`${field} mt-1`}
+                  value={token}
+                  onChange={(e) => setToken(e.target.value)}
+                  autoComplete="off"
+                  spellCheck={false}
+                />
               </details>
               <p className="text-xs text-muted">
-                Your browser calls the GitHub API for the file list (3 requests) and downloads relevant files from
-                raw.githubusercontent.com. No other server sees the code.
+                Your browser calls the GitHub API for the file list (3 requests) and downloads relevant files
+                from raw.githubusercontent.com. No other server sees the code.
               </p>
             </div>
           )}
@@ -115,8 +143,17 @@ export function CodeScanner({ onReport }: { onReport?: (r: import("@qday/cbom-en
               <label className="block text-sm font-medium" htmlFor="zip-file">
                 Zip archive of your code
               </label>
-              <input id="zip-file" type="file" accept=".zip,application/zip" className={field} onChange={(e) => setZip(e.target.files?.[0] ?? null)} />
-              <p className="text-xs text-muted">Unzipped and analysed entirely inside this browser tab. Nothing is uploaded, so private code is safe here.</p>
+              <input
+                id="zip-file"
+                type="file"
+                accept=".zip,application/zip"
+                className={field}
+                onChange={(e) => setZip(e.target.files?.[0] ?? null)}
+              />
+              <p className="text-xs text-muted">
+                Unzipped and analysed entirely inside this browser tab. Nothing is uploaded, so private code
+                is safe here.
+              </p>
             </div>
           )}
           {tab === 'paste' && (
@@ -124,7 +161,12 @@ export function CodeScanner({ onReport }: { onReport?: (r: import("@qday/cbom-en
               <label className="block text-sm font-medium" htmlFor="paste-lang">
                 Language / file type
               </label>
-              <select id="paste-lang" className={field} value={lang} onChange={(e) => setLang(e.target.value)}>
+              <select
+                id="paste-lang"
+                className={field}
+                value={lang}
+                onChange={(e) => setLang(e.target.value)}
+              >
                 {PASTE_LANGUAGES.map((l) => (
                   <option key={l.file} value={l.file}>
                     {l.label}
@@ -134,21 +176,37 @@ export function CodeScanner({ onReport }: { onReport?: (r: import("@qday/cbom-en
               <label className="block text-sm font-medium" htmlFor="paste-code">
                 Code
               </label>
-              <textarea id="paste-code" className={`${field} h-56 font-mono text-xs`} value={paste} onChange={(e) => setPaste(e.target.value)} spellCheck={false} />
+              <textarea
+                id="paste-code"
+                className={`${field} h-56 font-mono text-xs`}
+                value={paste}
+                onChange={(e) => setPaste(e.target.value)}
+                spellCheck={false}
+              />
             </div>
           )}
         </div>
 
         <div className="mt-4 flex flex-wrap items-center gap-3">
-          <button type="submit" disabled={running} className="rounded-lg bg-fg px-5 py-2.5 font-medium text-bg hover:opacity-90 disabled:opacity-50">
+          <button
+            type="submit"
+            disabled={running}
+            className="rounded-lg bg-fg px-5 py-2.5 font-medium text-bg hover:opacity-90 disabled:opacity-50"
+          >
             {running ? 'Scanning…' : 'Scan'}
           </button>
           {running && (
-            <button type="button" onClick={cancel} className="rounded-lg border border-line px-4 py-2.5 text-sm">
+            <button
+              type="button"
+              onClick={cancel}
+              className="rounded-lg border border-line px-4 py-2.5 text-sm"
+            >
               Cancel
             </button>
           )}
-          <span className="text-xs text-muted">Skips node_modules, vendor, dist, build, minified files and files over 512 KB; max 3,000 files.</span>
+          <span className="text-xs text-muted">
+            Skips node_modules, vendor, dist, build, minified files and files over 512 KB; max 3,000 files.
+          </span>
         </div>
       </form>
 
@@ -163,11 +221,19 @@ export function CodeScanner({ onReport }: { onReport?: (r: import("@qday/cbom-en
   );
 }
 
-function Progress({ state }: { state: Extract<ReturnType<typeof useQuantumScan>['state'], { phase: 'running' }> }) {
+function Progress({
+  state,
+}: {
+  state: Extract<ReturnType<typeof useQuantumScan>['state'], { phase: 'running' }>;
+}) {
   const pct = state.filesTotal ? Math.round((100 * state.filesDone) / state.filesTotal) : undefined;
   const recent = state.findings.slice(-6).reverse();
   return (
-    <section aria-live="polite" aria-label="Scan progress" className="rounded-xl border border-line bg-card p-5">
+    <section
+      aria-live="polite"
+      aria-label="Scan progress"
+      className="rounded-xl border border-line bg-card p-5"
+    >
       <p className="text-sm">{state.status}</p>
       <div
         className="mt-3 h-2 overflow-hidden rounded-full bg-subtle"

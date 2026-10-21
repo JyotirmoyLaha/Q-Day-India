@@ -1,17 +1,17 @@
 import { createRequire as __qdCreateRequire } from 'node:module'; const require = __qdCreateRequire(import.meta.url);
 
-// packages/cbom-engine/src/cli.ts
+// src/cli.ts
 import { existsSync } from "node:fs";
 import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, join as join2, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-// packages/cbom-engine/src/node.ts
+// src/node.ts
 import { readFile, readdir, stat } from "node:fs/promises";
 import { createRequire } from "node:module";
 import { join, relative, sep } from "node:path";
 
-// packages/cbom-engine/scripts/wasm-files.mjs
+// scripts/wasm-files.mjs
 var WASM_FILES = {
   "web-tree-sitter.wasm": "web-tree-sitter/web-tree-sitter.wasm",
   "tree-sitter-python.wasm": "tree-sitter-python/tree-sitter-python.wasm",
@@ -22,7 +22,7 @@ var WASM_FILES = {
   "tree-sitter-go.wasm": "tree-sitter-go/tree-sitter-go.wasm"
 };
 
-// node_modules/.pnpm/web-tree-sitter@0.27.1/node_modules/web-tree-sitter/web-tree-sitter.js
+// ../../node_modules/.pnpm/web-tree-sitter@0.27.1/node_modules/web-tree-sitter/web-tree-sitter.js
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
 var Edit = class {
@@ -4065,7 +4065,7 @@ var Query = class {
   }
 };
 
-// packages/cbom-engine/src/files.ts
+// src/files.ts
 var MAX_FILE_BYTES = 512 * 1024;
 var MAX_FILES = 3e3;
 var SKIP_DIRS = /* @__PURE__ */ new Set([
@@ -4090,7 +4090,15 @@ var SKIP_DIRS = /* @__PURE__ */ new Set([
   ".idea",
   "target"
 ]);
-var LOCKFILES = /* @__PURE__ */ new Set(["package-lock.json", "pnpm-lock.yaml", "yarn.lock", "poetry.lock", "go.sum", "Cargo.lock", "composer.lock"]);
+var LOCKFILES = /* @__PURE__ */ new Set([
+  "package-lock.json",
+  "pnpm-lock.yaml",
+  "yarn.lock",
+  "poetry.lock",
+  "go.sum",
+  "Cargo.lock",
+  "composer.lock"
+]);
 var TREE_EXT = {
   py: "python",
   pyw: "python",
@@ -4123,9 +4131,34 @@ var REGEX_EXT = {
 };
 var KEY_EXT = /* @__PURE__ */ new Set(["pem", "crt", "cer", "key", "pub", "csr"]);
 var KEY_NAMES = /^(id_(rsa|dsa|ecdsa|ed25519)(\.pub)?|authorized_keys2?|known_hosts|ssh_host_\w+_key(\.pub)?)$/;
-var MANIFESTS = /* @__PURE__ */ new Set(["package.json", "pyproject.toml", "pom.xml", "build.gradle", "build.gradle.kts", "go.mod", "Pipfile", "setup.py", "setup.cfg"]);
+var MANIFESTS = /* @__PURE__ */ new Set([
+  "package.json",
+  "pyproject.toml",
+  "pom.xml",
+  "build.gradle",
+  "build.gradle.kts",
+  "go.mod",
+  "Pipfile",
+  "setup.py",
+  "setup.cfg"
+]);
 var CONFIG_NAME = /^(nginx\.conf|httpd\.conf|apache2?\.conf|ssl\.conf|haproxy\.cfg|openssl\.cnf|Dockerfile(\..+)?|Containerfile|.*\.dockerfile|\.htaccess|docker-compose.*\.ya?ml|Caddyfile|envoy\.ya?ml|traefik\.(ya?ml|toml)|sshd?_config)$/i;
-var CONFIG_EXT = /* @__PURE__ */ new Set(["conf", "cnf", "cfg", "tf", "tfvars", "yaml", "yml", "hcl", "ini", "properties", "toml", "env", "xml", "json"]);
+var CONFIG_EXT = /* @__PURE__ */ new Set([
+  "conf",
+  "cnf",
+  "cfg",
+  "tf",
+  "tfvars",
+  "yaml",
+  "yml",
+  "hcl",
+  "ini",
+  "properties",
+  "toml",
+  "env",
+  "xml",
+  "json"
+]);
 var basename = (p) => p.slice(p.lastIndexOf("/") + 1);
 var ext = (p) => {
   const b = basename(p);
@@ -4189,17 +4222,48 @@ function matchesGlobs(path, globs, raw) {
 function commentPrefixes(path) {
   const e = ext(path);
   const b = basename(path);
-  if (["kt", "kts", "scala", "c", "h", "cc", "cpp", "cxx", "hpp", "cs", "rs", "swift", "go", "java", "js", "ts"].includes(e))
+  if ([
+    "kt",
+    "kts",
+    "scala",
+    "c",
+    "h",
+    "cc",
+    "cpp",
+    "cxx",
+    "hpp",
+    "cs",
+    "rs",
+    "swift",
+    "go",
+    "java",
+    "js",
+    "ts"
+  ].includes(e))
     return ["//", "/*", "*"];
   if (e === "php") return ["//", "#", "/*", "*"];
   if (e === "ini" || e === "cnf") return ["#", ";"];
   if (e === "xml") return ["<!--"];
-  if (/^Dockerfile/i.test(b) || ["conf", "cfg", "tf", "tfvars", "hcl", "yaml", "yml", "toml", "env", "properties", "rb", "py", "txt"].includes(e))
+  if (/^Dockerfile/i.test(b) || [
+    "conf",
+    "cfg",
+    "tf",
+    "tfvars",
+    "hcl",
+    "yaml",
+    "yml",
+    "toml",
+    "env",
+    "properties",
+    "rb",
+    "py",
+    "txt"
+  ].includes(e))
     return ["#", "//"];
   return ["#", "//"];
 }
 
-// packages/cbom-engine/src/matchers/treesitter.ts
+// src/matchers/treesitter.ts
 var CALL_QUERIES = {
   python: "(call function: (_) @callee arguments: (_) @args) @call",
   javascript: "(call_expression function: (_) @callee arguments: (_) @args) @call (new_expression constructor: (_) @callee) @call",
@@ -4383,7 +4447,7 @@ function queryHits(rule, tree, lang, langName) {
   return hits;
 }
 
-// packages/cbom-engine/src/der.ts
+// src/der.ts
 function readNode(b, pos) {
   const tag = b[pos];
   let len = b[pos + 1];
@@ -4522,7 +4586,14 @@ function sec1Info(der) {
   return { algorithm: "EC" };
 }
 function nameString(n) {
-  const short = { "2.5.4.3": "CN", "2.5.4.10": "O", "2.5.4.11": "OU", "2.5.4.6": "C", "2.5.4.7": "L", "2.5.4.8": "ST" };
+  const short = {
+    "2.5.4.3": "CN",
+    "2.5.4.10": "O",
+    "2.5.4.11": "OU",
+    "2.5.4.6": "C",
+    "2.5.4.7": "L",
+    "2.5.4.8": "ST"
+  };
   const parts2 = [];
   for (const rdn of children(n))
     for (const atv of children(rdn)) {
@@ -4589,7 +4660,8 @@ function sshPublicKeyInfo(blob) {
     const bits = Number(type.slice("ecdsa-sha2-nistp".length));
     return { algorithm: "EC", bits, curve: `P-${bits}` };
   }
-  if (type === "ssh-ed25519" || type === "sk-ssh-ed25519@openssh.com") return { algorithm: "Ed25519", bits: 256 };
+  if (type === "ssh-ed25519" || type === "sk-ssh-ed25519@openssh.com")
+    return { algorithm: "Ed25519", bits: 256 };
   if (type === "sk-ecdsa-sha2-nistp256@openssh.com") return { algorithm: "EC", bits: 256, curve: "P-256" };
   return { algorithm: type };
 }
@@ -4611,7 +4683,7 @@ function opensshPrivateKeyInfo(der) {
   return { ...sshPublicKeyInfo(pub), encrypted: cipher !== "none" };
 }
 
-// packages/cbom-engine/src/matchers/pem.ts
+// src/matchers/pem.ts
 var PEM_RE = /-----BEGIN ([A-Z0-9 ]+)-----([\s\S]*?)-----END \1-----/g;
 var SSH_PUB_RE = /(?:^|\s)(ssh-rsa|ssh-dss|ssh-ed25519|ecdsa-sha2-nistp(?:256|384|521)|sk-ssh-ed25519@openssh\.com|sk-ecdsa-sha2-nistp256@openssh\.com) (AAAA[A-Za-z0-9+/=]+)/g;
 var PQ = /^(ML-KEM|ML-DSA|SLH-DSA)/;
@@ -4652,7 +4724,13 @@ function scanKeyMaterial(file, text) {
           fixId: "certificate-classical",
           assetType: "certificate",
           message: `X.509 certificate with a ${label(c)} key, signed with ${c.signatureAlgorithm}${weakSig ? " (SHA-1/MD5 signatures are already deprecated)" : ""}. Expires ${c.notAfter.slice(0, 10)}.`,
-          details: { subject: c.subject, issuer: c.issuer, notBefore: c.notBefore, notAfter: c.notAfter, signatureAlgorithm: c.signatureAlgorithm }
+          details: {
+            subject: c.subject,
+            issuer: c.issuer,
+            notBefore: c.notBefore,
+            notAfter: c.notAfter,
+            signatureAlgorithm: c.signatureAlgorithm
+          }
         });
         continue;
       }
@@ -4775,7 +4853,7 @@ function scanKeyMaterial(file, text) {
   return out3;
 }
 
-// packages/cbom-engine/src/matchers/manifest.ts
+// src/matchers/manifest.ts
 var lineOf = (text, index) => text.slice(0, index).split("\n").length;
 function findLine(text, needle) {
   const i2 = text.indexOf(needle);
@@ -4792,7 +4870,8 @@ function extractDependencies(path, text) {
           deps.push({ name: name2, version: String(version), line: findLine(text, `"${name2}"`), ecosystem: "npm" });
       }
       const engines = j.engines?.node;
-      if (engines) deps.push({ name: "node", version: engines, line: findLine(text, '"engines"'), ecosystem: "npm" });
+      if (engines)
+        deps.push({ name: "node", version: engines, line: findLine(text, '"engines"'), ecosystem: "npm" });
     } catch {
     }
     return deps;
@@ -4808,16 +4887,29 @@ function extractDependencies(path, text) {
   if (b === "pyproject.toml" || b === "setup.py" || b === "setup.cfg" || b === "Pipfile") {
     text.split("\n").forEach((raw, i2) => {
       const l = raw.replace(/#.*/, "");
-      for (const m of l.matchAll(/["']([A-Za-z0-9][A-Za-z0-9._-]*)(?:\[[^\]]*\])?\s*(?:(?:[<>=!~]=?|\^)\s*([\w.*+-]+))?[^"']*["']/g))
+      for (const m of l.matchAll(
+        /["']([A-Za-z0-9][A-Za-z0-9._-]*)(?:\[[^\]]*\])?\s*(?:(?:[<>=!~]=?|\^)\s*([\w.*+-]+))?[^"']*["']/g
+      ))
         deps.push({ name: m[1], version: m[2], line: i2 + 1, ecosystem: "pypi" });
       const t = /^\s*([A-Za-z0-9][A-Za-z0-9._-]*)\s*=\s*(?:\{[^}]*version\s*=\s*)?["']([^"']*)["']/.exec(l);
-      if (t && !["name", "version", "description", "python", "readme", "license", "requires-python", "build-backend"].includes(t[1]))
+      if (t && ![
+        "name",
+        "version",
+        "description",
+        "python",
+        "readme",
+        "license",
+        "requires-python",
+        "build-backend"
+      ].includes(t[1]))
         deps.push({ name: t[1], version: t[2].replace(/^[\^~>=<]+/, ""), line: i2 + 1, ecosystem: "pypi" });
     });
     return deps;
   }
   if (b === "pom.xml") {
-    for (const m of text.matchAll(/<groupId>\s*([^<\s]+)\s*<\/groupId>\s*<artifactId>\s*([^<\s]+)\s*<\/artifactId>(?:\s*<version>\s*([^<\s]+)\s*<\/version>)?/g))
+    for (const m of text.matchAll(
+      /<groupId>\s*([^<\s]+)\s*<\/groupId>\s*<artifactId>\s*([^<\s]+)\s*<\/artifactId>(?:\s*<version>\s*([^<\s]+)\s*<\/version>)?/g
+    ))
       deps.push({ name: `${m[1]}:${m[2]}`, version: m[3], line: lineOf(text, m.index), ecosystem: "maven" });
     return deps;
   }
@@ -4852,7 +4944,7 @@ function versionBelow(v, threshold) {
   return false;
 }
 
-// packages/cbom-engine/src/scores.ts
+// src/scores.ts
 var RISK_WEIGHTS = {
   // Key agreement / KEM protect data in transit (harvest-now-decrypt-later) and
   // long-lived signatures/keys anchor trust for years, so they weigh most.
@@ -4873,7 +4965,9 @@ function exposureScore(findings, filesScanned) {
   return { score, weighted: Math.round(weighted * 10) / 10, scale: Math.round(scale * 10) / 10 };
 }
 function agilityScore(findings) {
-  const hard = findings.filter((f) => (f.kind === "treesitter" || f.kind === "regex") && f.quantumRisk !== "NONE");
+  const hard = findings.filter(
+    (f) => (f.kind === "treesitter" || f.kind === "regex") && f.quantumRisk !== "NONE"
+  );
   const files = new Set(hard.map((f) => f.file)).size;
   if (hard.length === 0) return { score: 100, hardcoded: 0, files: 0 };
   const score = Math.round(100 * Math.max(0, Math.min(1, 1 - (files - 1) / hard.length)));
@@ -4887,10 +4981,24 @@ function computeScores(findings, filesScanned) {
     exposure: e.score,
     agility: a.score,
     exposureInputs: [
-      { label: "HIGH (Shor) key agreement / KEM", value: count((f) => f.quantumRisk === "HIGH" && (f.primitive === "key-agreement" || f.primitive === "kem")) },
-      { label: "HIGH (Shor) public-key encryption", value: count((f) => f.quantumRisk === "HIGH" && f.primitive === "pke") },
-      { label: "HIGH (Shor) signatures", value: count((f) => f.quantumRisk === "HIGH" && f.primitive === "signature") },
-      { label: "Classically broken (MD5, SHA-1, DES, RC4, short RSA\u2026)", value: count((f) => f.quantumRisk === "CLASSICAL_BROKEN") },
+      {
+        label: "HIGH (Shor) key agreement / KEM",
+        value: count(
+          (f) => f.quantumRisk === "HIGH" && (f.primitive === "key-agreement" || f.primitive === "kem")
+        )
+      },
+      {
+        label: "HIGH (Shor) public-key encryption",
+        value: count((f) => f.quantumRisk === "HIGH" && f.primitive === "pke")
+      },
+      {
+        label: "HIGH (Shor) signatures",
+        value: count((f) => f.quantumRisk === "HIGH" && f.primitive === "signature")
+      },
+      {
+        label: "Classically broken (MD5, SHA-1, DES, RC4, short RSA\u2026)",
+        value: count((f) => f.quantumRisk === "CLASSICAL_BROKEN")
+      },
       { label: "LOW (Grover) \u2014 e.g. AES-128", value: count((f) => f.quantumRisk === "LOW") },
       { label: "Confidence-weighted sum", value: e.weighted },
       { label: "Files analysed", value: filesScanned },
@@ -4904,7 +5012,7 @@ function computeScores(findings, filesScanned) {
   };
 }
 
-// packages/cbom-engine/generated/rules.json
+// generated/rules.json
 var rules_default = [
   {
     id: "nginx-ecdh-curve",
@@ -7949,7 +8057,7 @@ var rules_default = [
   }
 ];
 
-// packages/cbom-engine/generated/fixes.json
+// generated/fixes.json
 var fixes_default = {
   "c-openssl-pq": {
     id: "c-openssl-pq",
@@ -8716,12 +8824,12 @@ var fixes_default = {
   }
 };
 
-// packages/cbom-engine/src/rules.ts
+// src/rules.ts
 var RULES = rules_default;
 var FIXES = fixes_default;
 var getFix = (id) => id ? FIXES[id] : void 0;
 
-// packages/cbom-engine/src/engine.ts
+// src/engine.ts
 var ENGINE_VERSION = "1.0.0";
 var TOOL_NAME = "QuantumBOM (Q-Day India)";
 var SUPPRESS = /quantumbom:ignore/;
@@ -8877,7 +8985,10 @@ var Engine = class _Engine {
         for (const site of extractCalls(tree, lang, l)) {
           for (const rule of callRules) {
             if (!callMatches(rule, site)) continue;
-            const variant = pickVariant(rule, fromCall(site, rule.variant_from ?? (rule.variants ? "arg0" : void 0)));
+            const variant = pickVariant(
+              rule,
+              fromCall(site, rule.variant_from ?? (rule.variants ? "arg0" : void 0))
+            );
             if (variant === null || variant?.skip) continue;
             out3.push(
               this.finding(
@@ -8898,7 +9009,14 @@ var Engine = class _Engine {
           const variant = pickVariant(rule, hit.value);
           if (variant === null || variant?.skip) continue;
           out3.push(
-            this.finding(rule, variant, path, at(hit.node), snippetFor(lines, hit.node.startPosition.row, hit.node.endPosition.row), parseKeySize(hit.keySizeText))
+            this.finding(
+              rule,
+              variant,
+              path,
+              at(hit.node),
+              snippetFor(lines, hit.node.startPosition.row, hit.node.endPosition.row),
+              parseKeySize(hit.keySizeText)
+            )
           );
         }
       }
@@ -8936,10 +9054,23 @@ var Engine = class _Engine {
           if (spec.startsWith("group:")) return m.groups?.[spec.slice(6)];
           return void 0;
         };
-        const variant = pickVariant(rule, group(rule.variant_from ?? (rule.variants ? "group:alg" : void 0)));
+        const variant = pickVariant(
+          rule,
+          group(rule.variant_from ?? (rule.variants ? "group:alg" : void 0))
+        );
         if (variant === null || variant?.skip) continue;
         const endRow = row + (m[0].match(/\n/g)?.length ?? 0);
-        out3.push(this.finding(rule, variant, path, { row, col: idx - lineStarts[row] }, snippetFor(lines, row, endRow), parseKeySize(group(rule.key_size)), group(rule.parameter)));
+        out3.push(
+          this.finding(
+            rule,
+            variant,
+            path,
+            { row, col: idx - lineStarts[row] },
+            snippetFor(lines, row, endRow),
+            parseKeySize(group(rule.key_size)),
+            group(rule.parameter)
+          )
+        );
       }
     }
     return out3;
@@ -8979,8 +9110,18 @@ var Engine = class _Engine {
   async scan(files, o) {
     const started = Date.now();
     const maxFiles = o.maxFiles ?? MAX_FILES;
-    const excludes = (o.exclude ?? []).map((g) => globToRegExp(g.includes("/") || g.startsWith("**") ? g : `**/${g}`));
-    const stats = { filesSeen: 0, filesScanned: 0, skipped: {}, bytesScanned: 0, durationMs: 0, byLanguage: {}, suppressed: 0 };
+    const excludes = (o.exclude ?? []).map(
+      (g) => globToRegExp(g.includes("/") || g.startsWith("**") ? g : `**/${g}`)
+    );
+    const stats = {
+      filesSeen: 0,
+      filesScanned: 0,
+      skipped: {},
+      bytesScanned: 0,
+      durationMs: 0,
+      byLanguage: {},
+      suppressed: 0
+    };
     const findings = [];
     const warnings = [];
     const skip = (r) => stats.skipped[r] = (stats.skipped[r] ?? 0) + 1;
@@ -9020,9 +9161,17 @@ var Engine = class _Engine {
       } catch (err2) {
         warnings.push(`Could not analyse ${path}: ${err2 instanceof Error ? err2.message : String(err2)}`);
       }
-      o.onProgress?.({ filesDone: stats.filesScanned, filesTotal: o.filesTotal, findings: findings.length, current: path });
+      o.onProgress?.({
+        filesDone: stats.filesScanned,
+        filesTotal: o.filesTotal,
+        findings: findings.length,
+        current: path
+      });
     }
-    if (stats.skipped.cap) warnings.push(`Only the first ${maxFiles} relevant files were analysed; ${stats.skipped.cap} more were skipped.`);
+    if (stats.skipped.cap)
+      warnings.push(
+        `Only the first ${maxFiles} relevant files were analysed; ${stats.skipped.cap} more were skipped.`
+      );
     stats.durationMs = Date.now() - started;
     findings.sort((a, b) => a.file.localeCompare(b.file) || a.line - b.line || a.column - b.column);
     return {
@@ -9038,7 +9187,7 @@ var Engine = class _Engine {
 };
 var createEngine = (opts) => Engine.create(opts);
 
-// packages/cbom-engine/src/node.ts
+// src/node.ts
 var require2 = createRequire(import.meta.url);
 function nodeWasmLocator(wasmDir) {
   return async (file) => {
@@ -9076,7 +9225,7 @@ async function* walk(root, engine) {
   }
 }
 
-// packages/cbom-engine/src/algorithms.ts
+// src/algorithms.ts
 var META = [
   [/^ML-KEM-512/i, () => ({ nist: 1, oid: "2.16.840.1.101.3.4.4.1" })],
   [/^ML-KEM-768/i, () => ({ nist: 3, oid: "2.16.840.1.101.3.4.4.2" })],
@@ -9085,8 +9234,18 @@ var META = [
   [/^ML-DSA-65/i, () => ({ nist: 3, oid: "2.16.840.1.101.3.4.3.18" })],
   [/^ML-DSA-87/i, () => ({ nist: 5, oid: "2.16.840.1.101.3.4.3.19" })],
   [/^X25519MLKEM768|hybrid/i, () => ({ nist: 3 })],
-  [/^RSA/i, (b) => ({ nist: 0, classical: b ? b >= 15360 ? 256 : b >= 7680 ? 192 : b >= 3072 ? 128 : b >= 2048 ? 112 : 80 : void 0, oid: "1.2.840.113549.1.1.1" })],
-  [/^(ECDSA|ECDH|ECC|EC\b|EC$)/i, (b) => ({ nist: 0, classical: b ? Math.floor(b / 2) : void 0, oid: "1.2.840.10045.2.1" })],
+  [
+    /^RSA/i,
+    (b) => ({
+      nist: 0,
+      classical: b ? b >= 15360 ? 256 : b >= 7680 ? 192 : b >= 3072 ? 128 : b >= 2048 ? 112 : 80 : void 0,
+      oid: "1.2.840.113549.1.1.1"
+    })
+  ],
+  [
+    /^(ECDSA|ECDH|ECC|EC\b|EC$)/i,
+    (b) => ({ nist: 0, classical: b ? Math.floor(b / 2) : void 0, oid: "1.2.840.10045.2.1" })
+  ],
   [/^Ed25519/i, () => ({ nist: 0, classical: 128, oid: "1.3.101.112" })],
   [/^Ed448/i, () => ({ nist: 0, classical: 224, oid: "1.3.101.113" })],
   [/^X25519/i, () => ({ nist: 0, classical: 128, oid: "1.3.101.110" })],
@@ -9138,7 +9297,7 @@ var CRYPTO_FUNCTIONS = {
   rng: ["generate"]
 };
 
-// packages/cbom-engine/src/export/cyclonedx.ts
+// src/export/cyclonedx.ts
 function uuid(seed) {
   let h1 = 2166136261;
   let h2 = 16777619;
@@ -9185,7 +9344,10 @@ function toCycloneDX(report) {
       name2 = `${assetName(f)} ${type.replace("-", " ")}`;
       crypto.relatedCryptoMaterialProperties = { type, ...f.keySize ? { size: f.keySize } : {} };
     } else if (f.assetType === "protocol") {
-      crypto.protocolProperties = { type: /ssh/i.test(f.algorithm) ? "ssh" : "tls", ...f.parameter ? { version: f.parameter } : {} };
+      crypto.protocolProperties = {
+        type: /ssh/i.test(f.algorithm) ? "ssh" : "tls",
+        ...f.parameter ? { version: f.parameter } : {}
+      };
     } else {
       crypto.algorithmProperties = {
         primitive: /RC4/i.test(f.algorithm) ? "stream-cipher" : CDX_PRIMITIVE[f.primitive],
@@ -9245,14 +9407,19 @@ function toCycloneDX(report) {
   };
 }
 
-// packages/cbom-engine/src/export/sarif.ts
+// src/export/sarif.ts
 var LEVEL = {
   HIGH: "warning",
   CLASSICAL_BROKEN: "error",
   LOW: "note",
   NONE: "none"
 };
-var SEVERITY = { HIGH: "6.0", CLASSICAL_BROKEN: "7.0", LOW: "3.0", NONE: "0.0" };
+var SEVERITY = {
+  HIGH: "6.0",
+  CLASSICAL_BROKEN: "7.0",
+  LOW: "3.0",
+  NONE: "0.0"
+};
 var RISK_TEXT = {
   HIGH: "not quantum-safe (breakable by Shor\u2019s algorithm on a future quantum computer); migration recommended",
   CLASSICAL_BROKEN: "already weak against classical attacks; replace now",
@@ -9310,7 +9477,12 @@ ${fix.replacement}` : RISK_TEXT[sample.quantumRisk],
       }
     ],
     partialFingerprints: { "qdayFinding/v1": `${f.ruleId}:${f.file}:${f.snippet.split("\n")[0].trim()}` },
-    properties: { algorithm: f.algorithm, quantumRisk: f.quantumRisk, confidence: f.confidence, ...f.keySize ? { keySize: f.keySize } : {} }
+    properties: {
+      algorithm: f.algorithm,
+      quantumRisk: f.quantumRisk,
+      confidence: f.confidence,
+      ...f.keySize ? { keySize: f.keySize } : {}
+    }
   }));
   return {
     $schema: "https://json.schemastore.org/sarif-2.1.0.json",
@@ -9335,7 +9507,7 @@ ${fix.replacement}` : RISK_TEXT[sample.quantumRisk],
   };
 }
 
-// packages/cbom-engine/src/export/markdown.ts
+// src/export/markdown.ts
 var HEADINGS = {
   HIGH: "Not quantum-safe (Shor) \u2014 migration recommended",
   CLASSICAL_BROKEN: "Already weak today \u2014 replace now",
@@ -9360,19 +9532,23 @@ function toMarkdown(report) {
   out3.push("");
   out3.push("## Scores");
   out3.push("");
-  out3.push(`| Score | Value |
+  out3.push(
+    `| Score | Value |
 |---|---|
 | Quantum Exposure | **${report.scores.exposure}/100** |
-| Crypto-Agility | **${report.scores.agility}/100** |`);
+| Crypto-Agility | **${report.scores.agility}/100** |`
+  );
   out3.push("");
   out3.push("<details><summary>Score inputs</summary>\n");
-  for (const i2 of [...report.scores.exposureInputs, ...report.scores.agilityInputs]) out3.push(`- ${i2.label}: ${i2.value}`);
+  for (const i2 of [...report.scores.exposureInputs, ...report.scores.agilityInputs])
+    out3.push(`- ${i2.label}: ${i2.value}`);
   out3.push("\n</details>");
   out3.push("");
   out3.push("## Summary");
   out3.push("");
   out3.push("| Risk | Findings |\n|---|---|");
-  for (const r of ORDER) out3.push(`| ${HEADINGS[r]} | ${report.findings.filter((f) => f.quantumRisk === r).length} |`);
+  for (const r of ORDER)
+    out3.push(`| ${HEADINGS[r]} | ${report.findings.filter((f) => f.quantumRisk === r).length} |`);
   out3.push("");
   const fixIds = /* @__PURE__ */ new Set();
   for (const r of ORDER) {
@@ -9388,7 +9564,9 @@ function toMarkdown(report) {
       for (const f of list) {
         const fix = getFix(f.fixId);
         if (fix) fixIds.add(fix.id);
-        out3.push(`- **Line ${f.line}** \u2014 ${assetName(f)} (${f.primitive}, confidence ${f.confidence}): ${f.message}${fix ? ` Fix: [${fix.title}](#fix-${fix.id})` : ""}`);
+        out3.push(
+          `- **Line ${f.line}** \u2014 ${assetName(f)} (${f.primitive}, confidence ${f.confidence}): ${f.message}${fix ? ` Fix: [${fix.title}](#fix-${fix.id})` : ""}`
+        );
         out3.push("");
         out3.push(fence(f.snippet).replace(/^/gm, "  "));
         out3.push("");
@@ -9415,11 +9593,13 @@ function toMarkdown(report) {
     out3.push("");
   }
   out3.push("---");
-  out3.push("Static analysis has false positives and misses algorithms chosen at runtime; confidence levels are shown per finding. Generated by Q-Day India QuantumBOM \u2014 the code never left the machine it was scanned on.");
+  out3.push(
+    "Static analysis has false positives and misses algorithms chosen at runtime; confidence levels are shown per finding. Generated by Q-Day India QuantumBOM \u2014 the code never left the machine it was scanned on."
+  );
   return out3.join("\n") + "\n";
 }
 
-// packages/cbom-engine/src/cli.ts
+// src/cli.ts
 function parseArgs(argv) {
   const a = { dir: ".", exclude: [], quiet: false };
   const rest = [...argv];
@@ -9445,7 +9625,9 @@ function parseArgs(argv) {
         a.json = val();
         break;
       case "--exclude":
-        a.exclude.push(...val().split(",").map((s) => s.trim()).filter(Boolean));
+        a.exclude.push(
+          ...val().split(",").map((s) => s.trim()).filter(Boolean)
+        );
         break;
       case "--fail-above":
         a.failAbove = Number(val());

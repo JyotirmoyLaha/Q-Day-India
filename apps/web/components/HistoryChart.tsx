@@ -28,7 +28,11 @@ export function HistoryChart({ history }: { history: HistoryPoint[] }) {
               />
               <Tooltip
                 formatter={(v) => [LABEL[Number(v)] ?? String(v), 'Grade']}
-                contentStyle={{ background: 'var(--card)', border: '1px solid var(--line)', color: 'var(--fg)' }}
+                contentStyle={{
+                  background: 'var(--card)',
+                  border: '1px solid var(--line)',
+                  color: 'var(--fg)',
+                }}
               />
               <Line type="stepAfter" dataKey="score" stroke="var(--accent)" strokeWidth={2} dot={{ r: 3 }} />
             </LineChart>
@@ -40,7 +44,9 @@ export function HistoryChart({ history }: { history: HistoryPoint[] }) {
         </p>
       )}
       <figcaption className="mt-2 text-xs text-muted">
-        {data.length ? `Grade by scan date: ${data.map((d) => `${d.date}: ${LABEL[d.score]}`).join(' · ')}` : 'No graded scans yet.'}
+        {data.length
+          ? `Grade by scan date: ${data.map((d) => `${d.date}: ${LABEL[d.score]}`).join(' · ')}`
+          : 'No graded scans yet.'}
       </figcaption>
     </figure>
   );

@@ -10,7 +10,12 @@ const LEVEL: Record<QuantumRisk, 'error' | 'warning' | 'note' | 'none'> = {
   NONE: 'none',
 };
 
-const SEVERITY: Record<QuantumRisk, string> = { HIGH: '6.0', CLASSICAL_BROKEN: '7.0', LOW: '3.0', NONE: '0.0' };
+const SEVERITY: Record<QuantumRisk, string> = {
+  HIGH: '6.0',
+  CLASSICAL_BROKEN: '7.0',
+  LOW: '3.0',
+  NONE: '0.0',
+};
 
 const RISK_TEXT: Record<QuantumRisk, string> = {
   HIGH: 'not quantum-safe (breakable by Shor’s algorithm on a future quantum computer); migration recommended',
@@ -69,7 +74,12 @@ export function toSARIF(report: ScanReport, uriBase = '%SRCROOT%'): Record<strin
       },
     ],
     partialFingerprints: { 'qdayFinding/v1': `${f.ruleId}:${f.file}:${f.snippet.split('\n')[0]!.trim()}` },
-    properties: { algorithm: f.algorithm, quantumRisk: f.quantumRisk, confidence: f.confidence, ...(f.keySize ? { keySize: f.keySize } : {}) },
+    properties: {
+      algorithm: f.algorithm,
+      quantumRisk: f.quantumRisk,
+      confidence: f.confidence,
+      ...(f.keySize ? { keySize: f.keySize } : {}),
+    },
   }));
 
   return {

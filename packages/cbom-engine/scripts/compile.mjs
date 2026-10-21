@@ -30,7 +30,9 @@ const checkRe = (where, src) => {
 
 // --- fixes ----------------------------------------------------------------------
 const fixes = {};
-for (const f of readdirSync(join(pkg, 'fixes')).filter((f) => f.endsWith('.md')).sort()) {
+for (const f of readdirSync(join(pkg, 'fixes'))
+  .filter((f) => f.endsWith('.md'))
+  .sort()) {
   const raw = readFileSync(join(pkg, 'fixes', f), 'utf8').replace(/\r\n/g, '\n');
   const m = /^---\n([\s\S]*?)\n---\n([\s\S]*)$/.exec(raw);
   if (!m) {
@@ -54,14 +56,19 @@ for (const f of readdirSync(join(pkg, 'fixes')).filter((f) => f.endsWith('.md'))
   fixes[meta.id] = {
     id: meta.id,
     title: meta.title,
-    verified: String(meta.verified instanceof Date ? meta.verified.toISOString().slice(0, 10) : meta.verified),
+    verified: String(
+      meta.verified instanceof Date ? meta.verified.toISOString().slice(0, 10) : meta.verified,
+    ),
     appliesTo: meta.applies ?? [],
     why: sections.why ?? '',
     replacement: sections.replacement ?? '',
     before: code(sections.before),
     after: code(sections.after),
     caveats: sections.caveats ?? '',
-    references: (sections.references ?? '').split('\n').map((l) => l.replace(/^[-*]\s*/, '').trim()).filter(Boolean),
+    references: (sections.references ?? '')
+      .split('\n')
+      .map((l) => l.replace(/^[-*]\s*/, '').trim())
+      .filter(Boolean),
     markdown: body,
   };
 }
@@ -69,7 +76,9 @@ for (const f of readdirSync(join(pkg, 'fixes')).filter((f) => f.endsWith('.md'))
 // --- rules ----------------------------------------------------------------------
 const rules = [];
 const ids = new Set();
-for (const f of readdirSync(join(pkg, 'rules')).filter((f) => f.endsWith('.yaml')).sort()) {
+for (const f of readdirSync(join(pkg, 'rules'))
+  .filter((f) => f.endsWith('.yaml'))
+  .sort()) {
   const doc = parse(readFileSync(join(pkg, 'rules', f), 'utf8')) ?? [];
   for (const r of doc) {
     const where = `${f}#${r.id ?? '?'}`;
@@ -91,7 +100,8 @@ for (const f of readdirSync(join(pkg, 'rules')).filter((f) => f.endsWith('.yaml'
       r.language = [...new Set(langs)];
       if (!r.query && !r.callee) fail(where, 'treesitter rules need query or callee');
       if (r.callee) checkRe(where, r.callee);
-      for (const k of ['args', 'kwargs', 'props']) for (const v of Object.values(r[k] ?? {})) checkRe(where, v);
+      for (const k of ['args', 'kwargs', 'props'])
+        for (const v of Object.values(r[k] ?? {})) checkRe(where, v);
     }
     if (r.kind === 'regex') {
       if (!r.pattern) fail(where, 'regex rules need pattern');
@@ -123,7 +133,13 @@ for (const f of readdirSync(join(pkg, 'rules')).filter((f) => f.endsWith('.yaml'
 }
 
 // Fixes referenced by built-in key-material findings.
-for (const id of ['certificate-classical', 'private-key-in-repo', 'rsa-to-mlkem', 'signatures-to-mldsa', 'ssh-keys'])
+for (const id of [
+  'certificate-classical',
+  'private-key-in-repo',
+  'rsa-to-mlkem',
+  'signatures-to-mldsa',
+  'ssh-keys',
+])
   if (!fixes[id]) fail('builtin', `fix ${id} is required by the PEM scanner`);
 
 if (errors.length) {

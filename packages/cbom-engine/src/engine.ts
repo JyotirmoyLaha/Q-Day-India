@@ -1,8 +1,26 @@
 // QuantumBOM engine: runs rules over files and assembles a ScanReport. It has
 // no DOM or Node dependencies; WASM files are located through `locateWasm`.
 import { Language, Parser, type Node } from 'web-tree-sitter';
-import type { Finding, Rule, ScanReport, ScanSource, ScanStats, SourceFile, TreeLanguage, Variant } from './types';
-import { classify, commentPrefixes, contentSkipReason, globToRegExp, MAX_FILES, matchesGlobs, normalizePath, pathSkipReason } from './files';
+import type {
+  Finding,
+  Rule,
+  ScanReport,
+  ScanSource,
+  ScanStats,
+  SourceFile,
+  TreeLanguage,
+  Variant,
+} from './types';
+import {
+  classify,
+  commentPrefixes,
+  contentSkipReason,
+  globToRegExp,
+  MAX_FILES,
+  matchesGlobs,
+  normalizePath,
+  pathSkipReason,
+} from './files';
 import { callMatches, extractCalls, fromCall, getQuery, queryHits, re } from './matchers/treesitter';
 import { scanKeyMaterial } from './matchers/pem';
 import { extractDependencies, versionBelow } from './matchers/manifest';
@@ -159,7 +177,11 @@ export class Engine {
     if (c?.kind === 'tree') out.push(...(await this.scanTree(path, text, lines, c.language)));
     if (c?.kind === 'manifest') out.push(...this.scanManifest(path, text));
     out.push(...this.scanRegex(path, text, lines));
-    if (c?.kind === 'key' || text.includes('-----BEGIN ') || /(?:^|\s)(ssh-rsa|ssh-ed25519|ssh-dss|ecdsa-sha2-nistp\d+) AAAA/.test(text))
+    if (
+      c?.kind === 'key' ||
+      text.includes('-----BEGIN ') ||
+      /(?:^|\s)(ssh-rsa|ssh-ed25519|ssh-dss|ecdsa-sha2-nistp\d+) AAAA/.test(text)
+    )
       out.push(...scanKeyMaterial(path, text));
 
     const seen = new Set<string>();
@@ -182,7 +204,15 @@ export class Engine {
   /** Findings suppressed with `quantumbom:ignore` in the last scanFile call. */
   lastSuppressed = 0;
 
-  private finding(rule: Rule, variant: Variant | undefined, file: string, node: { row: number; col: number }, snippet: string, keySize?: number, parameter?: string): Finding {
+  private finding(
+    rule: Rule,
+    variant: Variant | undefined,
+    file: string,
+    node: { row: number; col: number },
+    snippet: string,
+    keySize?: number,
+    parameter?: string,
+  ): Finding {
     const v: Partial<Variant> = variant ?? {};
     return {
       ruleId: rule.id,
@@ -218,7 +248,10 @@ export class Engine {
         for (const site of extractCalls(tree, lang, l)) {
           for (const rule of callRules) {
             if (!callMatches(rule, site)) continue;
-            const variant = pickVariant(rule, fromCall(site, rule.variant_from ?? (rule.variants ? 'arg0' : undefined)));
+            const variant = pickVariant(
+              rule,
+              fromCall(site, rule.variant_from ?? (rule.variants ? 'arg0' : undefined)),
+            );
             if (variant === null || variant?.skip) continue;
             out.push(
               this.finding(
@@ -239,7 +272,14 @@ export class Engine {
           const variant = pickVariant(rule, hit.value);
           if (variant === null || variant?.skip) continue;
           out.push(
-            this.finding(rule, variant, path, at(hit.node), snippetFor(lines, hit.node.startPosition.row, hit.node.endPosition.row), parseKeySize(hit.keySizeText)),
+            this.finding(
+              rule,
+              variant,
+              path,
+              at(hit.node),
+              snippetFor(lines, hit.node.startPosition.row, hit.node.endPosition.row),
+              parseKeySize(hit.keySizeText),
+            ),
           );
         }
       }
@@ -263,7 +303,7 @@ export class Engine {
         }
         const idx = m.index!;
         let row = 0;
-        for (let lo = 0, hi = lineStarts.length - 1; lo <= hi; ) {
+        for (let lo = 0, hi = lineStarts.length - 1; lo <= hi;) {
           const mid = (lo + hi) >> 1;
           if (lineStarts[mid]! <= idx) {
             row = mid;
@@ -278,10 +318,23 @@ export class Engine {
           if (spec.startsWith('group:')) return m.groups?.[spec.slice(6)];
           return undefined;
         };
-        const variant = pickVariant(rule, group(rule.variant_from ?? (rule.variants ? 'group:alg' : undefined)));
+        const variant = pickVariant(
+          rule,
+          group(rule.variant_from ?? (rule.variants ? 'group:alg' : undefined)),
+        );
         if (variant === null || variant?.skip) continue;
         const endRow = row + (m[0].match(/\n/g)?.length ?? 0);
-        out.push(this.finding(rule, variant, path, { row, col: idx - lineStarts[row]! }, snippetFor(lines, row, endRow), parseKeySize(group(rule.key_size)), group(rule.parameter)));
+        out.push(
+          this.finding(
+            rule,
+            variant,
+            path,
+            { row, col: idx - lineStarts[row]! },
+            snippetFor(lines, row, endRow),
+            parseKeySize(group(rule.key_size)),
+            group(rule.parameter),
+          ),
+        );
       }
     }
     return out;
@@ -323,8 +376,18 @@ export class Engine {
   async scan(files: Iterable<SourceFile> | AsyncIterable<SourceFile>, o: ScanOptions): Promise<ScanReport> {
     const started = Date.now();
     const maxFiles = o.maxFiles ?? MAX_FILES;
-    const excludes = (o.exclude ?? []).map((g) => globToRegExp(g.includes('/') || g.startsWith('**') ? g : `**/${g}`));
-    const stats: ScanStats = { filesSeen: 0, filesScanned: 0, skipped: {}, bytesScanned: 0, durationMs: 0, byLanguage: {}, suppressed: 0 };
+    const excludes = (o.exclude ?? []).map((g) =>
+      globToRegExp(g.includes('/') || g.startsWith('**') ? g : `**/${g}`),
+    );
+    const stats: ScanStats = {
+      filesSeen: 0,
+      filesScanned: 0,
+      skipped: {},
+      bytesScanned: 0,
+      durationMs: 0,
+      byLanguage: {},
+      suppressed: 0,
+    };
     const findings: Finding[] = [];
     const warnings: string[] = [];
     const skip = (r: keyof ScanStats['skipped']) => (stats.skipped[r] = (stats.skipped[r] ?? 0) + 1);
@@ -365,9 +428,17 @@ export class Engine {
       } catch (err) {
         warnings.push(`Could not analyse ${path}: ${err instanceof Error ? err.message : String(err)}`);
       }
-      o.onProgress?.({ filesDone: stats.filesScanned, filesTotal: o.filesTotal, findings: findings.length, current: path });
+      o.onProgress?.({
+        filesDone: stats.filesScanned,
+        filesTotal: o.filesTotal,
+        findings: findings.length,
+        current: path,
+      });
     }
-    if (stats.skipped.cap) warnings.push(`Only the first ${maxFiles} relevant files were analysed; ${stats.skipped.cap} more were skipped.`);
+    if (stats.skipped.cap)
+      warnings.push(
+        `Only the first ${maxFiles} relevant files were analysed; ${stats.skipped.cap} more were skipped.`,
+      );
     stats.durationMs = Date.now() - started;
     findings.sort((a, b) => a.file.localeCompare(b.file) || a.line - b.line || a.column - b.column);
     return {

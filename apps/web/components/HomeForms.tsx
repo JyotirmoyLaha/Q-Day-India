@@ -40,11 +40,17 @@ export function HomeForms({ trackedHosts }: { trackedHosts: string[] }) {
 
   return (
     <div className="grid gap-4 md:grid-cols-2">
-      <form onSubmit={checkSite} className="rounded-xl border border-line bg-card p-5" aria-labelledby="check-site">
+      <form
+        onSubmit={checkSite}
+        className="rounded-xl border border-line bg-card p-5"
+        aria-labelledby="check-site"
+      >
         <h2 id="check-site" className="font-serif text-xl font-semibold">
           {t('home.checkSite')}
         </h2>
-        <p className="mt-1 text-sm text-muted">Live TLS check of the public edge: grade, HNDL exposure and fixes.</p>
+        <p className="mt-1 text-sm text-muted">
+          Live TLS check of the public edge: grade, HNDL exposure and fixes.
+        </p>
         <div className="mt-4 flex gap-2">
           <label htmlFor="host" className="sr-only">
             Website hostname
@@ -64,7 +70,11 @@ export function HomeForms({ trackedHosts }: { trackedHosts: string[] }) {
           </button>
         </div>
       </form>
-      <form onSubmit={scanCode} className="rounded-xl border border-line bg-card p-5" aria-labelledby="scan-code">
+      <form
+        onSubmit={scanCode}
+        className="rounded-xl border border-line bg-card p-5"
+        aria-labelledby="scan-code"
+      >
         <h2 id="scan-code" className="font-serif text-xl font-semibold">
           {t('home.scanCode')}
         </h2>

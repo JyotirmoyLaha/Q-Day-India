@@ -66,12 +66,7 @@ export type SiteResult = {
 };
 
 export type HygieneFlag =
-  | 'RSA_LT_2048'
-  | 'SHA1_IN_CHAIN'
-  | 'CERT_EXPIRING_SOON'
-  | 'NO_HSTS'
-  | 'LEGACY_TLS'
-  | 'CERT_INVALID';
+  'RSA_LT_2048' | 'SHA1_IN_CHAIN' | 'CERT_EXPIRING_SOON' | 'NO_HSTS' | 'LEGACY_TLS' | 'CERT_INVALID';
 
 export type ScanFile = {
   scannedAt: string;

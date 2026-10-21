@@ -12,8 +12,22 @@
     - { match: '^DSA$', algorithm: DSA, primitive: signature }
     - { match: '^(Ed25519|Ed448|EdDSA)$', algorithm: Ed25519, primitive: signature }
     - { match: '^(X25519|X448|XDH)$', algorithm: X25519, primitive: key-agreement, fix: ecdh-to-hybrid }
-    - { match: '^ML-KEM', algorithm: ML-KEM, primitive: kem, quantum_risk: NONE, fix: pq-library-present, message: Post-quantum ML-KEM key generation. }
-    - { match: '^ML-DSA', algorithm: ML-DSA, primitive: signature, quantum_risk: NONE, fix: pq-library-present, message: Post-quantum ML-DSA key generation. }
+    - {
+        match: '^ML-KEM',
+        algorithm: ML-KEM,
+        primitive: kem,
+        quantum_risk: NONE,
+        fix: pq-library-present,
+        message: Post-quantum ML-KEM key generation.,
+      }
+    - {
+        match: '^ML-DSA',
+        algorithm: ML-DSA,
+        primitive: signature,
+        quantum_risk: NONE,
+        fix: pq-library-present,
+        message: Post-quantum ML-DSA key generation.,
+      }
   algorithm: RSA
   primitive: pke
   quantum_risk: HIGH
@@ -44,7 +58,13 @@
     - { match: 'ECDSA', algorithm: ECDSA }
     - { match: 'withDSA|^DSA$', algorithm: DSA }
     - { match: '^(Ed25519|Ed448|EdDSA)$', algorithm: Ed25519 }
-    - { match: '^ML-DSA', algorithm: ML-DSA, quantum_risk: NONE, fix: pq-library-present, message: Post-quantum ML-DSA signature. }
+    - {
+        match: '^ML-DSA',
+        algorithm: ML-DSA,
+        quantum_risk: NONE,
+        fix: pq-library-present,
+        message: Post-quantum ML-DSA signature.,
+      }
   algorithm: RSA
   primitive: signature
   quantum_risk: HIGH
@@ -70,12 +90,54 @@
   kind: treesitter
   callee: '(^|\.)Cipher\.getInstance$'
   variants:
-    - { match: '^RSA', algorithm: RSA, primitive: pke, quantum_risk: HIGH, fix: java-mlkem, message: RSA encryption — not quantum-safe. }
-    - { match: '^ECIES', algorithm: ECIES, primitive: pke, quantum_risk: HIGH, fix: java-mlkem, message: ECIES encryption — not quantum-safe. }
-    - { match: '^(DESede|TripleDES)', algorithm: 3DES, primitive: symmetric, quantum_risk: CLASSICAL_BROKEN, fix: legacy-ciphers, message: Triple-DES — withdrawn by NIST. }
-    - { match: '^DES', algorithm: DES, primitive: symmetric, quantum_risk: CLASSICAL_BROKEN, fix: legacy-ciphers, message: DES — brute-forceable today. }
-    - { match: '^(RC4|ARCFOUR|RC2|Blowfish)', algorithm: RC4/Blowfish, primitive: symmetric, quantum_risk: CLASSICAL_BROKEN, fix: legacy-ciphers, message: Legacy cipher — weak against classical attacks. }
-    - { match: '^AES_128', algorithm: AES-128, primitive: symmetric, quantum_risk: LOW, fix: symmetric-aes256, message: AES-128 — AES-256 recommended for long-lived data. }
+    - {
+        match: '^RSA',
+        algorithm: RSA,
+        primitive: pke,
+        quantum_risk: HIGH,
+        fix: java-mlkem,
+        message: RSA encryption — not quantum-safe.,
+      }
+    - {
+        match: '^ECIES',
+        algorithm: ECIES,
+        primitive: pke,
+        quantum_risk: HIGH,
+        fix: java-mlkem,
+        message: ECIES encryption — not quantum-safe.,
+      }
+    - {
+        match: '^(DESede|TripleDES)',
+        algorithm: 3DES,
+        primitive: symmetric,
+        quantum_risk: CLASSICAL_BROKEN,
+        fix: legacy-ciphers,
+        message: Triple-DES — withdrawn by NIST.,
+      }
+    - {
+        match: '^DES',
+        algorithm: DES,
+        primitive: symmetric,
+        quantum_risk: CLASSICAL_BROKEN,
+        fix: legacy-ciphers,
+        message: DES — brute-forceable today.,
+      }
+    - {
+        match: '^(RC4|ARCFOUR|RC2|Blowfish)',
+        algorithm: RC4/Blowfish,
+        primitive: symmetric,
+        quantum_risk: CLASSICAL_BROKEN,
+        fix: legacy-ciphers,
+        message: Legacy cipher — weak against classical attacks.,
+      }
+    - {
+        match: '^AES_128',
+        algorithm: AES-128,
+        primitive: symmetric,
+        quantum_risk: LOW,
+        fix: symmetric-aes256,
+        message: AES-128 — AES-256 recommended for long-lived data.,
+      }
     - { match: '.', skip: true }
   algorithm: RSA
   primitive: pke
@@ -152,7 +214,14 @@
   callee: '^new (RSAKeyPairGenerator|ECKeyPairGenerator|DSAKeyPairGenerator|DHKeyPairGenerator|Ed25519KeyPairGenerator|X25519KeyPairGenerator|RSAEngine|ECDSASigner|DSASigner|Ed25519Signer|ECDHBasicAgreement|DHBasicAgreement|X25519Agreement|ECIESKeyEncapsulation|RSADigestSigner|PSSSigner|MD5Digest|SHA1Digest|DESEngine|DESedeEngine|RC4Engine|BlowfishEngine|MLKEMKeyPairGenerator|MLDSASigner)$'
   variant_from: callee
   variants:
-    - { match: 'MLKEM|MLDSA', algorithm: ML-KEM/ML-DSA, primitive: kem, quantum_risk: NONE, fix: pq-library-present, message: Post-quantum BouncyCastle primitive. }
+    - {
+        match: 'MLKEM|MLDSA',
+        algorithm: ML-KEM/ML-DSA,
+        primitive: kem,
+        quantum_risk: NONE,
+        fix: pq-library-present,
+        message: Post-quantum BouncyCastle primitive.,
+      }
     - { match: 'RSA|PSS', algorithm: RSA, primitive: pke }
     - { match: 'ECDH|X25519|DH', algorithm: ECDH/DH, primitive: key-agreement, fix: ecdh-to-hybrid }
     - { match: 'EC|ECIES', algorithm: ECC, primitive: signature }
@@ -160,8 +229,20 @@
     - { match: 'Ed25519', algorithm: Ed25519, primitive: signature }
     - { match: 'MD5', algorithm: MD5, primitive: hash, quantum_risk: CLASSICAL_BROKEN, fix: hash-md5-sha1 }
     - { match: 'SHA1', algorithm: SHA-1, primitive: hash, quantum_risk: CLASSICAL_BROKEN, fix: hash-md5-sha1 }
-    - { match: 'DESede', algorithm: 3DES, primitive: symmetric, quantum_risk: CLASSICAL_BROKEN, fix: legacy-ciphers }
-    - { match: 'DES|RC4|Blowfish', algorithm: DES/RC4, primitive: symmetric, quantum_risk: CLASSICAL_BROKEN, fix: legacy-ciphers }
+    - {
+        match: 'DESede',
+        algorithm: 3DES,
+        primitive: symmetric,
+        quantum_risk: CLASSICAL_BROKEN,
+        fix: legacy-ciphers,
+      }
+    - {
+        match: 'DES|RC4|Blowfish',
+        algorithm: DES/RC4,
+        primitive: symmetric,
+        quantum_risk: CLASSICAL_BROKEN,
+        fix: legacy-ciphers,
+      }
   algorithm: RSA
   primitive: pke
   quantum_risk: HIGH

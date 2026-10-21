@@ -12,7 +12,17 @@ import { toSARIF } from './export/sarif';
 import { toMarkdown } from './export/markdown';
 import type { ScanReport } from './types';
 
-type Args = { dir: string; cbom?: string; sarif?: string; md?: string; json?: string; exclude: string[]; failAbove?: number; name?: string; quiet: boolean };
+type Args = {
+  dir: string;
+  cbom?: string;
+  sarif?: string;
+  md?: string;
+  json?: string;
+  exclude: string[];
+  failAbove?: number;
+  name?: string;
+  quiet: boolean;
+};
 
 export function parseArgs(argv: string[]): Args {
   const a: Args = { dir: '.', exclude: [], quiet: false };
@@ -26,14 +36,35 @@ export function parseArgs(argv: string[]): Args {
       return v;
     };
     switch (t) {
-      case '--cbom': a.cbom = val(); break;
-      case '--sarif': a.sarif = val(); break;
-      case '--md': a.md = val(); break;
-      case '--json': a.json = val(); break;
-      case '--exclude': a.exclude.push(...val().split(',').map((s) => s.trim()).filter(Boolean)); break;
-      case '--fail-above': a.failAbove = Number(val()); break;
-      case '--name': a.name = val(); break;
-      case '--quiet': a.quiet = true; break;
+      case '--cbom':
+        a.cbom = val();
+        break;
+      case '--sarif':
+        a.sarif = val();
+        break;
+      case '--md':
+        a.md = val();
+        break;
+      case '--json':
+        a.json = val();
+        break;
+      case '--exclude':
+        a.exclude.push(
+          ...val()
+            .split(',')
+            .map((s) => s.trim())
+            .filter(Boolean),
+        );
+        break;
+      case '--fail-above':
+        a.failAbove = Number(val());
+        break;
+      case '--name':
+        a.name = val();
+        break;
+      case '--quiet':
+        a.quiet = true;
+        break;
       case '-h':
       case '--help':
         throw new Error('usage');

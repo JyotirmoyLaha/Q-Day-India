@@ -29,6 +29,7 @@ for (const out of targets) {
     },
     logLevel: 'warning',
   });
-  for (const [name, spec] of Object.entries(WASM_FILES)) copyFileSync(require.resolve(spec), join(out, 'wasm', name));
+  for (const [name, spec] of Object.entries(WASM_FILES))
+    copyFileSync(require.resolve(spec), join(out, 'wasm', name));
   console.log(`bundle: ${out}`);
 }

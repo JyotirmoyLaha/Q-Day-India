@@ -8,8 +8,14 @@ export type RepoRef = { owner: string; repo: string; ref?: string; subpath?: str
 
 /** Accepts https://github.com/o/r, github.com/o/r/tree/branch/dir, o/r, git@github.com:o/r.git */
 export function parseGitHubURL(input: string): RepoRef | null {
-  const s = input.trim().replace(/\.git$/, '').replace(/\/+$/, '');
-  let m = /^(?:https?:\/\/)?(?:www\.)?github\.com\/([\w.-]+)\/([\w.-]+)(?:\/(?:tree|blob)\/([^/]+)(?:\/(.+))?)?$/i.exec(s);
+  const s = input
+    .trim()
+    .replace(/\.git$/, '')
+    .replace(/\/+$/, '');
+  let m =
+    /^(?:https?:\/\/)?(?:www\.)?github\.com\/([\w.-]+)\/([\w.-]+)(?:\/(?:tree|blob)\/([^/]+)(?:\/(.+))?)?$/i.exec(
+      s,
+    );
   if (!m) m = /^git@github\.com:([\w.-]+)\/([\w.-]+)$/i.exec(s);
   if (!m) m = /^([\w.-]+)\/([\w.-]+)$/.exec(s);
   if (!m) return null;
@@ -22,20 +28,38 @@ export class SourceError extends Error {}
 
 type TreeEntry = { path: string; type: string; size?: number };
 
-export type GitHubPlan = { owner: string; repo: string; sha: string; ref: string; files: TreeEntry[]; truncated: boolean; totalBlobs: number };
+export type GitHubPlan = {
+  owner: string;
+  repo: string;
+  sha: string;
+  ref: string;
+  files: TreeEntry[];
+  truncated: boolean;
+  totalBlobs: number;
+};
 
 const API = 'https://api.github.com';
 const RAW = 'https://raw.githubusercontent.com';
 
-async function api<T>(fetchFn: FetchLike, path: string, token?: string, accept = 'application/vnd.github+json'): Promise<T> {
+async function api<T>(
+  fetchFn: FetchLike,
+  path: string,
+  token?: string,
+  accept = 'application/vnd.github+json',
+): Promise<T> {
   const headers: Record<string, string> = { Accept: accept, 'X-GitHub-Api-Version': '2022-11-28' };
   if (token) headers.Authorization = `Bearer ${token}`;
   const res = await fetchFn(`${API}${path}`, { headers });
-  if (res.status === 404) throw new SourceError('Repository not found. Only public repositories can be scanned by URL. Use a zip upload for private code.');
+  if (res.status === 404)
+    throw new SourceError(
+      'Repository not found. Only public repositories can be scanned by URL. Use a zip upload for private code.',
+    );
   if (res.status === 403 || res.status === 429) {
     const reset = Number(res.headers.get('x-ratelimit-reset'));
     const when = reset ? ` (resets ${new Date(reset * 1000).toLocaleTimeString()})` : '';
-    throw new SourceError(`GitHub API rate limit reached${when}. Add a token (kept in memory only) or try again later.`);
+    throw new SourceError(
+      `GitHub API rate limit reached${when}. Add a token (kept in memory only) or try again later.`,
+    );
   }
   if (!res.ok) throw new SourceError(`GitHub API error ${res.status}`);
   return accept.includes('sha') ? ((await res.text()) as T) : ((await res.json()) as T);
@@ -49,15 +73,34 @@ export async function planGitHub(
 ): Promise<GitHubPlan> {
   const fetchFn = opts.fetchFn ?? fetch;
   const { owner, repo } = ref;
-  const meta = await api<{ default_branch: string; private?: boolean }>(fetchFn, `/repos/${owner}/${repo}`, opts.token);
-  if (meta.private) throw new SourceError('This repository is private. Use a zip upload so your code never leaves the browser.');
+  const meta = await api<{ default_branch: string; private?: boolean }>(
+    fetchFn,
+    `/repos/${owner}/${repo}`,
+    opts.token,
+  );
+  if (meta.private)
+    throw new SourceError(
+      'This repository is private. Use a zip upload so your code never leaves the browser.',
+    );
   const branch = ref.ref ?? meta.default_branch;
-  const sha = (await api<string>(fetchFn, `/repos/${owner}/${repo}/commits/${encodeURIComponent(branch)}`, opts.token, 'application/vnd.github.sha')).trim();
-  const tree = await api<{ tree: TreeEntry[]; truncated: boolean }>(fetchFn, `/repos/${owner}/${repo}/git/trees/${sha}?recursive=1`, opts.token);
+  const sha = (
+    await api<string>(
+      fetchFn,
+      `/repos/${owner}/${repo}/commits/${encodeURIComponent(branch)}`,
+      opts.token,
+      'application/vnd.github.sha',
+    )
+  ).trim();
+  const tree = await api<{ tree: TreeEntry[]; truncated: boolean }>(
+    fetchFn,
+    `/repos/${owner}/${repo}/git/trees/${sha}?recursive=1`,
+    opts.token,
+  );
   const max = opts.maxFileBytes ?? 512 * 1024;
   const blobs = tree.tree.filter((e) => e.type === 'blob');
   const files = blobs.filter(
-    (e) => (!ref.subpath || e.path.startsWith(`${ref.subpath}/`)) && (e.size ?? 0) <= max && isRelevant(e.path),
+    (e) =>
+      (!ref.subpath || e.path.startsWith(`${ref.subpath}/`)) && (e.size ?? 0) <= max && isRelevant(e.path),
   );
   return { owner, repo, sha, ref: branch, files, truncated: tree.truncated, totalBlobs: blobs.length };
 }

@@ -37,7 +37,13 @@ function Para({ label, text }: { label: string; text: string }) {
   return (
     <div className="mt-2">
       <p className="text-xs font-semibold uppercase tracking-wide text-muted">{label}</p>
-      <div className="mt-0.5 whitespace-pre-line">{text.replace(/```[\s\S]*?```/g, '').replace(/`([^`]+)`/g, '$1').replace(/\*\*([^*]+)\*\*/g, '$1').trim()}</div>
+      <div className="mt-0.5 whitespace-pre-line">
+        {text
+          .replace(/```[\s\S]*?```/g, '')
+          .replace(/`([^`]+)`/g, '$1')
+          .replace(/\*\*([^*]+)\*\*/g, '$1')
+          .trim()}
+      </div>
     </div>
   );
 }

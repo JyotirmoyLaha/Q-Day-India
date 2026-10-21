@@ -13,7 +13,9 @@ let controller: AbortController | null = null;
 const post = (m: WorkerMessage) => self.postMessage(m);
 
 function engine(): Promise<Engine> {
-  enginePromise ??= createEngine({ locateWasm: (file) => new URL(`/tree-sitter/${file}`, self.location.origin).href });
+  enginePromise ??= createEngine({
+    locateWasm: (file) => new URL(`/tree-sitter/${file}`, self.location.origin).href,
+  });
   return enginePromise;
 }
 
@@ -41,12 +43,24 @@ async function run(req: Extract<ScanRequest, { type: 'scan' }>) {
     if (!ref) throw new SourceError('Enter a GitHub repository URL such as https://github.com/owner/repo.');
     post({ type: 'status', message: `Reading the file list of ${ref.owner}/${ref.repo}…` });
     const plan = await planGitHub(ref, (p) => eng.isRelevant(p), { token: input.token });
-    if (plan.truncated) warnings.push('GitHub truncated the file list for this very large repository; some files were not listed.');
+    if (plan.truncated)
+      warnings.push(
+        'GitHub truncated the file list for this very large repository; some files were not listed.',
+      );
     filesTotal = Math.min(plan.files.length, 3000);
-    if (plan.files.length > 3000) warnings.push(`Only the first 3,000 of ${plan.files.length} relevant files were analysed.`);
-    post({ type: 'status', message: `Downloading and analysing ${filesTotal} relevant files (of ${plan.totalBlobs})…` });
+    if (plan.files.length > 3000)
+      warnings.push(`Only the first 3,000 of ${plan.files.length} relevant files were analysed.`);
+    post({
+      type: 'status',
+      message: `Downloading and analysing ${filesTotal} relevant files (of ${plan.totalBlobs})…`,
+    });
     files = fetchGitHubFiles(plan, { signal, limit: 3000 });
-    source = { kind: 'github', name: `${plan.owner}/${plan.repo}`, ref: `${plan.ref}@${plan.sha.slice(0, 7)}`, url: `https://github.com/${plan.owner}/${plan.repo}/tree/${plan.sha}` };
+    source = {
+      kind: 'github',
+      name: `${plan.owner}/${plan.repo}`,
+      ref: `${plan.ref}@${plan.sha.slice(0, 7)}`,
+      url: `https://github.com/${plan.owner}/${plan.repo}/tree/${plan.sha}`,
+    };
   } else if (input.kind === 'zip') {
     post({ type: 'status', message: `Unzipping ${input.name} in your browser…` });
     files = zipFiles(input.data, (p) => eng.isRelevant(p));

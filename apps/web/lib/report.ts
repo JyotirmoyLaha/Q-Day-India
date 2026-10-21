@@ -7,7 +7,14 @@ import { formatMonth, pct } from './format';
 
 const SCORE: Record<Grade, number> = { 'A+': 6, A: 5, B: 4, C: 3, D: 2, F: 1 };
 
-export type Mover = { host: string; org: string; sector: Sector; from: Grade; to: Grade; direction: 'up' | 'down' };
+export type Mover = {
+  host: string;
+  org: string;
+  sector: Sector;
+  from: Grade;
+  to: Grade;
+  direction: 'up' | 'down';
+};
 
 export type MonthReport = {
   month: string;
@@ -22,7 +29,15 @@ export type MonthReport = {
   byGrade: Record<Grade, number>;
   sectors: { sector: Sector; label: string; total: number; safe: number; share: number }[];
   movers: Mover[];
-  cdn: { behindCdn: number; behindCdnSafe: number; selfHosted: number; selfHostedSafe: number; cdnShare: number; selfShare: number; byProvider: { cdn: string; total: number; safe: number }[] };
+  cdn: {
+    behindCdn: number;
+    behindCdnSafe: number;
+    selfHosted: number;
+    selfHostedSafe: number;
+    cdnShare: number;
+    selfShare: number;
+    byProvider: { cdn: string; total: number; safe: number }[];
+  };
   stragglers: { host: string; org: string; sector: Sector; grade: Grade }[];
   legacyCount: number;
   summary: string[];
@@ -44,7 +59,10 @@ export function buildMonthReport(snaps: Snapshot[], month: string): MonthReport 
   const baseline = before.length ? before[before.length - 1]! : inMonth.length > 1 ? inMonth[0]! : null;
 
   const rows = gradedRows(latest);
-  const byGrade = Object.fromEntries(GRADES.map((g) => [g, rows.filter((r) => r.g === g).length])) as Record<Grade, number>;
+  const byGrade = Object.fromEntries(GRADES.map((g) => [g, rows.filter((r) => r.g === g).length])) as Record<
+    Grade,
+    number
+  >;
   const quantumSafe = rows.filter((r) => isQuantumSafe(r.g)).length;
 
   const sectors = SECTORS.flatMap((s) => {
@@ -59,17 +77,31 @@ export function buildMonthReport(snaps: Snapshot[], month: string): MonthReport 
     const prev = new Map(gradedRows(baseline).map((r) => [r.h, r.g]));
     for (const r of rows) {
       const p = prev.get(r.h);
-      if (p && p !== r.g) movers.push({ host: r.h, org: r.o, sector: r.s, from: p, to: r.g, direction: SCORE[r.g] > SCORE[p] ? 'up' : 'down' });
+      if (p && p !== r.g)
+        movers.push({
+          host: r.h,
+          org: r.o,
+          sector: r.s,
+          from: p,
+          to: r.g,
+          direction: SCORE[r.g] > SCORE[p] ? 'up' : 'down',
+        });
     }
-    movers.sort((a, b) => Math.abs(SCORE[b.to] - SCORE[b.from]) - Math.abs(SCORE[a.to] - SCORE[a.from]) || a.host.localeCompare(b.host));
+    movers.sort(
+      (a, b) =>
+        Math.abs(SCORE[b.to] - SCORE[b.from]) - Math.abs(SCORE[a.to] - SCORE[a.from]) ||
+        a.host.localeCompare(b.host),
+    );
   }
 
   const cdnRows = rows.filter((r) => r.cdn);
   const selfRows = rows.filter((r) => !r.cdn);
-  const providers = [...new Set(cdnRows.map((r) => r.cdn!))].map((c) => {
-    const rs = cdnRows.filter((r) => r.cdn === c);
-    return { cdn: c, total: rs.length, safe: rs.filter((r) => isQuantumSafe(r.g)).length };
-  }).sort((a, b) => b.total - a.total);
+  const providers = [...new Set(cdnRows.map((r) => r.cdn!))]
+    .map((c) => {
+      const rs = cdnRows.filter((r) => r.cdn === c);
+      return { cdn: c, total: rs.length, safe: rs.filter((r) => isQuantumSafe(r.g)).length };
+    })
+    .sort((a, b) => b.total - a.total);
   const cdn = {
     behindCdn: cdnRows.length,
     behindCdnSafe: cdnRows.filter((r) => isQuantumSafe(r.g)).length,
@@ -95,7 +127,9 @@ export function buildMonthReport(snaps: Snapshot[], month: string): MonthReport 
     `${safeShare}% of ${rows.length} reachable Indian sites tracked by Q-Day India used quantum-safe key exchange (grade A or A+) on ${latest.date}.`,
   ];
   if (best && worst && best !== worst)
-    summary.push(`${best.label} leads at ${best.share}%; ${worst.label} trails at ${worst.share}%. Sites that are not yet quantum-safe have a migration path today.`);
+    summary.push(
+      `${best.label} leads at ${best.share}%; ${worst.label} trails at ${worst.share}%. Sites that are not yet quantum-safe have a migration path today.`,
+    );
   if (cdn.behindCdn && cdn.selfHosted)
     summary.push(
       `The CDN effect: ${cdn.cdnShare}% of sites behind a CDN use quantum-safe key exchange, versus ${cdn.selfShare}% of self-hosted sites. Much of India's progress comes from CDN defaults, not from origin servers.`,
@@ -107,7 +141,10 @@ export function buildMonthReport(snaps: Snapshot[], month: string): MonthReport 
         ? `No grade changes compared with ${baseline.date}.`
         : 'This is the first scan in the series; biggest movers appear from the next weekly scan.',
   );
-  if (legacy.length) summary.push(`${legacy.length} sites (${pct(legacy.length, rows.length)}%) still accept TLS 1.0/1.1, deprecated since 2021.`);
+  if (legacy.length)
+    summary.push(
+      `${legacy.length} sites (${pct(legacy.length, rows.length)}%) still accept TLS 1.0/1.1, deprecated since 2021.`,
+    );
 
   return {
     month,

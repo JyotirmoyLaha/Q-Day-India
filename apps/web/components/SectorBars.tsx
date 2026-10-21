@@ -18,7 +18,10 @@ export function GradeLegend() {
     <ul className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted" aria-label="Grade colours">
       {GRADES.map((g) => (
         <li key={g} className="flex items-center gap-1.5">
-          <span className="inline-block h-3 w-3 rounded-sm border border-line" style={{ background: GRADE_FILL[g] }} />
+          <span
+            className="inline-block h-3 w-3 rounded-sm border border-line"
+            style={{ background: GRADE_FILL[g] }}
+          />
           {g}
         </li>
       ))}
@@ -40,7 +43,10 @@ export function SectorBars({ summary, caption }: { summary: Summary; caption: st
         {rows.map((s) => {
           const safe = pct(s.counts['A+'] + s.counts.A, s.total);
           return (
-            <div key={s.sector} className="grid grid-cols-[7.5rem_1fr_3rem] items-center gap-3 text-sm sm:grid-cols-[10rem_1fr_3.5rem]">
+            <div
+              key={s.sector}
+              className="grid grid-cols-[7.5rem_1fr_3rem] items-center gap-3 text-sm sm:grid-cols-[10rem_1fr_3.5rem]"
+            >
               <span className="truncate text-muted">{sectorLabel(s.sector)}</span>
               <span className="flex h-5 overflow-hidden rounded bg-subtle">
                 {GRADES.map((g) =>
@@ -69,19 +75,29 @@ export function SectorBars({ summary, caption }: { summary: Summary; caption: st
             <caption className="sr-only">{caption}</caption>
             <thead>
               <tr className="border-b border-line">
-                <th scope="col" className="py-1 pr-2">Sector</th>
+                <th scope="col" className="py-1 pr-2">
+                  Sector
+                </th>
                 {GRADES.map((g) => (
-                  <th key={g} scope="col" className="px-1 py-1 text-right">{g}</th>
+                  <th key={g} scope="col" className="px-1 py-1 text-right">
+                    {g}
+                  </th>
                 ))}
-                <th scope="col" className="px-1 py-1 text-right">Total</th>
+                <th scope="col" className="px-1 py-1 text-right">
+                  Total
+                </th>
               </tr>
             </thead>
             <tbody>
               {rows.map((s) => (
                 <tr key={s.sector} className="border-b border-line/60">
-                  <th scope="row" className="py-1 pr-2 font-normal">{sectorLabel(s.sector)}</th>
+                  <th scope="row" className="py-1 pr-2 font-normal">
+                    {sectorLabel(s.sector)}
+                  </th>
                   {GRADES.map((g) => (
-                    <td key={g} className="px-1 py-1 text-right tabular-nums">{s.counts[g]}</td>
+                    <td key={g} className="px-1 py-1 text-right tabular-nums">
+                      {s.counts[g]}
+                    </td>
                   ))}
                   <td className="px-1 py-1 text-right tabular-nums">{s.total}</td>
                 </tr>

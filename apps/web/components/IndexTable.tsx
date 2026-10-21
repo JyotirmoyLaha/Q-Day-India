@@ -24,7 +24,13 @@ export type IndexRow = {
 type Sort = 'risk' | 'host' | 'org';
 const PAGE = 50;
 
-export function filterRows(rows: IndexRow[], q: string, sector: string, grade: string, sort: Sort): IndexRow[] {
+export function filterRows(
+  rows: IndexRow[],
+  q: string,
+  sector: string,
+  grade: string,
+  sort: Sort,
+): IndexRow[] {
   const needle = q.trim().toLowerCase();
   const out = rows.filter(
     (r) =>
@@ -35,14 +41,24 @@ export function filterRows(rows: IndexRow[], q: string, sector: string, grade: s
   const cmp: Record<Sort, (a: IndexRow, b: IndexRow) => number> = {
     // Highest exposure first; ungraded hosts last.
     risk: (a, b) =>
-      (a.grade === null ? 1 : 0) - (b.grade === null ? 1 : 0) || b.hndlRisk - a.hndlRisk || a.host.localeCompare(b.host),
+      (a.grade === null ? 1 : 0) - (b.grade === null ? 1 : 0) ||
+      b.hndlRisk - a.hndlRisk ||
+      a.host.localeCompare(b.host),
     host: (a, b) => a.host.localeCompare(b.host),
     org: (a, b) => a.org.localeCompare(b.org) || a.host.localeCompare(b.host),
   };
   return out.sort(cmp[sort]);
 }
 
-export function IndexTable({ rows, scannedAt, sectors }: { rows: IndexRow[]; scannedAt: string; sectors: Sector[] }) {
+export function IndexTable({
+  rows,
+  scannedAt,
+  sectors,
+}: {
+  rows: IndexRow[];
+  scannedAt: string;
+  sectors: Sector[];
+}) {
   const [q, setQ] = useState('');
   const [sector, setSector] = useState('');
   const [grade, setGrade] = useState('');
@@ -107,7 +123,9 @@ export function IndexTable({ rows, scannedAt, sectors }: { rows: IndexRow[]; sca
       </p>
 
       {filtered.length === 0 ? (
-        <p className="mt-6 rounded-lg border border-dashed border-line p-6 text-center text-muted">{t('index.noResults')}</p>
+        <p className="mt-6 rounded-lg border border-dashed border-line p-6 text-center text-muted">
+          {t('index.noResults')}
+        </p>
       ) : (
         <table className="mt-3 block w-full text-sm md:table">
           <caption className="sr-only">
@@ -115,11 +133,21 @@ export function IndexTable({ rows, scannedAt, sectors }: { rows: IndexRow[]; sca
           </caption>
           <thead className="hidden border-b border-line text-left text-xs uppercase tracking-wide text-muted md:table-header-group">
             <tr>
-              <th scope="col" className="py-2 pr-3 font-medium">{t('index.colSite')}</th>
-              <th scope="col" className="px-3 py-2 font-medium">{t('index.colSector')}</th>
-              <th scope="col" className="px-3 py-2 text-center font-medium">{t('index.colGrade')}</th>
-              <th scope="col" className="px-3 py-2 font-medium">{t('index.colRisk')}</th>
-              <th scope="col" className="px-3 py-2 font-medium">{t('index.colHistory')}</th>
+              <th scope="col" className="py-2 pr-3 font-medium">
+                {t('index.colSite')}
+              </th>
+              <th scope="col" className="px-3 py-2 font-medium">
+                {t('index.colSector')}
+              </th>
+              <th scope="col" className="px-3 py-2 text-center font-medium">
+                {t('index.colGrade')}
+              </th>
+              <th scope="col" className="px-3 py-2 font-medium">
+                {t('index.colRisk')}
+              </th>
+              <th scope="col" className="px-3 py-2 font-medium">
+                {t('index.colHistory')}
+              </th>
             </tr>
           </thead>
           <tbody className="block space-y-3 md:table-row-group md:space-y-0">

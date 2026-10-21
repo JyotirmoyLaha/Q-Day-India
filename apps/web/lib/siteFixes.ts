@@ -31,8 +31,14 @@ export function siteFixes(r: SiteResult): SiteFix[] {
       title: 'Serve a valid certificate chain',
       why: 'Clients could not validate the certificate chain for this hostname, so the connection cannot be trusted regardless of key exchange.',
       steps: [
-        { label: 'Install the full chain (leaf + intermediates) from your CA and make sure the certificate covers this hostname.' },
-        { label: 'Check the result with: ', code: `openssl s_client -connect ${r.host}:443 -servername ${r.host} -showcerts` },
+        {
+          label:
+            'Install the full chain (leaf + intermediates) from your CA and make sure the certificate covers this hostname.',
+        },
+        {
+          label: 'Check the result with: ',
+          code: `openssl s_client -connect ${r.host}:443 -servername ${r.host} -showcerts`,
+        },
       ],
     });
   }
@@ -42,7 +48,10 @@ export function siteFixes(r: SiteResult): SiteFix[] {
       id: 'enable-tls13',
       priority: 1,
       title: 'Enable TLS 1.3',
-      why: 'Post-quantum key exchange is only defined for TLS 1.3. This host negotiates at most ' + r.tls.maxVersion + '.',
+      why:
+        'Post-quantum key exchange is only defined for TLS 1.3. This host negotiates at most ' +
+        r.tls.maxVersion +
+        '.',
       steps: [
         { label: 'nginx (OpenSSL ≥ 1.1.1):', code: 'ssl_protocols TLSv1.3 TLSv1.2;' },
         { label: 'Apache httpd:', code: 'SSLProtocol -all +TLSv1.3 +TLSv1.2' },
@@ -62,10 +71,19 @@ export function siteFixes(r: SiteResult): SiteFix[] {
         label: 'nginx built against OpenSSL ≥ 3.5 (offer the hybrid first, keep classical fallbacks):',
         code: 'ssl_protocols TLSv1.3 TLSv1.2;\nssl_ecdh_curve X25519MLKEM768:X25519:prime256v1;',
       },
-      { label: 'Apache httpd with OpenSSL ≥ 3.5:', code: 'SSLOpenSSLConfCmd Curves X25519MLKEM768:X25519:prime256v1' },
+      {
+        label: 'Apache httpd with OpenSSL ≥ 3.5:',
+        code: 'SSLOpenSSLConfCmd Curves X25519MLKEM768:X25519:prime256v1',
+      },
       { label: 'HAProxy with OpenSSL ≥ 3.5:', code: 'ssl-default-bind-curves X25519MLKEM768:X25519:P-256' },
-      { label: 'Go services: Go ≥ 1.24 offers X25519MLKEM768 by default — remove any CurvePreferences list that omits it.' },
-      { label: 'Node.js ≥ 24.5 (bundles OpenSSL 3.5):', code: "tls.createServer({ ecdhCurve: 'X25519MLKEM768:X25519:prime256v1', ... })" },
+      {
+        label:
+          'Go services: Go ≥ 1.24 offers X25519MLKEM768 by default — remove any CurvePreferences list that omits it.',
+      },
+      {
+        label: 'Node.js ≥ 24.5 (bundles OpenSSL 3.5):',
+        code: "tls.createServer({ ecdhCurve: 'X25519MLKEM768:X25519:prime256v1', ... })",
+      },
     );
     fixes.push({
       id: 'enable-pq-kex',
@@ -102,7 +120,12 @@ export function siteFixes(r: SiteResult): SiteFix[] {
       priority: 3,
       title: 'Send a Strict-Transport-Security header',
       why: 'HSTS stops downgrade to plain HTTP. It does not change the quantum grade but is basic hygiene.',
-      steps: [{ label: 'nginx:', code: 'add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;' }],
+      steps: [
+        {
+          label: 'nginx:',
+          code: 'add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;',
+        },
+      ],
     });
   }
 
@@ -111,15 +134,21 @@ export function siteFixes(r: SiteResult): SiteFix[] {
       id: 'reissue-cert',
       priority: 2,
       title: 'Re-issue the certificate',
-      why: [
-        flags.has('RSA_LT_2048') && 'the RSA key is shorter than 2048 bits',
-        flags.has('SHA1_IN_CHAIN') && 'the chain contains a SHA-1 signature',
-        flags.has('CERT_EXPIRING_SOON') && 'it expires within 14 days',
-      ]
-        .filter(Boolean)
-        .join('; ')
-        .replace(/^./, (c) => c.toUpperCase()) + '.',
-      steps: [{ label: 'Request an ECDSA P-256 (or RSA-2048+) certificate signed with SHA-256 and automate renewal (e.g. ACME).' }],
+      why:
+        [
+          flags.has('RSA_LT_2048') && 'the RSA key is shorter than 2048 bits',
+          flags.has('SHA1_IN_CHAIN') && 'the chain contains a SHA-1 signature',
+          flags.has('CERT_EXPIRING_SOON') && 'it expires within 14 days',
+        ]
+          .filter(Boolean)
+          .join('; ')
+          .replace(/^./, (c) => c.toUpperCase()) + '.',
+      steps: [
+        {
+          label:
+            'Request an ECDSA P-256 (or RSA-2048+) certificate signed with SHA-256 and automate renewal (e.g. ACME).',
+        },
+      ],
     });
   }
 

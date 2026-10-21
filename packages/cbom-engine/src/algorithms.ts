@@ -12,8 +12,28 @@ const META: [RegExp, (bits?: number) => Meta][] = [
   [/^ML-DSA-65/i, () => ({ nist: 3, oid: '2.16.840.1.101.3.4.3.18' })],
   [/^ML-DSA-87/i, () => ({ nist: 5, oid: '2.16.840.1.101.3.4.3.19' })],
   [/^X25519MLKEM768|hybrid/i, () => ({ nist: 3 })],
-  [/^RSA/i, (b) => ({ nist: 0, classical: b ? (b >= 15360 ? 256 : b >= 7680 ? 192 : b >= 3072 ? 128 : b >= 2048 ? 112 : 80) : undefined, oid: '1.2.840.113549.1.1.1' })],
-  [/^(ECDSA|ECDH|ECC|EC\b|EC$)/i, (b) => ({ nist: 0, classical: b ? Math.floor(b / 2) : undefined, oid: '1.2.840.10045.2.1' })],
+  [
+    /^RSA/i,
+    (b) => ({
+      nist: 0,
+      classical: b
+        ? b >= 15360
+          ? 256
+          : b >= 7680
+            ? 192
+            : b >= 3072
+              ? 128
+              : b >= 2048
+                ? 112
+                : 80
+        : undefined,
+      oid: '1.2.840.113549.1.1.1',
+    }),
+  ],
+  [
+    /^(ECDSA|ECDH|ECC|EC\b|EC$)/i,
+    (b) => ({ nist: 0, classical: b ? Math.floor(b / 2) : undefined, oid: '1.2.840.10045.2.1' }),
+  ],
   [/^Ed25519/i, () => ({ nist: 0, classical: 128, oid: '1.3.101.112' })],
   [/^Ed448/i, () => ({ nist: 0, classical: 224, oid: '1.3.101.113' })],
   [/^X25519/i, () => ({ nist: 0, classical: 128, oid: '1.3.101.110' })],

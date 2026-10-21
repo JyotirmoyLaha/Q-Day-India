@@ -13,11 +13,29 @@
     - { match: 'KeyPairGenerator.*"(DH|XDH|X25519)"', algorithm: DH/X25519, primitive: key-agreement }
     - { match: 'KeyPairGenerator.*"(DSA|Ed25519|EdDSA)"', algorithm: DSA/EdDSA, primitive: signature }
     - { match: 'KeyAgreement', algorithm: ECDH/DH, primitive: key-agreement }
-    - { match: 'Signature.*"(MD5|SHA1|SHA-1)with', algorithm: SHA-1/MD5 signature, primitive: hash, quantum_risk: CLASSICAL_BROKEN, fix: hash-md5-sha1 }
+    - {
+        match: 'Signature.*"(MD5|SHA1|SHA-1)with',
+        algorithm: SHA-1/MD5 signature,
+        primitive: hash,
+        quantum_risk: CLASSICAL_BROKEN,
+        fix: hash-md5-sha1,
+      }
     - { match: 'Signature.*(RSA|ECDSA|DSA|Ed25519|EdDSA)', algorithm: RSA/ECDSA, primitive: signature }
     - { match: 'Cipher.*"RSA', algorithm: RSA, primitive: pke }
-    - { match: 'Cipher.*"(DES|DESede|RC4|Blowfish)', algorithm: DES/RC4, primitive: symmetric, quantum_risk: CLASSICAL_BROKEN, fix: legacy-ciphers }
-    - { match: 'MessageDigest.*"(MD5|SHA-?1|SHA)"', algorithm: MD5/SHA-1, primitive: hash, quantum_risk: CLASSICAL_BROKEN, fix: hash-md5-sha1 }
+    - {
+        match: 'Cipher.*"(DES|DESede|RC4|Blowfish)',
+        algorithm: DES/RC4,
+        primitive: symmetric,
+        quantum_risk: CLASSICAL_BROKEN,
+        fix: legacy-ciphers,
+      }
+    - {
+        match: 'MessageDigest.*"(MD5|SHA-?1|SHA)"',
+        algorithm: MD5/SHA-1,
+        primitive: hash,
+        quantum_risk: CLASSICAL_BROKEN,
+        fix: hash-md5-sha1,
+      }
     - { match: '.', skip: true }
   algorithm: RSA
   primitive: pke
@@ -36,9 +54,27 @@
     - { match: 'DH', algorithm: DH, primitive: key-agreement }
     - { match: 'ED25519', algorithm: Ed25519, primitive: signature }
     - { match: 'X25519', algorithm: X25519, primitive: key-agreement }
-    - { match: 'MD5|md5', algorithm: MD5, primitive: hash, quantum_risk: CLASSICAL_BROKEN, fix: hash-md5-sha1 }
-    - { match: 'SHA1|sha1', algorithm: SHA-1, primitive: hash, quantum_risk: CLASSICAL_BROKEN, fix: hash-md5-sha1 }
-    - { match: 'DES|des_|rc4', algorithm: DES/RC4, primitive: symmetric, quantum_risk: CLASSICAL_BROKEN, fix: legacy-ciphers }
+    - {
+        match: 'MD5|md5',
+        algorithm: MD5,
+        primitive: hash,
+        quantum_risk: CLASSICAL_BROKEN,
+        fix: hash-md5-sha1,
+      }
+    - {
+        match: 'SHA1|sha1',
+        algorithm: SHA-1,
+        primitive: hash,
+        quantum_risk: CLASSICAL_BROKEN,
+        fix: hash-md5-sha1,
+      }
+    - {
+        match: 'DES|des_|rc4',
+        algorithm: DES/RC4,
+        primitive: symmetric,
+        quantum_risk: CLASSICAL_BROKEN,
+        fix: legacy-ciphers,
+      }
   algorithm: RSA
   primitive: pke
   quantum_risk: HIGH
@@ -56,8 +92,20 @@
     - { match: '^ECDiffieHellman', algorithm: ECDH, primitive: key-agreement, fix: ecdh-to-hybrid }
     - { match: '^DSA', algorithm: DSA, primitive: signature }
     - { match: '^MD5', algorithm: MD5, primitive: hash, quantum_risk: CLASSICAL_BROKEN, fix: hash-md5-sha1 }
-    - { match: '^SHA1', algorithm: SHA-1, primitive: hash, quantum_risk: CLASSICAL_BROKEN, fix: hash-md5-sha1 }
-    - { match: '^(TripleDES|DES|RC2)', algorithm: DES/3DES/RC2, primitive: symmetric, quantum_risk: CLASSICAL_BROKEN, fix: legacy-ciphers }
+    - {
+        match: '^SHA1',
+        algorithm: SHA-1,
+        primitive: hash,
+        quantum_risk: CLASSICAL_BROKEN,
+        fix: hash-md5-sha1,
+      }
+    - {
+        match: '^(TripleDES|DES|RC2)',
+        algorithm: DES/3DES/RC2,
+        primitive: symmetric,
+        quantum_risk: CLASSICAL_BROKEN,
+        fix: legacy-ciphers,
+      }
   algorithm: RSA
   primitive: pke
   quantum_risk: HIGH
@@ -76,8 +124,20 @@
     - { match: '^ed25519_dalek$', algorithm: Ed25519, primitive: signature }
     - { match: '^x25519_dalek$', algorithm: X25519, primitive: key-agreement, fix: ecdh-to-hybrid }
     - { match: '^md5$', algorithm: MD5, primitive: hash, quantum_risk: CLASSICAL_BROKEN, fix: hash-md5-sha1 }
-    - { match: '^sha1$', algorithm: SHA-1, primitive: hash, quantum_risk: CLASSICAL_BROKEN, fix: hash-md5-sha1 }
-    - { match: '^des$', algorithm: DES, primitive: symmetric, quantum_risk: CLASSICAL_BROKEN, fix: legacy-ciphers }
+    - {
+        match: '^sha1$',
+        algorithm: SHA-1,
+        primitive: hash,
+        quantum_risk: CLASSICAL_BROKEN,
+        fix: hash-md5-sha1,
+      }
+    - {
+        match: '^des$',
+        algorithm: DES,
+        primitive: symmetric,
+        quantum_risk: CLASSICAL_BROKEN,
+        fix: legacy-ciphers,
+      }
   algorithm: RSA
   primitive: pke
   quantum_risk: HIGH

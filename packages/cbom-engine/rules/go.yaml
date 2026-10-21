@@ -12,14 +12,68 @@
     - { match: '^crypto/elliptic$', algorithm: ECC, primitive: signature }
     - { match: '^crypto/dsa$', algorithm: DSA, primitive: signature }
     - { match: '^crypto/ecdh$', algorithm: ECDH, primitive: key-agreement, fix: ecdh-to-hybrid }
-    - { match: '^golang\.org/x/crypto/curve25519$', algorithm: X25519, primitive: key-agreement, fix: ecdh-to-hybrid }
-    - { match: '^crypto/md5$', algorithm: MD5, primitive: hash, quantum_risk: CLASSICAL_BROKEN, fix: hash-md5-sha1, message: Imports crypto/md5 — collision attacks exist today. }
-    - { match: '^crypto/sha1$', algorithm: SHA-1, primitive: hash, quantum_risk: CLASSICAL_BROKEN, fix: hash-md5-sha1, message: Imports crypto/sha1 — collision attacks exist today. }
-    - { match: '^crypto/des$', algorithm: DES/3DES, primitive: symmetric, quantum_risk: CLASSICAL_BROKEN, fix: legacy-ciphers, message: Imports crypto/des — legacy cipher. }
-    - { match: '^crypto/rc4$', algorithm: RC4, primitive: symmetric, quantum_risk: CLASSICAL_BROKEN, fix: legacy-ciphers, message: Imports crypto/rc4 — legacy cipher. }
-    - { match: '^crypto/mlkem$', algorithm: ML-KEM, primitive: kem, quantum_risk: NONE, fix: pq-library-present, message: Imports crypto/mlkem — post-quantum. }
-    - { match: '^crypto/mldsa$', algorithm: ML-DSA, primitive: signature, quantum_risk: NONE, fix: pq-library-present, message: Imports crypto/mldsa — post-quantum. }
-    - { match: '^github\.com/cloudflare/circl/(kem|sign)/(mlkem|mldsa)', algorithm: ML-KEM/ML-DSA, primitive: kem, quantum_risk: NONE, fix: pq-library-present, message: Imports CIRCL post-quantum package. }
+    - {
+        match: '^golang\.org/x/crypto/curve25519$',
+        algorithm: X25519,
+        primitive: key-agreement,
+        fix: ecdh-to-hybrid,
+      }
+    - {
+        match: '^crypto/md5$',
+        algorithm: MD5,
+        primitive: hash,
+        quantum_risk: CLASSICAL_BROKEN,
+        fix: hash-md5-sha1,
+        message: Imports crypto/md5 — collision attacks exist today.,
+      }
+    - {
+        match: '^crypto/sha1$',
+        algorithm: SHA-1,
+        primitive: hash,
+        quantum_risk: CLASSICAL_BROKEN,
+        fix: hash-md5-sha1,
+        message: Imports crypto/sha1 — collision attacks exist today.,
+      }
+    - {
+        match: '^crypto/des$',
+        algorithm: DES/3DES,
+        primitive: symmetric,
+        quantum_risk: CLASSICAL_BROKEN,
+        fix: legacy-ciphers,
+        message: Imports crypto/des — legacy cipher.,
+      }
+    - {
+        match: '^crypto/rc4$',
+        algorithm: RC4,
+        primitive: symmetric,
+        quantum_risk: CLASSICAL_BROKEN,
+        fix: legacy-ciphers,
+        message: Imports crypto/rc4 — legacy cipher.,
+      }
+    - {
+        match: '^crypto/mlkem$',
+        algorithm: ML-KEM,
+        primitive: kem,
+        quantum_risk: NONE,
+        fix: pq-library-present,
+        message: Imports crypto/mlkem — post-quantum.,
+      }
+    - {
+        match: '^crypto/mldsa$',
+        algorithm: ML-DSA,
+        primitive: signature,
+        quantum_risk: NONE,
+        fix: pq-library-present,
+        message: Imports crypto/mldsa — post-quantum.,
+      }
+    - {
+        match: '^github\.com/cloudflare/circl/(kem|sign)/(mlkem|mldsa)',
+        algorithm: ML-KEM/ML-DSA,
+        primitive: kem,
+        quantum_risk: NONE,
+        fix: pq-library-present,
+        message: Imports CIRCL post-quantum package.,
+      }
     - { match: '.', skip: true }
   algorithm: RSA
   primitive: pke
@@ -89,8 +143,20 @@
       (#match? @key "^(MinVersion|MaxVersion)$"))
   variant_from: match
   variants:
-    - { match: 'MinVersion\s*:\s*tls\.Version(TLS10|TLS11|SSL30)\b', algorithm: TLS 1.0/1.1, quantum_risk: CLASSICAL_BROKEN, fix: tls-legacy-protocols, message: tls.Config MinVersion allows deprecated TLS 1.0/1.1. }
-    - { match: 'MaxVersion\s*:\s*tls\.Version(TLS10|TLS11|TLS12)\b', algorithm: TLS ≤ 1.2, quantum_risk: HIGH, fix: go-tls-pq, message: tls.Config MaxVersion below TLS 1.3 — post-quantum key exchange impossible. }
+    - {
+        match: 'MinVersion\s*:\s*tls\.Version(TLS10|TLS11|SSL30)\b',
+        algorithm: TLS 1.0/1.1,
+        quantum_risk: CLASSICAL_BROKEN,
+        fix: tls-legacy-protocols,
+        message: tls.Config MinVersion allows deprecated TLS 1.0/1.1.,
+      }
+    - {
+        match: 'MaxVersion\s*:\s*tls\.Version(TLS10|TLS11|TLS12)\b',
+        algorithm: TLS ≤ 1.2,
+        quantum_risk: HIGH,
+        fix: go-tls-pq,
+        message: tls.Config MaxVersion below TLS 1.3 — post-quantum key exchange impossible.,
+      }
     - { match: '.', skip: true }
   algorithm: TLS
   primitive: key-agreement

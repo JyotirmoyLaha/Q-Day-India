@@ -19,7 +19,8 @@ export function nodeWasmLocator(wasmDir?: string) {
   };
 }
 
-export const createNodeEngine = (wasmDir?: string): Promise<Engine> => createEngine({ locateWasm: nodeWasmLocator(wasmDir) });
+export const createNodeEngine = (wasmDir?: string): Promise<Engine> =>
+  createEngine({ locateWasm: nodeWasmLocator(wasmDir) });
 
 /** Yields every file under root (relative POSIX paths), skipping excluded directories early. */
 export async function* walk(root: string, engine?: Engine): AsyncGenerator<SourceFile> {

@@ -12,7 +12,9 @@ export function GET(req: Request) {
   return new Response(svg, {
     headers: {
       'Content-Type': 'image/svg+xml; charset=utf-8',
-      'Cache-Control': found ? 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=86400' : 'public, max-age=300, s-maxage=3600',
+      'Cache-Control': found
+        ? 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=86400'
+        : 'public, max-age=300, s-maxage=3600',
       'X-Content-Type-Options': 'nosniff',
     },
   });

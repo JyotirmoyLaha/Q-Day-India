@@ -12,8 +12,23 @@ const repo = process.argv[2] ?? process.env.REPO_SLUG ?? 'YOUR_GITHUB_USER/qday-
 const tmp = join(root, '.venv', 'tmp');
 mkdirSync(tmp, { recursive: true });
 const out = join(tmp, 'dogfood.json');
-const exclude = 'packages/cbom-engine/test/fixtures/**,scanner/internal/scan/scan_test.go,**/*.test.ts,**/*.test.tsx,apps/web/test/**';
-execFileSync(process.execPath, [join(root, 'action', 'dist', 'cli.mjs'), 'scan', root, '--name', repo, '--exclude', exclude, '--json', out], { stdio: 'inherit' });
+const exclude =
+  'packages/cbom-engine/test/fixtures/**,scanner/internal/scan/scan_test.go,**/*.test.ts,**/*.test.tsx,apps/web/test/**';
+execFileSync(
+  process.execPath,
+  [
+    join(root, 'action', 'dist', 'cli.mjs'),
+    'scan',
+    root,
+    '--name',
+    repo,
+    '--exclude',
+    exclude,
+    '--json',
+    out,
+  ],
+  { stdio: 'inherit' },
+);
 const r = JSON.parse(readFileSync(out, 'utf8'));
 const record = {
   repo,

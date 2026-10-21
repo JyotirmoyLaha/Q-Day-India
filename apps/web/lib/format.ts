@@ -53,4 +53,8 @@ export function issuerName(issuer: string): string {
 }
 
 export const groupLabel = (g: string) =>
-  ({ X25519MLKEM768: 'X25519MLKEM768 (hybrid PQ)', SecP256r1MLKEM768: 'SecP256r1MLKEM768 (hybrid PQ)', SecP384r1MLKEM1024: 'SecP384r1MLKEM1024 (hybrid PQ)' })[g] ?? g;
+  ({
+    X25519MLKEM768: 'X25519MLKEM768 (hybrid PQ)',
+    SecP256r1MLKEM768: 'SecP256r1MLKEM768 (hybrid PQ)',
+    SecP384r1MLKEM1024: 'SecP384r1MLKEM1024 (hybrid PQ)',
+  })[g] ?? g;
