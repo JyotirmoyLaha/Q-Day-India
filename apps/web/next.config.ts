@@ -30,6 +30,8 @@ const config: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   transpilePackages: ['@qday/cbom-engine'],
+  // Stop `next dev` from writing an AGENTS.md when an AI agent starts it.
+  agentRules: false,
   // /index used to be the Readiness Index, but on Vercel the static file for /index
   // (index.html) collided with the home page. The index now lives at /readiness.
   async redirects() {
