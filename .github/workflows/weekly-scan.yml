@@ -1,0 +1,60 @@
+name: weekly-scan
+
+# Every Monday 03:17 UTC (08:47 IST) + manual runs. Commits data/ so Vercel redeploys.
+on:
+  schedule:
+    - cron: '17 3 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: weekly-scan
+  cancel-in-progress: false
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-go@v7
+        with:
+          go-version: '1.27.3'
+          cache-dependency-path: scanner/go.sum
+
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: pnpm
+
+      - name: Install schema validator
+        run: pnpm install --frozen-lockfile --filter qday-india
+
+      - name: Build scanner
+        working-directory: scanner
+        run: go build -o bin/qday-scan ./cmd/qday-scan
+
+      - name: Scan targets
+        env:
+          SITE_URL: ${{ vars.SITE_URL || 'https://qday-india.vercel.app' }}
+        run: |
+          DATE=$(date -u +%F)
+          echo "DATE=$DATE" >> "$GITHUB_ENV"
+          ./scanner/bin/qday-scan --targets targets/india.yaml --out data --date "$DATE" --site-url "$SITE_URL"
+
+      - name: Validate output against schemas/scan.schema.json
+        run: node scripts/validate-scan.mjs
+
+      - name: Commit results
+        run: |
+          git config user.name "qday-india-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/
+          if git diff --cached --quiet; then echo "No changes"; exit 0; fi
+          git commit -m "scan: $DATE"
+          git push

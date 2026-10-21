@@ -1,0 +1,46 @@
+{
+  "name": "web",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "engines": {
+    "node": "24.x"
+  },
+  "scripts": {
+    "prebuild": "node scripts/prebuild.mjs",
+    "predev": "node scripts/prebuild.mjs",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "node scripts/prebuild.mjs && tsc --noEmit",
+    "pretest": "node scripts/prebuild.mjs",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "jszip": "3.10.2",
+    "lz-string": "1.5.0",
+    "next": "16.4.2",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "recharts": "3.10.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "4.3.3",
+    "@testing-library/dom": "*",
+    "@testing-library/react": "16.3.3",
+    "@types/node": "24.*",
+    "@types/react": "19.*",
+    "@types/react-dom": "19.*",
+    "@vitejs/plugin-react": "6.1.2",
+    "ajv": "8.20.0",
+    "ajv-formats": "3.0.1",
+    "axe-core": "4.14.0",
+    "eslint": "^9.39.0",
+    "eslint-config-next": "16.4.2",
+    "jsdom": "30.1.3",
+    "tailwindcss": "4.3.3",
+    "typescript": "5.9.3",
+    "vitest": "5.0.5"
+  }
+}

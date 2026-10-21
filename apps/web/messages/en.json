@@ -1,0 +1,98 @@
+{
+  "site": {
+    "name": "Q-Day India",
+    "tagline": "Scan India's websites and your code for quantum risk — then fix it.",
+    "description": "A weekly Quantum Readiness Index of Indian websites and a private, in-browser scanner for quantum-vulnerable cryptography in your code."
+  },
+  "nav": {
+    "index": "Readiness Index",
+    "code": "Scan code",
+    "org": "Org report",
+    "qday": "Q-Day calculator",
+    "report": "State of the Nation",
+    "learn": "Learn",
+    "about": "Methodology",
+    "skip": "Skip to content",
+    "menu": "Menu",
+    "theme": "Toggle colour theme"
+  },
+  "home": {
+    "checkSite": "Check a website",
+    "checkSitePlaceholder": "e.g. onlinesbi.sbi",
+    "checkSiteButton": "Check",
+    "scanCode": "Scan your code",
+    "scanCodePlaceholder": "https://github.com/owner/repo",
+    "scanCodeButton": "Scan",
+    "scanCodeNote": "Runs entirely in your browser. Your code is never uploaded.",
+    "statPq": "of tracked Indian sites use quantum-safe key exchange",
+    "statTracked": "sites tracked",
+    "statExposed": "still exposed to harvest-now-decrypt-later",
+    "statLegacy": "still accept TLS 1.0/1.1",
+    "sectorChart": "Quantum-safe key exchange by sector",
+    "sectorChartDesc": "Share of reachable tracked sites in each sector by quantum key-exchange grade.",
+    "lastScan": "Last scan"
+  },
+  "grade": {
+    "A+": "Quantum-safe key exchange by default; legacy TLS disabled",
+    "A": "Quantum-safe key exchange by default; legacy TLS still enabled",
+    "B": "Supports a post-quantum hybrid, but not negotiated by default",
+    "C": "TLS 1.3 without post-quantum key exchange — not yet quantum-safe",
+    "D": "TLS 1.2 maximum — not yet quantum-safe",
+    "F": "Only TLS below 1.2, or an invalid certificate chain",
+    "none": "Not graded — the host could not be reached"
+  },
+  "flags": {
+    "RSA_LT_2048": "RSA key shorter than 2048 bits",
+    "SHA1_IN_CHAIN": "SHA-1 signature in the certificate chain",
+    "CERT_EXPIRING_SOON": "Certificate expires within 14 days",
+    "NO_HSTS": "No HTTP Strict-Transport-Security header",
+    "LEGACY_TLS": "TLS 1.0/1.1 still accepted",
+    "CERT_INVALID": "Certificate chain did not validate"
+  },
+  "errors": {
+    "DNS_FAIL": "Hostname did not resolve",
+    "TIMEOUT": "Connection timed out",
+    "TLS_FAIL": "TLS handshake did not complete",
+    "REFUSED": "Connection refused"
+  },
+  "sectors": {
+    "banking": "Banking",
+    "payments": "Payments & UPI",
+    "government": "Government",
+    "stock_broking": "Stock broking",
+    "insurance": "Insurance",
+    "healthcare": "Healthcare",
+    "telecom": "Telecom",
+    "ecommerce": "E-commerce",
+    "education": "Education",
+    "media": "Media",
+    "other": "Other"
+  },
+  "index": {
+    "title": "Quantum Readiness Index",
+    "intro": "Weekly TLS checks of public Indian websites. The grade reflects key exchange only — post-quantum certificates do not exist in the public web PKI yet.",
+    "search": "Search organisation or host",
+    "allSectors": "All sectors",
+    "allGrades": "All grades",
+    "sortRisk": "Sort by HNDL exposure",
+    "sortHost": "Sort by host",
+    "sortOrg": "Sort by organisation",
+    "showing": "Showing {count} of {total} sites",
+    "colSite": "Site",
+    "colSector": "Sector",
+    "colGrade": "Grade",
+    "colRisk": "HNDL exposure",
+    "colHistory": "History",
+    "unverified": "unverified",
+    "unverifiedHelp": "This hostname was drafted from public information and has not yet been confirmed by a maintainer.",
+    "noResults": "No sites match these filters."
+  },
+  "hndl": {
+    "label": "Harvest-Now-Decrypt-Later exposure",
+    "help": "How much recorded traffic could be decrypted later by a quantum computer, weighted by how long this sector's data stays sensitive. 0 = uses quantum-safe key exchange."
+  },
+  "cert": {
+    "quantumStatus": "Classical (industry-wide — PQ certificates not yet available in WebPKI)"
+  },
+  "scanDate": "Scanned {date}"
+}

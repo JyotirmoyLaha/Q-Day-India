@@ -11,3 +11,7 @@ All notable changes to this project are documented here. Format: [Keep a Changel
   servers and live tests behind `QDAY_LIVE_TESTS=1`.
 - `schemas/scan.schema.json` + `scripts/validate-scan.mjs`; shared grading parity cases.
 - 20-host seed target list (all `verified: false`) and first real scan (`data/scans/2026-10-21.json`).
+- Weekly scan workflow (`.github/workflows/weekly-scan.yml`).
+- Next.js 16 web app: `/`, `/index`, `/site/[host]`, `/about`, `/about/scanner`; light/dark themes, i18n message
+  catalogue, build-time data pipeline (`apps/web/scripts/prebuild.mjs`), grading TS twin with Go parity tests,
+  axe accessibility tests, wording-rule and contrast tests.

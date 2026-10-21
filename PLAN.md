@@ -22,14 +22,14 @@ Progress view for the autonomous build (PROJECT_SPEC.md §0). `[x]` = done and v
 - [x] Done-when: `qday-scan --host cloudflare.com --json` ⇒ `x25519mlkem768: true`, grade A/A+; tests pass; output validates
 
 ## M2 — Weekly pipeline + Index UI
-- [ ] `.github/workflows/weekly-scan.yml` (cron `17 3 * * 1` + dispatch, schema validation, commit `scan: DATE`)
-- [ ] Next.js app (App Router, TS, Tailwind v4, Recharts), theme tokens, dark/light toggle, i18n message catalogue
-- [ ] Data layer: build-time loader for `data/latest.json` + history (`data/scans/*`)
-- [ ] `/` hero, stat strip, sector chart (with text alternative)
-- [ ] `/index` table (search, sector + grade filters, sort by HNDL), sparklines, cards on mobile, "unverified" tag
-- [ ] `/site/[host]` report, `/about/scanner`, `/about`
-- [ ] UI tests (Vitest + Testing Library + axe), wording-rule test
-- [ ] Done-when: index renders real data, filtered & sorted; `pnpm build` passes
+- [x] `.github/workflows/weekly-scan.yml` (cron `17 3 * * 1` + dispatch, schema validation, commit `scan: DATE`)
+- [x] Next.js app (App Router, TS, Tailwind v4, Recharts), theme tokens, dark/light toggle, i18n message catalogue
+- [x] Data layer: build-time loader for `data/latest.json` + history (`data/scans/*`)
+- [x] `/` hero, stat strip, sector chart (with text alternative)
+- [x] `/index` table (search, sector + grade filters, sort by HNDL), sparklines, cards on mobile, "unverified" tag
+- [x] `/site/[host]` report, `/about/scanner`, `/about`
+- [x] UI tests (Vitest + Testing Library + axe), wording-rule test
+- [x] Done-when: index renders real data, filtered & sorted; `pnpm build` passes
 
 ## M3 — CBOM engine (Python, JS/TS, config, PEM)
 - [ ] `packages/cbom-engine` (no DOM): file walker/filters, tree-sitter loader abstraction (Node + Worker), regex engine

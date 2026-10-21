@@ -1,0 +1,159 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+/* Design tokens. Light is the default; [data-theme] is set before paint by the
+   inline script in app/layout.tsx (stored choice, else the OS preference). */
+:root {
+  --bg: #faf9f6;
+  --fg: #16191d;
+  --muted: #545d68;
+  --line: #dedad1;
+  --card: #ffffff;
+  --subtle: #f1efe9;
+  --accent: #0f766e; /* quantum-safe (teal) */
+  --accent-soft: #d5efeb;
+  --accent-fg: #ffffff;
+  --exposed: #a5480a; /* exposed (amber) */
+  --exposed-soft: #fbe9d0;
+  --danger: #b42318; /* grade F only */
+  --danger-soft: #fde4e1;
+  --info: #3a5a8c;
+  --focus: #2563eb;
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  --bg: #0e1114;
+  --fg: #e8eaed;
+  --muted: #9ba5b0;
+  --line: #2a3138;
+  --card: #151a1f;
+  --subtle: #1b2127;
+  --accent: #2dd4bf;
+  --accent-soft: #123a36;
+  --accent-fg: #06201d;
+  --exposed: #f5b545;
+  --exposed-soft: #3a2a10;
+  --danger: #ff8a7a;
+  --danger-soft: #3d1a17;
+  --info: #8fb0e6;
+  --focus: #7aa7ff;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-card: var(--card);
+  --color-subtle: var(--subtle);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-fg: var(--accent-fg);
+  --color-exposed: var(--exposed);
+  --color-exposed-soft: var(--exposed-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-info: var(--info);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-serif), ui-serif, Georgia, serif;
+  --font-mono: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-feature-settings: 'cv11', 'ss01';
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+a {
+  text-underline-offset: 3px;
+}
+
+.prose-qd p,
+.prose-qd li {
+  line-height: 1.7;
+}
+.prose-qd h2 {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 2.25rem 0 0.75rem;
+}
+.prose-qd h3 {
+  font-weight: 600;
+  margin: 1.5rem 0 0.5rem;
+}
+.prose-qd p {
+  margin: 0.75rem 0;
+}
+.prose-qd ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+  margin: 0.75rem 0;
+}
+.prose-qd ol {
+  list-style: decimal;
+  padding-left: 1.25rem;
+  margin: 0.75rem 0;
+}
+.prose-qd a {
+  color: var(--accent);
+  text-decoration: underline;
+}
+.prose-qd code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background: var(--subtle);
+  padding: 0.1em 0.3em;
+  border-radius: 4px;
+}
+.prose-qd pre {
+  background: var(--subtle);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0.9rem 1rem;
+  overflow-x: auto;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  margin: 0.75rem 0;
+}
+.prose-qd pre code {
+  background: none;
+  padding: 0;
+}
+.prose-qd table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  margin: 1rem 0;
+}
+.prose-qd th,
+.prose-qd td {
+  border-bottom: 1px solid var(--line);
+  padding: 0.5rem 0.4rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
