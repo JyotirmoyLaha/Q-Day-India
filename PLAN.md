@@ -41,14 +41,14 @@ Progress view for the autonomous build (PROJECT_SPEC.md §0). `[x]` = done and v
 - [x] Done-when: fixtures produce expected findings and valid CBOM/SARIF
 
 ## M4 — `/code` page
-- [ ] Web Worker running the engine, streaming progress
-- [ ] Inputs: GitHub URL (API tree + raw), zip (JSZip), paste
-- [ ] Results: gauges, grouped findings, snippets, fix panels, exports, lz-string fragment share (JSON download fallback > 30 KB)
-- [ ] Done-when: public repo scanned end-to-end; only GitHub network calls
+- [x] Web Worker running the engine, streaming progress
+- [x] Inputs: GitHub URL (API tree + raw), zip (JSZip), paste
+- [x] Results: gauges, grouped findings, snippets, fix panels, exports, lz-string fragment share (JSON download fallback > 30 KB)
+- [x] Done-when: public repo scanned end-to-end; only GitHub network calls (verified under Node with live GitHub + mocked-fetch call audit; in-browser check is on the human checklist — no headless browser allowed)
 
 ## M5 — Java/Kotlin + Go rules, scores
-- [ ] Java/Kotlin + Go rules + fixtures
-- [ ] Quantum Exposure + Crypto-Agility scores with explainable inputs
+- [x] Java/Kotlin + Go rules + fixtures
+- [x] Quantum Exposure + Crypto-Agility scores with explainable inputs
 
 ## M6 — On-demand scan + badge
 - [ ] SSRF guard (hostname validation, IDN→punycode, DNS check of every address, connect to validated IP) + tests (private, localhost, rebinding, IP literals, ports)

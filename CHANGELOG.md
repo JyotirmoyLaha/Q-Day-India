@@ -20,3 +20,7 @@ All notable changes to this project are documented here. Format: [Keep a Changel
   configs, dependency manifests), own DER/PEM/OpenSSH key parser (no key material in output), 31 dated fix guides,
   Quantum Exposure + Crypto-Agility scores, CycloneDX 1.6 / SARIF 2.1.0 / Markdown exporters validated against the
   official schemas, fixture suite (100% recall, ≥ 90% precision), bundled `quantumbom` CLI.
+- `/code` QuantumBOM page: Web Worker scanning (GitHub URL via API tree + raw files, zip via JSZip, paste),
+  streamed progress, Exposure/Agility gauges with score inputs, findings grouped by risk and file, fix panels,
+  CBOM/SARIF/Markdown export, lz-string URL-fragment sharing (JSON download fallback > 30 KB), production CSP that
+  restricts network access to the site itself and GitHub.
