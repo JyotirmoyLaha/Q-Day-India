@@ -19,7 +19,7 @@
     "tools": "Tools",
     "toolsDesc": {
       "check": "Live post-quantum TLS grade for any public site",
-      "code": "Find vulnerable crypto in a repo, privately in-browser",
+      "code": "Find classical crypto in a repo, privately in-browser",
       "org": "TLS grade + code inventory with a migration plan",
       "qday": "Is your data's secrecy period longer than Q-Day?"
     }
