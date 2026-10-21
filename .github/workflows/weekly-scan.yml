@@ -41,7 +41,7 @@ jobs:
 
       - name: Scan targets
         env:
-          SITE_URL: ${{ vars.SITE_URL || 'https://qday-india.vercel.app' }}
+          SITE_URL: ${{ vars.SITE_URL || 'https://q-day-india.vercel.app' }}
         run: |
           DATE=$(date -u +%F)
           echo "DATE=$DATE" >> "$GITHUB_ENV"

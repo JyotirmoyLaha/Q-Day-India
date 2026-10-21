@@ -39,7 +39,7 @@ func run(args []string) int {
 	concurrency := fs.Int("concurrency", 8, "hosts scanned in parallel")
 	gap := fs.Duration("gap", 300*time.Millisecond, "pause between probes on the same host")
 	timeout := fs.Duration("timeout", 10*time.Second, "timeout per probe")
-	siteURL := fs.String("site-url", "https://qday-india.vercel.app", "site URL used in the User-Agent")
+	siteURL := fs.String("site-url", "https://q-day-india.vercel.app", "site URL used in the User-Agent")
 	allowPrivate := fs.Bool("allow-private", false, "allow scanning non-public addresses (local testing only)")
 	if err := fs.Parse(args); err != nil {
 		return 2

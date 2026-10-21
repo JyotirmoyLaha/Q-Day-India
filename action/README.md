@@ -49,7 +49,7 @@ Outputs: `exposure`, `agility`, `findings`, `cbom`, `sarif`.
 Repositories registered in the Q-Day India repo (`data/repos/*.json`) get a badge:
 
 ```markdown
-![quantum exposure](https://qday-india.vercel.app/api/badge?repo=OWNER/NAME)
+![quantum exposure](https://q-day-india.vercel.app/api/badge?repo=OWNER/NAME)
 ```
 
 ## How it works

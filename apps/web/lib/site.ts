@@ -1,6 +1,6 @@
 // Deployment-specific values. Set these in Vercel → Settings → Environment Variables
 // (or run `node scripts/set-owner.mjs <github-owner> <site-url>` once).
-export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://qday-india.vercel.app').replace(
+export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://q-day-india.vercel.app').replace(
   /\/$/,
   '',
 );

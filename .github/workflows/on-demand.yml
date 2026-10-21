@@ -52,7 +52,7 @@ jobs:
         working-directory: scanner
         env:
           HOST: ${{ steps.host.outputs.host }}
-          SITE_URL: ${{ vars.SITE_URL || 'https://qday-india.vercel.app' }}
+          SITE_URL: ${{ vars.SITE_URL || 'https://q-day-india.vercel.app' }}
         run: |
           go run ./cmd/qday-scan --host "$HOST" --json --site-url "$SITE_URL" > "$RUNNER_TEMP/result.json" || true
           cat "$RUNNER_TEMP/result.json"
@@ -61,7 +61,7 @@ jobs:
         uses: actions/github-script@v9
         env:
           HOST: ${{ steps.host.outputs.host }}
-          SITE_URL: ${{ vars.SITE_URL || 'https://qday-india.vercel.app' }}
+          SITE_URL: ${{ vars.SITE_URL || 'https://q-day-india.vercel.app' }}
         with:
           script: |
             const fs = require('fs');

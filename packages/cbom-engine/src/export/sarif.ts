@@ -93,7 +93,7 @@ export function toSARIF(report: ScanReport, uriBase = '%SRCROOT%'): Record<strin
             fullName: report.tool.name,
             version: report.tool.version,
             semanticVersion: report.tool.version,
-            informationUri: 'https://qday-india.vercel.app/code',
+            informationUri: 'https://q-day-india.vercel.app/code',
             rules,
           },
         },

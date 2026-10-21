@@ -9495,7 +9495,7 @@ ${fix.replacement}` : RISK_TEXT[sample.quantumRisk],
             fullName: report.tool.name,
             version: report.tool.version,
             semanticVersion: report.tool.version,
-            informationUri: "https://qday-india.vercel.app/code",
+            informationUri: "https://q-day-india.vercel.app/code",
             rules
           }
         },

@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://qday-india.vercel.app/schemas/scan.schema.json",
+  "$id": "https://q-day-india.vercel.app/schemas/scan.schema.json",
   "title": "Q-Day India scan file",
   "description": "Output of qday-scan (data/scans/YYYY-MM-DD.json and data/latest.json). See PROJECT_SPEC.md §10.1.",
   "type": "object",
