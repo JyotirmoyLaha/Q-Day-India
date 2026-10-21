@@ -2,7 +2,9 @@
 
 All notable changes to this project are documented here. Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [Unreleased]
+## [1.0.0] — 2026-10-21
+
+First complete build (milestones M1–M8). See BUILD_REPORT.md.
 
 ### Added
 - Project-local toolchain (`activate.sh` / `activate.ps1`), PLAN.md, DECISIONS.md.
@@ -32,3 +34,5 @@ All notable changes to this project are documented here. Format: [Keep a Changel
   roadmap phases for CII and enterprise tracks), `/qday` Mosca calculator (sector presets, findings-based migration
   heuristic, timeline), `/report/[month]` State of the Nation (sector shares, movers, CDN effect, legacy stragglers,
   plain-language summary), `/learn` primer with animated HNDL diagram and an interactive Shor-factors-15 explainer.
+- GitHub Action (`action/`), CI workflow with dogfooding, 495-host target list and first full scan, README,
+  BUILD_REPORT, sitemap/robots, 404 page, `scripts/set-owner.mjs` and `scripts/dogfood.mjs`.

@@ -64,11 +64,11 @@ Progress view for the autonomous build (PROJECT_SPEC.md §0). `[x]` = done and v
 - [x] `/learn` primer + animated HNDL diagram
 
 ## M8 — GitHub Action + launch polish
-- [ ] `action/` composite action + bundled CLI, SARIF upload, CBOM artifact, threshold
-- [ ] `.github/workflows/ci.yml` (lint, types, tests, build, go vet/test, schema validation, dogfood)
-- [ ] Expand `targets/india.yaml` to 300–500 hosts (`verified: false`), run full scan
-- [ ] README (methodology, limitations, sources, badge), BUILD_REPORT.md
+- [x] `action/` composite action + bundled CLI, SARIF upload, CBOM artifact, threshold
+- [x] `.github/workflows/ci.yml` (lint, types, tests, build, go vet/test, schema validation, dogfood)
+- [x] Expand `targets/india.yaml` to 300–500 hosts (`verified: false`), run full scan
+- [x] README (methodology, limitations, sources, badge), BUILD_REPORT.md
 
 ## Final self-verification
-- [ ] All tests, `pnpm build`, scanner on seed list, page-by-page check (§8), demo-script check (§14)
-- [ ] BUILD_REPORT.md
+- [x] All tests, `pnpm build`, scanner on the full list (495 hosts), page-by-page HTTP check (§8), demo-script check (§14). Real-browser checks and Lighthouse are on the human checklist (no headless browser allowed)
+- [x] BUILD_REPORT.md
