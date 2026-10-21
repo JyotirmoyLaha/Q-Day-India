@@ -7,7 +7,7 @@
 **Scan India's websites and your code for quantum risk — then fix it.**
 
 [![ci](https://github.com/JyotirmoyLaha/Q-Day-India/actions/workflows/ci.yml/badge.svg)](https://github.com/JyotirmoyLaha/Q-Day-India/actions/workflows/ci.yml)
-[![weekly scan](https://github.com/JyotirmoyLaha/Q-Day-India/actions/workflows/weekly-scan.yml/badge.svg)](https://github.com/JyotirmoyLaha/Q-Day-India/actions/workflows/weekly-scan.yml)
+[![last scan](https://img.shields.io/github/last-commit/JyotirmoyLaha/Q-Day-India/main?path=data%2Flatest.json&label=last%20scan&color=2dd4bf)](https://github.com/JyotirmoyLaha/Q-Day-India/actions/workflows/weekly-scan.yml)
 [![quantum exposure](https://q-day-india.vercel.app/api/badge?repo=JyotirmoyLaha/Q-Day-India)](https://q-day-india.vercel.app/code)
 [![license: MIT](https://img.shields.io/badge/license-MIT-2dd4bf)](LICENSE)
 [![data: CC BY 4.0](https://img.shields.io/badge/data-CC%20BY%204.0-818cf8)](data/)
