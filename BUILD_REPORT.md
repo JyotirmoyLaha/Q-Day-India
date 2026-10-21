@@ -9,11 +9,11 @@ Autonomous build of PROJECT_SPEC.md, milestones M1–M8, completed on **2026-10-
 | Area | What exists | Where |
 |---|---|---|
 | **Go TLS scanner** | Probes P1–P5 + HEAD, cert analysis, grade A+…F, hygiene flags, HNDL score, SSRF-guarded dialer (refuses private/reserved IPs), retries, 8-way concurrency, 300 ms gaps, deterministic JSON. CLI `qday-scan --targets … --out … --date …` and `--host X --json`. | `scanner/` |
-| **Target list** | 495 public Indian hostnames across all 10 sectors, all `verified: false`; opt-out list | `targets/india.yaml`, `targets/optout.txt` |
-| **Data** | First real scan: 495 hosts, schema-validated | `data/latest.json`, `data/scans/2026-10-21.json` |
+| **Target list** | 489 public Indian hostnames across all 10 sectors, 487 verified with recorded evidence; opt-out list | `targets/india.yaml`, `targets/VERIFICATION.md`, `targets/optout.txt` |
+| **Data** | Two real scans (495 hosts on 2026-10-21, 489 verified hosts on 2026-10-22), schema-validated | `data/latest.json`, `data/scans/` |
 | **Schemas** | Scan output JSON Schema + validator; Go/TS grading parity cases | `schemas/`, `scripts/validate-scan.mjs` |
 | **QuantumBOM engine** | web-tree-sitter (Python, JS/TS/TSX, Java, Go) + regex (Kotlin/Scala, C/C++, C#, Rust, PHP, configs) + PEM/OpenSSH key parser + manifest analysis. 82 YAML rules, 31 dated Markdown fix guides, Exposure/Agility scores, CycloneDX 1.6 / SARIF 2.1.0 / Markdown exporters, inline `quantumbom:ignore`, bundled CLI | `packages/cbom-engine/` |
-| **Website** | Next.js 16: `/`, `/index`, `/site/[host]` (495 static pages), `/check`, `/code`, `/org`, `/qday`, `/report` → `/report/2026-10`, `/learn`, `/about`, `/about/scanner`, 404, sitemap, robots. Light/dark themes, i18n message catalogue, production CSP | `apps/web/` |
+| **Website** | Next.js 16: `/`, `/readiness` (`/index` redirects), `/site/[host]` (489 static pages), `/check`, `/code`, `/org`, `/qday`, `/report` → `/report/2026-10`, `/learn`, `/about`, `/about/scanner`, 404, sitemap, robots. Light/dark themes, i18n message catalogue, production CSP | `apps/web/` |
 | **APIs** | `GET/POST /api/scan` (Node runtime, SSRF guard, OpenSSL ≥ 3.5 gate, 15 s budget, token bucket, 24 h cache), `GET /api/badge?host=…/?repo=…` (build-time data, CDN-cached) | `apps/web/app/api/` |
 | **GitHub Action** | Composite action: bundled CLI → SARIF upload → CBOM artifact → job summary → optional threshold. Dogfooded in CI | `action/` |
 | **Workflows** | `ci.yml` (Go + engine + web + bundle freshness + dogfood), `weekly-scan.yml` (Mon 03:17 UTC, validate, commit `scan: DATE`), `on-demand.yml` (issue label `scan-request` → scan → reply) | `.github/workflows/` |
@@ -26,6 +26,25 @@ Autonomous build of PROJECT_SPEC.md, milestones M1–M8, completed on **2026-10-
 - By sector, A/A+ share: media 89%, e-commerce 85%, payments 77%, stock broking 75%, insurance 66%, healthcare 53%, telecom 53%, banking 39%, government 27%, education 22%.
 - 40 hosts still accept TLS 1.0/1.1.
 - 32 hosts were unreachable from the build machine: 15 TIMEOUT, 10 DNS_FAIL, 5 TLS_FAIL, 2 REFUSED. DNS failures most likely mean the drafted hostname is wrong; see the checklist.
+
+### Update 2026-10-22: verified targets, improved scanner, redesign
+
+- **Targets verified:** 487 of 489 hosts are tied to their organisation by homepage, certificate, restricted
+  registry (`.bank.in`, `.gov.in`, `.ac.in`) or Wikidata evidence. 81 entries changed, mostly banks that moved
+  to RBI's mandatory `.bank.in` domains; 6 hosts that are not an organisation's public site were removed. See
+  [targets/VERIFICATION.md](targets/VERIFICATION.md). Still unverified: `www.metropolisindia.com`, `www.zeptonow.com`.
+- **Rescan (`data/scans/2026-10-22.json`):** 489 hosts, **476 reachable** (was 463 of 495), **247 (52%) A/A+**.
+  Grades: A+ 232 · A 15 · B 1 · C 162 · D 63 · F 3 · unreachable 13 (8 TIMEOUT, 4 TLS_FAIL, 1 REFUSED).
+- **CDN effect holds:** 164 of 168 hosts behind Cloudflare, Akamai, CloudFront or Fastly are A/A+, vs. 63 of 270
+  self-hosted ones. By sector: media 92%, e-commerce 85%, payments 77%, stock broking 75%, insurance 67%,
+  telecom 53%, healthcare 50%, banking 41%, government 32%, education 23%. 39 hosts still accept TLS 1.0/1.1.
+- **Scanner:** a slower retry pass for timeouts, plus a compatibility handshake. Indian Railways (RSA key transport
+  only) is now graded instead of being shown as TLS_FAIL. eportal.incometax.gov.in resets automated connections
+  (confirmed with openssl), so it stays "not reachable".
+- **Website:** redesigned (design system, page headers, grade donut, active nav, mobile menu, copy buttons with
+  fallback). The home page bug on Vercel is fixed (`/index` collided with `/`). Checked in a real browser: 92/92
+  scripted checks on desktop and phone, and Lighthouse ≥ 90 in every category on `/` and `/readiness`
+  (DECISIONS #29–#33).
 
 ## 2. Run it locally
 
@@ -67,17 +86,19 @@ node action/dist/cli.mjs scan <dir> --cbom out.cdx.json --sarif out.sarif --md o
 6. **Publish the Action:** `git tag v1 && git push origin v1`. Users then reference `JyotirmoyLaha/Q-Day-India/action@v1`.
 7. Optional: point a custom domain at Vercel and re-run step 2 with it.
 
-## 4. Test results (final run, 2026-10-21)
+## 4. Test results (final run 2026-10-21, re-run 2026-10-22)
 
 | Suite | Result |
 |---|---|
 | Go scanner, offline (`go vet`, `go test ./...`, gofmt clean) | 4 packages pass: grading parity, netguard/SSRF, targets, and probes against local TLS servers (PQ, classical-only, TLS 1.2, legacy-only, untrusted chain, refused, DNS fail) |
 | Go scanner, live (`QDAY_LIVE_TESTS=1`) | 2/2 pass: cloudflare.com negotiates **X25519MLKEM768** on P1 and passes P2 (grade A); negative fixture www.aiims.edu fails P2 (grade D) |
 | Engine (`vitest`) | **22/22** pass: all 82 rules compile and every tree-sitter query compiles for each grammar; fixtures at **100% recall** and ≥ 90% precision per directory (126 findings, 0 false positives); CycloneDX 1.6 and SARIF 2.1.0 validate against the official schemas with ajv; no private-key material in any output; scores; limits and filters; 1,000-file scan in **0.6 s** |
-| Web (`vitest` + Testing Library + axe-core) | **303 pass, 3 skipped** (the live tests): grading parity with Go, schema, filters, fix guidance (every low grade has a fix), axe checks on every page, WCAG AA token contrast in both themes, wording rules on all copy, **60+ SSRF cases** (IP literals and encodings, ports, paths, reserved TLDs, private/CGNAT/link-local/metadata ranges, mapped IPv6, DNS rebinding with a single resolution, mixed answers), rate limit and cache, badges, GitHub source with an audited fetch (3 API calls; token never sent to raw.githubusercontent.com), zip, URL-fragment share, report, plan, Mosca |
+| Web (`vitest` + Testing Library + axe-core) | **326 pass, 3 skipped** (303 on 2026-10-21; new: grade-chip and info-tone contrast, readiness filters) (the live tests): grading parity with Go, schema, filters, fix guidance (every low grade has a fix), axe checks on every page, WCAG AA token contrast in both themes, wording rules on all copy, **60+ SSRF cases** (IP literals and encodings, ports, paths, reserved TLDs, private/CGNAT/link-local/metadata ranges, mapped IPv6, DNS rebinding with a single resolution, mixed answers), rate limit and cache, badges, GitHub source with an audited fetch (3 API calls; token never sent to raw.githubusercontent.com), zip, URL-fragment share, report, plan, Mosca |
 | Web, live (`QDAY_LIVE_TESTS=1`) | 3/3 pass: cloudflare.com graded A by the Node prober in **~1.0 s** (< 15 s); AIIMS not PQ; live scan of `auth0/node-jsonwebtoken` (74 files, 37 findings, all true positives on manual review) |
 | Lint / types / format | ESLint clean, `tsc --noEmit` clean (engine + web), Prettier clean |
-| Build | `pnpm build`: 510 prerendered routes (including 495 SSG site pages) + 2 API routes |
+| Build | `pnpm build`: 505 prerendered routes (including 489 SSG site pages) + 2 API routes |
+| Real browser (2026-10-22, local Chrome via puppeteer-core, dev-only) | **92/92**: 13 pages × desktop 1440 px and phone 390×844 (HTTP status, no horizontal overflow, no console or network errors), plus home search, example chips, code tab, theme toggle persistence, mobile menu, readiness filters + URL sync + show more, `/index` redirect, copy buttons, `/code` paste scan → fix → share → CBOM download → shared link, `/code` real GitHub scan (only api.github.com and raw.githubusercontent.com contacted), Q-Day sliders, org check, Shor demo, report links |
+| Lighthouse (mobile, 2026-10-22) | `/` 91 / 100 / 100 / 100 · `/readiness` 92 / 100 / 100 / 100 (Performance / Accessibility / Best Practices / SEO) |
 | Scan data | `data/latest.json` and `data/scans/2026-10-21.json` validate against `schemas/scan.schema.json` |
 | End-to-end on the production server (`next start`) | All 12 pages plus sitemap.xml and robots.txt return 200, `/report` → 307 to the latest month, unknown route 404, WASM served as `application/wasm`, CSP header present. `/api/scan`: State Bank of India **C** (1.7 s), HDFC Bank **A+** (0.9 s), both matching the weekly Go scan; repeat call served from cache with `s-maxage=86400`; `localhost`, `127.0.0.1`, `example.com:22`, `http://169.254.169.254/`, `metadata.google.internal`, `[::1]` and POST `10.0.0.1` all rejected with 400. Badges render with grade and date |
 | Dogfood (QuantumBOM on this repo) | 133 files, 0 findings, 5 suppressed with justification (an intentional legacy-TLS probe; key-type inspection imports): Exposure 0, Agility 100 |
@@ -93,10 +114,12 @@ node action/dist/cli.mjs scan <dir> --cbom out.cdx.json --sarif out.sarif --md o
 
 ## 5. Known limitations
 
-- **No real-browser verification.** Headless Chromium/Playwright is forbidden by the spec, so the in-browser `/code` worker, the visual design and Lighthouse scores were not checked in an actual browser. Everything around them is tested (DECISIONS #12, #24).
-- **Screenshots** for the README are not included for the same reason.
-- **Target list accuracy:** 495 hostnames were drafted from public knowledge. Some are wrong (10 DNS failures) and none are verified. The site shows them with an `unverified` tag.
-- **Geo-blocking:** some Indian government and bank hosts timed out from the build machine. GitHub's US runners may see more timeouts. They are shown as "not reachable", never graded or blamed.
+- **Real-browser checks** were done after deployment with a dev-only script (DECISIONS #32); they are not part of CI,
+  so future UI changes rely on the unit, axe and contrast tests unless the script is re-run.
+- **Target list:** 487 of 489 hosts are verified with recorded evidence. Two remain unverified (bot protection hides
+  their homepage), and organisations keep moving domains, so the weekly scan's DNS failures should be reviewed.
+- **Geo-blocking and rate limits:** 13 hosts were still not reachable after the retry pass (8 timeouts, 4 resets,
+  1 refused). GitHub's US runners may see more. They are shown as "not reachable", never graded or blamed.
 - **TLS checks see only the public edge** (often a CDN), not back-end connections. Certificates cannot be PQ yet, so grades reflect key exchange only.
 - **Static analysis** misses algorithms chosen at runtime (e.g. `createSign('RSA-SHA' + bits)`) and can flag intentional uses (suppress with `quantumbom:ignore`).
 - **The DST roadmap phases** come from public summaries, because the report PDF is currently offline (DECISIONS #19).
@@ -106,16 +129,15 @@ node action/dist/cli.mjs scan <dir> --cbom out.cdx.json --sarif out.sarif --md o
 
 ## 6. Checklist — things only you can verify or do
 
-- [ ] **Verify the target domains** in `targets/india.yaml`. Flip `verified: true` per host once confirmed, and fix or remove wrong ones. Start with the unreachable hosts:
-  - DNS_FAIL (hostname probably wrong): `edistricts.up.gov.in`, `enps.nsdl.com`, `omni.axisbank.co.in`, `punjabandsindbank.co.in`, `www.aiimsbhubaneswar.nic.in`, `www.aiimsjodhpur.edu.in`, `www.futuregenerali.in`, `www.ippbonline.com`, `www.kvb.co.in`, `www.onlineservices.nsdl.com`
-  - TIMEOUT / REFUSED / TLS_FAIL (possibly geo-blocked or not HTTPS on that name): `assam.gov.in`, `bankofmaharashtra.in`, `canarabank.com`, `gujaratindia.gov.in`, `jk.gov.in`, `mp.gov.in`, `mtnl.in`, `nciipc.gov.in`, `nitkkr.ac.in`, `www.cdac.in`, `www.drdo.gov.in`, `www.idbibank.in`, `www.iitdh.ac.in`, `www.iob.in`, `www.jiopaymentsbank.com`, `www.ap.gov.in`, `www.iiml.ac.in`, `eportal.incometax.gov.in`, `unifiedportal-mem.epfindia.gov.in`, `www.indianrail.gov.in`, `www.karnataka.gov.in`, `www.nta.ac.in`
+- [x] **Verify the target domains.** Done 2026-10-22: 487/489 verified (`targets/VERIFICATION.md`). Optionally check
+  the two left: `www.metropolisindia.com`, `www.zeptonow.com`.
 - [ ] Do the deployment steps in §3 (`set-owner` for the site URL, Vercel, Actions permissions, labels, `SITE_URL` variable, tag `v1`).
 - [ ] **Run the live tests once** on a machine with internet: `QDAY_LIVE_TESTS=1 pnpm go:test` and `cd apps/web && QDAY_LIVE_TESTS=1 pnpm test`. They passed during the build; re-run them from your own network.
-- [ ] **Browser check of `/code`:** scan `https://github.com/auth0/node-jsonwebtoken`. Findings should stream in, an RSA finding should open its fix, the CBOM should download, and Share should copy a `#r=` link that reopens the report. DevTools → Network should show only `api.github.com`, `raw.githubusercontent.com` and the site itself.
-- [ ] **Browser check of every page** in light and dark mode, at phone width (the index should become cards), with keyboard-only navigation.
-- [ ] **Lighthouse** on `/` and `/index` (target ≥ 90 for Performance, Accessibility, Best Practices and SEO) on the deployed site; fix anything below.
-- [ ] **Screenshots** for the README (`docs/screenshots/`).
-- [ ] Confirm `/api/scan` works on Vercel: `https://<site>/api/scan?host=cloudflare.com` should return grade A/A+. If it returns 503 `PQ_TLS_UNAVAILABLE`, the Node runtime isn't 24.5+. Check the Vercel Node setting; the GitHub-issue fallback works either way.
+- [x] **Browser check of `/code`** (done 2026-10-22, DECISIONS #32): scan `https://github.com/auth0/node-jsonwebtoken`. Findings should stream in, an RSA finding should open its fix, the CBOM should download, and Share should copy a `#r=` link that reopens the report. DevTools → Network should show only `api.github.com`, `raw.githubusercontent.com` and the site itself.
+- [x] **Browser check of every page** (done 2026-10-22) in light and dark mode, at phone width (the index should become cards), with keyboard-only navigation.
+- [x] **Lighthouse** on `/` and `/readiness` (done: 91–100) (target ≥ 90 for Performance, Accessibility, Best Practices and SEO) on the deployed site; fix anything below.
+- [x] **Screenshots** for the README (`docs/screenshots/`).
+- [x] (Verified 2026-10-22: cloudflare.com → grade A on Vercel.) Confirm `/api/scan` works on Vercel: `https://<site>/api/scan?host=cloudflare.com` should return grade A/A+. If it returns 503 `PQ_TLS_UNAVAILABLE`, the Node runtime isn't 24.5+. Check the Vercel Node setting; the GitHub-issue fallback works either way.
 - [ ] Open a test issue titled `scan-request: cloudflare.com` with the `scan-request` label and check that the workflow replies.
 - [ ] After the first weekly run, check `/report/<month>` shows movers, and that the dogfood SARIF appears under *Security → Code scanning*.
 - [ ] Review the wording on `/about`, `/learn` and the DST roadmap mapping on `/org` against the official DST report once it is republished.
@@ -129,8 +151,6 @@ node action/dist/cli.mjs scan <dir> --cbom out.cdx.json --sarif out.sarif --md o
 ---
 
 ## Appendix: every decision (copied from DECISIONS.md)
-
-Each entry: what the spec said or left open, what was chosen, and why.
 
 1. **Project-local toolchain (`.venv/`).** The owner asked for a virtual environment and to keep the C: drive clean. Go 1.27.3 (portable zip, SHA-256 verified), pnpm 10.34 and every cache (Go build/module cache, npm cache, pnpm store, XDG dirs, TEMP) live in `.venv/`, activated with `source ./activate.sh` (bash) or `. .\activate.ps1` (PowerShell). `.venv/` is git-ignored. CI uses the normal `setup-go` / `pnpm/action-setup` actions instead.
 2. **Unverified hosts are shown, not hidden.** §5.3 says "the website shows only verified entries", but §0 says to show unverified entries with an "unverified" tag so the product is complete. §0 wins. Unverified entries carry a visible `unverified` tag everywhere. To switch to "verified only" later, set `NEXT_PUBLIC_SHOW_UNVERIFIED=0`.
@@ -155,6 +175,13 @@ Each entry: what the spec said or left open, what was chosen, and why.
 21. **The `/` sector chart is plain HTML/CSS bars**, not Recharts, so the home page ships almost no chart JavaScript (for Lighthouse). Recharts is used on `/report/*` and `/site/*`, where interactivity helps. Every chart has a data table or text alternative.
 22. **Inline suppressions (`quantumbom:ignore`)** on the same or the previous line. They're needed for honest dogfooding: this repo intentionally offers TLS 1.0/1.1 in its legacy probe and imports `crypto/rsa`/`crypto/ecdsa` only to read certificate key sizes. Suppressed findings are counted in `stats.suppressed` and shown in the UI and Markdown, so nothing is hidden silently.
 23. **The GitHub Action is a composite action** around the esbuild-bundled CLI (`action/dist/cli.mjs` + WASM, committed; CI fails if the bundle is stale). SARIF upload uses `github/codeql-action/upload-sarif@v4` and the CBOM uses `actions/upload-artifact@v7`. The repo badge (`/api/badge?repo=`) reads `data/repos/*.json`, which `pnpm dogfood` writes; other repos can be added by PR. A badge service must never scan on request, and this one doesn't.
-24. **Not done, needs a real browser (forbidden in the build environment):** Lighthouse scores and README screenshots. Mitigations in place: `/` and `/index` are static (SSG); the home chart is plain HTML; fonts are self-hosted via `next/font`; the index paginates 50 rows at a time; Recharts loads only on report and site pages. The human checklist in BUILD_REPORT.md covers running Lighthouse once.
+24. **Not done, needs a real browser (forbidden in the build environment):** Lighthouse scores and README screenshots. Mitigations in place: `/` and `/index` are static (SSG); the home chart is plain HTML; fonts are self-hosted via `next/font`; the index paginates 50 rows at a time; Recharts loads only on report and site pages. The human checklist in BUILD_REPORT.md covers running Lighthouse once. *Update 2026-10-22: both done after deployment, see #32. Lighthouse (mobile) for `/` is 91/100/100/100 and for `/readiness` 92/100/100/100 (Performance/Accessibility/Best Practices/SEO); screenshots are in `docs/screenshots/`.*
 25. **Stretch goals not built:** Hindi/Bengali UI (strings are already in `messages/en.json` with a `t()` helper, ready for `hi.json`/`bn.json`), APK scanning, email digests. **Built:** the Shor-factors-15 explainer on `/learn`, and regex rules for C/C++, C#, Rust and PHP.
 26. **Activation scripts also redirect `APPDATA`/`LOCALAPPDATA`/`NODE_COMPILE_CACHE` into `.venv`.** Go telemetry and Node's compile cache otherwise write to the C: profile. They only change the current shell.
+27. **`/api/badge` runs on the Node.js runtime, not Edge** (spec §7.3 says edge). Next 16 deprecates the Edge runtime and warned during the Vercel build. The badge still never scans: it reads build-time JSON and is cached by Vercel's CDN (`s-maxage=86400`).
+28. **No `bin` entry in `@qday/cbom-engine`.** The CLI is distributed as the committed bundle `action/dist/cli.mjs`. Declaring a `bin` that only exists after a build made pnpm print a warning on every fresh install, including Vercel builds.
+29. **The index lives at `/readiness`, not `/index`.** On Vercel, the static output for `/index` (`index.html`) collided with the home page, so `/` served the index table. The route moved to `/readiness`, and a permanent (308) redirect keeps old `/index` links working.
+30. **Target verification is evidence-based and published.** `scripts/verify-targets.mjs` records each host's homepage (title, `og:site_name`, description, first heading, after redirects), its certificate subject and SANs, and DNS, once with the scanner's User-Agent and once with a browser User-Agent. `scripts/apply-verification.mjs` marks a host verified only when the evidence names the organisation, or when the hostname sits in a restricted registry (`.bank.in`, `.gov.in`/`.nic.in`, `.ac.in`/`.edu.in`). Wikidata's official-website property (P856) counts as supporting evidence. Hosts that moved were updated to their current names, mainly banks moving to RBI's mandatory `.bank.in` domains and renamed insurers. Hostnames that are not the organisation's public site were removed. Result: 489 hosts, 487 verified; the 2 that remain unverified keep their tag. All evidence is in `targets/verification-evidence*.json` and `targets/VERIFICATION.md`.
+31. **The scanner retries timeouts and adds a compatibility handshake.** A timeout says nothing about TLS configuration. Hosts that time out therefore get a second pass at the end of the scan, with double the timeout and double the gap between probes. Some servers reset the connection on a ClientHello that offers only modern ECDHE suites, for example a server limited to RSA key transport such as www.indianrail.gov.in. Those hosts get `P1-compat`, which offers every suite Go supports. The probe detail records this, and the grade rules are unchanged.
+32. **Real-browser QA without adding a browser to the project.** The spec forbids headless Chromium/Playwright in the build environment. After deployment, the owner asked for every page and button to be checked. That was done with `puppeteer-core` driving the machine's own Chrome from a script under `.venv/tools/`, which is git-ignored and not part of the product, CI or dependencies. It covered 13 pages on desktop and on a 390×844 phone viewport, in both themes, plus every interactive flow (/code GitHub scan with a network audit, copy buttons, filters, menu, theme). Lighthouse ran the same way.
+33. **Design system.** Colour, radius and component tokens (`.card`, `.btn-*`, `.input`, `.eyebrow`) live in `globals.css` inside `@layer components`. In Tailwind v4, unlayered CSS beats utilities, which had broken `hidden`/`lg:hidden`. Grade colours are tokens (`--g-*`), shared by chips, the donut and the sector bars. Their contrast with the chip text is tested. Display and mono fonts are loaded via `next/font` as `--nf-*` variables, so they don't clash with the `@theme` tokens. Copy buttons use the async Clipboard API with an `execCommand` fallback and always show the outcome.

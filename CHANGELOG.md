@@ -4,11 +4,32 @@ All notable changes to this project are documented here. Format: [Keep a Changel
 
 ## [Unreleased]
 
+### Added
+- Target verification: `scripts/verify-targets.mjs` collects homepage and certificate evidence per host;
+  `scripts/apply-verification.mjs` applies it. 487 of 489 hosts are now verified. The evidence is published in
+  `targets/VERIFICATION.md` and `targets/verification-evidence*.json`.
+- Scanner: hosts that time out get a slower second pass; a `P1-compat` handshake grades servers that reject the
+  modern ClientHello (e.g. RSA-key-transport-only servers).
+- New design system (tokens, cards, buttons, inputs, grade colours), icon set, page headers, grade donut,
+  code blocks with copy, active nav state, mobile menu, README screenshots (`docs/screenshots/`).
+- Readiness Index filters by grade and sector chips, sort by grade, and filters synced to the URL.
+- Scan snapshot `data/scans/2026-10-22.json`: 489 hosts, 476 reachable, 247 (52%) quantum-safe.
+
 ### Changed
+- The index moved from `/index` to `/readiness`; `/index` permanently redirects.
+- Hostnames updated to where the organisations now are (RBI's `.bank.in` migration, rebrands); 6 hosts that are not
+  an organisation's public site were removed (495 → 489).
+- Home, site report, code, check, org, Q-Day, learn, methodology and report pages redesigned.
+- `/about` limitations now say what has been addressed and what cannot be removed, and why.
 - `/api/badge` now uses the Node.js runtime (Next 16 deprecates Edge); still served from build-time data and CDN-cached.
 - Removed the unused `bin` entry from `@qday/cbom-engine` (the CLI ships as `action/dist/cli.mjs`).
 
 ### Fixed
+- On Vercel, `/` served the index table: the `/index` static file collided with the home page.
+- Copy buttons failed silently when the Clipboard API was unavailable; they now fall back and show the outcome.
+- Responsive classes were overridden by unlayered component CSS (hamburger on desktop, header overflow on phones).
+- Hydration mismatch on the 404 page from the nav indicator.
+- An empty hero search did nothing; it now shows a hint.
 - CI: `.wasm` file modes normalised in the bundle; `actions: read` permission for SARIF upload.
 
 ## [1.0.0] — 2026-10-21

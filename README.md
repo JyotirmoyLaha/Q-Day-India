@@ -15,11 +15,17 @@ A future large quantum computer running Shor's algorithm will break RSA, Diffie-
 
 Plus an **organisation report** mapped to India's DST Task Force roadmap, a **Mosca Q-Day calculator**, **README badges**, and a monthly **State of the Nation** report. It runs for ₹0 on free tiers.
 
-> Screenshots: see `docs/screenshots/` (to be captured after the first deployment — see BUILD_REPORT.md).
+Live site: **https://q-day-india.vercel.app**
+
+![Q-Day India home page: a site check form and a donut of grades across 489 Indian sites](docs/screenshots/home-dark.png)
+
+| Readiness Index | Site report | QuantumBOM | Phone |
+|---|---|---|---|
+| ![Readiness Index table with grade and sector filters](docs/screenshots/readiness.png) | ![Site report for HDFC Bank, grade A+](docs/screenshots/site-report.png) | ![QuantumBOM code scanner](docs/screenshots/code.png) | ![Home page on a phone](docs/screenshots/home-mobile.png) |
 
 ## Features
 
-- **Weekly index of 495 Indian hosts** across banking, payments, government, stock broking, insurance, healthcare, telecom, e-commerce, education and media, with grade history, sector charts and per-site fix guidance. (Hostnames are drafted from public information and shown with an *unverified* tag until a maintainer confirms them.)
+- **Weekly [Readiness Index](https://q-day-india.vercel.app/readiness) of 489 Indian hosts** across banking, payments, government, stock broking, insurance, healthcare, telecom, e-commerce, education and media, with grade history, sector charts and per-site fix guidance. **487 hostnames are verified** against the organisation's homepage, certificate, restricted registries (`.bank.in`, `.gov.in`, `.ac.in`) or Wikidata; the evidence is in [`targets/VERIFICATION.md`](targets/VERIFICATION.md). Unverified entries keep a visible tag.
 - **Five TLS probes + one HEAD per host**: default handshake, PQ-only (X25519MLKEM768), alternative hybrids (SecP256r1MLKEM768 / SecP384r1MLKEM1024), TLS 1.3-only, legacy TLS 1.0/1.1, plus HSTS and CDN detection. [Grading](https://qday-india.vercel.app/about#grading) runs A+ … F, with a Harvest-Now-Decrypt-Later exposure score from 0 to 100.
 - **Live check** of any public hostname (`/check`, `/api/scan`), with mandatory SSRF protection: hostname-only input, IDN→punycode, every resolved address must be public, and the connection goes to the validated IP. A GitHub-issue fallback (`on-demand.yml`) covers runtimes without OpenSSL 3.5.
 - **QuantumBOM** (`/code`): scan a public GitHub repo, a zip or a pasted file. 82 data-driven rules cover Python, JS/TS/TSX, Java, Go (tree-sitter) and Kotlin/Scala/C/C++/C#/Rust/PHP (regex). It also checks nginx/Apache/HAProxy/OpenSSL/Docker/Terraform/Kubernetes/SSH configs, key files (PEM/OpenSSH, never displaying key material) and dependency manifests. Output: **CycloneDX 1.6 CBOM**, **SARIF 2.1.0** and **Markdown**, all validated against the official schemas. Reports can be shared through the URL fragment, which no server ever sees.
@@ -33,7 +39,7 @@ apps/web/                 Next.js 16 (App Router, TS, Tailwind v4, Recharts) —
 packages/cbom-engine/     QuantumBOM engine: rules/*.yaml, fixes/*.md, exporters, CLI, fixtures
 scanner/                  Go TLS scanner (qday-scan)
 action/                   Composite GitHub Action + bundled CLI (dist/)
-targets/india.yaml        Target list (all verified: false until checked)   targets/optout.txt
+targets/india.yaml        Target list (evidence: targets/VERIFICATION.md)   targets/optout.txt
 data/latest.json          Latest scan        data/scans/YYYY-MM-DD.json   History
 data/repos/*.json         Repo badge data (dogfood)
 schemas/                  scan.schema.json, grading parity cases (shared by Go and TS)
@@ -102,7 +108,7 @@ Full details: [/about](https://qday-india.vercel.app/about) · Responsible scann
 - Certificates cannot be post-quantum yet; grades reflect key exchange only.
 - Static code analysis has false positives and misses algorithms chosen at runtime; confidence levels are shown.
 - Quantum-computer timelines are uncertain; the Q-Day calculator lets you choose your own estimate.
-- The target list was drafted from public information and needs human verification (`verified: false`).
+- Some government and bank hosts block or rate-limit automated or foreign traffic. Timeouts get a slower second pass and old servers get a compatibility handshake; hosts that still fail are shown as "not reachable" with the reason, never graded.
 
 ## Sources
 
