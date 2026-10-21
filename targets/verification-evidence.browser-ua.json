@@ -1,0 +1,360 @@
+[
+ {
+  "host": "www.amazon.in",
+  "org": "Amazon India",
+  "sector": "ecommerce",
+  "dns": true,
+  "addrs": [
+   "2600:9000:2573:9c00:8:b109:e16:e01",
+   "2600:9000:2573:3000:8:b109:e16:e01",
+   "2600:9000:2573:5400:8:b109:e16:e01"
+  ],
+  "status": 202,
+  "finalUrl": "https://www.amazon.in/",
+  "title": "",
+  "h1": "JavaScript is disabled",
+  "cert": {
+   "subject": "CN=www.amazon.in",
+   "issuer": "Amazon",
+   "san": [
+    "www.amazon.in",
+    "www.amazon.co.in",
+    "p-y3-www-amazon-in-kalias.amazon.in",
+    "origin-www.amazon.in",
+    "p-yo-www-amazon-in-kalias.amazon.in",
+    "amazon.in",
+    "amazon.co.in",
+    "p-nt-www-amazon-in-kalias.amazon.in"
+   ],
+   "hostnameOk": true,
+   "authorized": true
+  }
+ },
+ {
+  "host": "www.aninews.in",
+  "org": "ANI",
+  "sector": "media",
+  "dns": true,
+  "addrs": [
+   "2606:4700:90d4:d6de:661b:0:d260:6448",
+   "104.20.27.156",
+   "172.66.164.78"
+  ],
+  "status": 200,
+  "finalUrl": "https://www.aninews.in/",
+  "title": "Asia’s Premier News Agency - India News, Business & Political, National & International, Bollywood, Sports | ANI News",
+  "ogTitle": "Asia",
+  "description": "ANI brings the latest news on Politics and Current Affairs in India & around the World, Sports, Health & Fitness, Entertainment, News.",
+  "cert": {
+   "subject": "CN=aninews.in",
+   "issuer": "Google Trust Services",
+   "san": [
+    "aninews.in",
+    "*.aninews.in"
+   ],
+   "hostnameOk": true,
+   "authorized": true
+  }
+ },
+ {
+  "host": "www.healthifyme.com",
+  "org": "HealthifyMe",
+  "sector": "healthcare",
+  "dns": true,
+  "addrs": [
+   "23.65.124.98",
+   "23.65.124.88"
+  ],
+  "status": 200,
+  "finalUrl": "https://www.healthifyme.com/in/",
+  "title": "Healthify",
+  "ogTitle": "Healthify",
+  "description": "Healthify provides smart meal plans personalized by our expert nutritionists and customized workout plans with our certified fitness coaches. Healthify enables you to track your daily calorie intake, weight goals, workouts, hand washing tra",
+  "h1": "Meet Healthify.",
+  "cert": {
+   "subject": "CN=www.healthifyme.com",
+   "issuer": "Let's Encrypt",
+   "san": [
+    "acctsglinks.healthifyme.com",
+    "analytics.healthifyme.com",
+    "analytics.x123healthifyme.com",
+    "anomalisa.healthifyme.com",
+    "api.alpha.x123healthifyme.com",
+    "api.berry.healthifyme.com",
+    "api.beta.x123healthifyme.com",
+    "api.gamma.x123healthifyme.com",
+    "api.healthifyme.com",
+    "api.theta.x123healthifyme.com",
+    "api.x123healthifyme.com",
+    "apps.berry.healthifyme.com"
+   ],
+   "hostnameOk": true,
+   "authorized": true
+  }
+ },
+ {
+  "host": "www.jiofiber.com",
+  "org": "JioFiber",
+  "sector": "telecom",
+  "dns": true,
+  "addrs": [
+   "3.33.130.190",
+   "15.197.148.33"
+  ],
+  "status": 200,
+  "finalUrl": "https://www.jiofiber.com/",
+  "cert": {
+   "subject": "CN=www.jiofiber.com",
+   "issuer": "GoDaddy.com",
+   "san": [
+    "www.jiofiber.com"
+   ],
+   "hostnameOk": true,
+   "authorized": true
+  }
+ },
+ {
+  "host": "www.manipal.edu",
+  "org": "Manipal Academy of Higher Education",
+  "sector": "education",
+  "dns": true,
+  "addrs": [
+   "2603:1061:14:155::1",
+   "150.171.110.86"
+  ],
+  "status": 200,
+  "finalUrl": "https://www.manipal.edu/",
+  "cert": {
+   "subject": "CN=www.manipal.edu",
+   "issuer": "DigiCert Inc",
+   "san": [
+    "www.manipal.edu"
+   ],
+   "hostnameOk": true,
+   "authorized": true
+  }
+ },
+ {
+  "host": "www.maxhealthcare.in",
+  "org": "Max Healthcare",
+  "sector": "healthcare",
+  "dns": true,
+  "addrs": [
+   "2600:140f:9::1741:7c62",
+   "2600:140f:9::1741:7c63",
+   "23.65.124.98"
+  ],
+  "status": 403,
+  "finalUrl": "https://www.maxhealthcare.in/",
+  "title": "Access Denied",
+  "h1": "Access Denied",
+  "cert": {
+   "subject": "CN=maxhealthcare.com",
+   "issuer": "Let's Encrypt",
+   "san": [
+    "admin-beta.maxhealthcaredigital.com",
+    "admin.maxhealthcaredigital.com",
+    "ams.maxhealthcare.in",
+    "analytics-beta.maxhealthcaredigital.com",
+    "api-beta.maxhealthcaredigital.com",
+    "api-prod.maxhealthcaredigital.com",
+    "api.maxlab.co.in",
+    "betaipcc.maxhealthcare.com",
+    "betamaxaibot.maxhealthcare.com",
+    "betatemplates.maxhealthcare.com",
+    "betavoicetotextapi.maxhealthcare.com",
+    "boss-beta.maxhealthcaredigital.com"
+   ],
+   "hostnameOk": true,
+   "authorized": true
+  }
+ },
+ {
+  "host": "www.medplusmart.com",
+  "org": "MedPlus",
+  "sector": "healthcare",
+  "dns": true,
+  "addrs": [
+   "23.65.124.99",
+   "23.65.124.104"
+  ],
+  "status": 403,
+  "finalUrl": "https://www.medplusmart.com/",
+  "title": "Access Denied",
+  "h1": "Access Denied",
+  "cert": {
+   "subject": "CN=www.medplusmart.com",
+   "issuer": "Let's Encrypt",
+   "san": [
+    "blog.medplusmart.com",
+    "financeerp.medplusindia.com",
+    "mobile.medplusindia.com",
+    "static1.medpluslens.com",
+    "static1.medplusmart.com",
+    "static2.medplusmart.com",
+    "static3.medplusmart.com",
+    "static4.medplusmart.com",
+    "static5.medplusmart.com",
+    "www.medplusindia.com",
+    "www.medpluslab.com",
+    "www.medpluslens.com"
+   ],
+   "hostnameOk": true,
+   "authorized": true
+  }
+ },
+ {
+  "host": "www.muthootfinance.com",
+  "org": "Muthoot Finance",
+  "sector": "banking",
+  "dns": true,
+  "addrs": [
+   "2600:9000:223e:7000:1d:1bb1:edc0:93a1",
+   "2600:9000:223e:9800:1d:1bb1:edc0:93a1",
+   "2600:9000:223e:d800:1d:1bb1:edc0:93a1"
+  ],
+  "status": 200,
+  "finalUrl": "https://www.muthootfinance.com/",
+  "title": "Muthoot Finance - India's Largest Gold Loan NBFC",
+  "siteName": "Muthoot Finance",
+  "ogTitle": "Muthoot Finance - India's Largest Gold Loan NBFC",
+  "description": "We are now India’s No. 1 Most Trusted Financial Services Brand for the 9th year in a row (since 2016) by TRA’s Brand Trust Report 2025",
+  "cert": {
+   "subject": "CN=*.muthootfinance.com",
+   "issuer": "Sectigo Limited",
+   "san": [
+    "*.muthootfinance.com",
+    "muthootfinance.com"
+   ],
+   "hostnameOk": true,
+   "authorized": true
+  }
+ },
+ {
+  "host": "www.ncdex.com",
+  "org": "NCDEX",
+  "sector": "stock_broking",
+  "dns": true,
+  "addrs": [
+   "3.6.198.212",
+   "172.105.52.15",
+   "3.110.3.88"
+  ],
+  "status": 200,
+  "finalUrl": "https://www.ncdex.com/",
+  "cert": {
+   "subject": "CN=*.ncdex.com",
+   "issuer": "Sectigo Limited",
+   "san": [
+    "*.ncdex.com",
+    "ncdex.com"
+   ],
+   "hostnameOk": true,
+   "authorized": true
+  }
+ },
+ {
+  "host": "www.npscra.proteantech.in",
+  "org": "NPS CRA (Protean)",
+  "sector": "government",
+  "dns": true,
+  "addrs": [
+   "34.160.46.8"
+  ],
+  "status": 200,
+  "finalUrl": "https://www.npscra.proteantech.in/",
+  "title": "Welcome",
+  "description": "",
+  "h1": "Search on Website",
+  "cert": {
+   "subject": "CN=npscra.proteantech.in",
+   "issuer": "Google Trust Services",
+   "san": [
+    "npscra.proteantech.in",
+    "www.npscra.proteantech.in",
+    "uat.npscra.proteantech.in"
+   ],
+   "hostnameOk": true,
+   "authorized": true
+  }
+ },
+ {
+  "host": "www.thyrocare.com",
+  "org": "Thyrocare",
+  "sector": "healthcare",
+  "dns": true,
+  "addrs": [
+   "2606:4700:83b5:ded7:c81b:0:2a3e:8d21",
+   "172.66.169.194",
+   "104.20.34.54"
+  ],
+  "status": 403,
+  "finalUrl": "https://www.thyrocare.com/",
+  "title": "Just a moment...",
+  "cert": {
+   "subject": "CN=thyrocare.com",
+   "issuer": "Google Trust Services",
+   "san": [
+    "thyrocare.com",
+    "*.thyrocare.com"
+   ],
+   "hostnameOk": true,
+   "authorized": true
+  }
+ },
+ {
+  "host": "www.yashodahospitals.com",
+  "org": "Yashoda Hospitals",
+  "sector": "healthcare",
+  "dns": true,
+  "addrs": [
+   "18.61.241.166",
+   "16.112.248.196"
+  ],
+  "status": 200,
+  "finalUrl": "https://www.yashodahospitals.com/",
+  "title": "Best Hospital in Hyderabad | Multi Speciality Hospitals In Hyderabad | Yashoda Hospitals",
+  "siteName": "Yashoda Hospitals",
+  "ogTitle": "Best Hospital in Hyderabad | Multi Speciality Hospitals In Hyderabad | Yashoda Hospitals",
+  "description": "Yashoda Hospitals' presence encompasses over 2,756 Beds across 4 Independent Hospitals, 4 Heart Institutes, 4 Cancer Institutes, 600+ Specialist Doctors across 62+ Medical Specialties, and over a 200+ Outreach Clinics.",
+  "h1": "Best Multi-Speciality Hospital in Hyderabad",
+  "cert": {
+   "subject": "CN=*.yashodahospitals.com",
+   "issuer": "Amazon",
+   "san": [
+    "*.yashodahospitals.com",
+    "www.yashodahospitals.com",
+    "yashodahospitals.com"
+   ],
+   "hostnameOk": true,
+   "authorized": true
+  }
+ },
+ {
+  "host": "www.zeptonow.com",
+  "org": "Zepto",
+  "sector": "ecommerce",
+  "dns": true,
+  "addrs": [
+   "54.192.151.38",
+   "54.192.151.10",
+   "54.192.151.66"
+  ],
+  "status": 202,
+  "finalUrl": "https://www.zeptonow.com/",
+  "title": "",
+  "h1": "JavaScript is disabled",
+  "cert": {
+   "subject": "CN=zeptonow.com",
+   "issuer": "Amazon",
+   "san": [
+    "zeptonow.com",
+    "*.relishmeats.com",
+    "relishmeats.com",
+    "*.zeptonow.com"
+   ],
+   "hostnameOk": true,
+   "authorized": true
+  }
+ }
+]

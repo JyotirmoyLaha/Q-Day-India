@@ -1,524 +1,518 @@
 # Q-Day India target list.
 #
-# Every entry was drafted from public knowledge during the automated build and is
-# `verified: false` until a maintainer confirms the hostname belongs to the organisation.
+# Every entry was checked on 2026-10-22 with scripts/verify-targets.mjs (homepage title, certificate
+# organisation, restricted registries) and reviewed by a maintainer; see targets/VERIFICATION.md.
 # The website shows unverified entries with an "unverified" tag (see DECISIONS.md #2).
 #
 # Fields: host, org, sector, subsector, shelf_life_years (optional; sector default), notes, verified
 # sector: banking | payments | government | stock_broking | insurance | healthcare | telecom | ecommerce | education | media
 # Opt-outs: targets/optout.txt
 
-# --- banking (65) ---
-- {host: www.onlinesbi.sbi, org: State Bank of India, sector: banking, subsector: public_bank, notes: retail banking login host, verified: false}
-- {host: sbi.co.in, org: State Bank of India, sector: banking, subsector: public_bank, verified: false}
-- {host: www.bankofbaroda.in, org: Bank of Baroda, sector: banking, subsector: public_bank, verified: false}
-- {host: www.pnbindia.in, org: Punjab National Bank, sector: banking, subsector: public_bank, verified: false}
-- {host: canarabank.com, org: Canara Bank, sector: banking, subsector: public_bank, verified: false}
-- {host: www.unionbankofindia.co.in, org: Union Bank of India, sector: banking, subsector: public_bank, verified: false}
-- {host: bankofindia.co.in, org: Bank of India, sector: banking, subsector: public_bank, verified: false}
-- {host: indianbank.in, org: Indian Bank, sector: banking, subsector: public_bank, verified: false}
-- {host: www.centralbankofindia.co.in, org: Central Bank of India, sector: banking, subsector: public_bank, verified: false}
-- {host: www.iob.in, org: Indian Overseas Bank, sector: banking, subsector: public_bank, verified: false}
-- {host: www.ucobank.com, org: UCO Bank, sector: banking, subsector: public_bank, verified: false}
-- {host: bankofmaharashtra.in, org: Bank of Maharashtra, sector: banking, subsector: public_bank, verified: false}
-- {host: punjabandsindbank.co.in, org: Punjab & Sind Bank, sector: banking, subsector: public_bank, verified: false}
-- {host: www.idbibank.in, org: IDBI Bank, sector: banking, subsector: public_bank, verified: false}
-- {host: www.hdfcbank.com, org: HDFC Bank, sector: banking, subsector: private_bank, verified: false}
-- {host: netbanking.hdfcbank.com, org: HDFC Bank, sector: banking, subsector: private_bank, notes: net banking login, verified: false}
-- {host: www.icicibank.com, org: ICICI Bank, sector: banking, subsector: private_bank, verified: false}
-- {host: infinity.icicibank.com, org: ICICI Bank, sector: banking, subsector: private_bank, notes: net banking login, verified: false}
-- {host: www.axisbank.com, org: Axis Bank, sector: banking, subsector: private_bank, verified: false}
-- {host: omni.axisbank.co.in, org: Axis Bank, sector: banking, subsector: private_bank, notes: net banking login, verified: false}
-- {host: www.kotak.com, org: Kotak Mahindra Bank, sector: banking, subsector: private_bank, verified: false}
-- {host: www.indusind.com, org: IndusInd Bank, sector: banking, subsector: private_bank, verified: false}
-- {host: www.yesbank.in, org: Yes Bank, sector: banking, subsector: private_bank, verified: false}
-- {host: www.idfcfirstbank.com, org: IDFC FIRST Bank, sector: banking, subsector: private_bank, verified: false}
-- {host: www.federalbank.co.in, org: Federal Bank, sector: banking, subsector: private_bank, verified: false}
-- {host: www.southindianbank.com, org: South Indian Bank, sector: banking, subsector: private_bank, verified: false}
-- {host: karnatakabank.com, org: Karnataka Bank, sector: banking, subsector: private_bank, verified: false}
-- {host: www.kvb.co.in, org: Karur Vysya Bank, sector: banking, subsector: private_bank, verified: false}
-- {host: www.cityunionbank.com, org: City Union Bank, sector: banking, subsector: private_bank, verified: false}
-- {host: www.rblbank.com, org: RBL Bank, sector: banking, subsector: private_bank, verified: false}
-- {host: bandhanbank.com, org: Bandhan Bank, sector: banking, subsector: private_bank, verified: false}
-- {host: www.dcbbank.com, org: DCB Bank, sector: banking, subsector: private_bank, verified: false}
-- {host: www.csb.co.in, org: CSB Bank, sector: banking, subsector: private_bank, verified: false}
-- {host: www.dhanbank.com, org: Dhanlaxmi Bank, sector: banking, subsector: private_bank, verified: false}
-- {host: www.jkbank.com, org: Jammu & Kashmir Bank, sector: banking, subsector: private_bank, verified: false}
-- {host: www.tmb.in, org: Tamilnad Mercantile Bank, sector: banking, subsector: private_bank, verified: false}
-- {host: www.aubank.in, org: AU Small Finance Bank, sector: banking, subsector: small_finance_bank, verified: false}
-- {host: www.equitasbank.com, org: Equitas Small Finance Bank, sector: banking, subsector: small_finance_bank, verified: false}
-- {host: www.ujjivansfb.in, org: Ujjivan Small Finance Bank, sector: banking, subsector: small_finance_bank, verified: false}
-- {host: www.janabank.com, org: Jana Small Finance Bank, sector: banking, subsector: small_finance_bank, verified: false}
-- {host: www.suryodaybank.com, org: Suryoday Small Finance Bank, sector: banking, subsector: small_finance_bank, verified: false}
-- {host: www.esafbank.com, org: ESAF Small Finance Bank, sector: banking, subsector: small_finance_bank, verified: false}
-- {host: www.utkarsh.bank, org: Utkarsh Small Finance Bank, sector: banking, subsector: small_finance_bank, verified: false}
-- {host: www.ippbonline.com, org: India Post Payments Bank, sector: banking, subsector: payments_bank, verified: false}
-- {host: www.finobank.com, org: Fino Payments Bank, sector: banking, subsector: payments_bank, verified: false}
-- {host: www.jiopaymentsbank.com, org: Jio Payments Bank, sector: banking, subsector: payments_bank, verified: false}
-- {host: www.hsbc.co.in, org: HSBC India, sector: banking, subsector: foreign_bank, verified: false}
-- {host: www.online.citibank.co.in, org: Citibank India, sector: banking, subsector: foreign_bank, verified: false}
-- {host: www.deutschebank.co.in, org: Deutsche Bank India, sector: banking, subsector: foreign_bank, verified: false}
-- {host: www.rbi.org.in, org: Reserve Bank of India, sector: banking, subsector: regulator, verified: false}
-- {host: rbidocs.rbi.org.in, org: Reserve Bank of India, sector: banking, subsector: regulator, notes: documents host, verified: false}
-- {host: www.nabard.org, org: NABARD, sector: banking, subsector: development_bank, verified: false}
-- {host: www.sidbi.in, org: SIDBI, sector: banking, subsector: development_bank, verified: false}
-- {host: www.eximbankindia.in, org: Export-Import Bank of India, sector: banking, subsector: development_bank, verified: false}
-- {host: nhb.org.in, org: National Housing Bank, sector: banking, subsector: development_bank, verified: false}
-- {host: www.saraswatbank.com, org: Saraswat Co-operative Bank, sector: banking, subsector: cooperative_bank, verified: false}
-- {host: www.svcbank.com, org: SVC Co-operative Bank, sector: banking, subsector: cooperative_bank, verified: false}
-- {host: www.cosmosbank.com, org: Cosmos Co-operative Bank, sector: banking, subsector: cooperative_bank, verified: false}
-- {host: www.bajajfinserv.in, org: Bajaj Finance, sector: banking, subsector: nbfc, verified: false}
-- {host: www.muthootfinance.com, org: Muthoot Finance, sector: banking, subsector: nbfc, verified: false}
-- {host: www.hdfc.com, org: HDFC (housing finance), sector: banking, subsector: nbfc, verified: false}
-- {host: www.lichousing.com, org: LIC Housing Finance, sector: banking, subsector: nbfc, verified: false}
-- {host: www.shriramfinance.in, org: Shriram Finance, sector: banking, subsector: nbfc, verified: false}
-- {host: www.tatacapital.com, org: Tata Capital, sector: banking, subsector: nbfc, verified: false}
-- {host: www.cibil.com, org: TransUnion CIBIL, sector: banking, subsector: credit_bureau, verified: false}
+# --- banking (64) ---
+- {host: onlinesbi.sbi.bank.in, org: State Bank of India, sector: banking, subsector: public_bank, notes: "verified 2026-10-22: page title \"State Bank of India\"; certificate O=\"STATE BANK OF INDIA\"; .bank.in registry (restricted to RBI-regulated banks)", verified: true}
+- {host: sbi.co.in, org: State Bank of India, sector: banking, subsector: public_bank, notes: "verified 2026-10-22: page title \"State Bank of India\"", verified: true}
+- {host: bankofbaroda.bank.in, org: Bank of Baroda, sector: banking, subsector: public_bank, notes: "verified 2026-10-22: certificate O=\"Bank of Baroda\"; .bank.in registry (restricted to RBI-regulated banks)", verified: true}
+- {host: pnb.bank.in, org: Punjab National Bank, sector: banking, subsector: public_bank, notes: "verified 2026-10-22: page title \"Personal Banking | Corporate Banking | Netbanking Services| Bank | PNB\"; certificate O=\"Punjab National Bank\"; .bank.in registry (restricted to RBI-regulated banks)", verified: true}
+- {host: www.canarabank.bank.in, org: Canara Bank, sector: banking, subsector: public_bank, notes: "verified 2026-10-22: page title \"Canara Bank - Personal & Corporate Banking Services\"; .bank.in registry (restricted to RBI-regulated banks)", verified: true}
+- {host: www.unionbankofindia.bank.in, org: Union Bank of India, sector: banking, subsector: public_bank, notes: "verified 2026-10-22: page title \"Union Bank of India - Personal, Corporate & NRI Banking Online\"; certificate O=\"Union Bank of India\"; .bank.in registry (restricted to RBI-regulated banks)", verified: true}
+- {host: bankofindia.co.in, org: Bank of India, sector: banking, subsector: public_bank, notes: "verified 2026-10-22: certificate O=\"Bank of India\"", verified: true}
+- {host: indianbank.bank.in, org: Indian Bank, sector: banking, subsector: public_bank, notes: "verified 2026-10-22: page title \"Personal & Home Loan - Digital Banking Services - Indian Bank\"; certificate O=\"INDIAN BANK\"; .bank.in registry (restricted to RBI-regulated banks)", verified: true}
+- {host: centralbank.bank.in, org: Central Bank of India, sector: banking, subsector: public_bank, notes: "verified 2026-10-22: page title \"Welcome to Central Bank of India | Central Bank of India\"; certificate O=\"Central Bank of India\"; .bank.in registry (restricted to RBI-regulated banks)", verified: true}
+- {host: www.iob.bank.in, org: Indian Overseas Bank, sector: banking, subsector: public_bank, notes: "verified 2026-10-22: page title \"Indian Overseas Bank: Personal Banking | One Stop Banking Solution - IOB\"; .bank.in registry (restricted to RBI-regulated banks)", verified: true}
+- {host: www.ucobank.com, org: UCO Bank, sector: banking, subsector: public_bank, notes: "verified 2026-10-22: page title \"Welcome to UCO Bank | Trusted Banking for Every Need\"; certificate O=\"UCO Bank\"", verified: true}
+- {host: bankofmaharashtra.bank.in, org: Bank of Maharashtra, sector: banking, subsector: public_bank, notes: "verified 2026-10-22: .bank.in registry (restricted to RBI-regulated banks)", verified: true}
+- {host: www.punjabandsind.bank.in, org: Punjab & Sind Bank, sector: banking, subsector: public_bank, notes: "verified 2026-10-22: page title \"Punjab & Sind Bank | Saving Accounts | Loan Schemes\"; certificate O=\"PUNJAB & SIND BANK\"; .bank.in registry (restricted to RBI-regulated banks)", verified: true}
+- {host: www.idbi.bank.in, org: IDBI Bank, sector: banking, subsector: public_bank, notes: "verified 2026-10-22: page title \"Personal & Corporate Banking | MSME & Agri banking - IDBI Bank\"; certificate O=\"IDBI BANK LIMITED\"; .bank.in registry (restricted to RBI-regulated banks)", verified: true}
+- {host: www.hdfc.bank.in, org: HDFC Bank, sector: banking, subsector: private_bank, notes: "verified 2026-10-22: page title \"Personal Banking & Netbanking Services | HDFC Bank\"; certificate O=\"Hdfc Bank Limited\"; .bank.in registry (restricted to RBI-regulated banks)", verified: true}
+- {host: now.hdfc.bank.in, org: HDFC Bank, sector: banking, subsector: private_bank, notes: "verified 2026-10-22: page title \"Welcome to HDFC Bank NetBanking\"; certificate O=\"Hdfc Bank Limited\"; .bank.in registry (restricted to RBI-regulated banks)", verified: true}
+- {host: www.icici.bank.in, org: ICICI Bank, sector: banking, subsector: private_bank, notes: "verified 2026-10-22: page title \"ICICI Bank - Personal, Business, Corporate and NRI Banking Online\"; certificate O=\"ICICI Bank Limited\"; .bank.in registry (restricted to RBI-regulated banks)", verified: true}
+- {host: infinity.icicibank.com, org: ICICI Bank, sector: banking, subsector: private_bank, notes: "verified 2026-10-22: certificate O=\"ICICI Bank Limited\"", verified: true}
+- {host: www.axis.bank.in, org: Axis Bank, sector: banking, subsector: private_bank, notes: "verified 2026-10-22: page title \"Personal Banking | Internet Banking | Corporate, NRI Banking Services Online - Axis Bank\"; certificate O=\"Axis Bank Ltd\"; .bank.in registry (restricted to RBI-regulated banks)", verified: true}
+- {host: omni.axis.bank.in, org: Axis Bank, sector: banking, subsector: private_bank, notes: "verified 2026-10-22: certificate O=\"Axis Bank Limited\"; .bank.in registry (restricted to RBI-regulated banks)", verified: true}
+- {host: www.kotak.bank.in, org: Kotak Mahindra Bank, sector: banking, subsector: private_bank, notes: "verified 2026-10-22: page title \"Savings Accounts, Personal Loans and Credit Cards - Kotak Mahindra Bank\"; .bank.in registry (restricted to RBI-regulated banks)", verified: true}
+- {host: www.indusind.bank.in, org: IndusInd Bank, sector: banking, subsector: private_bank, notes: "verified 2026-10-22: page title \"IndusInd Bank - Cards, Loans, Accounts, Personal & NRI Banking Online\"; certificate O=\"IndusInd Bank Ltd\"; .bank.in registry (restricted to RBI-regulated banks)", verified: true}
+- {host: www.yes.bank.in, org: Yes Bank, sector: banking, subsector: private_bank, notes: "verified 2026-10-22: certificate O=\"YES BANK LIMITED\"; .bank.in registry (restricted to RBI-regulated banks)", verified: true}
+- {host: www.idfcfirst.bank.in, org: IDFC FIRST Bank, sector: banking, subsector: private_bank, notes: "verified 2026-10-22: page title \"IDFC FIRST Bank - Personal Banking, Loans, Accounts, Cards, Investment | IDFC FIRST Bank\"; certificate O=\"IDFC First Bank Limited\"; .bank.in registry (restricted to RBI-regulated banks)", verified: true}
+- {host: www.federalbank.co.in, org: Federal Bank, sector: banking, subsector: private_bank, notes: "verified 2026-10-22: page title \"Radware Page\"; certificate O=\"The Federal Bank Ltd\"", verified: true}
+- {host: www.southindianbank.com, org: South Indian Bank, sector: banking, subsector: private_bank, notes: "verified 2026-10-22: certificate O=\"THE SOUTH INDIAN BANK LIMITED\"", verified: true}
+- {host: www.karnatakabank.bank.in, org: Karnataka Bank, sector: banking, subsector: private_bank, notes: "verified 2026-10-22: page title \"Karnataka Bank: Personal Banking, Agri Banking, NRI Banking & Business Banking Services\"; certificate O=\"THE KARNATAKA BANK LIMITED\"; .bank.in registry (restricted to RBI-regulated banks)", verified: true}
+- {host: www.kvb.bank.in, org: Karur Vysya Bank, sector: banking, subsector: private_bank, notes: "verified 2026-10-22: page title \"Karur Vysya Bank - KVB\"; certificate O=\"THE KARUR VYSYA BANK LIMITED\"; .bank.in registry (restricted to RBI-regulated banks)", verified: true}
+- {host: www.cityunionbank.com, org: City Union Bank, sector: banking, subsector: private_bank, notes: "verified 2026-10-22: page title \"City Union Bank – Trusted Banking Solutions | Accounts, Loans & Digital Services\"; certificate O=\"CITY UNION BANK LIMITED\"", verified: true}
+- {host: www.rbl.bank.in, org: RBL Bank, sector: banking, subsector: private_bank, notes: "verified 2026-10-22: page title \"Savings & Current Accounts, Loans, Credit Cards, NRI Services, Investments | RBL Bank\"; certificate O=\"RBL Bank Limited\"; .bank.in registry (restricted to RBI-regulated banks)", verified: true}
+- {host: bandhan.bank.in, org: Bandhan Bank, sector: banking, subsector: private_bank, notes: "verified 2026-10-22: page title \"Bandhan Bank | Home Page\"; .bank.in registry (restricted to RBI-regulated banks)", verified: true}
+- {host: www.dcb.bank.in, org: DCB Bank, sector: banking, subsector: private_bank, notes: "verified 2026-10-22: page title \"Online Internet Banking and Personal Banking Services - DCB Bank\"; certificate O=\"DCB Bank Limited\"; .bank.in registry (restricted to RBI-regulated banks)", verified: true}
+- {host: www.csb.bank.in, org: CSB Bank, sector: banking, subsector: private_bank, notes: "verified 2026-10-22: page title \"Experience Heritage, Trust & Innovation in Banking | CSB Bank\"; certificate O=\"CSB Bank Ltd\"; .bank.in registry (restricted to RBI-regulated banks)", verified: true}
+- {host: www.dhan.bank.in, org: Dhanlaxmi Bank, sector: banking, subsector: private_bank, notes: "verified 2026-10-22: page title \"Welcome To Dhanlaxmi Bank | Dhanlaxmi Bank\"; certificate O=\"Dhanlaxmi Bank Limited\"; .bank.in registry (restricted to RBI-regulated banks)", verified: true}
+- {host: jkb.bank.in, org: Jammu & Kashmir Bank, sector: banking, subsector: private_bank, notes: "verified 2026-10-22: page title \"Home | Official Website of Jammu and Kashmir Bank\"; certificate O=\"JAMMU AND KASHMIR BANK LIMITED\"; .bank.in registry (restricted to RBI-regulated banks)", verified: true}
+- {host: www.tmb.bank.in, org: Tamilnad Mercantile Bank, sector: banking, subsector: private_bank, notes: "verified 2026-10-22: page title \"Home Page | TMB\"; .bank.in registry (restricted to RBI-regulated banks)", verified: true}
+- {host: www.au.bank.in, org: AU Small Finance Bank, sector: banking, subsector: small_finance_bank, notes: "verified 2026-10-22: page title \"Personal, Business, Corporate, and NRI Banking | AU Small Finance Bank\"; .bank.in registry (restricted to RBI-regulated banks)", verified: true}
+- {host: equitas.bank.in, org: Equitas Small Finance Bank, sector: banking, subsector: small_finance_bank, notes: "verified 2026-10-22: certificate O=\"EQUITAS SMALL FINANCE BANK LIMITED\"; .bank.in registry (restricted to RBI-regulated banks)", verified: true}
+- {host: www.ujjivansfb.bank.in, org: Ujjivan Small Finance Bank, sector: banking, subsector: small_finance_bank, notes: "verified 2026-10-22: page title \"Ujjivan SFB: Personal, Business and NRI Banking\"; certificate O=\"Ujjivan Small Finance Bank Limited\"; .bank.in registry (restricted to RBI-regulated banks)", verified: true}
+- {host: www.jana.bank.in, org: Jana Small Finance Bank, sector: banking, subsector: small_finance_bank, notes: "verified 2026-10-22: page title \"Jana Small Finance Bank | Online Banking and Financial Services\"; certificate O=\"Jana Small Finance Bank Ltd\"; .bank.in registry (restricted to RBI-regulated banks)", verified: true}
+- {host: www.suryoday.bank.in, org: Suryoday Small Finance Bank, sector: banking, subsector: small_finance_bank, notes: "verified 2026-10-22: .bank.in registry (restricted to RBI-regulated banks)", verified: true}
+- {host: www.esaf.bank.in, org: ESAF Small Finance Bank, sector: banking, subsector: small_finance_bank, notes: "verified 2026-10-22: .bank.in registry (restricted to RBI-regulated banks)", verified: true}
+- {host: www.utkarsh.bank.in, org: Utkarsh Small Finance Bank, sector: banking, subsector: small_finance_bank, notes: "verified 2026-10-22: page title \"Utkarsh Small Finance Bank - Online Personal, Business & NRI Banking Services\"; certificate O=\"Utkarsh Small Finance Bank Limited\"; .bank.in registry (restricted to RBI-regulated banks)", verified: true}
+- {host: ippbonline.bank.in, org: India Post Payments Bank, sector: banking, subsector: payments_bank, notes: "verified 2026-10-22: page title \"Personal - India Post Payments Bank\"; certificate O=\"India Post Payments Bank Limited\"; .bank.in registry (restricted to RBI-regulated banks)", verified: true}
+- {host: www.fino.bank.in, org: Fino Payments Bank, sector: banking, subsector: payments_bank, notes: "verified 2026-10-22: page title \"Individual\"; .bank.in registry (restricted to RBI-regulated banks)", verified: true}
+- {host: www.jiopayments.bank.in, org: Jio Payments Bank, sector: banking, subsector: payments_bank, notes: "verified 2026-10-22: page title \"Jio Payments Bank – Seamless 24/7 digital banking\"; .bank.in registry (restricted to RBI-regulated banks)", verified: true}
+- {host: www.hsbc.bank.in, org: HSBC India, sector: banking, subsector: foreign_bank, notes: "verified 2026-10-22: page title \"HSBC India - Credit Cards, NRI Services, Saving and Deposit\"; certificate O=\"HSBC Group Management Services Limited\"; .bank.in registry (restricted to RBI-regulated banks)", verified: true}
+- {host: www.deutsche.bank.in, org: Deutsche Bank India, sector: banking, subsector: foreign_bank, notes: "verified 2026-10-22: page title \"Banking, Loans & Investments for Individuals & Businesses &ndash; Deutsche Bank India\"; certificate O=\"DEUTSCHE BANK AG\"; .bank.in registry (restricted to RBI-regulated banks)", verified: true}
+- {host: www.rbi.org.in, org: Reserve Bank of India, sector: banking, subsector: regulator, notes: "verified 2026-10-22: page title \"Home | Official website of Reserve Bank of India\"", verified: true}
+- {host: rbidocs.rbi.org.in, org: Reserve Bank of India, sector: banking, subsector: regulator, notes: "verified 2026-10-22: certificate O=\"Reserve Bank of India\"", verified: true}
+- {host: www.nabard.org, org: NABARD, sector: banking, subsector: development_bank, notes: "verified 2026-10-22: page title \"मुखपृष्ठ - नाबार्ड - राष्ट्रीय कृषि और ग्रामीण विकास बैंक\"; certificate O=\"National Bank for Agriculture And Rural Development\"", verified: true}
+- {host: www.sidbi.in, org: SIDBI, sector: banking, subsector: development_bank, notes: "verified 2026-10-22: page title \"Home - Small Industries Development Bank of India\"", verified: true}
+- {host: www.eximbankindia.in, org: Export-Import Bank of India, sector: banking, subsector: development_bank, notes: "verified 2026-10-22: page title \"Exim Bank: Home\"; certificate O=\"Export-Import Bank of India\"", verified: true}
+- {host: www.nhb.org.in, org: National Housing Bank, sector: banking, subsector: development_bank, notes: "verified 2026-10-22: page title \"National Housing Bank\"", verified: true}
+- {host: www.saraswat.bank.in, org: Saraswat Co-operative Bank, sector: banking, subsector: cooperative_bank, notes: "verified 2026-10-22: page title \"Home | Saraswat Cooperative Bank Ltd.\"; certificate O=\"Saraswat Co-Operative Bank Limited\"; .bank.in registry (restricted to RBI-regulated banks)", verified: true}
+- {host: www.svc.bank.in, org: SVC Co-operative Bank, sector: banking, subsector: cooperative_bank, notes: "verified 2026-10-22: page title \"Home | SVC CO-OPERATIVE BANK LTD\"; certificate O=\"SVC Co-operative Bank Ltd\"; .bank.in registry (restricted to RBI-regulated banks)", verified: true}
+- {host: www.cosmos.bank.in, org: Cosmos Co-operative Bank, sector: banking, subsector: cooperative_bank, notes: "verified 2026-10-22: page title \"Home | Cosmos Bank\"; .bank.in registry (restricted to RBI-regulated banks)", verified: true}
+- {host: www.bajajfinserv.in, org: Bajaj Finance, sector: banking, subsector: nbfc, notes: "verified 2026-10-22: certificate O=\"Bajaj Finance Limited\"", verified: true}
+- {host: www.muthootfinance.com, org: Muthoot Finance, sector: banking, subsector: nbfc, notes: "verified 2026-10-22: page title \"Muthoot Finance - India's Largest Gold Loan NBFC\"", verified: true}
+- {host: www.lichousing.com, org: LIC Housing Finance, sector: banking, subsector: nbfc, notes: "verified 2026-10-22: page title \"Apply for a Home Loan at Lower Interest Rates with LIC HFL\"; certificate O=\"LIC HOUSING FINANCE LIMITED\"", verified: true}
+- {host: www.shriramfinance.in, org: Shriram Finance, sector: banking, subsector: nbfc, notes: "verified 2026-10-22: page title \"Investments, Personal &#x26; Business Loans, Insurance, BBPS, UPI Payments\"; certificate O=\"NOVAC TECHNOLOGY SOLUTIONS PVT LTD\"", verified: true}
+- {host: www.tatacapital.com, org: Tata Capital, sector: banking, subsector: nbfc, notes: "verified 2026-10-22: page title \"Tata Capital – Leading NBFC for Loans and Investments in India\"", verified: true}
+- {host: www.cibil.com, org: TransUnion CIBIL, sector: banking, subsector: credit_bureau, notes: "verified 2026-10-22: certificate O=\"Trans Union LLC\"", verified: true}
+- {host: slice.bank.in, org: slice Small Finance Bank, sector: banking, subsector: small_finance_bank, notes: "verified 2026-10-22: page title \"slice - A new bank, for a new India\"; .bank.in registry (restricted to RBI-regulated banks)", verified: true}
 
-# --- payments (31) ---
-- {host: www.npci.org.in, org: National Payments Corporation of India, sector: payments, subsector: payment_network, verified: false}
-- {host: www.bhimupi.org.in, org: BHIM UPI (NPCI), sector: payments, subsector: payment_network, verified: false}
-- {host: www.rupay.co.in, org: RuPay (NPCI), sector: payments, subsector: payment_network, verified: false}
-- {host: www.phonepe.com, org: PhonePe, sector: payments, subsector: upi_app, verified: false}
-- {host: business.phonepe.com, org: PhonePe, sector: payments, subsector: merchant_portal, verified: false}
-- {host: paytm.com, org: Paytm, sector: payments, subsector: upi_app, verified: false}
-- {host: business.paytm.com, org: Paytm, sector: payments, subsector: merchant_portal, verified: false}
-- {host: www.mobikwik.com, org: MobiKwik, sector: payments, subsector: wallet, verified: false}
-- {host: www.freecharge.in, org: Freecharge, sector: payments, subsector: wallet, verified: false}
-- {host: cred.club, org: CRED, sector: payments, subsector: upi_app, verified: false}
-- {host: razorpay.com, org: Razorpay, sector: payments, subsector: payment_gateway, verified: false}
-- {host: dashboard.razorpay.com, org: Razorpay, sector: payments, subsector: merchant_portal, verified: false}
-- {host: www.cashfree.com, org: Cashfree Payments, sector: payments, subsector: payment_gateway, verified: false}
-- {host: payu.in, org: PayU India, sector: payments, subsector: payment_gateway, verified: false}
-- {host: www.ccavenue.com, org: CCAvenue, sector: payments, subsector: payment_gateway, verified: false}
-- {host: www.billdesk.com, org: BillDesk, sector: payments, subsector: payment_gateway, verified: false}
-- {host: juspay.in, org: Juspay, sector: payments, subsector: payment_gateway, verified: false}
-- {host: www.pinelabs.com, org: Pine Labs, sector: payments, subsector: pos, verified: false}
-- {host: www.mswipe.com, org: Mswipe, sector: payments, subsector: pos, verified: false}
-- {host: www.instamojo.com, org: Instamojo, sector: payments, subsector: payment_gateway, verified: false}
-- {host: easebuzz.in, org: Easebuzz, sector: payments, subsector: payment_gateway, verified: false}
-- {host: www.sbicard.com, org: SBI Card, sector: payments, subsector: card_issuer, verified: false}
-- {host: www.sliceit.com, org: slice, sector: payments, subsector: card_issuer, verified: false}
-- {host: jupiter.money, org: Jupiter, sector: payments, subsector: neobank, verified: false}
-- {host: fi.money, org: Fi Money, sector: payments, subsector: neobank, verified: false}
-- {host: navi.com, org: Navi, sector: payments, subsector: upi_app, verified: false}
-- {host: www.paynearby.in, org: PayNearby, sector: payments, subsector: agent_network, verified: false}
-- {host: www.spicemoney.com, org: Spice Money, sector: payments, subsector: agent_network, verified: false}
-- {host: www.zaggle.in, org: Zaggle, sector: payments, subsector: prepaid, verified: false}
-- {host: www.paisabazaar.com, org: Paisabazaar, sector: payments, subsector: marketplace, verified: false}
-- {host: www.bankbazaar.com, org: BankBazaar, sector: payments, subsector: marketplace, verified: false}
+# --- payments (30) ---
+- {host: www.npci.org.in, org: National Payments Corporation of India, sector: payments, subsector: payment_network, notes: "verified 2026-10-22: page title \"National Payments Corporation of India (NPCI) - Enabling digital payments in India\"; certificate O=\"National Payments Corporation Of India\"", verified: true}
+- {host: www.bhimupi.org.in, org: BHIM UPI (NPCI), sector: payments, subsector: payment_network, notes: "verified 2026-10-22: certificate O=\"National Payments Corporation Of India\"", verified: true}
+- {host: www.rupay.co.in, org: RuPay (NPCI), sector: payments, subsector: payment_network, notes: "verified 2026-10-22: page title \"Credit, Debit, International, Prepaid and Contactless Card | RuPay\"; certificate O=\"National Payments Corporation Of India\"", verified: true}
+- {host: www.phonepe.com, org: PhonePe, sector: payments, subsector: upi_app, notes: "verified 2026-10-22: page title \"PhonePe: UPI Payments, Investment, Insurance, Recharges, DTH & More\"", verified: true}
+- {host: business.phonepe.com, org: PhonePe, sector: payments, subsector: merchant_portal, notes: "verified 2026-10-22: page title \"PhonePe for Business – Accept & Manage Digital Payments Easily | PhonePe PG\"", verified: true}
+- {host: paytm.com, org: Paytm, sector: payments, subsector: upi_app, notes: "verified 2026-10-22: page title \"Paytm: Secure & Fast UPI Payments, Recharge Mobile & Pay Bills\"; certificate O=\"One 97 Communications Ltd\"", verified: true}
+- {host: business.paytm.com, org: Paytm, sector: payments, subsector: merchant_portal, notes: "verified 2026-10-22: page title \"Paytm for Business - Merchant Account and Business Login\"; certificate O=\"One 97 Communications Limited\"", verified: true}
+- {host: www.mobikwik.com, org: MobiKwik, sector: payments, subsector: wallet, notes: "verified 2026-10-22: page title \"Online Mobile & DTH Recharge, Bill Payments, Easy Recharge\"; certificate O=\"ONE MOBIKWIK SYSTEMS LIMITED\"", verified: true}
+- {host: www.freecharge.in, org: Freecharge, sector: payments, subsector: wallet, notes: "verified 2026-10-22: certificate O=\"FREECHARGE PAYMENT TECHNOLOGIES PRIVATE LIMITED\"", verified: true}
+- {host: cred.club, org: CRED, sector: payments, subsector: upi_app, notes: "verified 2026-10-22: page title \"CRED. not everyone gets it.\"", verified: true}
+- {host: razorpay.com, org: Razorpay, sector: payments, subsector: payment_gateway, notes: "verified 2026-10-22: page title \"Razorpay - Best Payment Solution for Online Payments India\"", verified: true}
+- {host: dashboard.razorpay.com, org: Razorpay, sector: payments, subsector: merchant_portal, notes: "verified 2026-10-22: page title \"302 Found\"; subdomain of razorpay.com, the official website in Wikidata Q109985545", verified: true}
+- {host: www.cashfree.com, org: Cashfree Payments, sector: payments, subsector: payment_gateway, notes: "verified 2026-10-22: page title \"Cashfree Payments - Fastest way to collect online payments\"", verified: true}
+- {host: payu.in, org: PayU India, sector: payments, subsector: payment_gateway, notes: "verified 2026-10-22: page title \"PayU - Best Digital Payment Solutions for Businesses | 150+ Payment Methods\"; certificate O=\"PayU Payments Pvt Ltd\"", verified: true}
+- {host: www.ccavenue.com, org: CCAvenue, sector: payments, subsector: payment_gateway, notes: "verified 2026-10-22: page title \"Digital Payment Solutions & Platforms in India | CCAvenue\"; certificate O=\"AvenuesAI Limited\"", verified: true}
+- {host: www.billdesk.com, org: BillDesk, sector: payments, subsector: payment_gateway, notes: "verified 2026-10-22: page title \"BillDesk - Integrated Payment Solutions\"; certificate O=\"Indiaideas.com Limited\"", verified: true}
+- {host: juspay.io, org: Juspay, sector: payments, subsector: payment_gateway, notes: "verified 2026-10-22: page title \"Juspay | Global Payments Operating System\"", verified: true}
+- {host: www.pinelabs.com, org: Pine Labs, sector: payments, subsector: pos, notes: "verified 2026-10-22: page title \"POS Machine, Payment Gateway & Fintech Solutions | Pine Labs\"", verified: true}
+- {host: www.mswipe.com, org: Mswipe, sector: payments, subsector: pos, notes: "verified 2026-10-22: page title \"Mswipe | Smart Payment Solutions for your Businesses\"", verified: true}
+- {host: www.instamojo.com, org: Instamojo, sector: payments, subsector: payment_gateway, notes: "verified 2026-10-22: page title \"Instamojo - eCommerce Website Builder for D2C Businesses - Create a Free Website on Instamojo.\"", verified: true}
+- {host: easebuzz.in, org: Easebuzz, sector: payments, subsector: payment_gateway, notes: "verified 2026-10-22: page title \"Best Digital Payment solution for Online payment | Easebuzz\"", verified: true}
+- {host: www.sbicard.com, org: SBI Card, sector: payments, subsector: card_issuer, notes: "verified 2026-10-22: page title \"SBI Credit Card Online - SBI Credit Card Services | SBI Card\"; certificate O=\"SBI CARDS AND PAYMENT SERVICES LIMITED\"", verified: true}
+- {host: jupiter.money, org: Jupiter, sector: payments, subsector: neobank, notes: "verified 2026-10-22: page title \"Jupiter: 1-app For Everything Money\"", verified: true}
+- {host: fi.money, org: Fi Money, sector: payments, subsector: neobank, notes: "verified 2026-10-22: page title \"Fi Money – Savings Account, Credit Cards & Loans App\"", verified: true}
+- {host: navi.com, org: Navi, sector: payments, subsector: upi_app, notes: "verified 2026-10-22: page title \"Navi: UPI, Loans, Insurance, Investments, Bills & Recharges\"", verified: true}
+- {host: paynearby.in, org: PayNearby, sector: payments, subsector: agent_network, notes: "verified 2026-10-22: page title \"Bharat Gateway to the next 500 million\"; homepage text names PayNearby throughout (200+ mentions)", verified: true}
+- {host: www.spicemoney.com, org: Spice Money, sector: payments, subsector: agent_network, notes: "verified 2026-10-22: page title \"Spice Money | Banking Services for Bharat - AEPS, Money Transfer & Bill Payments\"", verified: true}
+- {host: www.zaggle.in, org: Zaggle, sector: payments, subsector: prepaid, notes: "verified 2026-10-22: page title \"Spends Simplified | Zaggle™\"", verified: true}
+- {host: www.paisabazaar.com, org: Paisabazaar, sector: payments, subsector: marketplace, notes: "verified 2026-10-22: certificate O=\"Paisabazaar Marketing And Consulting Private Limited\"", verified: true}
+- {host: www.bankbazaar.com, org: BankBazaar, sector: payments, subsector: marketplace, notes: "verified 2026-10-22: page title \"BankBazaar\"; certificate O=\"A&A DUKAAN FINANCIAL SERVICES PVT LTD\"", verified: true}
 
-# --- government (96) ---
-- {host: www.india.gov.in, org: National Portal of India, sector: government, subsector: central_portal, verified: false}
-- {host: www.mygov.in, org: MyGov, sector: government, subsector: central_portal, verified: false}
-- {host: uidai.gov.in, org: Unique Identification Authority of India, sector: government, subsector: identity, verified: false}
-- {host: myaadhaar.uidai.gov.in, org: UIDAI (myAadhaar), sector: government, subsector: identity, verified: false}
-- {host: www.incometax.gov.in, org: Income Tax Department, sector: government, subsector: tax, verified: false}
-- {host: eportal.incometax.gov.in, org: Income Tax Department (e-filing), sector: government, subsector: tax, verified: false}
-- {host: www.gst.gov.in, org: Goods and Services Tax Network, sector: government, subsector: tax, verified: false}
-- {host: services.gst.gov.in, org: GSTN (services), sector: government, subsector: tax, verified: false}
-- {host: www.cbic.gov.in, org: Central Board of Indirect Taxes and Customs, sector: government, subsector: tax, verified: false}
-- {host: www.icegate.gov.in, org: ICEGATE (Customs), sector: government, subsector: tax, verified: false}
-- {host: www.onlineservices.nsdl.com, org: Protean (PAN services), sector: government, subsector: identity, verified: false}
-- {host: www.digilocker.gov.in, org: DigiLocker, sector: government, subsector: identity, verified: false}
-- {host: web.umang.gov.in, org: UMANG, sector: government, subsector: central_portal, verified: false}
-- {host: www.passportindia.gov.in, org: Passport Seva, sector: government, subsector: identity, verified: false}
-- {host: parivahan.gov.in, org: Parivahan (MoRTH), sector: government, subsector: transport, verified: false}
-- {host: sarathi.parivahan.gov.in, org: Sarathi (driving licences), sector: government, subsector: transport, verified: false}
-- {host: vahan.parivahan.gov.in, org: Vahan (vehicle registration), sector: government, subsector: transport, verified: false}
-- {host: www.epfindia.gov.in, org: EPFO, sector: government, subsector: social_security, verified: false}
-- {host: unifiedportal-mem.epfindia.gov.in, org: EPFO member portal, sector: government, subsector: social_security, verified: false}
-- {host: www.esic.gov.in, org: ESIC, sector: government, subsector: social_security, verified: false}
-- {host: eshram.gov.in, org: e-Shram, sector: government, subsector: social_security, verified: false}
-- {host: www.pfrda.org.in, org: PFRDA, sector: government, subsector: pension, verified: false}
-- {host: enps.nsdl.com, org: eNPS (Protean), sector: government, subsector: pension, verified: false}
-- {host: www.irctc.co.in, org: IRCTC, sector: government, subsector: transport, verified: false}
-- {host: www.indianrail.gov.in, org: Indian Railways, sector: government, subsector: transport, verified: false}
-- {host: abdm.gov.in, org: Ayushman Bharat Digital Mission, sector: government, subsector: health_registry, verified: false}
-- {host: abha.abdm.gov.in, org: ABHA (ABDM), sector: government, subsector: health_registry, verified: false}
-- {host: nha.gov.in, org: National Health Authority, sector: government, subsector: health_registry, verified: false}
-- {host: www.mohfw.gov.in, org: Ministry of Health and Family Welfare, sector: government, subsector: ministry, verified: false}
-- {host: www.nic.in, org: National Informatics Centre, sector: government, subsector: it_agency, verified: false}
-- {host: www.meity.gov.in, org: MeitY, sector: government, subsector: ministry, verified: false}
-- {host: dst.gov.in, org: Department of Science & Technology, sector: government, subsector: ministry, verified: false}
-- {host: www.mha.gov.in, org: Ministry of Home Affairs, sector: government, subsector: ministry, verified: false}
-- {host: www.mea.gov.in, org: Ministry of External Affairs, sector: government, subsector: ministry, verified: false}
-- {host: www.pmindia.gov.in, org: Prime Minister's Office, sector: government, subsector: central_portal, verified: false}
-- {host: pib.gov.in, org: Press Information Bureau, sector: government, subsector: central_portal, verified: false}
-- {host: www.cert-in.org.in, org: CERT-In, sector: government, subsector: security_agency, verified: false}
-- {host: nciipc.gov.in, org: NCIIPC, sector: government, subsector: security_agency, verified: false}
-- {host: cybercrime.gov.in, org: National Cyber Crime Reporting Portal, sector: government, subsector: police, verified: false}
-- {host: digitalpolice.gov.in, org: Digital Police Portal, sector: government, subsector: police, verified: false}
-- {host: www.eci.gov.in, org: Election Commission of India, sector: government, subsector: elections, verified: false}
-- {host: voters.eci.gov.in, org: ECI Voters Service Portal, sector: government, subsector: elections, verified: false}
-- {host: pfms.nic.in, org: Public Financial Management System, sector: government, subsector: finance, verified: false}
-- {host: gem.gov.in, org: Government e-Marketplace, sector: government, subsector: procurement, verified: false}
-- {host: eprocure.gov.in, org: Central Public Procurement Portal, sector: government, subsector: procurement, verified: false}
-- {host: www.mca.gov.in, org: Ministry of Corporate Affairs, sector: government, subsector: ministry, verified: false}
-- {host: www.dgft.gov.in, org: DGFT, sector: government, subsector: trade, verified: false}
-- {host: pmkisan.gov.in, org: PM-KISAN, sector: government, subsector: welfare, verified: false}
-- {host: scholarships.gov.in, org: National Scholarship Portal, sector: government, subsector: welfare, verified: false}
-- {host: www.data.gov.in, org: Open Government Data Platform, sector: government, subsector: it_agency, verified: false}
-- {host: www.negd.gov.in, org: National e-Governance Division, sector: government, subsector: it_agency, verified: false}
-- {host: www.cdac.in, org: C-DAC, sector: government, subsector: it_agency, verified: false}
-- {host: www.indiapost.gov.in, org: India Post, sector: government, subsector: postal, verified: false}
-- {host: rtionline.gov.in, org: RTI Online, sector: government, subsector: central_portal, verified: false}
-- {host: pgportal.gov.in, org: CPGRAMS, sector: government, subsector: central_portal, verified: false}
-- {host: www.isro.gov.in, org: ISRO, sector: government, subsector: space, verified: false}
-- {host: www.drdo.gov.in, org: DRDO, sector: government, subsector: defence, verified: false}
-- {host: indianarmy.nic.in, org: Indian Army, sector: government, subsector: defence, verified: false}
-- {host: www.indiannavy.gov.in, org: Indian Navy, sector: government, subsector: defence, verified: false}
-- {host: indianairforce.nic.in, org: Indian Air Force, sector: government, subsector: defence, verified: false}
-- {host: www.sebi.gov.in, org: Securities and Exchange Board of India, sector: government, subsector: regulator, verified: false}
-- {host: irdai.gov.in, org: IRDAI, sector: government, subsector: regulator, verified: false}
-- {host: www.trai.gov.in, org: TRAI, sector: government, subsector: regulator, verified: false}
-- {host: dot.gov.in, org: Department of Telecommunications, sector: government, subsector: ministry, verified: false}
-- {host: www.sancharsaathi.gov.in, org: Sanchar Saathi, sector: government, subsector: telecom_services, verified: false}
-- {host: www.ceir.gov.in, org: CEIR (lost phone registry), sector: government, subsector: telecom_services, verified: false}
-- {host: maharashtra.gov.in, org: Government of Maharashtra, sector: government, subsector: state, verified: false}
-- {host: www.karnataka.gov.in, org: Government of Karnataka, sector: government, subsector: state, verified: false}
-- {host: www.tn.gov.in, org: Government of Tamil Nadu, sector: government, subsector: state, verified: false}
-- {host: kerala.gov.in, org: Government of Kerala, sector: government, subsector: state, verified: false}
-- {host: delhi.gov.in, org: Government of NCT of Delhi, sector: government, subsector: state, verified: false}
-- {host: up.gov.in, org: Government of Uttar Pradesh, sector: government, subsector: state, verified: false}
-- {host: wb.gov.in, org: Government of West Bengal, sector: government, subsector: state, verified: false}
-- {host: gujaratindia.gov.in, org: Government of Gujarat, sector: government, subsector: state, verified: false}
-- {host: rajasthan.gov.in, org: Government of Rajasthan, sector: government, subsector: state, verified: false}
-- {host: www.telangana.gov.in, org: Government of Telangana, sector: government, subsector: state, verified: false}
-- {host: www.ap.gov.in, org: Government of Andhra Pradesh, sector: government, subsector: state, verified: false}
-- {host: punjab.gov.in, org: Government of Punjab, sector: government, subsector: state, verified: false}
-- {host: haryana.gov.in, org: Government of Haryana, sector: government, subsector: state, verified: false}
-- {host: mp.gov.in, org: Government of Madhya Pradesh, sector: government, subsector: state, verified: false}
-- {host: odisha.gov.in, org: Government of Odisha, sector: government, subsector: state, verified: false}
-- {host: state.bihar.gov.in, org: Government of Bihar, sector: government, subsector: state, verified: false}
-- {host: assam.gov.in, org: Government of Assam, sector: government, subsector: state, verified: false}
-- {host: www.jharkhand.gov.in, org: Government of Jharkhand, sector: government, subsector: state, verified: false}
-- {host: cgstate.gov.in, org: Government of Chhattisgarh, sector: government, subsector: state, verified: false}
-- {host: uk.gov.in, org: Government of Uttarakhand, sector: government, subsector: state, verified: false}
-- {host: himachal.nic.in, org: Government of Himachal Pradesh, sector: government, subsector: state, verified: false}
-- {host: www.goa.gov.in, org: Government of Goa, sector: government, subsector: state, verified: false}
-- {host: jk.gov.in, org: Government of Jammu & Kashmir, sector: government, subsector: state, verified: false}
-- {host: aaplesarkar.mahaonline.gov.in, org: Aaple Sarkar (Maharashtra), sector: government, subsector: state_services, verified: false}
-- {host: sevasindhu.karnataka.gov.in, org: Seva Sindhu (Karnataka), sector: government, subsector: state_services, verified: false}
-- {host: edistricts.up.gov.in, org: e-District (Uttar Pradesh), sector: government, subsector: state_services, verified: false}
-- {host: meeseva.telangana.gov.in, org: MeeSeva (Telangana), sector: government, subsector: state_services, verified: false}
-- {host: www.tnesevai.tn.gov.in, org: TNeGA e-Sevai (Tamil Nadu), sector: government, subsector: state_services, verified: false}
-- {host: igrmaharashtra.gov.in, org: IGR Maharashtra (land records), sector: government, subsector: state_services, verified: false}
-- {host: bhulekh.ori.nic.in, org: Bhulekh (Odisha land records), sector: government, subsector: state_services, verified: false}
+# --- government (95) ---
+- {host: www.india.gov.in, org: National Portal of India, sector: government, subsector: central_portal, notes: "verified 2026-10-22: .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: www.mygov.in, org: MyGov, sector: government, subsector: central_portal, notes: "verified 2026-10-22: page title \"MyGov.in | MyGov: A Platform for Citizen Engagement towards Good Governance in India\"; certificate O=\"Digital India Corporation\"", verified: true}
+- {host: uidai.gov.in, org: Unique Identification Authority of India, sector: government, subsector: identity, notes: "verified 2026-10-22: page title \"Home - Unique Identification Authority of India | Government of India - Unique Identification Authority of Ind\"; certificate O=\"UNIQUE IDENTIFICATION AUTHORITY OF INDIA\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: myaadhaar.uidai.gov.in, org: UIDAI (myAadhaar), sector: government, subsector: identity, notes: "verified 2026-10-22: page title \"myAadhaar - Unique Identification Authority of India | Government of India\"; certificate O=\"UNIQUE IDENTIFICATION AUTHORITY OF INDIA\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: www.incometax.gov.in, org: Income Tax Department, sector: government, subsector: tax, notes: "verified 2026-10-22: page title \"Home | Income Tax Department\"; certificate O=\"Income Tax Department\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: eportal.incometax.gov.in, org: Income Tax Department (e-filing), sector: government, subsector: tax, notes: "verified 2026-10-22: page title \"e-Filing Home Page, Income Tax Department, Government of India\"; certificate O=\"Directorate Of Income Tax (Systems)\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: www.gst.gov.in, org: Goods and Services Tax Network, sector: government, subsector: tax, notes: "verified 2026-10-22: page title \"Goods & Services Tax (GST) | Home\"; certificate O=\"GOODS AND SERVICES TAX NETWORK\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: services.gst.gov.in, org: GSTN (services), sector: government, subsector: tax, notes: "verified 2026-10-22: page title \"Goods & Services Tax (GST) | Login\"; certificate O=\"GOODS AND SERVICES TAX NETWORK\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: www.cbic.gov.in, org: Central Board of Indirect Taxes and Customs, sector: government, subsector: tax, notes: "verified 2026-10-22: page title \"CBIC – Home | Central Board of Indirect Taxes and Customs\"; certificate O=\"Central Board of Indirect Taxes and Customs\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: www.icegate.gov.in, org: ICEGATE (Customs), sector: government, subsector: tax, notes: "verified 2026-10-22: page title \"Home | icegate\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: onlineservices.proteantech.in, org: Protean (PAN services), sector: government, subsector: identity, notes: "verified 2026-10-22: page title \"Login Manager\"; certificate O=\"Protean eGov Technologies Limited\"", verified: true}
+- {host: www.digilocker.gov.in, org: DigiLocker, sector: government, subsector: identity, notes: "verified 2026-10-22: page title \"DigiLocker | Access, Share & Verify Digital Documents\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: web.umang.gov.in, org: UMANG, sector: government, subsector: central_portal, notes: "verified 2026-10-22: page title \"UMANG\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: www.passportindia.gov.in, org: Passport Seva, sector: government, subsector: identity, notes: "verified 2026-10-22: page title \"Passport Seva\"; certificate O=\"Ministry Of External Affairs\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: parivahan.gov.in, org: Parivahan (MoRTH), sector: government, subsector: transport, notes: "verified 2026-10-22: page title \"Welcome! | Parivahansewa\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: sarathi.parivahan.gov.in, org: Sarathi (driving licences), sector: government, subsector: transport, notes: "verified 2026-10-22: page title \"SarathiOnWeb\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: www.epfo.gov.in, org: EPFO, sector: government, subsector: social_security, notes: "verified 2026-10-22: page title \"Employees' Provident Fund Organisation\"; certificate O=\"EMPLOYEES PROVIDENT FUND ORGANISATION\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: unifiedportal-mem.epfindia.gov.in, org: EPFO member portal, sector: government, subsector: social_security, notes: "verified 2026-10-22: page title \"Member Home\"; certificate O=\"EMPLOYEES PROVIDENT FUND ORGANISATION\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: esic.gov.in, org: ESIC, sector: government, subsector: social_security, notes: "verified 2026-10-22: page title \"Employees' State Insurance Corporation | Ministry of Labour & Employment, Government of India\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: eshram.gov.in, org: e-Shram, sector: government, subsector: social_security, notes: "verified 2026-10-22: page title \"Home | e-Shram\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: www.pfrda.org.in, org: PFRDA, sector: government, subsector: pension, notes: "verified 2026-10-22: page title \"Pension Fund Regulatory and Development Authority (PFRDA) - Official Website for NPS & APY Schemes - PFRDA\"", verified: true}
+- {host: www.npscra.proteantech.in, org: NPS CRA (Protean), sector: government, subsector: pension, notes: "verified 2026-10-22: page title \"Welcome\"; page names \"Protean eGov Technologies Ltd\" and the National Pension System", verified: true}
+- {host: www.irctc.co.in, org: IRCTC, sector: government, subsector: transport, notes: "verified 2026-10-22: page title \"IRCTC Next Generation eTicketing System\"; certificate O=\"Indian Railway Catering and Tourism Corporation Limited\"", verified: true}
+- {host: www.indianrail.gov.in, org: Indian Railways, sector: government, subsector: transport, notes: "verified 2026-10-22: page title \"Welcome to Indian Railway Passenger Reservation Enquiry\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: abdm.gov.in, org: Ayushman Bharat Digital Mission, sector: government, subsector: health_registry, notes: "verified 2026-10-22: page title \"NHA | Official website Ayushman Bharat Digital Mission\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: abha.abdm.gov.in, org: ABHA (ABDM), sector: government, subsector: health_registry, notes: "verified 2026-10-22: page title \"ABHA | ABDM\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: nha.gov.in, org: National Health Authority, sector: government, subsector: health_registry, notes: "verified 2026-10-22: page title \"Integrated Portal\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: www.mohfw.gov.in, org: Ministry of Health and Family Welfare, sector: government, subsector: ministry, notes: "verified 2026-10-22: .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: www.nic.in, org: National Informatics Centre, sector: government, subsector: it_agency, notes: "verified 2026-10-22: .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: www.meity.gov.in, org: MeitY, sector: government, subsector: ministry, notes: "verified 2026-10-22: .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: www.dst.gov.in, org: Department of Science & Technology, sector: government, subsector: ministry, notes: "verified 2026-10-22: .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: www.mha.gov.in, org: Ministry of Home Affairs, sector: government, subsector: ministry, notes: "verified 2026-10-22: .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: www.mea.gov.in, org: Ministry of External Affairs, sector: government, subsector: ministry, notes: "verified 2026-10-22: page title \"Home | Ministry of External Affairs , Government of India\"; certificate O=\"MINISTRY OF EXTERNAL AFFAIRS\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: www.pmindia.gov.in, org: Prime Minister's Office, sector: government, subsector: central_portal, notes: "verified 2026-10-22: .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: www.pib.gov.in, org: Press Information Bureau, sector: government, subsector: central_portal, notes: "verified 2026-10-22: certificate O=\"Press Information Bureau\\\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: www.cert-in.org.in, org: CERT-In, sector: government, subsector: security_agency, notes: "verified 2026-10-22: page title \"Indian - Computer Emergency Response Team\"; certificate O=\"Indian Computer Emergency Response Team\"", verified: true}
+- {host: nciipc.gov.in, org: NCIIPC, sector: government, subsector: security_agency, notes: "verified 2026-10-22: .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: cybercrime.gov.in, org: National Cyber Crime Reporting Portal, sector: government, subsector: police, notes: "verified 2026-10-22: page title \"Cybercrime Portal\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: digitalpolice.gov.in, org: Digital Police Portal, sector: government, subsector: police, notes: "verified 2026-10-22: page title \"Ministry of Home Affairs | Digital Police\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: www.eci.gov.in, org: Election Commission of India, sector: government, subsector: elections, notes: "verified 2026-10-22: page title \"Election Commission of India\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: voters.eci.gov.in, org: ECI Voters Service Portal, sector: government, subsector: elections, notes: "verified 2026-10-22: page title \"Citizen Service Portal\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: pfms.nic.in, org: Public Financial Management System, sector: government, subsector: finance, notes: "verified 2026-10-22: page title \"Home Page - My ASP.NET Application\"; certificate O=\"Public Financial Management System\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: gem.gov.in, org: Government e-Marketplace, sector: government, subsector: procurement, notes: "verified 2026-10-22: page title \"Government e Marketplace | National Public Procurement Portal\"; certificate O=\"GOVERNMENT E MARKETPLACE\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: eprocure.gov.in, org: Central Public Procurement Portal, sector: government, subsector: procurement, notes: "verified 2026-10-22: page title \"Central Public Procurement Portal\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: www.mca.gov.in, org: Ministry of Corporate Affairs, sector: government, subsector: ministry, notes: "verified 2026-10-22: certificate O=\"Ministry of corporate affairs\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: www.dgft.gov.in, org: DGFT, sector: government, subsector: trade, notes: "verified 2026-10-22: page title \"Page Moved\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: pmkisan.gov.in, org: PM-KISAN, sector: government, subsector: welfare, notes: "verified 2026-10-22: page title \"PM-Kisan Samman Nidhi\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: scholarships.gov.in, org: National Scholarship Portal, sector: government, subsector: welfare, notes: "verified 2026-10-22: page title \"NSP : National Scholarship Portal\"; certificate O=\"National Informatics Centre Services Incorporated (NICSI)\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: www.data.gov.in, org: Open Government Data Platform, sector: government, subsector: it_agency, notes: "verified 2026-10-22: .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: negd.gov.in, org: National e-Governance Division, sector: government, subsector: it_agency, notes: "verified 2026-10-22: page title \"NeGD – National e-Governance Division – Your Gateway to e-Governance and Digital Empowerment\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: www.cdac.in, org: C-DAC, sector: government, subsector: it_agency, notes: "verified 2026-10-22: page title \"C-DAC: Centre for Development of Advanced Computing, India\"; certificate O=\"Centre for Development of Advanced Computing (C-DAC)\"", verified: true}
+- {host: www.indiapost.gov.in, org: India Post, sector: government, subsector: postal, notes: "verified 2026-10-22: page title \"India Post\"; certificate O=\"DEPARTMENT OF POSTS\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: rtionline.gov.in, org: RTI Online, sector: government, subsector: central_portal, notes: "verified 2026-10-22: page title \"RTI Online :: Home | Submit RTI Request | Submit RTI First Appeal | View RTI Status | RTI FAQ\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: pgportal.gov.in, org: CPGRAMS, sector: government, subsector: central_portal, notes: "verified 2026-10-22: page title \"CPGRAMS-Home\"; certificate O=\"Department of Administrative Reforms and Public Grievances\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: www.isro.gov.in, org: ISRO, sector: government, subsector: space, notes: "verified 2026-10-22: page title \"Indian Space Research Organisation\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: www.drdo.gov.in, org: DRDO, sector: government, subsector: defence, notes: "verified 2026-10-22: .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: indianarmy.nic.in, org: Indian Army, sector: government, subsector: defence, notes: "verified 2026-10-22: page title \"Indian Army - The Official Home Page of the Indian Army\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: indiannavy.gov.in, org: Indian Navy, sector: government, subsector: defence, notes: "verified 2026-10-22: page title \"Home | Indian Navy\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: indianairforce.nic.in, org: Indian Air Force, sector: government, subsector: defence, notes: "verified 2026-10-22: page title \"Indian Air Force: Touch The Sky With Glory\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: www.sebi.gov.in, org: Securities and Exchange Board of India, sector: government, subsector: regulator, notes: "verified 2026-10-22: page title \"Securities and Exchange Board of India\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: irdai.gov.in, org: IRDAI, sector: government, subsector: regulator, notes: "verified 2026-10-22: page title \"Insurance Regulatory and Development Authority of India (IRDAI) - IRDAI\"; certificate O=\"INSURANCE REGULATORY AND DEVELOPMENT AUTHORITY OF INDIA\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: www.trai.gov.in, org: TRAI, sector: government, subsector: regulator, notes: "verified 2026-10-22: page title \"Home | Telecom Regulatory Authority of India | Government of India\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: www.dot.gov.in, org: Department of Telecommunications, sector: government, subsector: ministry, notes: "verified 2026-10-22: .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: www.sancharsaathi.gov.in, org: Sanchar Saathi, sector: government, subsector: telecom_services, notes: "verified 2026-10-22: page title \"Sanchar Saathi\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: www.ceir.gov.in, org: CEIR (lost phone registry), sector: government, subsector: telecom_services, notes: "verified 2026-10-22: page title \"CEIR\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: maharashtra.gov.in, org: Government of Maharashtra, sector: government, subsector: state, notes: "verified 2026-10-22: page title \"Maharashtra Government – Official Website | महाराष्ट्र शासन\"; certificate O=\"Directorate of Information Technology\\\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: www.karnataka.gov.in, org: Government of Karnataka, sector: government, subsector: state, notes: "verified 2026-10-22: .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: www.tn.gov.in, org: Government of Tamil Nadu, sector: government, subsector: state, notes: "verified 2026-10-22: page title \"Government of Tamil Nadu\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: kerala.gov.in, org: Government of Kerala, sector: government, subsector: state, notes: "verified 2026-10-22: certificate O=\"Kerala State IT Mission\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: delhi.gov.in, org: Government of NCT of Delhi, sector: government, subsector: state, notes: "verified 2026-10-22: page title \"Home | Government of National Capital Territory of Delhi\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: up.gov.in, org: Government of Uttar Pradesh, sector: government, subsector: state, notes: "verified 2026-10-22: .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: wb.gov.in, org: Government of West Bengal, sector: government, subsector: state, notes: "verified 2026-10-22: page title \"Government of West Bengal\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: gujaratindia.gov.in, org: Government of Gujarat, sector: government, subsector: state, notes: "verified 2026-10-22: page title \"Gujarat India\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: rajasthan.gov.in, org: Government of Rajasthan, sector: government, subsector: state, notes: "verified 2026-10-22: page title \"Rajasthan State Portal | Government of Rajasthan\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: www.telangana.gov.in, org: Government of Telangana, sector: government, subsector: state, notes: "verified 2026-10-22: page title \"Telangana State Portal | Govt Services\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: www.ap.gov.in, org: Government of Andhra Pradesh, sector: government, subsector: state, notes: "verified 2026-10-22: .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: punjab.gov.in, org: Government of Punjab, sector: government, subsector: state, notes: "verified 2026-10-22: .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: www.haryana.gov.in, org: Government of Haryana, sector: government, subsector: state, notes: "verified 2026-10-22: page title \"Homepage | Haryana Government | Birth Place of the Gita | India\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: mp.gov.in, org: Government of Madhya Pradesh, sector: government, subsector: state, notes: "verified 2026-10-22: .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: odisha.gov.in, org: Government of Odisha, sector: government, subsector: state, notes: "verified 2026-10-22: page title \"ପ୍ରଧାନ ପୃଷ୍ଠା | Government Of Odisha\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: state.bihar.gov.in, org: Government of Bihar, sector: government, subsector: state, notes: "verified 2026-10-22: .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: assam.gov.in, org: Government of Assam, sector: government, subsector: state, notes: "verified 2026-10-22: page title \"Home | Assam State Portal\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: www.jharkhand.gov.in, org: Government of Jharkhand, sector: government, subsector: state, notes: "verified 2026-10-22: page title \"Jharkhand State Portal | Official Website of Government of Jharkhand\"; certificate O=\"Jharkhand agency for promotion of information technology\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: cgstate.gov.in, org: Government of Chhattisgarh, sector: government, subsector: state, notes: "verified 2026-10-22: certificate O=\"Chhattisgarh Infotech Promotion Society\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: uk.gov.in, org: Government of Uttarakhand, sector: government, subsector: state, notes: "verified 2026-10-22: .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: himachal.nic.in, org: Government of Himachal Pradesh, sector: government, subsector: state, notes: "verified 2026-10-22: page title \"Government of Himachal Pradesh, India\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: www.goa.gov.in, org: Government of Goa, sector: government, subsector: state, notes: "verified 2026-10-22: .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: jk.gov.in, org: Government of Jammu & Kashmir, sector: government, subsector: state, notes: "verified 2026-10-22: .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: aaplesarkar.mahaonline.gov.in, org: Aaple Sarkar (Maharashtra), sector: government, subsector: state_services, notes: "verified 2026-10-22: page title \"aaplesarkar.mahaonline.gov.in\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: sevasindhu.karnataka.gov.in, org: Seva Sindhu (Karnataka), sector: government, subsector: state_services, notes: "verified 2026-10-22: page title \"Seva Sindhu Home Page\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: edistrict.up.gov.in, org: e-District (Uttar Pradesh), sector: government, subsector: state_services, notes: "verified 2026-10-22: page title \"eDistrict Uttar Pradesh\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: meeseva.telangana.gov.in, org: MeeSeva (Telangana), sector: government, subsector: state_services, notes: "verified 2026-10-22: page title \"Welcome to Telangana MeeSeva Portal...\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: www.tnesevai.tn.gov.in, org: TNeGA e-Sevai (Tamil Nadu), sector: government, subsector: state_services, notes: "verified 2026-10-22: page title \"TNeGA\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: igrmaharashtra.gov.in, org: IGR Maharashtra (land records), sector: government, subsector: state_services, notes: "verified 2026-10-22: page title \"नोंदणी व मुद्रांक विभाग - महाराष्ट्र शासन\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: bhulekh.ori.nic.in, org: Bhulekh (Odisha land records), sector: government, subsector: state_services, notes: "verified 2026-10-22: page title \".:BHULEKH || ODISHA:.\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
 
 # --- stock_broking (36) ---
-- {host: www.nseindia.com, org: National Stock Exchange of India, sector: stock_broking, subsector: exchange, verified: false}
-- {host: www.bseindia.com, org: BSE, sector: stock_broking, subsector: exchange, verified: false}
-- {host: www.mcxindia.com, org: Multi Commodity Exchange, sector: stock_broking, subsector: exchange, verified: false}
-- {host: www.ncdex.com, org: NCDEX, sector: stock_broking, subsector: exchange, verified: false}
-- {host: www.cdslindia.com, org: CDSL, sector: stock_broking, subsector: depository, verified: false}
-- {host: nsdl.co.in, org: NSDL, sector: stock_broking, subsector: depository, verified: false}
-- {host: zerodha.com, org: Zerodha, sector: stock_broking, subsector: broker, verified: false}
-- {host: kite.zerodha.com, org: Zerodha Kite, sector: stock_broking, subsector: broker, notes: trading login, verified: false}
-- {host: coin.zerodha.com, org: Zerodha Coin, sector: stock_broking, subsector: broker, verified: false}
-- {host: groww.in, org: Groww, sector: stock_broking, subsector: broker, verified: false}
-- {host: upstox.com, org: Upstox, sector: stock_broking, subsector: broker, verified: false}
-- {host: www.angelone.in, org: Angel One, sector: stock_broking, subsector: broker, verified: false}
-- {host: www.icicidirect.com, org: ICICI Securities, sector: stock_broking, subsector: broker, verified: false}
-- {host: www.hdfcsec.com, org: HDFC Securities, sector: stock_broking, subsector: broker, verified: false}
-- {host: www.kotaksecurities.com, org: Kotak Securities, sector: stock_broking, subsector: broker, verified: false}
-- {host: www.5paisa.com, org: 5paisa, sector: stock_broking, subsector: broker, verified: false}
-- {host: www.motilaloswal.com, org: Motilal Oswal, sector: stock_broking, subsector: broker, verified: false}
-- {host: www.sharekhan.com, org: Sharekhan, sector: stock_broking, subsector: broker, verified: false}
-- {host: dhan.co, org: Dhan, sector: stock_broking, subsector: broker, verified: false}
-- {host: www.paytmmoney.com, org: Paytm Money, sector: stock_broking, subsector: broker, verified: false}
-- {host: www.axisdirect.in, org: Axis Direct, sector: stock_broking, subsector: broker, verified: false}
-- {host: www.sbisecurities.in, org: SBI Securities, sector: stock_broking, subsector: broker, verified: false}
-- {host: www.nuvamawealth.com, org: Nuvama Wealth, sector: stock_broking, subsector: broker, verified: false}
-- {host: fyers.in, org: Fyers, sector: stock_broking, subsector: broker, verified: false}
-- {host: www.samco.in, org: SAMCO, sector: stock_broking, subsector: broker, verified: false}
-- {host: choiceindia.com, org: Choice Broking, sector: stock_broking, subsector: broker, verified: false}
-- {host: www.geojit.com, org: Geojit, sector: stock_broking, subsector: broker, verified: false}
-- {host: www.smallcase.com, org: smallcase, sector: stock_broking, subsector: investment_platform, verified: false}
-- {host: www.amfiindia.com, org: AMFI, sector: stock_broking, subsector: industry_body, verified: false}
-- {host: www.camsonline.com, org: CAMS, sector: stock_broking, subsector: registrar, verified: false}
-- {host: www.kfintech.com, org: KFin Technologies, sector: stock_broking, subsector: registrar, verified: false}
-- {host: www.mfcentral.com, org: MF Central, sector: stock_broking, subsector: registrar, verified: false}
-- {host: www.sbimf.com, org: SBI Mutual Fund, sector: stock_broking, subsector: mutual_fund, verified: false}
-- {host: www.hdfcfund.com, org: HDFC Mutual Fund, sector: stock_broking, subsector: mutual_fund, verified: false}
-- {host: www.icicipruamc.com, org: ICICI Prudential AMC, sector: stock_broking, subsector: mutual_fund, verified: false}
-- {host: mf.nipponindiaim.com, org: Nippon India Mutual Fund, sector: stock_broking, subsector: mutual_fund, verified: false}
+- {host: www.nseindia.com, org: National Stock Exchange of India, sector: stock_broking, subsector: exchange, notes: "verified 2026-10-22: certificate O=\"NATIONAL STOCK EXCHANGE OF INDIA LIMITED\"", verified: true}
+- {host: www.bseindia.com, org: BSE, sector: stock_broking, subsector: exchange, notes: "verified 2026-10-22: certificate O=\"BSE Limited\"", verified: true}
+- {host: www.mcxindia.com, org: Multi Commodity Exchange, sector: stock_broking, subsector: exchange, notes: "verified 2026-10-22: certificate O=\"Multi Commodity Exchange Of India Ltd\"", verified: true}
+- {host: www.ncdex.com, org: NCDEX, sector: stock_broking, subsector: exchange, notes: "verified 2026-10-22: Wikidata Q6971712 official website", verified: true}
+- {host: www.cdslindia.com, org: CDSL, sector: stock_broking, subsector: depository, notes: "verified 2026-10-22: page title \"CDSL - Central Depository Services (India) Limited\"; certificate O=\"CENTRAL DEPOSITORY SERVICES (INDIA) LIMITED\"", verified: true}
+- {host: nsdl.co.in, org: NSDL, sector: stock_broking, subsector: depository, notes: "verified 2026-10-22: page title \"301 Moved Permanently\"; certificate O=\"National Securities Depository Limited\"", verified: true}
+- {host: zerodha.com, org: Zerodha, sector: stock_broking, subsector: broker, notes: "verified 2026-10-22: page title \"Zerodha: Online brokerage platform for stock trading & investing\"", verified: true}
+- {host: kite.zerodha.com, org: Zerodha Kite, sector: stock_broking, subsector: broker, notes: "verified 2026-10-22: page title \"Login to Kite by Zerodha - Fast, easy trading and investment platform\"", verified: true}
+- {host: coin.zerodha.com, org: Zerodha Coin, sector: stock_broking, subsector: broker, notes: "verified 2026-10-22: page title \"Coin &ndash; Zerodha\"", verified: true}
+- {host: groww.in, org: Groww, sector: stock_broking, subsector: broker, notes: "verified 2026-10-22: page title \"Groww - Online Demat, Trading and Direct Mutual Fund Investment in India\"", verified: true}
+- {host: upstox.com, org: Upstox, sector: stock_broking, subsector: broker, notes: "verified 2026-10-22: page title \"Trade & Invest: Online Share Market Trading App in India | Upstox\"", verified: true}
+- {host: www.angelone.in, org: Angel One, sector: stock_broking, subsector: broker, notes: "verified 2026-10-22: page title \"Online Trading & Stock Broking in India | Angel One\"; certificate O=\"Angel One Limited\"", verified: true}
+- {host: www.icicidirect.com, org: ICICI Securities, sector: stock_broking, subsector: broker, notes: "verified 2026-10-22: page title \"ICICI Direct - Online Share Trading in India At Low Brokerage\"; certificate O=\"ICICI Securities Limited\"", verified: true}
+- {host: www.hdfcsec.com, org: HDFC Securities, sector: stock_broking, subsector: broker, notes: "verified 2026-10-22: page title \"Open Trading Account Online & Invest in Stock, MF, IPO & More with HDFC Securities\"", verified: true}
+- {host: www.kotakneo.com, org: Kotak Neo (Kotak Securities), sector: stock_broking, subsector: broker, notes: "verified 2026-10-22: page title \"Online Stock Trading & Investment Platform - Kotak Neo\"; certificate O=\"Kotak Securities Ltd.\"", verified: true}
+- {host: www.5paisa.com, org: 5paisa, sector: stock_broking, subsector: broker, notes: "verified 2026-10-22: page title \"Stock Broking - Online Trading Platform India's Leading Discount Broker\"; certificate O=\"5PAISA CAPITAL LIMITED\"", verified: true}
+- {host: www.motilaloswal.com, org: Motilal Oswal, sector: stock_broking, subsector: broker, notes: "verified 2026-10-22: page title \"Online Share Trading and Investment Broker in India - Motilal Oswal\"; certificate O=\"Motilal Oswal Financial Services Limited\"", verified: true}
+- {host: www.sharekhan.com, org: Sharekhan, sector: stock_broking, subsector: broker, notes: "verified 2026-10-22: page title \"Mirae Asset Sharekhan – Online Trading & Investment Platform in India\"; certificate O=\"Sharekhan Ltd\"", verified: true}
+- {host: dhan.co, org: Dhan, sector: stock_broking, subsector: broker, notes: "verified 2026-10-22: page title \"Dhan - Online Stock Trading and Investing Platform for India\"", verified: true}
+- {host: www.paytmmoney.com, org: Paytm Money, sector: stock_broking, subsector: broker, notes: "verified 2026-10-22: page title \"Paytm Money - Online Demat Account, Trading, Direct Mutual Funds and NPS\"; certificate O=\"PAYTM MONEY LIMITED\"", verified: true}
+- {host: www.axisdirect.in, org: Axis Direct, sector: stock_broking, subsector: broker, notes: "verified 2026-10-22: page title \"Online Trading & Investment Platform India | Axis Direct\"; certificate O=\"Axis Securities Ltd\"", verified: true}
+- {host: www.sbisecurities.in, org: SBI Securities, sector: stock_broking, subsector: broker, notes: "verified 2026-10-22: certificate O=\"SBICAP Securities Ltd\"", verified: true}
+- {host: www.nuvamawealth.com, org: Nuvama Wealth, sector: stock_broking, subsector: broker, notes: "verified 2026-10-22: certificate O=\"Nuvama Wealth and Investment Limited\"", verified: true}
+- {host: fyers.in, org: Fyers, sector: stock_broking, subsector: broker, notes: "verified 2026-10-22: page title \"Online Stock Trading & Investment Platform in India | FYERS\"", verified: true}
+- {host: www.samco.in, org: SAMCO, sector: stock_broking, subsector: broker, notes: "verified 2026-10-22: page title \"Samco Stock Recommendations & Trading App | ₹20 Brokerage\"", verified: true}
+- {host: choiceindia.com, org: Choice Broking, sector: stock_broking, subsector: broker, notes: "verified 2026-10-22: page title \"Choice - Stock Broker & Full Service Stock Brokerage Firm in India\"", verified: true}
+- {host: www.geojit.com, org: Geojit, sector: stock_broking, subsector: broker, notes: "verified 2026-10-22: page title \"Online Share Trading India - Equity, Stock Broking, Mutual Funds | GEOJIT\"; certificate O=\"Geojit Financial Services Ltd\"", verified: true}
+- {host: www.smallcase.com, org: smallcase, sector: stock_broking, subsector: investment_platform, notes: "verified 2026-10-22: page title \"smallcase | Stock & ETF portfolios by investment experts\"", verified: true}
+- {host: www.amfiindia.com, org: AMFI, sector: stock_broking, subsector: industry_body, notes: "verified 2026-10-22: page title \"AMFI - Association of Mutual Funds in India\"", verified: true}
+- {host: www.camsonline.com, org: CAMS, sector: stock_broking, subsector: registrar, notes: "verified 2026-10-22: page title \"Mutual Funds India Hub for Investors & Distributors | CAMS Online\"; certificate O=\"Computer Age Management Services Limited\"", verified: true}
+- {host: www.kfintech.com, org: KFin Technologies, sector: stock_broking, subsector: registrar, notes: "verified 2026-10-22: page title \"KFin Technologies Limited | KFintech\"; certificate O=\"KFIN TECHNOLOGIES LIMITED\"", verified: true}
+- {host: www.mfcentral.com, org: MF Central, sector: stock_broking, subsector: registrar, notes: "verified 2026-10-22: page title \"MFCentral\"; certificate O=\"KFIN TECHNOLOGIES LIMITED\"", verified: true}
+- {host: www.sbimf.com, org: SBI Mutual Fund, sector: stock_broking, subsector: mutual_fund, notes: "verified 2026-10-22: page title \"SBI Mutual Fund - Mutual Fund India, Mutual Funds Investment Online\"; certificate O=\"SBI FUNDS MANAGEMENT LIMITED\"", verified: true}
+- {host: www.hdfcfund.com, org: HDFC Mutual Fund, sector: stock_broking, subsector: mutual_fund, notes: "verified 2026-10-22: certificate O=\"HDFC Asset Management Company Limited\"", verified: true}
+- {host: www.icicipruamc.com, org: ICICI Prudential AMC, sector: stock_broking, subsector: mutual_fund, notes: "verified 2026-10-22: page title \"ICICI Pru\"; certificate O=\"ICICI PRUDENTIAL ASSET MANAGEMENT COMPANY LIMITED\"", verified: true}
+- {host: mf.nipponindiaim.com, org: Nippon India Mutual Fund, sector: stock_broking, subsector: mutual_fund, notes: "verified 2026-10-22: page title \"Mutual Funds - Buy & Invest in Mutual Fund Online | Nippon India Mutual Fund\"; certificate O=\"Nippon Life India Asset Management Limited\"", verified: true}
 
 # --- insurance (39) ---
-- {host: licindia.in, org: Life Insurance Corporation of India, sector: insurance, subsector: life_insurer, verified: false}
-- {host: ebiz.licindia.in, org: LIC customer portal, sector: insurance, subsector: life_insurer, verified: false}
-- {host: www.newindia.co.in, org: New India Assurance, sector: insurance, subsector: general_insurer, verified: false}
-- {host: uiic.co.in, org: United India Insurance, sector: insurance, subsector: general_insurer, verified: false}
-- {host: orientalinsurance.org.in, org: Oriental Insurance, sector: insurance, subsector: general_insurer, verified: false}
-- {host: nationalinsurance.nic.co.in, org: National Insurance Company, sector: insurance, subsector: general_insurer, verified: false}
-- {host: www.gicre.in, org: GIC Re, sector: insurance, subsector: reinsurer, verified: false}
-- {host: www.hdfclife.com, org: HDFC Life, sector: insurance, subsector: life_insurer, verified: false}
-- {host: www.iciciprulife.com, org: ICICI Prudential Life, sector: insurance, subsector: life_insurer, verified: false}
-- {host: www.sbilife.co.in, org: SBI Life, sector: insurance, subsector: life_insurer, verified: false}
-- {host: www.axismaxlife.com, org: Axis Max Life Insurance, sector: insurance, subsector: life_insurer, verified: false}
-- {host: www.bajajallianzlife.com, org: Bajaj Allianz Life, sector: insurance, subsector: life_insurer, verified: false}
-- {host: www.tataaia.com, org: Tata AIA Life, sector: insurance, subsector: life_insurer, verified: false}
-- {host: www.kotaklife.com, org: Kotak Life, sector: insurance, subsector: life_insurer, verified: false}
-- {host: www.pnbmetlife.com, org: PNB MetLife, sector: insurance, subsector: life_insurer, verified: false}
-- {host: www.canarahsbclife.com, org: Canara HSBC Life, sector: insurance, subsector: life_insurer, verified: false}
-- {host: www.indiafirstlife.com, org: IndiaFirst Life, sector: insurance, subsector: life_insurer, verified: false}
-- {host: www.ageasfederal.com, org: Ageas Federal Life, sector: insurance, subsector: life_insurer, verified: false}
-- {host: www.edelweisslife.in, org: Edelweiss Life, sector: insurance, subsector: life_insurer, verified: false}
-- {host: www.shriramlife.com, org: Shriram Life, sector: insurance, subsector: life_insurer, verified: false}
-- {host: www.icicilombard.com, org: ICICI Lombard, sector: insurance, subsector: general_insurer, verified: false}
-- {host: www.hdfcergo.com, org: HDFC ERGO, sector: insurance, subsector: general_insurer, verified: false}
-- {host: www.bajajallianz.com, org: Bajaj Allianz General, sector: insurance, subsector: general_insurer, verified: false}
-- {host: www.tataaig.com, org: Tata AIG, sector: insurance, subsector: general_insurer, verified: false}
-- {host: www.sbigeneral.in, org: SBI General, sector: insurance, subsector: general_insurer, verified: false}
-- {host: www.reliancegeneral.co.in, org: Reliance General, sector: insurance, subsector: general_insurer, verified: false}
-- {host: www.futuregenerali.in, org: Future Generali, sector: insurance, subsector: general_insurer, verified: false}
-- {host: www.royalsundaram.in, org: Royal Sundaram, sector: insurance, subsector: general_insurer, verified: false}
-- {host: www.cholainsurance.com, org: Chola MS, sector: insurance, subsector: general_insurer, verified: false}
-- {host: www.iffcotokio.co.in, org: IFFCO Tokio, sector: insurance, subsector: general_insurer, verified: false}
-- {host: www.universalsompo.com, org: Universal Sompo, sector: insurance, subsector: general_insurer, verified: false}
-- {host: www.godigit.com, org: Go Digit, sector: insurance, subsector: general_insurer, verified: false}
-- {host: www.acko.com, org: Acko, sector: insurance, subsector: general_insurer, verified: false}
-- {host: www.starhealth.in, org: Star Health, sector: insurance, subsector: health_insurer, verified: false}
-- {host: www.careinsurance.com, org: Care Health, sector: insurance, subsector: health_insurer, verified: false}
-- {host: www.nivabupa.com, org: Niva Bupa, sector: insurance, subsector: health_insurer, verified: false}
-- {host: www.manipalcigna.com, org: ManipalCigna, sector: insurance, subsector: health_insurer, verified: false}
-- {host: www.adityabirlacapital.com, org: Aditya Birla Capital, sector: insurance, subsector: diversified, verified: false}
-- {host: www.policybazaar.com, org: Policybazaar, sector: insurance, subsector: aggregator, verified: false}
+- {host: licindia.in, org: Life Insurance Corporation of India, sector: insurance, subsector: life_insurer, notes: "verified 2026-10-22: page title \"Home | Life Insurance Corporation of India | Official website of Life Insurance Corporation of India.\"; certificate O=\"LIFE INSURANCE CORPORATION OF INDIA\"", verified: true}
+- {host: ebiz.licindia.in, org: LIC customer portal, sector: insurance, subsector: life_insurer, notes: "verified 2026-10-22: certificate O=\"LIFE INSURANCE CORPORATION OF INDIA\"", verified: true}
+- {host: www.newindia.co.in, org: New India Assurance, sector: insurance, subsector: general_insurer, notes: "verified 2026-10-22: page title \"The New India Assurance Co. Ltd.\"; certificate O=\"The New India Assurance Co. Ltd\"", verified: true}
+- {host: uiic.co.in, org: United India Insurance, sector: insurance, subsector: general_insurer, notes: "verified 2026-10-22: page title \"United India Insurance Company Limited\"", verified: true}
+- {host: orientalinsurance.org.in, org: Oriental Insurance, sector: insurance, subsector: general_insurer, notes: "verified 2026-10-22: page title \"The Oriental Insurance Company Ltd.\"", verified: true}
+- {host: nationalinsurance.nic.co.in, org: National Insurance Company, sector: insurance, subsector: general_insurer, notes: "verified 2026-10-22: page title \"National Insurance Company Limited: Trusted Since 1906\"; certificate O=\"NATIONAL INSURANCE COMPANY LIMITED\"", verified: true}
+- {host: www.gicre.in, org: GIC Re, sector: insurance, subsector: reinsurer, notes: "verified 2026-10-22: page title \"Home | General Insurance Corporation of India\"", verified: true}
+- {host: www.hdfclife.com, org: HDFC Life, sector: insurance, subsector: life_insurer, notes: "verified 2026-10-22: certificate O=\"HDFC LIFE INSURANCE COMPANY LIMITED\"", verified: true}
+- {host: www.iciciprulife.com, org: ICICI Prudential Life, sector: insurance, subsector: life_insurer, notes: "verified 2026-10-22: certificate O=\"ICICI PRUDENTIAL LIFE INSURANCE COMPANY LIMITED\"", verified: true}
+- {host: www.sbilife.co.in, org: SBI Life, sector: insurance, subsector: life_insurer, notes: "verified 2026-10-22: certificate O=\"SBI LIFE INSURANCE COMPANY LIMITED\"", verified: true}
+- {host: www.axismaxlife.com, org: Axis Max Life Insurance, sector: insurance, subsector: life_insurer, notes: "verified 2026-10-22: page title \"Life Insurance: Buy Best Life Insurance Policy Online in India 2026 | Axis Max Life Insurance\"", verified: true}
+- {host: www.bajajlifeinsurance.com, org: Bajaj Life Insurance (formerly Bajaj Allianz Life), sector: insurance, subsector: life_insurer, notes: "verified 2026-10-22: page title \"Life Insurance : Buy Best Life Insurance Policy Online at Bajaj Life Insurance (Bajaj Allianz)\"; certificate O=\"Bajaj Life Insurance Ltd.\"", verified: true}
+- {host: www.tataaia.com, org: Tata AIA Life, sector: insurance, subsector: life_insurer, notes: "verified 2026-10-22: certificate O=\"TATA AIA LIFE INSURANCE COMPANY LIMITED\"", verified: true}
+- {host: www.kotaklife.com, org: Kotak Life, sector: insurance, subsector: life_insurer, notes: "verified 2026-10-22: certificate O=\"KOTAK MAHINDRA LIFE INSURANCE COMPANY LIMITED\"", verified: true}
+- {host: www.pnbmetlife.com, org: PNB MetLife, sector: insurance, subsector: life_insurer, notes: "verified 2026-10-22: page title \"PNB MetLife Insurance - Best Term Plans, Saving Plans & Pension Plans in India\"; certificate O=\"PNB MetLife India Insurance Company Limited\"", verified: true}
+- {host: www.canarahsbclife.com, org: Canara HSBC Life, sector: insurance, subsector: life_insurer, notes: "verified 2026-10-22: certificate O=\"CANARA HSBC LIFE INSURANCE COMPANY LIMITED\"", verified: true}
+- {host: www.indiafirstlife.com, org: IndiaFirst Life, sector: insurance, subsector: life_insurer, notes: "verified 2026-10-22: page title \"Life Insurance: Buy Best Life Insurance from IndiaFirst Life 2026\"; certificate O=\"INDIAFIRST LIFE INSURANCE COMPANY LIMITED\"", verified: true}
+- {host: www.ageasfederal.com, org: Ageas Federal Life, sector: insurance, subsector: life_insurer, notes: "verified 2026-10-22: page title \"Life Insurance: Buy Best Life Insurance Policy & Plan Online in India 2026\"; certificate O=\"Ageas Federal Life InsuranceCompany Limited\"", verified: true}
+- {host: www.edelweisslife.in, org: Edelweiss Life, sector: insurance, subsector: life_insurer, notes: "verified 2026-10-22: page title \"Edelweiss Life Insurance Company 2026 - Savings, Investment, Term, Retirement and Guaranteed Income Plans. - E\"; certificate O=\"EDELWEISS LIFE INSURANCE COMPANY LIMITED\"", verified: true}
+- {host: www.shriramlife.com, org: Shriram Life, sector: insurance, subsector: life_insurer, notes: "verified 2026-10-22: page title \"Best Life Insurance Plans and Policies in India - Shriram Life\"; certificate O=\"NOVAC TECHNOLOGY SOLUTIONS PVT LTD\"", verified: true}
+- {host: www.icicilombard.com, org: ICICI Lombard, sector: insurance, subsector: general_insurer, notes: "verified 2026-10-22: certificate O=\"ICICI Lombard General Insurance Company Limited\"", verified: true}
+- {host: www.hdfcergo.com, org: HDFC ERGO, sector: insurance, subsector: general_insurer, notes: "verified 2026-10-22: page title \"HDFC ERGO General Insurance - Buy Insurance Policies Online\"; certificate O=\"HDFC ERGO GENERAL INSURANCE COMPANY LIMITED\"", verified: true}
+- {host: www.bajajgeneralinsurance.com, org: Bajaj General Insurance (formerly Bajaj Allianz), sector: insurance, subsector: general_insurer, notes: "verified 2026-10-22: page title \"Bajaj General Insurance (Formerly Bajaj Allianz)\"; certificate O=\"Bajaj General Insurance Limited\"", verified: true}
+- {host: www.tataaig.com, org: Tata AIG, sector: insurance, subsector: general_insurer, notes: "verified 2026-10-22: page title \"TATA AIG | Buy Car, Bike, Health & Travel Insurance Online\"; certificate O=\"TATA AIG General Insurance Company Ltd.\"", verified: true}
+- {host: www.sbigeneral.in, org: SBI General, sector: insurance, subsector: general_insurer, notes: "verified 2026-10-22: page title \"SBI General Insurance - Buy Health, Bike, Car & Home Insurance\"", verified: true}
+- {host: www.indusindinsurance.com, org: IndusInd General Insurance (formerly Reliance General), sector: insurance, subsector: general_insurer, notes: "verified 2026-10-22: page title \"IndusInd General Insurance: Health, Motor & Travel Insurance - IndusInd General Insurance\"", verified: true}
+- {host: www.generalicentralinsurance.com, org: Generali Central Insurance (formerly Future Generali), sector: insurance, subsector: general_insurer, notes: "verified 2026-10-22: page title \"General Insurance: Buy & Renew Health & Car Insurance Online| Generali Central Insurance\"; certificate O=\"Generali Central Insurance Company Limited\"", verified: true}
+- {host: www.royalsundaram.in, org: Royal Sundaram, sector: insurance, subsector: general_insurer, notes: "verified 2026-10-22: certificate O=\"ROYAL SUNDARAM GENERAL INSURANCE COMPANY LIMITED\"", verified: true}
+- {host: www.cholainsurance.com, org: Chola MS, sector: insurance, subsector: general_insurer, notes: "verified 2026-10-22: page title \"Buy Car, Bike, Health & Travel Insurance: General Insurance Company in India | Chola MS\"; certificate O=\"Cholamandalam MS General Insurance Company Limited\"", verified: true}
+- {host: www.iffcotokio.co.in, org: IFFCO Tokio, sector: insurance, subsector: general_insurer, notes: "verified 2026-10-22: page title \"General Insurance - Buy Car, Bike, Health, Travel and Home Insurance Policy Online\"", verified: true}
+- {host: www.universalsompo.com, org: Universal Sompo, sector: insurance, subsector: general_insurer, notes: "verified 2026-10-22: page title \"Universal Sompo General Insurance: Best Insurance Company in India.\"; certificate O=\"Universal Sompo General Insurance Company Ltd.\"", verified: true}
+- {host: www.godigit.com, org: Go Digit, sector: insurance, subsector: general_insurer, notes: "verified 2026-10-22: page title \"Digit Insurance | Buy Car, Bike, Health & Travel Insurance Online in India\"", verified: true}
+- {host: www.acko.com, org: Acko, sector: insurance, subsector: general_insurer, notes: "verified 2026-10-22: page title \"ACKO Insurance | Buy Car, Bike, Health, Term & Travel Insurance Online\"", verified: true}
+- {host: www.starhealth.in, org: Star Health, sector: insurance, subsector: health_insurer, notes: "verified 2026-10-22: certificate O=\"STAR HEALTH AND ALLIED INSURANCE COMPANY LIMITED\"", verified: true}
+- {host: www.careinsurance.com, org: Care Health, sector: insurance, subsector: health_insurer, notes: "verified 2026-10-22: certificate O=\"Care Health Insurance Limited\"", verified: true}
+- {host: www.nivabupa.com, org: Niva Bupa, sector: insurance, subsector: health_insurer, notes: "verified 2026-10-22: certificate O=\"NIVA BUPA HEALTH INSURANCE COMPANY LIMITED\"", verified: true}
+- {host: www.manipalcigna.com, org: ManipalCigna, sector: insurance, subsector: health_insurer, notes: "verified 2026-10-22: page title \"Best Health Insurance Company in India | ManipalCigna\"; certificate O=\"The Cigna Group\"", verified: true}
+- {host: www.adityabirlacapital.com, org: Aditya Birla Capital, sector: insurance, subsector: diversified, notes: "verified 2026-10-22: page title \"Loans, Insurance, Investments & Financial Services Provider in India – Aditya Birla Capital\"; certificate O=\"Aditya Birla Financial Shared Services Limited\"", verified: true}
+- {host: www.policybazaar.com, org: Policybazaar, sector: insurance, subsector: aggregator, notes: "verified 2026-10-22: certificate O=\"Policybazaar Insurance Brokers Private Limited\"", verified: true}
 
 # --- healthcare (38) ---
-- {host: www.aiims.edu, org: AIIMS New Delhi, sector: healthcare, subsector: hospital, verified: false}
-- {host: ors.gov.in, org: Online Registration System (hospitals), sector: healthcare, subsector: hospital_portal, verified: false}
-- {host: www.aiimsbhubaneswar.nic.in, org: AIIMS Bhubaneswar, sector: healthcare, subsector: hospital, verified: false}
-- {host: www.aiimsjodhpur.edu.in, org: AIIMS Jodhpur, sector: healthcare, subsector: hospital, verified: false}
-- {host: aiimsrishikesh.edu.in, org: AIIMS Rishikesh, sector: healthcare, subsector: hospital, verified: false}
-- {host: pgimer.edu.in, org: PGIMER Chandigarh, sector: healthcare, subsector: hospital, verified: false}
-- {host: jipmer.edu.in, org: JIPMER, sector: healthcare, subsector: hospital, verified: false}
-- {host: nimhans.ac.in, org: NIMHANS, sector: healthcare, subsector: hospital, verified: false}
-- {host: tmc.gov.in, org: Tata Memorial Centre, sector: healthcare, subsector: hospital, verified: false}
-- {host: www.cmch-vellore.edu, org: Christian Medical College Vellore, sector: healthcare, subsector: hospital, verified: false}
-- {host: www.apollohospitals.com, org: Apollo Hospitals, sector: healthcare, subsector: hospital_chain, verified: false}
-- {host: www.apollo247.com, org: Apollo 24|7, sector: healthcare, subsector: telehealth, verified: false}
-- {host: www.fortishealthcare.com, org: Fortis Healthcare, sector: healthcare, subsector: hospital_chain, verified: false}
-- {host: www.maxhealthcare.in, org: Max Healthcare, sector: healthcare, subsector: hospital_chain, verified: false}
-- {host: www.manipalhospitals.com, org: Manipal Hospitals, sector: healthcare, subsector: hospital_chain, verified: false}
-- {host: www.narayanahealth.org, org: Narayana Health, sector: healthcare, subsector: hospital_chain, verified: false}
-- {host: www.medanta.org, org: Medanta, sector: healthcare, subsector: hospital_chain, verified: false}
-- {host: www.kokilabenhospital.com, org: Kokilaben Dhirubhai Ambani Hospital, sector: healthcare, subsector: hospital, verified: false}
-- {host: www.lilavatihospital.com, org: Lilavati Hospital, sector: healthcare, subsector: hospital, verified: false}
-- {host: www.hindujahospital.com, org: P. D. Hinduja Hospital, sector: healthcare, subsector: hospital, verified: false}
-- {host: www.rainbowhospitals.in, org: Rainbow Children’s Hospital, sector: healthcare, subsector: hospital_chain, verified: false}
-- {host: www.asterdmhealthcare.com, org: Aster DM Healthcare, sector: healthcare, subsector: hospital_chain, verified: false}
-- {host: www.kimshospitals.com, org: KIMS Hospitals, sector: healthcare, subsector: hospital_chain, verified: false}
-- {host: www.carehospitals.com, org: CARE Hospitals, sector: healthcare, subsector: hospital_chain, verified: false}
-- {host: www.yashodahospitals.com, org: Yashoda Hospitals, sector: healthcare, subsector: hospital_chain, verified: false}
-- {host: www.sankaranethralaya.org, org: Sankara Nethralaya, sector: healthcare, subsector: hospital, verified: false}
-- {host: aravind.org, org: Aravind Eye Care System, sector: healthcare, subsector: hospital, verified: false}
-- {host: www.practo.com, org: Practo, sector: healthcare, subsector: telehealth, verified: false}
-- {host: www.1mg.com, org: Tata 1mg, sector: healthcare, subsector: pharmacy, verified: false}
-- {host: pharmeasy.in, org: PharmEasy, sector: healthcare, subsector: pharmacy, verified: false}
-- {host: www.netmeds.com, org: Netmeds, sector: healthcare, subsector: pharmacy, verified: false}
-- {host: www.medplusmart.com, org: MedPlus, sector: healthcare, subsector: pharmacy, verified: false}
-- {host: www.lalpathlabs.com, org: Dr Lal PathLabs, sector: healthcare, subsector: diagnostics, verified: false}
-- {host: www.metropolisindia.com, org: Metropolis Healthcare, sector: healthcare, subsector: diagnostics, verified: false}
-- {host: www.thyrocare.com, org: Thyrocare, sector: healthcare, subsector: diagnostics, verified: false}
-- {host: www.healthifyme.com, org: HealthifyMe, sector: healthcare, subsector: telehealth, verified: false}
-- {host: www.cowin.gov.in, org: CoWIN, sector: healthcare, subsector: health_registry, verified: false}
-- {host: esanjeevani.mohfw.gov.in, org: eSanjeevani, sector: healthcare, subsector: telehealth, verified: false}
+- {host: www.aiims.edu, org: AIIMS New Delhi, sector: healthcare, subsector: hospital, notes: "verified 2026-10-22: page title \"AIIMS - All India Institute Of Medical Science\"", verified: true}
+- {host: ors.gov.in, org: Online Registration System (hospitals), sector: healthcare, subsector: hospital_portal, notes: "verified 2026-10-22: page title \"ORS: Online Registration System\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: aiimsbhubaneswar.nic.in, org: AIIMS Bhubaneswar, sector: healthcare, subsector: hospital, notes: "verified 2026-10-22: page title \"AIIMS Bhubaneswar\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: aiimsjodhpur.edu.in, org: AIIMS Jodhpur, sector: healthcare, subsector: hospital, notes: "verified 2026-10-22: page title \"AIIMS Jodhpur\"; certificate O=\"All India Institute of Medical Sciences\\\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: aiimsrishikesh.edu.in, org: AIIMS Rishikesh, sector: healthcare, subsector: hospital, notes: "verified 2026-10-22: page title \"AIIMS Rishikesh\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: pgimer.edu.in, org: PGIMER Chandigarh, sector: healthcare, subsector: hospital, notes: "verified 2026-10-22: page title \"Post Graduate Institute of Medical Education and Research, Chandigarh, India\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: jipmer.edu.in, org: JIPMER, sector: healthcare, subsector: hospital, notes: "verified 2026-10-22: page title \"Home | Jawaharlal Institute of Postgraduate Medical Education & Research | Government of India\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.nimhans.ac.in, org: NIMHANS, sector: healthcare, subsector: hospital, notes: "verified 2026-10-22: page title \"Specialized Patient Care Services | NIMHANS Bangalore\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: tmc.gov.in, org: Tata Memorial Centre, sector: healthcare, subsector: hospital, notes: "verified 2026-10-22: page title \"HOME - T.M.C.\"; certificate O=\"TATA MEMORIAL CENTRE\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: www.cmch-vellore.edu, org: Christian Medical College Vellore, sector: healthcare, subsector: hospital, notes: "verified 2026-10-22: page title \"CMC | Home\"", verified: true}
+- {host: www.apollohospitals.com, org: Apollo Hospitals, sector: healthcare, subsector: hospital_chain, notes: "verified 2026-10-22: certificate O=\"Apollo Hospitals Enterprise Limited\"", verified: true}
+- {host: www.apollo247.com, org: Apollo 24|7, sector: healthcare, subsector: telehealth, notes: "verified 2026-10-22: page title \"Apollo 247 - Online Doctor Consultation & Book Lab Tests at Home\"", verified: true}
+- {host: www.fortishealthcare.com, org: Fortis Healthcare, sector: healthcare, subsector: hospital_chain, notes: "verified 2026-10-22: page title \"Best Hospital in India for Healthcare Services - Fortis Healthcare\"", verified: true}
+- {host: www.maxhealthcare.in, org: Max Healthcare, sector: healthcare, subsector: hospital_chain, notes: "verified 2026-10-22: Wikidata Q6794859 official website", verified: true}
+- {host: www.manipalhospitals.com, org: Manipal Hospitals, sector: healthcare, subsector: hospital_chain, notes: "verified 2026-10-22: page title \"Best Multispeciality Hospital In India | Top Hospital in India | Manipal Hospitals\"", verified: true}
+- {host: www.narayanahealth.org, org: Narayana Health, sector: healthcare, subsector: hospital_chain, notes: "verified 2026-10-22: page title \"Best Multispeciality Private Hospital in India | Narayana Health\"", verified: true}
+- {host: www.medanta.org, org: Medanta, sector: healthcare, subsector: hospital_chain, notes: "verified 2026-10-22: page title \"#1 Best Hospital in India 2026 | Leading Doctors - Medanta\"", verified: true}
+- {host: www.kokilabenhospital.com, org: Kokilaben Dhirubhai Ambani Hospital, sector: healthcare, subsector: hospital, notes: "verified 2026-10-22: page title \"Best Multispeciality Hospital in Mumbai, India - Kokilaben Hospital\"", verified: true}
+- {host: www.lilavatihospital.com, org: Lilavati Hospital, sector: healthcare, subsector: hospital, notes: "verified 2026-10-22: page title \"Lilavati Hospital & Research Centre | Top Multi Speciality Hospital in Mumbai\"", verified: true}
+- {host: www.hindujahospital.com, org: P. D. Hinduja Hospital, sector: healthcare, subsector: hospital, notes: "verified 2026-10-22: page title \"Best Multispecialty Health Care Hospital, Medical Research Centre in Mumbai - P. D. Hinduja Hospital\"; certificate O=\"P. D. Hinduja Hospital and Medical Research Centre\"", verified: true}
+- {host: www.rainbowhospitals.in, org: Rainbow Children’s Hospital, sector: healthcare, subsector: hospital_chain, notes: "verified 2026-10-22: page title \"Best Child, Women & Fertility Care Hospitals in India | Rainbow Hospitals\"", verified: true}
+- {host: www.asterdmhealthcare.com, org: Aster DM Healthcare, sector: healthcare, subsector: hospital_chain, notes: "verified 2026-10-22: page title \"Aster DM Healthcare - Pioneering the future of health in GCC\"", verified: true}
+- {host: www.kimshospitals.com, org: KIMS Hospitals, sector: healthcare, subsector: hospital_chain, notes: "verified 2026-10-22: page title \"Best Multi Speciality Hospital in Hyderabad. Book Appointment Online With Doctors Expert. Team of Cardiologist\"", verified: true}
+- {host: www.carehospitals.com, org: CARE Hospitals, sector: healthcare, subsector: hospital_chain, notes: "verified 2026-10-22: page title \"Best Hospital in Hyderabad | Best Multispeciality Hospital | CARE Hospitals\"", verified: true}
+- {host: www.yashodahospitals.com, org: Yashoda Hospitals, sector: healthcare, subsector: hospital_chain, notes: "verified 2026-10-22: page title \"Best Hospital in Hyderabad | Multi Speciality Hospitals In Hyderabad | Yashoda Hospitals\"", verified: true}
+- {host: www.sankaranethralaya.org, org: Sankara Nethralaya, sector: healthcare, subsector: hospital, notes: "verified 2026-10-22: page title \"Welcome to Sankara Nethralaya: India's Largest Super Speciality Eye Care Hospital\"", verified: true}
+- {host: aravind.org, org: Aravind Eye Care System, sector: healthcare, subsector: hospital, notes: "verified 2026-10-22: page title \"Aravind Eye Care\"", verified: true}
+- {host: www.practo.com, org: Practo, sector: healthcare, subsector: telehealth, notes: "verified 2026-10-22: page title \"Practo | Video Consultation with Doctors, Book Doctor Appointments, Order Medicine, Diagnostic Tests\"; certificate O=\"PRACTO TECHNOLOGIES PRIVATE LIMITED\"", verified: true}
+- {host: www.1mg.com, org: Tata 1mg, sector: healthcare, subsector: pharmacy, notes: "verified 2026-10-22: page title \"Online Pharmacy India | Buy Medicines from India&#x27;s Trusted Medicine Store: 1mg.com\"; certificate O=\"Tata 1MG Healthcare Solutions Private Limited\"", verified: true}
+- {host: pharmeasy.in, org: PharmEasy, sector: healthcare, subsector: pharmacy, notes: "verified 2026-10-22: page title \"PharmEasy – Online Pharmacy & Medical Store with Healthcare Services in India | 50 Lakhs+ Customers\"", verified: true}
+- {host: www.netmeds.com, org: Netmeds, sector: healthcare, subsector: pharmacy, notes: "verified 2026-10-22: page title \"Order Medicine Online from India&#x27;s Most Trusted Online Pharmacy | Netmeds\"", verified: true}
+- {host: www.medplusmart.com, org: MedPlus, sector: healthcare, subsector: pharmacy, notes: "verified 2026-10-22: Wikidata Q25344640 official website", verified: true}
+- {host: www.lalpathlabs.com, org: Dr Lal PathLabs, sector: healthcare, subsector: diagnostics, notes: "verified 2026-10-22: page title \"Diagnostic Centre and Pathology Lab for Blood Test | Dr Lal PathLabs\"; certificate O=\"Dr. Lal PathLabs Ltd.\"", verified: true}
+- {host: www.metropolisindia.com, org: Metropolis Healthcare, sector: healthcare, subsector: diagnostics, notes: "unverified 2026-10-22: homepage blocked by the CDN (403) and no organisation in the certificate", verified: false}
+- {host: www.thyrocare.com, org: Thyrocare, sector: healthcare, subsector: diagnostics, notes: "verified 2026-10-22: Wikidata Q28103648 official website", verified: true}
+- {host: www.healthifyme.com, org: HealthifyMe, sector: healthcare, subsector: telehealth, notes: "verified 2026-10-22: page title \"Healthify\"", verified: true}
+- {host: www.cowin.gov.in, org: CoWIN, sector: healthcare, subsector: health_registry, notes: "verified 2026-10-22: page title \"CoWIN\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: esanjeevani.mohfw.gov.in, org: eSanjeevani, sector: healthcare, subsector: telehealth, notes: "verified 2026-10-22: page title \"eSanjeevani\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
 
-# --- telecom (18) ---
-- {host: www.airtel.in, org: Bharti Airtel, sector: telecom, subsector: mobile_operator, verified: false}
-- {host: www.jio.com, org: Reliance Jio, sector: telecom, subsector: mobile_operator, verified: false}
-- {host: www.myvi.in, org: Vodafone Idea (Vi), sector: telecom, subsector: mobile_operator, verified: false}
-- {host: www.vodafoneidea.com, org: Vodafone Idea (corporate), sector: telecom, subsector: mobile_operator, verified: false}
-- {host: www.bsnl.co.in, org: BSNL, sector: telecom, subsector: mobile_operator, verified: false}
-- {host: portal.bsnl.in, org: BSNL self-care portal, sector: telecom, subsector: mobile_operator, verified: false}
-- {host: mtnl.in, org: MTNL, sector: telecom, subsector: fixed_operator, verified: false}
-- {host: www.tataplay.com, org: Tata Play, sector: telecom, subsector: dth, verified: false}
-- {host: www.actcorp.in, org: ACT Fibernet, sector: telecom, subsector: broadband, verified: false}
-- {host: www.hathway.com, org: Hathway, sector: telecom, subsector: broadband, verified: false}
-- {host: www.excitel.com, org: Excitel, sector: telecom, subsector: broadband, verified: false}
-- {host: www.tatacommunications.com, org: Tata Communications, sector: telecom, subsector: carrier, verified: false}
-- {host: www.sifytechnologies.com, org: Sify Technologies, sector: telecom, subsector: carrier, verified: false}
-- {host: www.railtel.in, org: RailTel, sector: telecom, subsector: carrier, verified: false}
-- {host: www.tcil.net.in, org: TCIL, sector: telecom, subsector: carrier, verified: false}
-- {host: www.airtel.com, org: Bharti Airtel (corporate), sector: telecom, subsector: mobile_operator, verified: false}
-- {host: www.jiofiber.com, org: JioFiber, sector: telecom, subsector: broadband, verified: false}
-- {host: www.dishtv.in, org: Dish TV, sector: telecom, subsector: dth, verified: false}
+# --- telecom (15) ---
+- {host: www.airtel.in, org: Bharti Airtel, sector: telecom, subsector: mobile_operator, notes: "verified 2026-10-22: page title \"Airtel: Wi-Fi, Postpaid, Prepaid, DTH, Bank & Business\"", verified: true}
+- {host: www.jio.com, org: Reliance Jio, sector: telecom, subsector: mobile_operator, notes: "verified 2026-10-22: certificate O=\"Reliance Industries Limited\"", verified: true}
+- {host: www.myvi.in, org: Vodafone Idea (Vi), sector: telecom, subsector: mobile_operator, notes: "verified 2026-10-22: page title \"Vi (Vodafone Idea) - Vi Max Postpaid | Prepaid | Vi Games & More\"; certificate O=\"Vodafone Idea Limited\"", verified: true}
+- {host: bsnl.co.in, org: BSNL, sector: telecom, subsector: mobile_operator, notes: "verified 2026-10-22: page title \"BSNL Portal — India&#x27;s Trusted Telecom Network\"; certificate O=\"Bharat Sanchar Nigam Limited\"", verified: true}
+- {host: portal.bsnl.in, org: BSNL self-care portal, sector: telecom, subsector: mobile_operator, notes: "verified 2026-10-22: page title \"BSNL Portal\"; certificate O=\"BHARAT SANCHAR NIGAM LIMITED\"", verified: true}
+- {host: mtnl.in, org: MTNL, sector: telecom, subsector: fixed_operator, notes: "verified 2026-10-22: page title \"MTNL Corporate Office Home Main Homepage\"; certificate O=\"Mahanagar Telephone Nigam Limited\"", verified: true}
+- {host: www.tataplay.com, org: Tata Play, sector: telecom, subsector: dth, notes: "verified 2026-10-22: page title \"Best DTH (Direct To Home) Service Provider in India | Tata Play\"; certificate O=\"Tata Play Ltd\"", verified: true}
+- {host: www.actcorp.in, org: ACT Fibernet, sector: telecom, subsector: broadband, notes: "verified 2026-10-22: page title \"Upgrade To ACT Broadband & High-Speed Wifi With OTT Benefits\"; certificate O=\"Atria Convergence Technologies Limited\"", verified: true}
+- {host: www.hathway.com, org: Hathway, sector: telecom, subsector: broadband, notes: "verified 2026-10-22: page title \"Hathway: Best Service Provider for Fiber WiFi, Broadband & Digital TV\"", verified: true}
+- {host: www.excitel.com, org: Excitel, sector: telecom, subsector: broadband, notes: "verified 2026-10-22: page title \"Excitel Broadband – High-Speed Fiber Internet & WiFi Connection\"", verified: true}
+- {host: www.tatacommunications.com, org: Tata Communications, sector: telecom, subsector: carrier, notes: "verified 2026-10-22: page title \"Digital Fabric for global enterprises | Tata Communications\"", verified: true}
+- {host: www.sifytechnologies.com, org: Sify Technologies, sector: telecom, subsector: carrier, notes: "verified 2026-10-22: page title \"Sify Technologies | ICT Solutions for Digital Transformation\"", verified: true}
+- {host: www.railtel.in, org: RailTel, sector: telecom, subsector: carrier, notes: "verified 2026-10-22: page title \"RailTel Corporation\"; certificate O=\"RAILTEL CORPORATION OF INDIA LTD\"", verified: true}
+- {host: www.tcil.net.in, org: TCIL, sector: telecom, subsector: carrier, notes: "verified 2026-10-22: page title \"Telecommunications Consultants India Limited\"", verified: true}
+- {host: www.dishtv.in, org: Dish TV, sector: telecom, subsector: dth, notes: "verified 2026-10-22: page title \"DishTV Recharge Online &#x26; New DTH Connection\"; certificate O=\"Dish TV India Ltd\"", verified: true}
 
 # --- ecommerce (40) ---
-- {host: www.flipkart.com, org: Flipkart, sector: ecommerce, subsector: marketplace, verified: false}
-- {host: www.amazon.in, org: Amazon India, sector: ecommerce, subsector: marketplace, verified: false}
-- {host: www.myntra.com, org: Myntra, sector: ecommerce, subsector: fashion, verified: false}
-- {host: www.meesho.com, org: Meesho, sector: ecommerce, subsector: marketplace, verified: false}
-- {host: www.nykaa.com, org: Nykaa, sector: ecommerce, subsector: beauty, verified: false}
-- {host: www.ajio.com, org: AJIO, sector: ecommerce, subsector: fashion, verified: false}
-- {host: www.jiomart.com, org: JioMart, sector: ecommerce, subsector: grocery, verified: false}
-- {host: www.bigbasket.com, org: BigBasket, sector: ecommerce, subsector: grocery, verified: false}
-- {host: www.swiggy.com, org: Swiggy, sector: ecommerce, subsector: food_delivery, verified: false}
-- {host: www.zomato.com, org: Zomato, sector: ecommerce, subsector: food_delivery, verified: false}
-- {host: blinkit.com, org: Blinkit, sector: ecommerce, subsector: quick_commerce, verified: false}
-- {host: www.zeptonow.com, org: Zepto, sector: ecommerce, subsector: quick_commerce, verified: false}
-- {host: www.snapdeal.com, org: Snapdeal, sector: ecommerce, subsector: marketplace, verified: false}
-- {host: www.tatacliq.com, org: Tata CLiQ, sector: ecommerce, subsector: marketplace, verified: false}
-- {host: www.croma.com, org: Croma, sector: ecommerce, subsector: electronics, verified: false}
-- {host: www.reliancedigital.in, org: Reliance Digital, sector: ecommerce, subsector: electronics, verified: false}
-- {host: www.firstcry.com, org: FirstCry, sector: ecommerce, subsector: retail, verified: false}
-- {host: www.lenskart.com, org: Lenskart, sector: ecommerce, subsector: retail, verified: false}
-- {host: www.pepperfry.com, org: Pepperfry, sector: ecommerce, subsector: furniture, verified: false}
-- {host: www.urbanladder.com, org: Urban Ladder, sector: ecommerce, subsector: furniture, verified: false}
-- {host: www.makemytrip.com, org: MakeMyTrip, sector: ecommerce, subsector: travel, verified: false}
-- {host: www.goibibo.com, org: Goibibo, sector: ecommerce, subsector: travel, verified: false}
-- {host: www.cleartrip.com, org: Cleartrip, sector: ecommerce, subsector: travel, verified: false}
-- {host: www.yatra.com, org: Yatra, sector: ecommerce, subsector: travel, verified: false}
-- {host: www.ixigo.com, org: ixigo, sector: ecommerce, subsector: travel, verified: false}
-- {host: www.redbus.in, org: redBus, sector: ecommerce, subsector: travel, verified: false}
-- {host: in.bookmyshow.com, org: BookMyShow, sector: ecommerce, subsector: ticketing, verified: false}
-- {host: www.olacabs.com, org: Ola, sector: ecommerce, subsector: mobility, verified: false}
-- {host: www.rapido.bike, org: Rapido, sector: ecommerce, subsector: mobility, verified: false}
-- {host: ondc.org, org: ONDC, sector: ecommerce, subsector: network, verified: false}
-- {host: www.indiamart.com, org: IndiaMART, sector: ecommerce, subsector: b2b, verified: false}
-- {host: www.tradeindia.com, org: TradeIndia, sector: ecommerce, subsector: b2b, verified: false}
-- {host: www.purplle.com, org: Purplle, sector: ecommerce, subsector: beauty, verified: false}
-- {host: www.boat-lifestyle.com, org: boAt, sector: ecommerce, subsector: electronics, verified: false}
-- {host: mamaearth.in, org: Mamaearth, sector: ecommerce, subsector: beauty, verified: false}
-- {host: www.licious.in, org: Licious, sector: ecommerce, subsector: grocery, verified: false}
-- {host: www.urbancompany.com, org: Urban Company, sector: ecommerce, subsector: services, verified: false}
-- {host: www.bewakoof.com, org: Bewakoof, sector: ecommerce, subsector: fashion, verified: false}
-- {host: www.shoppersstop.com, org: Shoppers Stop, sector: ecommerce, subsector: retail, verified: false}
-- {host: www.dmart.in, org: DMart Ready, sector: ecommerce, subsector: grocery, verified: false}
+- {host: www.flipkart.com, org: Flipkart, sector: ecommerce, subsector: marketplace, notes: "verified 2026-10-22: page title \"Online Shopping India Mobile, Cameras, Lifestyle & more Online @ Flipkart.com\"; certificate O=\"FLIPKART INTERNET PRIVATE LIMITED\"", verified: true}
+- {host: www.amazon.in, org: Amazon India, sector: ecommerce, subsector: marketplace, notes: "verified 2026-10-22: Wikidata Q123036952 (Amazon.in) official website", verified: true}
+- {host: www.myntra.com, org: Myntra, sector: ecommerce, subsector: fashion, notes: "verified 2026-10-22: certificate O=\"MYNTRA DESIGNS PRIVATE LIMITED\"", verified: true}
+- {host: www.meesho.com, org: Meesho, sector: ecommerce, subsector: marketplace, notes: "verified 2026-10-22: certificate O=\"Fashnear Technologies Private Limited\"", verified: true}
+- {host: www.nykaa.com, org: Nykaa, sector: ecommerce, subsector: beauty, notes: "verified 2026-10-22: certificate O=\"NYKAA E- RETAIL LIMITED\"", verified: true}
+- {host: www.ajio.com, org: AJIO, sector: ecommerce, subsector: fashion, notes: "verified 2026-10-22: certificate O=\"Reliance Jio Infocomm Limited\"", verified: true}
+- {host: www.jiomart.com, org: JioMart, sector: ecommerce, subsector: grocery, notes: "verified 2026-10-22: certificate O=\"RELIANCE JIO INFOCOMM LIMITED\"", verified: true}
+- {host: www.bigbasket.com, org: BigBasket, sector: ecommerce, subsector: grocery, notes: "verified 2026-10-22: certificate O=\"Innovative Retail Concepts Private Limited\"", verified: true}
+- {host: www.swiggy.com, org: Swiggy, sector: ecommerce, subsector: food_delivery, notes: "verified 2026-10-22: certificate O=\"SWIGGY LIMITED\"", verified: true}
+- {host: www.zomato.com, org: Zomato, sector: ecommerce, subsector: food_delivery, notes: "verified 2026-10-22: certificate O=\"Eternal Limited\"", verified: true}
+- {host: blinkit.com, org: Blinkit, sector: ecommerce, subsector: quick_commerce, notes: "verified 2026-10-22: page title \"blinkit | Error Page\"", verified: true}
+- {host: www.zeptonow.com, org: Zepto, sector: ecommerce, subsector: quick_commerce, notes: "unverified 2026-10-22: homepage serves only a bot challenge and no organisation in the certificate", verified: false}
+- {host: www.snapdeal.com, org: Snapdeal, sector: ecommerce, subsector: marketplace, notes: "verified 2026-10-22: page title \"Online shopping for Men, Women & Kids Fashion, Home Decor, lifestyle & More\"", verified: true}
+- {host: www.tatacliq.com, org: Tata CLiQ, sector: ecommerce, subsector: marketplace, notes: "verified 2026-10-22: site name \"Tata CLiQ\"", verified: true}
+- {host: www.croma.com, org: Croma, sector: ecommerce, subsector: electronics, notes: "verified 2026-10-22: certificate O=\"INFINITI RETAIL LIMITED\"", verified: true}
+- {host: www.reliancedigital.in, org: Reliance Digital, sector: ecommerce, subsector: electronics, notes: "verified 2026-10-22: page title \"Online Electronic Shopping Store in India | Best Electronic Store\"; certificate O=\"JIO PLATFORMS LIMITED\"", verified: true}
+- {host: www.firstcry.com, org: FirstCry, sector: ecommerce, subsector: retail, notes: "verified 2026-10-22: page title \"Baby Products Online India: Newborn Baby Products & Kids Online Shopping at FirstCry.com\"", verified: true}
+- {host: www.lenskart.com, org: Lenskart, sector: ecommerce, subsector: retail, notes: "verified 2026-10-22: page title \"Lenskart.com® - Buy Eyeglasses, Sunglasses & Contact Lens\"", verified: true}
+- {host: www.pepperfry.com, org: Pepperfry, sector: ecommerce, subsector: furniture, notes: "verified 2026-10-22: certificate O=\"PEPPERFRY LIMITED\"", verified: true}
+- {host: www.urbanladder.com, org: Urban Ladder, sector: ecommerce, subsector: furniture, notes: "verified 2026-10-22: page title \"Buy Furniture Online: Upto 70% off in this Festive Season\"; certificate O=\"URBAN LADDER HOME DECOR SOLUTIONS LIMITED\"", verified: true}
+- {host: www.makemytrip.com, org: MakeMyTrip, sector: ecommerce, subsector: travel, notes: "verified 2026-10-22: certificate O=\"Makemytrip (India) Pvt Ltd.\"", verified: true}
+- {host: www.goibibo.com, org: Goibibo, sector: ecommerce, subsector: travel, notes: "verified 2026-10-22: certificate O=\"Ibibo Group Pvt Ltd\"", verified: true}
+- {host: www.cleartrip.com, org: Cleartrip, sector: ecommerce, subsector: travel, notes: "verified 2026-10-22: page title \"Cleartrip: #1 Site for Booking Flights Tickets & Hotels Online - Get Best Travel Deals\"", verified: true}
+- {host: www.yatra.com, org: Yatra, sector: ecommerce, subsector: travel, notes: "verified 2026-10-22: certificate O=\"Yatra Online Limited\"", verified: true}
+- {host: www.ixigo.com, org: ixigo, sector: ecommerce, subsector: travel, notes: "verified 2026-10-22: page title \"ixigo - Best Travel Website, Book Flights, Trains, Hotels & Buses\"", verified: true}
+- {host: www.redbus.in, org: redBus, sector: ecommerce, subsector: travel, notes: "verified 2026-10-22: certificate O=\"Redbus India Private Limited\"", verified: true}
+- {host: in.bookmyshow.com, org: BookMyShow, sector: ecommerce, subsector: ticketing, notes: "verified 2026-10-22: certificate O=\"Big Tree Entertainment Private Limited\"", verified: true}
+- {host: www.olacabs.com, org: Ola, sector: ecommerce, subsector: mobility, notes: "verified 2026-10-22: page title \"Book Cabs Nearby at Best Price | Hire Taxi Nearby Online at Olacabs.com\"; certificate O=\"ANI Technologies Private Limited\"", verified: true}
+- {host: www.rapido.bike, org: Rapido, sector: ecommerce, subsector: mobility, notes: "verified 2026-10-22: page title \"Rapido - Bike taxi, Auto & Cab app\"", verified: true}
+- {host: ondc.org, org: ONDC, sector: ecommerce, subsector: network, notes: "verified 2026-10-22: page title \"Open Network for Digital Commerce (ONDC)\"", verified: true}
+- {host: www.indiamart.com, org: IndiaMART, sector: ecommerce, subsector: b2b, notes: "verified 2026-10-22: certificate O=\"IndiaMART InterMESH LTD\"", verified: true}
+- {host: www.tradeindia.com, org: TradeIndia, sector: ecommerce, subsector: b2b, notes: "verified 2026-10-22: page title \"TradeIndia - B2B Marketplace for Top Manufacturers, Exporters, Suppliers\"", verified: true}
+- {host: www.purplle.com, org: Purplle, sector: ecommerce, subsector: beauty, notes: "verified 2026-10-22: page title \"Purplle.com: Buy Cosmetic Products & Beauty Products Online In India\"", verified: true}
+- {host: www.boat-lifestyle.com, org: boAt, sector: ecommerce, subsector: electronics, notes: "verified 2026-10-22: page title \"Buy Earbuds, Headphones, Earphones at India’s No.1 Earwear Brand: boAt\"", verified: true}
+- {host: mamaearth.in, org: Mamaearth, sector: ecommerce, subsector: beauty, notes: "verified 2026-10-22: page title \"Mamaearth Natural Skin & Hair Care Products- Get 25% Off Now\"", verified: true}
+- {host: www.licious.in, org: Licious, sector: ecommerce, subsector: grocery, notes: "verified 2026-10-22: page title \"Order Meat Online - Buy Fresh & High Quality Meat at Best Price on Licious\"", verified: true}
+- {host: www.urbancompany.com, org: Urban Company, sector: ecommerce, subsector: services, notes: "verified 2026-10-22: page title \"Urban Company - Get Expert Professional Services at Home in Kolkata\"", verified: true}
+- {host: www.bewakoof.com, org: Bewakoof, sector: ecommerce, subsector: fashion, notes: "verified 2026-10-22: page title \"Online Fashion Shopping for Men, Women, Accessories - Bewakoof.com\"; certificate O=\"Bewakoof Brands Private Limited\"", verified: true}
+- {host: www.shoppersstop.com, org: Shoppers Stop, sector: ecommerce, subsector: retail, notes: "verified 2026-10-22: page title \"Online Shopping India - Shop for clothes, shoes, Bags, watches @ Shoppersstop.com\"", verified: true}
+- {host: www.dmart.in, org: DMart Ready, sector: ecommerce, subsector: grocery, notes: "verified 2026-10-22: page title \"Buy Groceries, Daily Essentials and Household Items Online at Best Prices | DMart Ready\"", verified: true}
 
 # --- education (94) ---
-- {host: www.iitb.ac.in, org: IIT Bombay, sector: education, subsector: iit, verified: false}
-- {host: home.iitd.ac.in, org: IIT Delhi, sector: education, subsector: iit, verified: false}
-- {host: www.iitm.ac.in, org: IIT Madras, sector: education, subsector: iit, verified: false}
-- {host: www.iitk.ac.in, org: IIT Kanpur, sector: education, subsector: iit, verified: false}
-- {host: www.iitkgp.ac.in, org: IIT Kharagpur, sector: education, subsector: iit, verified: false}
-- {host: www.iitr.ac.in, org: IIT Roorkee, sector: education, subsector: iit, verified: false}
-- {host: www.iitg.ac.in, org: IIT Guwahati, sector: education, subsector: iit, verified: false}
-- {host: www.iith.ac.in, org: IIT Hyderabad, sector: education, subsector: iit, verified: false}
-- {host: www.iitbhu.ac.in, org: IIT (BHU) Varanasi, sector: education, subsector: iit, verified: false}
-- {host: www.iitism.ac.in, org: IIT (ISM) Dhanbad, sector: education, subsector: iit, verified: false}
-- {host: www.iiti.ac.in, org: IIT Indore, sector: education, subsector: iit, verified: false}
-- {host: www.iitj.ac.in, org: IIT Jodhpur, sector: education, subsector: iit, verified: false}
-- {host: www.iitp.ac.in, org: IIT Patna, sector: education, subsector: iit, verified: false}
-- {host: iitgn.ac.in, org: IIT Gandhinagar, sector: education, subsector: iit, verified: false}
-- {host: www.iitrpr.ac.in, org: IIT Ropar, sector: education, subsector: iit, verified: false}
-- {host: www.iitmandi.ac.in, org: IIT Mandi, sector: education, subsector: iit, verified: false}
-- {host: www.iitbbs.ac.in, org: IIT Bhubaneswar, sector: education, subsector: iit, verified: false}
-- {host: iitpkd.ac.in, org: IIT Palakkad, sector: education, subsector: iit, verified: false}
-- {host: www.iittp.ac.in, org: IIT Tirupati, sector: education, subsector: iit, verified: false}
-- {host: www.iitjammu.ac.in, org: IIT Jammu, sector: education, subsector: iit, verified: false}
-- {host: www.iitdh.ac.in, org: IIT Dharwad, sector: education, subsector: iit, verified: false}
-- {host: www.iitbhilai.ac.in, org: IIT Bhilai, sector: education, subsector: iit, verified: false}
-- {host: www.iitgoa.ac.in, org: IIT Goa, sector: education, subsector: iit, verified: false}
-- {host: www.nitt.edu, org: NIT Tiruchirappalli, sector: education, subsector: nit, verified: false}
-- {host: www.nitk.ac.in, org: "NIT Karnataka, Surathkal", sector: education, subsector: nit, verified: false}
-- {host: www.nitw.ac.in, org: NIT Warangal, sector: education, subsector: nit, verified: false}
-- {host: www.nitrkl.ac.in, org: NIT Rourkela, sector: education, subsector: nit, verified: false}
-- {host: nitc.ac.in, org: NIT Calicut, sector: education, subsector: nit, verified: false}
-- {host: www.mnnit.ac.in, org: MNNIT Allahabad, sector: education, subsector: nit, verified: false}
-- {host: vnit.ac.in, org: VNIT Nagpur, sector: education, subsector: nit, verified: false}
-- {host: mnit.ac.in, org: MNIT Jaipur, sector: education, subsector: nit, verified: false}
-- {host: nitdgp.ac.in, org: NIT Durgapur, sector: education, subsector: nit, verified: false}
-- {host: www.nitj.ac.in, org: NIT Jalandhar, sector: education, subsector: nit, verified: false}
-- {host: nitsri.ac.in, org: NIT Srinagar, sector: education, subsector: nit, verified: false}
-- {host: www.nits.ac.in, org: NIT Silchar, sector: education, subsector: nit, verified: false}
-- {host: www.nitp.ac.in, org: NIT Patna, sector: education, subsector: nit, verified: false}
-- {host: nitkkr.ac.in, org: NIT Kurukshetra, sector: education, subsector: nit, verified: false}
-- {host: www.svnit.ac.in, org: SVNIT Surat, sector: education, subsector: nit, verified: false}
-- {host: www.manit.ac.in, org: MANIT Bhopal, sector: education, subsector: nit, verified: false}
-- {host: www.nitrr.ac.in, org: NIT Raipur, sector: education, subsector: nit, verified: false}
-- {host: www.nitjsr.ac.in, org: NIT Jamshedpur, sector: education, subsector: nit, verified: false}
-- {host: www.iiit.ac.in, org: IIIT Hyderabad, sector: education, subsector: iiit, verified: false}
-- {host: www.iiitd.ac.in, org: IIIT-Delhi, sector: education, subsector: iiit, verified: false}
-- {host: www.iiitb.ac.in, org: IIIT Bangalore, sector: education, subsector: iiit, verified: false}
-- {host: www.iiita.ac.in, org: IIIT Allahabad, sector: education, subsector: iiit, verified: false}
-- {host: www.iiitm.ac.in, org: ABV-IIITM Gwalior, sector: education, subsector: iiit, verified: false}
-- {host: www.iiitdm.ac.in, org: IIITDM Kancheepuram, sector: education, subsector: iiit, verified: false}
-- {host: iisc.ac.in, org: Indian Institute of Science, sector: education, subsector: research, verified: false}
-- {host: www.iiserpune.ac.in, org: IISER Pune, sector: education, subsector: research, verified: false}
-- {host: www.iiserkol.ac.in, org: IISER Kolkata, sector: education, subsector: research, verified: false}
-- {host: www.iisermohali.ac.in, org: IISER Mohali, sector: education, subsector: research, verified: false}
-- {host: www.tifr.res.in, org: TIFR, sector: education, subsector: research, verified: false}
-- {host: www.isical.ac.in, org: Indian Statistical Institute, sector: education, subsector: research, verified: false}
-- {host: www.iima.ac.in, org: IIM Ahmedabad, sector: education, subsector: iim, verified: false}
-- {host: www.iimb.ac.in, org: IIM Bangalore, sector: education, subsector: iim, verified: false}
-- {host: www.iimcal.ac.in, org: IIM Calcutta, sector: education, subsector: iim, verified: false}
-- {host: www.iiml.ac.in, org: IIM Lucknow, sector: education, subsector: iim, verified: false}
-- {host: www.du.ac.in, org: University of Delhi, sector: education, subsector: central_university, verified: false}
-- {host: www.jnu.ac.in, org: Jawaharlal Nehru University, sector: education, subsector: central_university, verified: false}
-- {host: www.bhu.ac.in, org: Banaras Hindu University, sector: education, subsector: central_university, verified: false}
-- {host: www.amu.ac.in, org: Aligarh Muslim University, sector: education, subsector: central_university, verified: false}
-- {host: www.jmi.ac.in, org: Jamia Millia Islamia, sector: education, subsector: central_university, verified: false}
-- {host: uohyd.ac.in, org: University of Hyderabad, sector: education, subsector: central_university, verified: false}
-- {host: www.pondiuni.edu.in, org: Pondicherry University, sector: education, subsector: central_university, verified: false}
-- {host: www.tezu.ernet.in, org: Tezpur University, sector: education, subsector: central_university, verified: false}
-- {host: nehu.ac.in, org: North-Eastern Hill University, sector: education, subsector: central_university, verified: false}
-- {host: www.allduniv.ac.in, org: University of Allahabad, sector: education, subsector: central_university, verified: false}
-- {host: www.visvabharati.ac.in, org: Visva-Bharati, sector: education, subsector: central_university, verified: false}
-- {host: www.ignou.ac.in, org: IGNOU, sector: education, subsector: central_university, verified: false}
-- {host: www.annauniv.edu, org: Anna University, sector: education, subsector: state_university, verified: false}
-- {host: mu.ac.in, org: University of Mumbai, sector: education, subsector: state_university, verified: false}
-- {host: www.unipune.ac.in, org: Savitribai Phule Pune University, sector: education, subsector: state_university, verified: false}
-- {host: www.caluniv.ac.in, org: University of Calcutta, sector: education, subsector: state_university, verified: false}
-- {host: jadavpuruniversity.in, org: Jadavpur University, sector: education, subsector: state_university, verified: false}
-- {host: www.bits-pilani.ac.in, org: BITS Pilani, sector: education, subsector: private_university, verified: false}
-- {host: vit.ac.in, org: VIT, sector: education, subsector: private_university, verified: false}
-- {host: manipal.edu, org: Manipal Academy of Higher Education, sector: education, subsector: private_university, verified: false}
-- {host: www.amity.edu, org: Amity University, sector: education, subsector: private_university, verified: false}
-- {host: www.srmist.edu.in, org: SRM Institute of Science and Technology, sector: education, subsector: private_university, verified: false}
-- {host: www.ashoka.edu.in, org: Ashoka University, sector: education, subsector: private_university, verified: false}
-- {host: tiss.ac.in, org: TISS, sector: education, subsector: deemed_university, verified: false}
-- {host: swayam.gov.in, org: SWAYAM, sector: education, subsector: platform, verified: false}
-- {host: nptel.ac.in, org: NPTEL, sector: education, subsector: platform, verified: false}
-- {host: www.ugc.gov.in, org: University Grants Commission, sector: education, subsector: regulator, verified: false}
-- {host: www.aicte.gov.in, org: AICTE, sector: education, subsector: regulator, verified: false}
-- {host: www.nta.ac.in, org: National Testing Agency, sector: education, subsector: exams, verified: false}
-- {host: jeemain.nta.nic.in, org: JEE Main (NTA), sector: education, subsector: exams, verified: false}
-- {host: www.cbse.gov.in, org: CBSE, sector: education, subsector: school_board, verified: false}
-- {host: ncert.nic.in, org: NCERT, sector: education, subsector: school_board, verified: false}
-- {host: www.byjus.com, org: BYJU'S, sector: education, subsector: edtech, verified: false}
-- {host: unacademy.com, org: Unacademy, sector: education, subsector: edtech, verified: false}
-- {host: www.vedantu.com, org: Vedantu, sector: education, subsector: edtech, verified: false}
-- {host: www.upgrad.com, org: upGrad, sector: education, subsector: edtech, verified: false}
-- {host: www.pw.live, org: Physics Wallah, sector: education, subsector: edtech, verified: false}
+- {host: www.iitb.ac.in, org: IIT Bombay, sector: education, subsector: iit, notes: "verified 2026-10-22: page title \"Home | भारतीय प्रौद्योगिकी संस्थान मुंबई\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: home.iitd.ac.in, org: IIT Delhi, sector: education, subsector: iit, notes: "verified 2026-10-22: page title \"Home Page : IIT Delhi\"; certificate O=\"INDIAN INSTITUTE OF TECHNOLOGY DELHI\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.iitm.ac.in, org: IIT Madras, sector: education, subsector: iit, notes: "verified 2026-10-22: page title \"Indian Institute of Technology Madras\"; certificate O=\"Indian Institute of Technology Madras\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.iitk.ac.in, org: IIT Kanpur, sector: education, subsector: iit, notes: "verified 2026-10-22: page title \"Indian Institute of Technology Kanpur | IIT Kanpur\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.iitkgp.ac.in, org: IIT Kharagpur, sector: education, subsector: iit, notes: "verified 2026-10-22: page title \"Indian Institute of Technology Kharagpur | IIT KGP\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.iitr.ac.in, org: IIT Roorkee, sector: education, subsector: iit, notes: "verified 2026-10-22: page title \"Indian Institute of Technology Roorkee\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.iitg.ac.in, org: IIT Guwahati, sector: education, subsector: iit, notes: "verified 2026-10-22: page title \"Indian Institute of Technology Guwahati : भारतीय प्रौद्योगिकी संस्थान गुवाहाटी\"; certificate O=\"Indian Institute of Technology Guwahati\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.iith.ac.in, org: IIT Hyderabad, sector: education, subsector: iit, notes: "verified 2026-10-22: page title \"Home | IIT Hyderabad\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.iitbhu.ac.in, org: IIT (BHU) Varanasi, sector: education, subsector: iit, notes: "verified 2026-10-22: page title \"| Indian Institute of Technology (BHU) Varanasi\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.iitism.ac.in, org: IIT (ISM) Dhanbad, sector: education, subsector: iit, notes: "verified 2026-10-22: page title \"INDIAN INSTITUTE OF TECHNOLOGY (INDIAN SCHOOL OF MINES) DHANBAD\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.iiti.ac.in, org: IIT Indore, sector: education, subsector: iit, notes: "verified 2026-10-22: page title \"IIT Indore, भारतीय प्रौद्योगिकी संस्थान इंदौर\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.iitj.ac.in, org: IIT Jodhpur, sector: education, subsector: iit, notes: "verified 2026-10-22: page title \"Indian Institute of Technology Jodhpur | IIT Jodhpur\"; certificate O=\"Indian Institute of Technology Jodhpur\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.iitp.ac.in, org: IIT Patna, sector: education, subsector: iit, notes: "verified 2026-10-22: page title \"Indian Institute of Technology Patna\"; certificate O=\"Indian Institute of Technology Patna\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: iitgn.ac.in, org: IIT Gandhinagar, sector: education, subsector: iit, notes: "verified 2026-10-22: page title \"IIT Gandhinagar | Home\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.iitrpr.ac.in, org: IIT Ropar, sector: education, subsector: iit, notes: "verified 2026-10-22: page title \"IIT Ropar\"; certificate O=\"Indian Institute of Technology Ropar\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: iitmandi.ac.in, org: IIT Mandi, sector: education, subsector: iit, notes: "verified 2026-10-22: page title \"Indian Institute of Technology Mandi\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.iitbbs.ac.in, org: IIT Bhubaneswar, sector: education, subsector: iit, notes: "verified 2026-10-22: page title \"IIT Bhubaneswar\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: iitpkd.ac.in, org: IIT Palakkad, sector: education, subsector: iit, notes: "verified 2026-10-22: page title \"Home | IIT Palakkad\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.iittp.ac.in, org: IIT Tirupati, sector: education, subsector: iit, notes: "verified 2026-10-22: page title \"IIT Tirupati\"; certificate O=\"Indian Institute of Technology Tirupati\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.iitjammu.ac.in, org: IIT Jammu, sector: education, subsector: iit, notes: "verified 2026-10-22: page title \"Indian Institute of Technology Jammu | Leading Engineering Institute for Future Innovators\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.iitdh.ac.in, org: IIT Dharwad, sector: education, subsector: iit, notes: "verified 2026-10-22: page title \"Indian Institute of Technology Dharwad | IIT Dharwad\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.iitbhilai.ac.in, org: IIT Bhilai, sector: education, subsector: iit, notes: "verified 2026-10-22: page title \"IIT Bhilai Main Page\"; certificate O=\"Indian Institute of Technology (IIT)\\\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: iitgoa.ac.in, org: IIT Goa, sector: education, subsector: iit, notes: "verified 2026-10-22: page title \"Indian Institute Of Technology Goa\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.nitt.edu, org: NIT Tiruchirappalli, sector: education, subsector: nit, notes: "verified 2026-10-22: page title \"NIT Trichy\"", verified: true}
+- {host: www.nitk.ac.in, org: "NIT Karnataka, Surathkal", sector: education, subsector: nit, notes: "verified 2026-10-22: page title \"National Institute of Technology Karnataka, Surathkal\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.nitw.ac.in, org: NIT Warangal, sector: education, subsector: nit, notes: "verified 2026-10-22: page title \"NIT Warangal\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.nitrkl.ac.in, org: NIT Rourkela, sector: education, subsector: nit, notes: "verified 2026-10-22: page title \"NIT Rourkela\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: nitc.ac.in, org: NIT Calicut, sector: education, subsector: nit, notes: "verified 2026-10-22: page title \"National Institute of Technology\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: mnnit.ac.in, org: MNNIT Allahabad, sector: education, subsector: nit, notes: "verified 2026-10-22: page title \"MNNIT Allahabad | Motilal Nehru National Institute of Technology Allahabad Prayagraj\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: vnit.ac.in, org: VNIT Nagpur, sector: education, subsector: nit, notes: "verified 2026-10-22: page title \"VNIT Nagpur\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: mnit.ac.in, org: MNIT Jaipur, sector: education, subsector: nit, notes: "verified 2026-10-22: page title \"Malaviya National Institute of Technology Jaipur\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: nitdgp.ac.in, org: NIT Durgapur, sector: education, subsector: nit, notes: "verified 2026-10-22: page title \"| NIT Durgapur\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.nitj.ac.in, org: NIT Jalandhar, sector: education, subsector: nit, notes: "verified 2026-10-22: page title \"Dr B R Ambedkar National Institute of Technology, Jalandhar\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: nitsri.ac.in, org: NIT Srinagar, sector: education, subsector: nit, notes: "verified 2026-10-22: page title \"NIT Srinagar\"; certificate O=\"National Institute of Technology (NIT)\\\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.nits.ac.in, org: NIT Silchar, sector: education, subsector: nit, notes: "verified 2026-10-22: page title \"National Institute of Technology Silchar | NITS\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.nitp.ac.in, org: NIT Patna, sector: education, subsector: nit, notes: "verified 2026-10-22: page title \"NIT PATNA | National Institute of Technology Patna\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: nitkkr.ac.in, org: NIT Kurukshetra, sector: education, subsector: nit, notes: "verified 2026-10-22: .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.svnit.ac.in, org: SVNIT Surat, sector: education, subsector: nit, notes: "verified 2026-10-22: page title \"SVNIT, Surat\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.manit.ac.in, org: MANIT Bhopal, sector: education, subsector: nit, notes: "verified 2026-10-22: page title \"Maulana Azad National Institute of Technology ,Government of India | An institute of national importance\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.nitrr.ac.in, org: NIT Raipur, sector: education, subsector: nit, notes: "verified 2026-10-22: page title \"::: National Institute of Technology Raipur :::\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.nitjsr.ac.in, org: NIT Jamshedpur, sector: education, subsector: nit, notes: "verified 2026-10-22: page title \"NIT Jamshedpur | राष्ट्रीय प्रौद्योगिकी संस्थान जमशेदपुर\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.iiit.ac.in, org: IIIT Hyderabad, sector: education, subsector: iiit, notes: "verified 2026-10-22: page title \"Home - IIIT Hyderabad\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.iiitd.ac.in, org: IIIT-Delhi, sector: education, subsector: iiit, notes: "verified 2026-10-22: page title \"IIIT-Delhi\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.iiitb.ac.in, org: IIIT Bangalore, sector: education, subsector: iiit, notes: "verified 2026-10-22: page title \"International Institute of Information Technology Bangalore\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.iiita.ac.in, org: IIIT Allahabad, sector: education, subsector: iiit, notes: "verified 2026-10-22: page title \"| Indian Institute of Information Technology, Allahabad\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.iiitm.ac.in, org: ABV-IIITM Gwalior, sector: education, subsector: iiit, notes: "verified 2026-10-22: page title \"IIITM Gwalior\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.iiitdm.ac.in, org: IIITDM Kancheepuram, sector: education, subsector: iiit, notes: "verified 2026-10-22: page title \"IIITDM Kancheepuram\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.iisc.ac.in, org: Indian Institute of Science, sector: education, subsector: research, notes: "verified 2026-10-22: page title \"Indian Institute of Science\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.iiserpune.ac.in, org: IISER Pune, sector: education, subsector: research, notes: "verified 2026-10-22: page title \"IISER Pune\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.iiserkol.ac.in, org: IISER Kolkata, sector: education, subsector: research, notes: "verified 2026-10-22: page title \"IISER Kolkata | Home\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.iisermohali.ac.in, org: IISER Mohali, sector: education, subsector: research, notes: "verified 2026-10-22: page title \"Home\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.tifr.res.in, org: TIFR, sector: education, subsector: research, notes: "verified 2026-10-22: page title \"Tata Institute of Fundamental Research | TIFR\"", verified: true}
+- {host: www.isical.ac.in, org: Indian Statistical Institute, sector: education, subsector: research, notes: "verified 2026-10-22: page title \"Indian Statistical Institute | Kolkata\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.iima.ac.in, org: IIM Ahmedabad, sector: education, subsector: iim, notes: "verified 2026-10-22: page title \"IIMA - Indian Institute of Management Ahmedabad\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.iimb.ac.in, org: IIM Bangalore, sector: education, subsector: iim, notes: "verified 2026-10-22: .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.iimcal.ac.in, org: IIM Calcutta, sector: education, subsector: iim, notes: "verified 2026-10-22: page title \"Home | IIM Calcutta\"; certificate O=\"INDIAN INSTITUTE OF MANAGEMENT CALCUTTA\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.iiml.ac.in, org: IIM Lucknow, sector: education, subsector: iim, notes: "verified 2026-10-22: page title \"Home | Official Website of Indian Institute of Management,Lucknow\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.du.ac.in, org: University of Delhi, sector: education, subsector: central_university, notes: "verified 2026-10-22: page title \"Home - Delhi University\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.jnu.ac.in, org: Jawaharlal Nehru University, sector: education, subsector: central_university, notes: "verified 2026-10-22: page title \"Home | Official Website of Jawaharlal Nehru University, New Delhi, India\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.bhu.ac.in, org: Banaras Hindu University, sector: education, subsector: central_university, notes: "verified 2026-10-22: page title \"Home - Banaras Hindu University, Varanasi, India.\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.amu.ac.in, org: Aligarh Muslim University, sector: education, subsector: central_university, notes: "verified 2026-10-22: page title \"Aligarh Muslim University | AMU\"; certificate O=\"ALIGARH MUSLIM UNIVERSITY\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.jmi.ac.in, org: Jamia Millia Islamia, sector: education, subsector: central_university, notes: "verified 2026-10-22: page title \"Official Website of Jamia Millia Islamia - Jamia Millia Islamia\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: uohyd.ac.in, org: University of Hyderabad, sector: education, subsector: central_university, notes: "verified 2026-10-22: page title \"University of Hyderabad | India&#x27;s Institution of Eminence\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.pondiuni.edu.in, org: Pondicherry University, sector: education, subsector: central_university, notes: "verified 2026-10-22: page title \"Pondicherry University\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.tezu.ernet.in, org: Tezpur University, sector: education, subsector: central_university, notes: "verified 2026-10-22: page title \"Tezpur University,Tezpur,Assam,India,Pin 784028,A Central University\"", verified: true}
+- {host: nehu.ac.in, org: North-Eastern Hill University, sector: education, subsector: central_university, notes: "verified 2026-10-22: page title \"NEHU\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.allduniv.ac.in, org: University of Allahabad, sector: education, subsector: central_university, notes: "verified 2026-10-22: page title \"University of Allahabad\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.visvabharati.ac.in, org: Visva-Bharati, sector: education, subsector: central_university, notes: "verified 2026-10-22: page title \"Visva Bharati\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.ignou.ac.in, org: IGNOU, sector: education, subsector: central_university, notes: "verified 2026-10-22: page title \"IGNOU\"; certificate O=\"Indira Gandhi National Open University\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.annauniv.edu, org: Anna University, sector: education, subsector: state_university, notes: "verified 2026-10-22: page title \"Anna University, Chennai\"", verified: true}
+- {host: mu.ac.in, org: University of Mumbai, sector: education, subsector: state_university, notes: "verified 2026-10-22: page title \"Home Page : University of Mumbai\"; certificate O=\"University of Mumbai\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.unipune.ac.in, org: Savitribai Phule Pune University, sector: education, subsector: state_university, notes: "verified 2026-10-22: page title \"Savitribai Phule Pune University, One of the Premier Universities in India - Official Website.\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.caluniv.ac.in, org: University of Calcutta, sector: education, subsector: state_university, notes: "verified 2026-10-22: .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: jadavpuruniversity.in, org: Jadavpur University, sector: education, subsector: state_university, notes: "verified 2026-10-22: page title \"Jadavpur University | যাদবপুর বিশ্ববিদ্যালয়\"", verified: true}
+- {host: www.bits-pilani.ac.in, org: BITS Pilani, sector: education, subsector: private_university, notes: "verified 2026-10-22: page title \"Birla Institute of Technology And Science, Pilani (BITS Pilani)\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: vit.ac.in, org: VIT, sector: education, subsector: private_university, notes: "verified 2026-10-22: page title \"Vellore Institute of Technology | Top Engineering University\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.manipal.edu, org: Manipal Academy of Higher Education, sector: education, subsector: private_university, notes: "verified 2026-10-22: Wikidata Q4095278 official website manipal.edu", verified: true}
+- {host: www.amity.edu, org: Amity University, sector: education, subsector: private_university, notes: "verified 2026-10-22: page title \"Amity University – Leading Private University in India | World-Class Education\"", verified: true}
+- {host: www.srmist.edu.in, org: SRM Institute of Science and Technology, sector: education, subsector: private_university, notes: "verified 2026-10-22: certificate O=\"SRM INSTITUTE OF SCIENCE & TECHNOLOGY\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.ashoka.edu.in, org: Ashoka University, sector: education, subsector: private_university, notes: "verified 2026-10-22: .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: tiss.ac.in, org: TISS, sector: education, subsector: deemed_university, notes: "verified 2026-10-22: page title \"Welcome to TISS\"; .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: swayam.gov.in, org: SWAYAM, sector: education, subsector: platform, notes: "verified 2026-10-22: page title \"Swayam Central\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: nptel.ac.in, org: NPTEL, sector: education, subsector: platform, notes: "verified 2026-10-22: .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: www.ugc.gov.in, org: University Grants Commission, sector: education, subsector: regulator, notes: "verified 2026-10-22: page title \"Welcome to UGC, New Delhi, India\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: www.aicte.gov.in, org: AICTE, sector: education, subsector: regulator, notes: "verified 2026-10-22: page title \"Government of India | All India Council for Technical Education\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: www.nta.ac.in, org: National Testing Agency, sector: education, subsector: exams, notes: "verified 2026-10-22: .ac.in/.edu.in registry (restricted to Indian academic institutions)", verified: true}
+- {host: jeemain.nta.nic.in, org: JEE Main (NTA), sector: education, subsector: exams, notes: "verified 2026-10-22: .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: www.cbse.gov.in, org: CBSE, sector: education, subsector: school_board, notes: "verified 2026-10-22: .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: ncert.nic.in, org: NCERT, sector: education, subsector: school_board, notes: "verified 2026-10-22: page title \"NCERT\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: byjus.com, org: BYJU'S, sector: education, subsector: edtech, notes: "verified 2026-10-22: page title \"BYJU'S Online learning Programs For K3, K10, K12, NEET, JEE, UPSC & Bank Exams\"", verified: true}
+- {host: unacademy.com, org: Unacademy, sector: education, subsector: edtech, notes: "verified 2026-10-22: page title \"Unacademy - India&#x27;s largest learning platform\"", verified: true}
+- {host: www.vedantu.com, org: Vedantu, sector: education, subsector: edtech, notes: "verified 2026-10-22: page title \"Vedantu: Premier K1 to K12 Online Classes and Offline Centers for Competitive Exams\"", verified: true}
+- {host: www.upgrad.com, org: upGrad, sector: education, subsector: edtech, notes: "verified 2026-10-22: page title \"upGrad® Online Courses - India’s Top Upskilling Platform\"", verified: true}
+- {host: www.pw.live, org: Physics Wallah, sector: education, subsector: edtech, notes: "verified 2026-10-22: page title \"Physics wallah Live Courses for JEE, NEET & Class 6,7,8,9,10,11,12 | NCERT Solutions\"", verified: true}
 
 # --- media (38) ---
-- {host: www.thehindu.com, org: The Hindu, sector: media, subsector: newspaper, verified: false}
-- {host: timesofindia.indiatimes.com, org: The Times of India, sector: media, subsector: newspaper, verified: false}
-- {host: www.hindustantimes.com, org: Hindustan Times, sector: media, subsector: newspaper, verified: false}
-- {host: indianexpress.com, org: The Indian Express, sector: media, subsector: newspaper, verified: false}
-- {host: www.ndtv.com, org: NDTV, sector: media, subsector: broadcaster, verified: false}
-- {host: www.indiatoday.in, org: India Today, sector: media, subsector: magazine, verified: false}
-- {host: www.livemint.com, org: Mint, sector: media, subsector: newspaper, verified: false}
-- {host: economictimes.indiatimes.com, org: The Economic Times, sector: media, subsector: newspaper, verified: false}
-- {host: www.business-standard.com, org: Business Standard, sector: media, subsector: newspaper, verified: false}
-- {host: www.thequint.com, org: The Quint, sector: media, subsector: digital, verified: false}
-- {host: scroll.in, org: Scroll.in, sector: media, subsector: digital, verified: false}
-- {host: thewire.in, org: The Wire, sector: media, subsector: digital, verified: false}
-- {host: www.news18.com, org: News18, sector: media, subsector: broadcaster, verified: false}
-- {host: www.abplive.com, org: ABP Live, sector: media, subsector: broadcaster, verified: false}
-- {host: www.aajtak.in, org: Aaj Tak, sector: media, subsector: broadcaster, verified: false}
-- {host: www.bhaskar.com, org: Dainik Bhaskar, sector: media, subsector: newspaper, verified: false}
-- {host: www.jagran.com, org: Dainik Jagran, sector: media, subsector: newspaper, verified: false}
-- {host: www.amarujala.com, org: Amar Ujala, sector: media, subsector: newspaper, verified: false}
-- {host: www.anandabazar.com, org: Anandabazar Patrika, sector: media, subsector: newspaper, verified: false}
-- {host: www.manoramaonline.com, org: Malayala Manorama, sector: media, subsector: newspaper, verified: false}
-- {host: www.mathrubhumi.com, org: Mathrubhumi, sector: media, subsector: newspaper, verified: false}
-- {host: www.dinamalar.com, org: Dinamalar, sector: media, subsector: newspaper, verified: false}
-- {host: www.lokmat.com, org: Lokmat, sector: media, subsector: newspaper, verified: false}
-- {host: www.eenadu.net, org: Eenadu, sector: media, subsector: newspaper, verified: false}
-- {host: www.sakshi.com, org: Sakshi, sector: media, subsector: newspaper, verified: false}
-- {host: www.deccanherald.com, org: Deccan Herald, sector: media, subsector: newspaper, verified: false}
-- {host: www.tribuneindia.com, org: The Tribune, sector: media, subsector: newspaper, verified: false}
-- {host: www.telegraphindia.com, org: The Telegraph, sector: media, subsector: newspaper, verified: false}
-- {host: www.thehindubusinessline.com, org: BusinessLine, sector: media, subsector: newspaper, verified: false}
-- {host: www.moneycontrol.com, org: Moneycontrol, sector: media, subsector: digital, verified: false}
-- {host: www.firstpost.com, org: Firstpost, sector: media, subsector: digital, verified: false}
-- {host: www.republicworld.com, org: Republic, sector: media, subsector: broadcaster, verified: false}
-- {host: zeenews.india.com, org: Zee News, sector: media, subsector: broadcaster, verified: false}
-- {host: prasarbharati.gov.in, org: Prasar Bharati, sector: media, subsector: public_broadcaster, verified: false}
-- {host: www.newsonair.gov.in, org: All India Radio News, sector: media, subsector: public_broadcaster, verified: false}
-- {host: ddnews.gov.in, org: DD News, sector: media, subsector: public_broadcaster, verified: false}
-- {host: www.ptinews.com, org: Press Trust of India, sector: media, subsector: news_agency, verified: false}
-- {host: www.aninews.in, org: ANI, sector: media, subsector: news_agency, verified: false}
+- {host: www.thehindu.com, org: The Hindu, sector: media, subsector: newspaper, notes: "verified 2026-10-22: page title \"The Hindu: Latest News today from India and the World, Breaking news, Top Headlines and Trending News Videos. \"", verified: true}
+- {host: timesofindia.indiatimes.com, org: The Times of India, sector: media, subsector: newspaper, notes: "verified 2026-10-22: page title \"TOI - Breaking News, Latest News, India News, World News, Bollywood, Sports, Business and Political News | The\"", verified: true}
+- {host: www.hindustantimes.com, org: Hindustan Times, sector: media, subsector: newspaper, notes: "verified 2026-10-22: page title \"Hindustan Times: Breaking News, Latest News, India News, World News & Cricket Today&#x27;s Headlines | Hindust\"; certificate O=\"HT Media Ltd.\"", verified: true}
+- {host: indianexpress.com, org: The Indian Express, sector: media, subsector: newspaper, notes: "verified 2026-10-22: page title \"Latest News Today, Breaking News, India News, Top Headlines | The Indian Express\"; certificate O=\"IE ONLINE MEDIA SERVICES PRIVATE LIMITED\"", verified: true}
+- {host: www.ndtv.com, org: NDTV, sector: media, subsector: broadcaster, notes: "verified 2026-10-22: certificate O=\"NDTV CONVERGENCE LIMITED\"", verified: true}
+- {host: www.indiatoday.in, org: India Today, sector: media, subsector: magazine, notes: "verified 2026-10-22: page title \"Latest News, Breaking News Today - Entertainment, Cricket, Business, Politics - India Today\"; certificate O=\"T.V. Today Network Limited\"", verified: true}
+- {host: www.livemint.com, org: Mint, sector: media, subsector: newspaper, notes: "verified 2026-10-22: page title \"Business News Today: Read Latest Business News, Live India Share Market News, Finance & Economy News | Mint\"; certificate O=\"HT Media Ltd.\"", verified: true}
+- {host: economictimes.indiatimes.com, org: The Economic Times, sector: media, subsector: newspaper, notes: "verified 2026-10-22: page title \"Business News Live, Share Market News - Read Latest Finance News, IPO, Mutual Funds News - The Economic Times\"", verified: true}
+- {host: www.business-standard.com, org: Business Standard, sector: media, subsector: newspaper, notes: "verified 2026-10-22: certificate O=\"Business Standard Private Limited\"", verified: true}
+- {host: www.thequint.com, org: The Quint, sector: media, subsector: digital, notes: "verified 2026-10-22: page title \"Latest News, Breaking News LIVE, Top News Headlines, Viral Videos News Updates - The Quint\"", verified: true}
+- {host: scroll.in, org: Scroll.in, sector: media, subsector: digital, notes: "verified 2026-10-22: page title \"Scroll.in - Latest News, In depth news, India news, Politics news, Indian Cinema, Indian sports, Culture, Vide\"", verified: true}
+- {host: thewire.in, org: The Wire, sector: media, subsector: digital, notes: "verified 2026-10-22: page title \"The Wire: The Wire News India, Latest News,News from India, Politics, External Affairs, Science, Economics, Ge\"", verified: true}
+- {host: www.news18.com, org: News18, sector: media, subsector: broadcaster, notes: "verified 2026-10-22: certificate O=\"Network18 Media & Investments Limited\"", verified: true}
+- {host: www.abplive.com, org: ABP Live, sector: media, subsector: broadcaster, notes: "verified 2026-10-22: page title \"Hindi News, हिंदी न्यूज़, Latest Hindi News Live, हिंदी समाचार, Hindi Samachar, Breaking Hindi News, ताजा ख़बरे\"", verified: true}
+- {host: www.aajtak.in, org: Aaj Tak, sector: media, subsector: broadcaster, notes: "verified 2026-10-22: page title \"Hindi news, हिंदी न्यूज़ , Hindi Samachar, हिंदी समाचार, Latest News in Hindi, Breaking News in Hindi, ताजा ख़ब\"; certificate O=\"T.V. TODAY NETWORK LIMITED.\"", verified: true}
+- {host: www.bhaskar.com, org: Dainik Bhaskar, sector: media, subsector: newspaper, notes: "verified 2026-10-22: page title \"Hindi News; Latest Hindi News, Breaking Hindi News Live, Hindi Samachar (हिंदी समाचार), Hindi News Paper Today\"", verified: true}
+- {host: www.jagran.com, org: Dainik Jagran, sector: media, subsector: newspaper, notes: "verified 2026-10-22: page title \"Hindi News, हिंदी न्यूज़, Latest News in Hindi, Aaj ki Taaja Khabar, Breaking Hindi News, Hindi Samachar\"; certificate O=\"JAGRAN PRAKASHAN LIMITED\"", verified: true}
+- {host: www.amarujala.com, org: Amar Ujala, sector: media, subsector: newspaper, notes: "verified 2026-10-22: page title \"Hindi News,हिंदी न्यूज़ पेपर, Hindi Samachar,ताजा ख़बरें, Latest And Breaking News In Hindi\"", verified: true}
+- {host: www.anandabazar.com, org: Anandabazar Patrika, sector: media, subsector: newspaper, notes: "verified 2026-10-22: certificate O=\"ABP PRIVATE LIMITED\"", verified: true}
+- {host: www.manoramaonline.com, org: Malayala Manorama, sector: media, subsector: newspaper, notes: "verified 2026-10-22: page title \"Manorama Online: Malayalam Breaking News | Kerala Local News | Politics | Videos | Podcasts | Business | Sport\"; certificate O=\"The Malayala Manorama Co Private Limited\"", verified: true}
+- {host: www.mathrubhumi.com, org: Mathrubhumi, sector: media, subsector: newspaper, notes: "verified 2026-10-22: page title \"Mathrubhumi: Latest Malayalam News | മലയാളം വാർത്തകൾ | Kerala News | Breaking News Malayalam | മാതൃഭൂമി News\"", verified: true}
+- {host: www.dinamalar.com, org: Dinamalar, sector: media, subsector: newspaper, notes: "verified 2026-10-22: page title \"தினமலர் தமிழ் செய்திகள் | Tamil News | Latest News in Tamil | Breaking News\"; certificate O=\"Dinamalar\"", verified: true}
+- {host: www.lokmat.com, org: Lokmat, sector: media, subsector: newspaper, notes: "verified 2026-10-22: page title \"Marathi News | Live Marathi News | Latest News in Marathi | लोकमत मराठी बातम्या | Marathi News Paper | Breakin\"", verified: true}
+- {host: www.eenadu.net, org: Eenadu, sector: media, subsector: newspaper, notes: "verified 2026-10-22: page title \"Latest Telugu News | Breaking News Telugu | Telugu News Today | News in Telugu - Eenadu\"", verified: true}
+- {host: www.sakshi.com, org: Sakshi, sector: media, subsector: newspaper, notes: "verified 2026-10-22: page title \"Sakshi: Telugu News | Latest Telugu News | తెలుగు వార్తలు | Online Telugu Breaking News Today\"", verified: true}
+- {host: www.deccanherald.com, org: Deccan Herald, sector: media, subsector: newspaper, notes: "verified 2026-10-22: page title \"Deccan Herald | Latest News Today: Breaking News and Top Headlines on Elections 2026, India, Karnataka, Bengal\"", verified: true}
+- {host: www.tribuneindia.com, org: The Tribune, sector: media, subsector: newspaper, notes: "verified 2026-10-22: page title \"The Tribune: Today's Latest News, Breaking News, Top Headlines from India & World.\"", verified: true}
+- {host: www.telegraphindia.com, org: The Telegraph, sector: media, subsector: newspaper, notes: "verified 2026-10-22: certificate O=\"ABP PRIVATE LIMITED\"", verified: true}
+- {host: www.thehindubusinessline.com, org: BusinessLine, sector: media, subsector: newspaper, notes: "verified 2026-10-22: page title \"Business News Today: Latest Business News, Finance News | The HinduBusinessLine\"", verified: true}
+- {host: www.moneycontrol.com, org: Moneycontrol, sector: media, subsector: digital, notes: "verified 2026-10-22: certificate O=\"Network18 Media & Investments Limited\"", verified: true}
+- {host: www.firstpost.com, org: Firstpost, sector: media, subsector: digital, notes: "verified 2026-10-22: certificate O=\"Network18 Media & Investments Limited\"", verified: true}
+- {host: www.republicworld.com, org: Republic, sector: media, subsector: broadcaster, notes: "verified 2026-10-22: page title \"Latest News, News Today, Breaking News, India News and Current News | | Republic World\"", verified: true}
+- {host: zeenews.india.com, org: Zee News, sector: media, subsector: broadcaster, notes: "verified 2026-10-22: page title \"Latest News, Breaking News Today, India News, World News & Live Updates | Zee News\"; certificate O=\"INDIADOTCOM DIGITAL PRIVATE LIMITED\"", verified: true}
+- {host: prasarbharati.gov.in, org: Prasar Bharati, sector: media, subsector: public_broadcaster, notes: "verified 2026-10-22: page title \"Prasar Bharati – Public Service Broadcaster\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: newsonair.gov.in, org: All India Radio News, sector: media, subsector: public_broadcaster, notes: "verified 2026-10-22: page title \"Home | Akashvani News\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: ddnews.gov.in, org: DD News, sector: media, subsector: public_broadcaster, notes: "verified 2026-10-22: page title \"मुखपृष्ठ | डीडी न्यूज़\"; .gov.in/.nic.in registry (restricted to Indian government bodies)", verified: true}
+- {host: www.ptinews.com, org: Press Trust of India, sector: media, subsector: news_agency, notes: "verified 2026-10-22: page title \"Press Trust Of India\"", verified: true}
+- {host: www.aninews.in, org: ANI, sector: media, subsector: news_agency, notes: "verified 2026-10-22: page title \"Asia’s Premier News Agency - India News, Business & Political, National & International, Bollywood, Sports | A\"", verified: true}

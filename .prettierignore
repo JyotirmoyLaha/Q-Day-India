@@ -10,3 +10,4 @@ action/dist
 apps/web/public/tree-sitter
 *.md
 targets/india.yaml
+targets/verification-evidence*.json

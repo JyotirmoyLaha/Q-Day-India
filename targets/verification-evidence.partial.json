@@ -1,0 +1,445 @@
+[
+ {
+  "host": "aiimsbhubaneswar.nic.in",
+  "org": "AIIMS Bhubaneswar",
+  "sector": "healthcare",
+  "dns": true,
+  "addrs": [
+   "164.100.221.232"
+  ],
+  "status": 200,
+  "finalUrl": "https://aiimsbhubaneswar.nic.in/",
+  "title": "AIIMS Bhubaneswar",
+  "description": "AIIMS Bhubaneswar",
+  "h1": "click",
+  "cert": {
+   "subject": "CN=aiimsbhubaneswar.nic.in",
+   "issuer": "GoDaddy.com\\, Inc.",
+   "san": [
+    "aiimsbhubaneswar.nic.in"
+   ],
+   "hostnameOk": true,
+   "authorized": true
+  }
+ },
+ {
+  "host": "aiimsjodhpur.edu.in",
+  "org": "AIIMS Jodhpur",
+  "sector": "healthcare",
+  "dns": true,
+  "addrs": [
+   "117.239.163.130"
+  ],
+  "status": 200,
+  "finalUrl": "https://aiimsjodhpur.edu.in/",
+  "title": "AIIMS Jodhpur",
+  "description": "",
+  "h1": "Welcome to AIIMS Jodhpur",
+  "cert": {
+   "subject": "C=IN, ST=Rajasthan, L=Jodhpur, O=All India Institute of Medical Sciences\\, Jodhpur, CN=*.aiimsjodhpur.edu.in",
+   "issuer": "DigiCert Inc",
+   "san": [
+    "*.aiimsjodhpur.edu.in",
+    "aiimsjodhpur.edu.in"
+   ],
+   "hostnameOk": true,
+   "authorized": true
+  }
+ },
+ {
+  "host": "edistrict.up.gov.in",
+  "org": "e-District (Uttar Pradesh)",
+  "sector": "government",
+  "dns": true,
+  "addrs": [
+   "164.100.181.28"
+  ],
+  "status": 200,
+  "finalUrl": "https://edistrict.up.gov.in/",
+  "title": "eDistrict Uttar Pradesh",
+  "cert": {
+   "subject": "CN=edistrict.up.gov.in",
+   "issuer": "eMudhra Technologies Limited",
+   "san": [
+    "edistrict.up.gov.in"
+   ],
+   "hostnameOk": true,
+   "authorized": true
+  }
+ },
+ {
+  "host": "ippbonline.bank.in",
+  "org": "India Post Payments Bank",
+  "sector": "banking",
+  "dns": true,
+  "addrs": [
+   "160.25.19.54"
+  ],
+  "status": 200,
+  "finalUrl": "https://ippbonline.bank.in/",
+  "title": "Personal - India Post Payments Bank",
+  "siteName": "India Post Payments Bank",
+  "ogTitle": "Personal - India Post Payments Bank - IPPB",
+  "cert": {
+   "subject": "C=IN, ST=Delhi, L=New Delhi, O=India Post Payments Bank Limited, CN=*.ippbonline.bank.in",
+   "issuer": "SSL Corporation",
+   "san": [
+    "*.ippbonline.bank.in",
+    "ippbonline.bank.in"
+   ],
+   "hostnameOk": true,
+   "authorized": true
+  }
+ },
+ {
+  "host": "npscra.proteantech.in",
+  "org": "NPS CRA (Protean)",
+  "sector": "government",
+  "dns": true,
+  "addrs": [
+   "34.160.46.8"
+  ],
+  "status": 200,
+  "finalUrl": "https://www.npscra.proteantech.in/",
+  "title": "Welcome",
+  "description": "",
+  "h1": "Search on Website",
+  "cert": {
+   "subject": "CN=npscra.proteantech.in",
+   "issuer": "Google Trust Services",
+   "san": [
+    "npscra.proteantech.in",
+    "www.npscra.proteantech.in",
+    "uat.npscra.proteantech.in"
+   ],
+   "hostnameOk": true,
+   "authorized": true
+  }
+ },
+ {
+  "host": "omni.axis.bank.in",
+  "org": "Axis Bank",
+  "sector": "banking",
+  "dns": true,
+  "addrs": [
+   "2404:fb80:2::74",
+   "36.255.28.181"
+  ],
+  "status": 200,
+  "finalUrl": "https://omni.axis.bank.in/",
+  "cert": {
+   "subject": "C=IN, ST=Maharashtra, L=Mumbai, O=Axis Bank Limited, CN=omni.axis.bank.in",
+   "issuer": "DigiCert Inc",
+   "san": [
+    "omni.axis.bank.in"
+   ],
+   "hostnameOk": true,
+   "authorized": true
+  }
+ },
+ {
+  "host": "onlineservices.proteantech.in",
+  "org": "Protean (PAN services)",
+  "sector": "government",
+  "dns": true,
+  "addrs": [
+   "59.163.46.18"
+  ],
+  "status": 200,
+  "finalUrl": "https://onlineservices.proteantech.in/paam/",
+  "title": "Login Manager",
+  "siteName": "Protean eGov Technologies",
+  "ogTitle": "",
+  "description": "",
+  "cert": {
+   "subject": "C=IN, ST=Maharashtra, L=Mumbai, O=Protean eGov Technologies Limited, CN=onlineservices.proteantech.in",
+   "issuer": "GlobalSign nv-sa",
+   "san": [
+    "onlineservices.proteantech.in",
+    "www.onlineservices.proteantech.in"
+   ],
+   "hostnameOk": true,
+   "authorized": true
+  }
+ },
+ {
+  "host": "www.bankofmaharashtra.bank.in",
+  "org": "Bank of Maharashtra",
+  "sector": "banking",
+  "dns": true,
+  "addrs": [
+   "103.91.48.171"
+  ],
+  "status": 200,
+  "finalUrl": "https://bankofmaharashtra.bank.in/",
+  "title": "Bank of Maharashtra: Loans, Deposits, MSME, Govt. schemes",
+  "h1": "Bank of Maharashtra",
+  "cert": {
+   "subject": "C=IN, ST=Mahārāshtra, O=Bank Of Maharashtra, CN=*.bankofmaharashtra.bank.in",
+   "issuer": "Sectigo Limited",
+   "san": [
+    "*.bankofmaharashtra.bank.in",
+    "bankofmaharashtra.bank.in"
+   ],
+   "hostnameOk": true,
+   "authorized": true
+  }
+ },
+ {
+  "host": "www.equitas.bank.in",
+  "org": "Equitas Small Finance Bank",
+  "sector": "banking",
+  "dns": true,
+  "addrs": [
+   "159.60.128.94"
+  ],
+  "status": 503,
+  "finalUrl": "https://equitas.bank.in/",
+  "title": "Request Rejected",
+  "cert": {
+   "subject": "businessCategory=Private Organization, serialNumber=L65191TN1993PLC025280, jurisdictionC=IN, jurisdictionST=Tamil Nadu, C=IN, ST=Tamil Nadu, L=Chennai, O=EQUITAS SMALL FINANCE BANK LIMITED, CN=equitas.bank.in",
+   "issuer": "GlobalSign nv-sa",
+   "san": [
+    "equitas.bank.in",
+    "www.equitas.bank.in"
+   ],
+   "hostnameOk": true,
+   "authorized": true
+  }
+ },
+ {
+  "host": "www.fino.bank.in",
+  "org": "Fino Payments Bank",
+  "sector": "banking",
+  "dns": true,
+  "addrs": [
+   "104.16.36.6",
+   "104.16.37.6"
+  ],
+  "status": 200,
+  "finalUrl": "https://www.fino.bank.in/",
+  "title": "Individual",
+  "siteName": "Fino",
+  "ogTitle": "Individual",
+  "description": "Individual",
+  "h1": "Open your account today for the fast, convenient and neighbourhood banking​",
+  "cert": {
+   "subject": "CN=www.fino.bank.in",
+   "issuer": "Google Trust Services",
+   "san": [
+    "www.fino.bank.in"
+   ],
+   "hostnameOk": true,
+   "authorized": true
+  }
+ },
+ {
+  "host": "www.generalicentralinsurance.com",
+  "org": "Generali Central Insurance",
+  "sector": "insurance",
+  "dns": true,
+  "addrs": [
+   "64.185.181.238"
+  ],
+  "status": 200,
+  "finalUrl": "https://www.generalicentralinsurance.com/",
+  "title": "General Insurance: Buy & Renew Health & Car Insurance Online| Generali Central Insurance",
+  "ogTitle": "General Insurance: Buy & Renew Health & Car Insurance Online| Generali Central Insurance",
+  "description": "General Insurance: Explore the best General Insurance Plans Online for Health, Car, Bike, Travel, Home and Personal Accident Insurance by Generali Central Insurance. Connect today!",
+  "h1": "Your health should be your priority",
+  "cert": {
+   "subject": "C=IN, ST=Maharashtra, L=Mumbai, O=Generali Central Insurance Company Limited, CN=*.generalicentralinsurance.com",
+   "issuer": "GlobalSign nv-sa",
+   "san": [
+    "*.generalicentralinsurance.com",
+    "*.futuregenerali.in",
+    "*.fggeneral.in",
+    "generalicentralinsurance.com"
+   ],
+   "hostnameOk": true,
+   "authorized": true
+  }
+ },
+ {
+  "host": "www.jiopayments.bank.in",
+  "org": "Jio Payments Bank",
+  "sector": "banking",
+  "dns": true,
+  "addrs": [
+   "13.204.138.209",
+   "65.1.47.178"
+  ],
+  "status": 200,
+  "finalUrl": "https://www.jiopayments.bank.in/",
+  "title": "Jio Payments Bank – Seamless 24/7 digital banking",
+  "ogTitle": "Jio Payments Bank – Seamless 24/7 digital banking",
+  "description": "Experience seamless digital banking with Jio Payments Bank. Enjoy fast, secure, and convenient solutions designed to meet your financial needs. Explore our services today.",
+  "cert": {
+   "subject": "CN=jiopayments.bank.in",
+   "issuer": "GoDaddy.com",
+   "san": [
+    "jiopayments.bank.in",
+    "www.jiopayments.bank.in"
+   ],
+   "hostnameOk": true,
+   "authorized": true
+  }
+ },
+ {
+  "host": "www.kvb.bank.in",
+  "org": "Karur Vysya Bank",
+  "sector": "banking",
+  "dns": true,
+  "addrs": [
+   "45.223.140.53"
+  ],
+  "status": 200,
+  "finalUrl": "https://www.kvb.bank.in/",
+  "title": "Karur Vysya Bank - KVB",
+  "siteName": "Karur Vysya Bank",
+  "ogTitle": "Karur Vysya Bank - KVB",
+  "description": "Karur Vysya Bank is one of the leading commercial banks in India. KVB offers a wide range of services from loans, accounts & deposits etc.",
+  "h1": "What's New",
+  "cert": {
+   "subject": "businessCategory=Private Organization, serialNumber=L65110TN1916PLC001295, jurisdictionC=IN, jurisdictionST=Tamil Nadu, C=IN, ST=Tamil Nadu, L=Karur, O=THE KARUR VYSYA BANK LIMITED, CN=www.kvb.bank.in",
+   "issuer": "GlobalSign nv-sa",
+   "san": [
+    "www.kvb.bank.in",
+    "kvb.bank.in"
+   ],
+   "hostnameOk": true,
+   "authorized": true
+  }
+ },
+ {
+  "host": "www.metropolisindia.com",
+  "org": "Metropolis Healthcare",
+  "sector": "healthcare",
+  "dns": true,
+  "addrs": [
+   "2600:9000:2654:9e00:15:75e9:86c0:93a1",
+   "2600:9000:2654:5000:15:75e9:86c0:93a1",
+   "2600:9000:2654:200:15:75e9:86c0:93a1"
+  ],
+  "status": 403,
+  "finalUrl": "https://www.metropolisindia.com/",
+  "title": "ERROR: The request could not be satisfied",
+  "h1": "403 ERROR",
+  "cert": {
+   "subject": "CN=metropolisindia.com",
+   "issuer": "Amazon",
+   "san": [
+    "metropolisindia.com",
+    "*.metropolisindia.com"
+   ],
+   "hostnameOk": true,
+   "authorized": true
+  }
+ },
+ {
+  "host": "www.punjabandsind.bank.in",
+  "org": "Punjab & Sind Bank",
+  "sector": "banking",
+  "dns": true,
+  "addrs": [
+   "192.124.249.40"
+  ],
+  "status": 200,
+  "finalUrl": "https://www.punjabandsind.bank.in/",
+  "title": "Punjab & Sind Bank | Saving Accounts | Loan Schemes",
+  "siteName": "Punjab & Sind Bank",
+  "ogTitle": "Punjab & Sind Bank | Saving Accounts | Loan Schemes",
+  "description": "Welcome to PSB Bank. Discover savings and current accounts, home loans, deposits and secure digital banking services. For assistance, call us at 1800-419-8300",
+  "h1": "punjab and sindh bank",
+  "cert": {
+   "subject": "C=IN, ST=Delhi, L=New Delhi, O=PUNJAB & SIND BANK, CN=punjabandsind.bank.in",
+   "issuer": "GlobalSign nv-sa",
+   "san": [
+    "punjabandsind.bank.in",
+    "www.punjabandsind.bank.in"
+   ],
+   "hostnameOk": true,
+   "authorized": true
+  }
+ },
+ {
+  "host": "www.reliancedigital.in",
+  "org": "Reliance Digital",
+  "sector": "ecommerce",
+  "dns": true,
+  "addrs": [
+   "2600:140f:9::1741:7c63",
+   "2600:140f:9::1741:7c68",
+   "23.65.124.104"
+  ],
+  "status": 200,
+  "finalUrl": "https://www.reliancedigital.in/",
+  "title": "Online Electronic Shopping Store in India | Best Electronic Store",
+  "siteName": "Reliance Digital",
+  "ogTitle": "Online Electronic Shopping Store in India | Best Electronic Store",
+  "description": "Buy electronics online at India’s best electronics store – Reliance Digital. Best Electronic shop for TVs, laptops, mobiles, cameras & smart home appliances.",
+  "cert": {
+   "subject": "C=IN, ST=Maharashtra, L=Navi Mumbai, O=JIO PLATFORMS LIMITED, CN=www.reliancedigital.in",
+   "issuer": "DigiCert Inc",
+   "san": [
+    "www.reliancedigital.in",
+    "beta.reliancedigital.live",
+    "cdn.jiostore.online",
+    "cdn.jiox5.de",
+    "reliance-digital.jiox5.de",
+    "uat-digital.ril.com"
+   ],
+   "hostnameOk": true,
+   "authorized": true
+  }
+ },
+ {
+  "host": "www.suryoday.bank.in",
+  "org": "Suryoday Small Finance Bank",
+  "sector": "banking",
+  "dns": true,
+  "addrs": [
+   "103.183.96.50"
+  ],
+  "status": null,
+  "error": "EPROTO",
+  "finalUrl": "https://www.suryoday.bank.in/",
+  "cert": {
+   "error": "ERR_SSL_UNSAFE_LEGACY_RENEGOTIATION_DISABLED"
+  }
+ },
+ {
+  "host": "www.yes.bank.in",
+  "org": "Yes Bank",
+  "sector": "banking",
+  "dns": true,
+  "addrs": [
+   "2600:140f:9::1741:7c63",
+   "2600:140f:9::1741:7c62",
+   "23.65.124.98"
+  ],
+  "status": null,
+  "error": "TIMEOUT",
+  "finalUrl": "https://www.yes.bank.in/",
+  "cert": {
+   "subject": "C=IN, ST=Maharashtra, L=Mumbai, O=YES BANK LIMITED, CN=yes.bank.in",
+   "issuer": "DigiCert Inc",
+   "san": [
+    "yes.bank.in",
+    "apiportal.yes.bank.in",
+    "app-quickapply.yes.bank.in",
+    "applycc.yes.bank.in",
+    "bf.yes.bank.in",
+    "campaignweb.yes.bank.in",
+    "ccchat.yes.bank.in",
+    "commodityfinance.yes.bank.in",
+    "connectonedlr.yes.bank.in",
+    "consent.yes.bank.in",
+    "console.yes.bank.in",
+    "customersurvey.yes.bank.in"
+   ],
+   "hostnameOk": true,
+   "authorized": true
+  }
+ }
+]
