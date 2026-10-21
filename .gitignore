@@ -1,0 +1,26 @@
+# local toolchain / caches (see activate.sh)
+.venv/
+node_modules/
+.pnpm-store/
+# build output
+.next/
+out/
+dist/
+!action/dist/
+coverage/
+*.tsbuildinfo
+next-env.d.ts
+scanner/bin/
+scanner/qday-scan
+scanner/qday-scan.exe
+# generated
+apps/web/generated/
+apps/web/public/tree-sitter/
+packages/cbom-engine/generated/
+# env / misc
+.env*
+!.env.example
+.vercel
+.DS_Store
+Thumbs.db
+*.log
