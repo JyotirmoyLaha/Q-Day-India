@@ -39,11 +39,22 @@ const PAIRS: [string, string, number][] = [
   ['fg', 'danger-soft', 4.5], // F chip
   ['exposed', 'card', 3], // bars / non-text
   ['danger', 'card', 3],
+  ['fg', 'info-soft', 4.5],
+  ['info', 'info-soft', 3], // icons
+  ['exposed', 'exposed-soft', 3], // icons
+  // Grade chips are solid colour with --chip-fg text in both themes.
+  ['chip-fg', 'g-aplus', 4.5],
+  ['chip-fg', 'g-a', 4.5],
+  ['chip-fg', 'g-b', 4.5],
+  ['chip-fg', 'g-c', 4.5],
+  ['chip-fg', 'g-d', 4.5],
+  ['chip-fg', 'g-f', 4.5],
 ];
 
 describe.each([
   ['light', tokens(':root')],
-  ['dark', tokens(":root[data-theme='dark']")],
+  // Dark inherits every token it does not override.
+  ['dark', { ...tokens(':root'), ...tokens(":root[data-theme='dark']") }],
 ])('%s theme contrast', (_, tk) => {
   it.each(PAIRS)('%s on %s ≥ %s', (fg, bg, min) => {
     expect(tk[fg], fg).toBeDefined();

@@ -4,7 +4,9 @@ import { getSites, latestScanDate, SHOW_UNVERIFIED } from '@/lib/data';
 import { t } from '@/lib/i18n';
 import { formatDate } from '@/lib/format';
 import { IndexTable, type IndexRow } from '@/components/IndexTable';
+import { PageHeader } from '@/components/PageHeader';
 import { SECTORS } from '@/lib/types';
+import { REPO_URL } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Quantum Readiness Index',
@@ -25,30 +27,48 @@ export default function IndexPage() {
     history: s.history,
   }));
   const sectors = SECTORS.filter((x) => sites.some((s) => s.sector === x));
-  const unverified = sites.filter((s) => !s.verified).length;
+  const verified = sites.filter((s) => s.verified).length;
 
   return (
     <div>
-      <h1 className="font-serif text-4xl font-semibold tracking-tight">{t('index.title')}</h1>
-      <p className="mt-3 max-w-3xl text-muted">{t('index.intro')}</p>
-      <p className="mt-2 text-sm text-muted">
-        Last scan: {formatDate(latestScanDate())}. Grades: A+/A use quantum-safe key exchange by default · B
-        supports it but not by default · C/D are not yet quantum-safe · F means legacy-only TLS or an invalid
-        chain.{' '}
-        <Link href="/about#grading" className="underline">
-          How grades work
-        </Link>
-      </p>
-      {SHOW_UNVERIFIED && unverified > 0 && (
-        <p className="mt-3 rounded-lg border border-dashed border-line bg-subtle px-4 py-3 text-sm text-muted">
-          {unverified} of {sites.length} hostnames are marked <strong>unverified</strong>: they were drafted
-          from public information and are waiting for a maintainer to confirm that they belong to the
-          organisation shown.
-        </p>
-      )}
-      <div className="mt-8">
-        <IndexTable rows={rows} scannedAt={latestScanDate()} sectors={sectors} />
-      </div>
+      <PageHeader
+        eyebrow={`Weekly scan · ${formatDate(latestScanDate())}`}
+        icon="chart"
+        title={t('index.title')}
+        lead={
+          <>
+            {t('index.intro')}{' '}
+            <Link href="/about#grading" className="text-accent underline">
+              How grades work
+            </Link>
+          </>
+        }
+      >
+        <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted">
+          <li>
+            <strong className="text-fg">A+ / A</strong> quantum-safe by default
+          </li>
+          <li>
+            <strong className="text-fg">B</strong> supported, not default
+          </li>
+          <li>
+            <strong className="text-fg">C / D</strong> not yet quantum-safe
+          </li>
+          <li>
+            <strong className="text-fg">F</strong> legacy-only TLS or invalid chain
+          </li>
+          {SHOW_UNVERIFIED && (
+            <li>
+              <strong className="text-fg">{verified}</strong> of {sites.length} hostnames verified (
+              <a href={`${REPO_URL}/blob/main/targets/VERIFICATION.md`} className="underline">
+                evidence
+              </a>
+              )
+            </li>
+          )}
+        </ul>
+      </PageHeader>
+      <IndexTable rows={rows} scannedAt={latestScanDate()} sectors={sectors} />
     </div>
   );
 }

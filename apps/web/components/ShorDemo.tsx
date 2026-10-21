@@ -21,7 +21,7 @@ export function ShorDemo() {
   const works = half !== null && half !== N - 1 && f1! > 1 && f2! > 1;
 
   return (
-    <div className="rounded-xl border border-line bg-card p-5">
+    <div className="card p-5">
       <label htmlFor="shor-a" className="text-sm font-medium">
         Pick a number a (coprime to 15):
       </label>

@@ -49,7 +49,7 @@ export default async function ReportPage({ params }: { params: Promise<{ month: 
 
   return (
     <article className="space-y-10">
-      <header>
+      <header className="hero-bg rounded-3xl border border-line px-5 py-8 sm:px-10">
         <nav aria-label="Report months" className="flex justify-between text-sm text-muted">
           {i > 0 ? <Link href={`/report/${months[i - 1]}`}>← {months[i - 1]}</Link> : <span />}
           {i < months.length - 1 ? (
@@ -61,7 +61,7 @@ export default async function ReportPage({ params }: { params: Promise<{ month: 
         <p className="mt-6 text-sm font-medium uppercase tracking-[0.14em] text-accent">
           State of the Nation · {r.label}
         </p>
-        <h1 className="mt-2 max-w-4xl font-serif text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
+        <h1 className="mt-2 max-w-4xl font-display text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
           {r.safeShare}% of tracked Indian websites already use quantum-safe key exchange
         </h1>
         <p className="mt-3 text-muted">
@@ -88,7 +88,7 @@ export default async function ReportPage({ params }: { params: Promise<{ month: 
       </section>
 
       <section aria-labelledby="grades">
-        <h2 id="grades" className="font-serif text-2xl font-semibold">
+        <h2 id="grades" className="font-display text-2xl font-semibold">
           Grade distribution
         </h2>
         <div className="mt-4 flex h-8 overflow-hidden rounded" aria-hidden="true">
@@ -112,7 +112,7 @@ export default async function ReportPage({ params }: { params: Promise<{ month: 
 
       <div className="grid gap-6 lg:grid-cols-2">
         <Card>
-          <h2 className="font-serif text-2xl font-semibold">By sector</h2>
+          <h2 className="font-display text-2xl font-semibold">By sector</h2>
           <p className="mt-1 text-sm text-muted">Share of reachable sites graded A+ or A.</p>
           <div className="mt-4">
             <ShareBars data={r.sectors.map((s) => ({ label: s.label, share: s.share, total: s.total }))} />
@@ -147,7 +147,7 @@ export default async function ReportPage({ params }: { params: Promise<{ month: 
         </Card>
 
         <Card>
-          <h2 className="font-serif text-2xl font-semibold">The CDN effect</h2>
+          <h2 className="font-display text-2xl font-semibold">The CDN effect</h2>
           <p className="mt-1 text-sm text-muted">
             Quantum-safe share for sites behind a CDN vs. served from their own infrastructure (CDN detected
             from response headers).
@@ -166,7 +166,7 @@ export default async function ReportPage({ params }: { params: Promise<{ month: 
       </div>
 
       <Card>
-        <h2 className="font-serif text-2xl font-semibold">Biggest movers</h2>
+        <h2 className="font-display text-2xl font-semibold">Biggest movers</h2>
         {r.movers.length ? (
           <ul className="mt-3 divide-y divide-line">
             {r.movers.map((m) => (
@@ -197,7 +197,7 @@ export default async function ReportPage({ params }: { params: Promise<{ month: 
       </Card>
 
       <Card>
-        <h2 className="font-serif text-2xl font-semibold">Legacy TLS stragglers</h2>
+        <h2 className="font-display text-2xl font-semibold">Legacy TLS stragglers</h2>
         <p className="mt-1 text-sm text-muted">
           {r.legacyCount} sites still accept TLS 1.0/1.1 (deprecated by RFC 8996). Lowest grades first;
           migration recommended.

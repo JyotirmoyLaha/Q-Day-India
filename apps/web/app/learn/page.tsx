@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 
 export default function LearnPage() {
   return (
-    <article className="prose-qd mx-auto max-w-3xl">
-      <h1 className="font-serif text-4xl font-semibold tracking-tight">
+    <article className="prose-qd card mx-auto max-w-3xl p-6 sm:p-10">
+      <h1 className="font-display text-3xl font-bold tracking-tight sm:text-5xl">
         Quantum computers and your encryption, in ten minutes
       </h1>
       <p className="text-lg text-muted">
@@ -126,7 +126,7 @@ export default function LearnPage() {
       <h2>What you can do this week</h2>
       <ol>
         <li>
-          <Link href="/index">Check your website&apos;s grade</Link>. Enabling X25519MLKEM768 is often a
+          <Link href="/readiness">Check your website&apos;s grade</Link>. Enabling X25519MLKEM768 is often a
           configuration change or a CDN setting.
         </li>
         <li>

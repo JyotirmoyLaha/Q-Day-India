@@ -50,7 +50,7 @@ export function Gauge({
           fontSize="26"
           fontWeight="600"
           fill="var(--fg)"
-          fontFamily="var(--font-serif)"
+          fontFamily="var(--nf-display)"
         >
           {v}
         </text>

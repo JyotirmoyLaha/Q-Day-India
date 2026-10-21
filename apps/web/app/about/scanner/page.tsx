@@ -8,8 +8,8 @@ export const metadata: Metadata = {
 
 export default function ScannerPage() {
   return (
-    <div className="prose-qd mx-auto max-w-3xl">
-      <h1 className="font-serif text-4xl font-semibold tracking-tight">Responsible scanning</h1>
+    <div className="prose-qd card mx-auto max-w-3xl p-6 sm:p-10">
+      <h1 className="font-display text-3xl font-bold tracking-tight sm:text-5xl">Responsible scanning</h1>
       <p className="text-lg text-muted">
         The Q-Day India scanner makes the same kind of connection any browser makes. It measures which
         key-exchange methods a public website offers. It does not look for weaknesses, log in or read content.

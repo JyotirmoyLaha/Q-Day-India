@@ -83,16 +83,11 @@ export function CodeScanner({
       {label}
     </button>
   );
-  const field =
-    'w-full rounded-lg border border-line bg-card px-3 py-2.5 text-sm focus:border-accent focus:outline-none';
+  const field = 'input text-sm';
 
   return (
     <div className="space-y-8">
-      <form
-        onSubmit={submit}
-        className="rounded-xl border border-line bg-card p-5"
-        aria-label="Choose code to scan"
-      >
+      <form onSubmit={submit} className="card p-5" aria-label="Choose code to scan">
         <div role="tablist" aria-label="Input" className="flex flex-wrap gap-1 border-b border-line">
           {tabBtn('github', 'Public GitHub repo')}
           {tabBtn('zip', 'Upload a zip')}
@@ -188,11 +183,7 @@ export function CodeScanner({
         </div>
 
         <div className="mt-4 flex flex-wrap items-center gap-3">
-          <button
-            type="submit"
-            disabled={running}
-            className="rounded-lg bg-fg px-5 py-2.5 font-medium text-bg hover:opacity-90 disabled:opacity-50"
-          >
+          <button type="submit" disabled={running} className="btn btn-primary px-6">
             {running ? 'Scanning…' : 'Scan'}
           </button>
           {running && (
@@ -229,11 +220,7 @@ function Progress({
   const pct = state.filesTotal ? Math.round((100 * state.filesDone) / state.filesTotal) : undefined;
   const recent = state.findings.slice(-6).reverse();
   return (
-    <section
-      aria-live="polite"
-      aria-label="Scan progress"
-      className="rounded-xl border border-line bg-card p-5"
-    >
+    <section aria-live="polite" aria-label="Scan progress" className="card p-5">
       <p className="text-sm">{state.status}</p>
       <div
         className="mt-3 h-2 overflow-hidden rounded-full bg-subtle"

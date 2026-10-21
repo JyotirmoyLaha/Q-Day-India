@@ -2,20 +2,21 @@ import type { Grade } from '@/lib/types';
 import { t } from '@/lib/i18n';
 import { formatDate } from '@/lib/format';
 
-const STYLES: Record<Grade | 'none', string> = {
-  'A+': 'bg-accent text-accent-fg border-accent',
-  A: 'bg-accent text-accent-fg border-accent',
-  B: 'bg-accent-soft text-fg border-accent',
-  C: 'bg-exposed-soft text-fg border-exposed',
-  D: 'bg-exposed-soft text-fg border-exposed',
-  F: 'bg-danger-soft text-fg border-danger',
-  none: 'bg-subtle text-muted border-line',
+/** CSS variable holding each grade's colour (see globals.css). */
+export const GRADE_VAR: Record<Grade | 'none', string> = {
+  'A+': 'var(--g-aplus)',
+  A: 'var(--g-a)',
+  B: 'var(--g-b)',
+  C: 'var(--g-c)',
+  D: 'var(--g-d)',
+  F: 'var(--g-f)',
+  none: 'var(--g-none)',
 };
 
 const SIZES = {
-  sm: 'h-8 min-w-8 text-sm',
-  md: 'h-11 min-w-11 text-lg',
-  lg: 'h-20 min-w-20 text-4xl',
+  sm: 'h-8 min-w-8 rounded-lg text-sm',
+  md: 'h-11 min-w-11 rounded-xl text-lg',
+  lg: 'h-24 min-w-24 rounded-2xl text-5xl',
 };
 
 /** A grade letter. The scan date is required: every grade is shown with its date (§10.3). */
@@ -38,7 +39,8 @@ export function GradeChip({
         role="img"
         aria-label={label}
         title={label}
-        className={`inline-flex items-center justify-center rounded-lg border-2 px-1.5 font-serif font-bold tabular-nums ${STYLES[key]} ${SIZES[size]}`}
+        style={{ background: GRADE_VAR[key], color: 'var(--chip-fg)' }}
+        className={`inline-flex items-center justify-center px-1.5 font-display font-bold tabular-nums shadow-sm ${SIZES[size]}`}
       >
         {grade ?? '—'}
       </span>

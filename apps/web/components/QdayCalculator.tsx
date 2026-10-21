@@ -46,15 +46,11 @@ export function QdayCalculator() {
 
   return (
     <div className="grid gap-8 lg:grid-cols-[22rem_1fr]">
-      <form
-        className="space-y-6 rounded-xl border border-line bg-card p-5"
-        onSubmit={(e) => e.preventDefault()}
-        aria-label="Mosca inputs"
-      >
+      <form className="space-y-6 card p-5" onSubmit={(e) => e.preventDefault()} aria-label="Mosca inputs">
         <label className="block text-sm">
           <span className="font-medium">Sector preset</span>
           <select
-            className="mt-1 w-full rounded-lg border border-line bg-card px-3 py-2"
+            className="input mt-1"
             value={sector}
             onChange={(e) => {
               const s = e.target.value as Sector | '';
@@ -112,7 +108,7 @@ export function QdayCalculator() {
           <p className="text-sm uppercase tracking-wide text-muted">
             Mosca&apos;s inequality: X + Y {r.late ? '>' : '≤'} Z
           </p>
-          <h2 id="mosca-result" className="mt-1 font-serif text-5xl font-semibold tracking-tight">
+          <h2 id="mosca-result" className="mt-1 font-display text-5xl font-semibold tracking-tight">
             {moscaHeadline(r)}
           </h2>
           <p className="mt-3 max-w-2xl">
@@ -122,7 +118,7 @@ export function QdayCalculator() {
           </p>
         </div>
 
-        <figure className="rounded-xl border border-line bg-card p-5">
+        <figure className="card p-5">
           <div className="relative h-28" aria-hidden="true">
             <div className="absolute left-0 top-2 flex h-9 w-full overflow-hidden rounded">
               <div
@@ -180,7 +176,7 @@ function Slider({
     <div>
       <label htmlFor={id} className="flex items-baseline justify-between gap-2 text-sm font-medium">
         <span>{label}</span>
-        <output htmlFor={id} className="font-serif text-2xl tabular-nums">
+        <output htmlFor={id} className="font-display text-2xl tabular-nums">
           {value}
         </output>
       </label>

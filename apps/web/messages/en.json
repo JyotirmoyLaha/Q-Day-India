@@ -9,16 +9,17 @@
     "code": "Scan code",
     "org": "Org report",
     "qday": "Q-Day calculator",
-    "report": "State of the Nation",
+    "report": "Report",
     "learn": "Learn",
     "about": "Methodology",
     "skip": "Skip to content",
     "menu": "Menu",
-    "theme": "Toggle colour theme"
+    "theme": "Toggle colour theme",
+    "check": "Check a website"
   },
   "home": {
     "checkSite": "Check a website",
-    "checkSitePlaceholder": "e.g. onlinesbi.sbi",
+    "checkSitePlaceholder": "e.g. hdfc.bank.in or uidai.gov.in",
     "checkSiteButton": "Check",
     "scanCode": "Scan your code",
     "scanCodePlaceholder": "https://github.com/owner/repo",

@@ -68,7 +68,7 @@ const report: ScanReport = {
 describe('/code UI', () => {
   it('page renders accessibly with privacy notice', async () => {
     const { container } = render(<CodePage />);
-    expect(screen.getByText(/Your code is never uploaded/)).toBeTruthy();
+    expect(screen.getByText(/your code is never uploaded/i)).toBeTruthy();
     expect(screen.getByRole('tab', { name: 'Public GitHub repo' }).getAttribute('aria-selected')).toBe(
       'true',
     );

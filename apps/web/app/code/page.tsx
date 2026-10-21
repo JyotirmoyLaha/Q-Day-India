@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { CodeScanner } from '@/components/code/CodeScanner';
+import { PageHeader } from '@/components/PageHeader';
+import { Icon } from '@/components/Icon';
 
 export const metadata: Metadata = {
   title: 'QuantumBOM — scan your code',
@@ -8,26 +10,40 @@ export const metadata: Metadata = {
     'Find quantum-vulnerable cryptography in a repository, privately in your browser, and export a CycloneDX CBOM.',
 };
 
+const FEATURES = [
+  'Python, JS/TS, Java, Go (tree-sitter) + Kotlin, C/C++, C#, Rust, PHP',
+  'nginx, Apache, HAProxy, OpenSSL, Docker, Terraform, Kubernetes, SSH configs',
+  'PEM/OpenSSH keys and certificates (key material is never shown)',
+  'CycloneDX 1.6 CBOM, SARIF 2.1.0 and Markdown export',
+];
+
 export default function CodePage() {
   return (
-    <div className="space-y-8">
-      <header>
-        <p className="text-sm font-medium uppercase tracking-[0.14em] text-accent">QuantumBOM</p>
-        <h1 className="mt-2 font-serif text-4xl font-semibold tracking-tight">
-          Find the classical crypto in your code
-        </h1>
-        <p className="mt-3 max-w-3xl text-muted">
-          RSA, elliptic curves and Diffie-Hellman will be breakable by a future quantum computer. QuantumBOM
-          finds them in source code, configs, keys and dependency manifests, explains each one with a
-          copy-paste fix, and exports a CycloneDX 1.6 cryptographic bill of materials (CBOM).
-        </p>
-        <p className="mt-3 inline-flex items-center gap-2 rounded-full border border-accent bg-accent-soft px-3 py-1 text-sm">
-          <span aria-hidden="true">🔒</span> Runs 100% in your browser. Your code is never uploaded.{' '}
-          <Link href="/about#code" className="underline">
+    <div>
+      <PageHeader
+        eyebrow="QuantumBOM"
+        icon="code"
+        title="Find the classical crypto in your code"
+        lead="RSA, elliptic curves and Diffie-Hellman will be breakable by a future quantum computer. QuantumBOM finds them in source code, configs, keys and dependency manifests, explains each one with a copy-paste fix, and exports a cryptographic bill of materials (CBOM)."
+      >
+        <div className="flex flex-wrap items-center gap-3">
+          <span className="inline-flex items-center gap-2 rounded-full bg-accent-soft px-3 py-1.5 text-sm font-medium">
+            <Icon name="lock" className="h-4 w-4" />
+            Runs 100% in your browser — your code is never uploaded
+          </span>
+          <Link href="/about#code" className="text-sm text-accent underline">
             How it works
           </Link>
-        </p>
-      </header>
+        </div>
+        <ul className="mt-5 grid gap-2 text-sm text-muted sm:grid-cols-2">
+          {FEATURES.map((f) => (
+            <li key={f} className="flex items-start gap-2">
+              <Icon name="check" className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
+              {f}
+            </li>
+          ))}
+        </ul>
+      </PageHeader>
       <CodeScanner />
     </div>
   );

@@ -3,7 +3,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import HomePage from '@/app/page';
-import IndexPage from '@/app/index/page';
+import IndexPage from '@/app/readiness/page';
 import AboutPage from '@/app/about/page';
 import ScannerPage from '@/app/about/scanner/page';
 import { SiteReport } from '@/components/SiteReport';

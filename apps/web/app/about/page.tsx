@@ -44,8 +44,8 @@ const SOURCES = [
 
 export default function AboutPage() {
   return (
-    <div className="prose-qd mx-auto max-w-3xl">
-      <h1 className="font-serif text-4xl font-semibold tracking-tight">Methodology</h1>
+    <div className="prose-qd card mx-auto max-w-3xl p-6 sm:p-10">
+      <h1 className="font-display text-3xl font-bold tracking-tight sm:text-5xl">Methodology</h1>
       <p className="text-lg text-muted">
         Q-Day India measures two halves of the post-quantum migration: the key exchange that protects traffic
         to public websites, and the cryptography inside code. This page explains every number on the site.
@@ -167,25 +167,51 @@ ${HNDL_FORMULA}`}</code>
         Scanning, or Markdown.
       </p>
 
-      <h2 id="limitations">Limitations</h2>
+      <h2 id="limitations">Limitations and how we handle them</h2>
+      <h3>What we have addressed</h3>
       <ul>
-        <li>TLS checks see only the public edge (often a CDN), not internal or back-end connections.</li>
-        <li>Certificates cannot be post-quantum yet; grades reflect key exchange only.</li>
         <li>
-          Static code analysis has false positives, and it misses dynamic crypto (algorithm names built at
-          runtime). Confidence levels are shown with every finding.
+          <strong>Hostname accuracy.</strong> Every host was checked against its homepage title, its
+          certificate&apos;s organisation and restricted registries (<code>.bank.in</code>,{' '}
+          <code>.gov.in</code>,<code>.ac.in</code>); the evidence is published in{' '}
+          <a href={`${REPO_URL}/blob/main/targets/VERIFICATION.md`}>targets/VERIFICATION.md</a>. Banks that
+          moved to RBI&apos;s mandatory <code>.bank.in</code> domains are tracked on their new hosts.
+        </li>
+        <li>
+          <strong>Slow or rate-limited sites.</strong> Hosts that time out get a second, slower pass at the
+          end of each scan. Servers that reject the modern post-quantum ClientHello or only offer old RSA key
+          exchange get a compatibility handshake, so they are graded instead of being shown as unreachable.
+        </li>
+        <li>
+          <strong>Privacy of code scans.</strong> A Content-Security-Policy technically prevents the page from
+          contacting anything except this site and GitHub, so code cannot leave your browser.
+        </li>
+      </ul>
+      <h3>What cannot be removed — and why</h3>
+      <ul>
+        <li>
+          TLS checks see only the public edge (often a CDN), not internal or back-end connections. Nobody
+          outside an organisation can see those; the <Link href="/org">organisation report</Link> covers the
+          code side.
+        </li>
+        <li>
+          Certificates cannot be post-quantum yet anywhere on the public web, so grades reflect key exchange
+          only.
+        </li>
+        <li>
+          Some government and bank sites block or rate-limit traffic from outside India or from automated
+          clients. They appear as &ldquo;not reachable&rdquo; with the reason, never with a grade.
+        </li>
+        <li>
+          Static code analysis has false positives and misses algorithms chosen at runtime (names built from
+          variables). Confidence levels are shown with every finding, and <code>quantumbom:ignore</code>{' '}
+          suppresses reviewed findings visibly.
         </li>
         <li>
           Timelines for a cryptographically relevant quantum computer are uncertain. The{' '}
           <Link href="/qday">Q-Day calculator</Link> lets you choose your own estimate.
         </li>
-        <li>
-          The target list was drafted from public information. Hostnames marked <em>unverified</em> have not
-          yet been confirmed to belong to the organisation shown.
-        </li>
-        <li>
-          A single weekly snapshot can miss configuration that differs by region, edge node or time of day.
-        </li>
+        <li>A weekly snapshot can miss configuration that differs by region, edge node or time of day.</li>
       </ul>
 
       <h2 id="wording">How we write about results</h2>

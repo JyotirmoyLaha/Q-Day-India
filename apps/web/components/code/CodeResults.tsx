@@ -12,6 +12,7 @@ import {
   type ScanReport,
 } from '@qday/cbom-engine';
 import { download, shareURL } from '@/lib/share';
+import { copyText } from '@/lib/clipboard';
 import { formatDate } from '@/lib/format';
 import { Gauge } from './Gauge';
 import { FixPanel } from './FixPanel';
@@ -74,19 +75,14 @@ export function CodeResults({ report, shared = false }: { report: ScanReport; sh
       return;
     }
     window.history.replaceState(null, '', url);
-    try {
-      await navigator.clipboard.writeText(url);
-      setShareMsg(
-        'Link copied. The report lives in the URL fragment (#…), which browsers never send to a server.',
-      );
-    } catch {
-      setShareMsg(
-        'Link is in the address bar. The report lives in the URL fragment (#…), which browsers never send to a server.',
-      );
-    }
+    setShareMsg(
+      (await copyText(url))
+        ? 'Link copied. The report lives in the URL fragment (#…), which browsers never send to a server.'
+        : 'Link is in the address bar. The report lives in the URL fragment (#…), which browsers never send to a server.',
+    );
   }
 
-  const btn = 'rounded-lg border border-line bg-card px-3 py-1.5 text-sm hover:border-accent';
+  const btn = 'btn btn-secondary !px-3 !py-1.5 text-sm';
   return (
     <section aria-labelledby="results-title" className="space-y-6">
       <div className="flex flex-wrap items-end justify-between gap-4">
@@ -94,7 +90,7 @@ export function CodeResults({ report, shared = false }: { report: ScanReport; sh
           <p className="text-sm text-muted">
             {shared ? 'Shared report (decoded in your browser)' : 'Results'}
           </p>
-          <h2 id="results-title" className="font-serif text-3xl font-semibold">
+          <h2 id="results-title" className="font-display text-3xl font-semibold">
             {report.source.url ? (
               <a href={report.source.url} className="hover:underline">
                 {report.source.name}
@@ -149,7 +145,7 @@ export function CodeResults({ report, shared = false }: { report: ScanReport; sh
         </p>
       ))}
 
-      <div className="grid gap-6 rounded-xl border border-line bg-card p-5 md:grid-cols-2">
+      <div className="grid gap-6 card p-5 md:grid-cols-2">
         <div>
           <Gauge
             value={report.scores.exposure}
@@ -243,7 +239,7 @@ function RiskGroup({ risk, findings }: { risk: QuantumRisk; findings: Finding[] 
       aria-label={meta.title}
     >
       <header className="border-b border-line px-5 py-3">
-        <h3 className="font-serif text-xl font-semibold">
+        <h3 className="font-display text-xl font-semibold">
           {meta.title} <span className="text-base font-normal text-muted">· {findings.length}</span>
         </h3>
         <p className="text-sm text-muted">{meta.desc}</p>

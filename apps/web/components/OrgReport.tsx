@@ -44,7 +44,7 @@ export function OrgReport() {
   return (
     <div className="space-y-10">
       <section aria-labelledby="step1" className="space-y-4">
-        <h2 id="step1" className="font-serif text-2xl font-semibold">
+        <h2 id="step1" className="font-display text-2xl font-semibold">
           1 · Your public website
         </h2>
         <form onSubmit={check} className="flex flex-wrap gap-2">
@@ -56,14 +56,11 @@ export function OrgReport() {
             value={domain}
             onChange={(e) => setDomain(e.target.value)}
             placeholder="e.g. www.yourbank.in"
-            className="min-w-[16rem] flex-1 rounded-lg border border-line bg-card px-4 py-2.5"
+            className="input min-w-0 flex-1 sm:min-w-[16rem]"
             spellCheck={false}
             autoComplete="off"
           />
-          <button
-            className="rounded-lg bg-fg px-5 py-2.5 font-medium text-bg disabled:opacity-50"
-            disabled={checking}
-          >
+          <button className="btn btn-primary px-6" disabled={checking}>
             {checking ? 'Checking…' : 'Check TLS'}
           </button>
         </form>
@@ -97,7 +94,7 @@ export function OrgReport() {
       </section>
 
       <section aria-labelledby="step2" className="space-y-4">
-        <h2 id="step2" className="font-serif text-2xl font-semibold">
+        <h2 id="step2" className="font-display text-2xl font-semibold">
           2 · Your code (private: scanned in this browser)
         </h2>
         <CodeScanner onReport={onReport} />
@@ -107,7 +104,7 @@ export function OrgReport() {
         <section aria-labelledby="plan" className="space-y-4">
           <div className="flex flex-wrap items-end justify-between gap-3">
             <div>
-              <h2 id="plan" className="font-serif text-3xl font-semibold">
+              <h2 id="plan" className="font-display text-3xl font-semibold">
                 3 · Prioritised migration plan
               </h2>
               <p className="mt-1 max-w-3xl text-sm text-muted">
@@ -146,10 +143,7 @@ export function OrgReport() {
 
           <ol className="space-y-3">
             {plan.map((p) => (
-              <li
-                key={p.order}
-                className="grid grid-cols-[2rem_1fr] gap-3 rounded-xl border border-line bg-card p-4"
-              >
+              <li key={p.order} className="grid grid-cols-[2rem_1fr] gap-3 card p-4">
                 <span className="flex h-8 w-8 items-center justify-center rounded-full bg-subtle font-semibold">
                   {p.order}
                 </span>
@@ -172,7 +166,7 @@ export function OrgReport() {
             ))}
           </ol>
 
-          <div className="flex flex-wrap items-center gap-4 rounded-xl border border-line bg-card p-5">
+          <div className="flex flex-wrap items-center gap-4 card p-5">
             {code && <Gauge value={code.scores.exposure} label="Code: Quantum Exposure" />}
             <div className="flex flex-col gap-2 text-sm">
               {code && (

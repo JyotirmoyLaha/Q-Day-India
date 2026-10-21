@@ -5,12 +5,12 @@ import { sectorLabel } from '@/lib/i18n';
 import { pct } from '@/lib/format';
 
 export const GRADE_FILL: Record<Grade, string> = {
-  'A+': 'var(--accent)',
-  A: 'color-mix(in srgb, var(--accent) 70%, var(--card))',
-  B: 'color-mix(in srgb, var(--accent) 30%, var(--card))',
-  C: 'color-mix(in srgb, var(--exposed) 45%, var(--card))',
-  D: 'var(--exposed)',
-  F: 'var(--danger)',
+  'A+': 'var(--g-aplus)',
+  A: 'var(--g-a)',
+  B: 'var(--g-b)',
+  C: 'var(--g-c)',
+  D: 'var(--g-d)',
+  F: 'var(--g-f)',
 };
 
 export function GradeLegend() {

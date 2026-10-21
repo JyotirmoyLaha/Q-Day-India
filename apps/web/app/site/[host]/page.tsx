@@ -27,11 +27,15 @@ export default async function SitePage({ params }: { params: Promise<{ host: str
   if (!site) notFound();
   return (
     <div>
-      <nav aria-label="Breadcrumb" className="mb-6 text-sm text-muted">
-        <Link href="/index" className="underline">
-          Readiness Index
-        </Link>{' '}
-        / <span className="font-mono">{site.host}</span>
+      <nav aria-label="Breadcrumb" className="mb-5 flex items-center gap-2 text-sm text-muted">
+        <Link
+          href="/readiness"
+          className="inline-flex items-center gap-1 rounded-full border border-line px-3 py-1 hover:border-accent hover:text-fg"
+        >
+          ← Readiness Index
+        </Link>
+        <span aria-hidden="true">/</span>
+        <span className="truncate font-mono">{site.host}</span>
       </nav>
       <SiteReport site={site} scannedAt={site.scannedAt} history={site.history} />
     </div>

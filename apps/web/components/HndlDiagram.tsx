@@ -1,7 +1,7 @@
 /** Animated "harvest now, decrypt later" diagram. Pure SVG + CSS; motion is disabled under prefers-reduced-motion. */
 export function HndlDiagram() {
   return (
-    <figure className="rounded-xl border border-line bg-card p-4">
+    <figure className="card p-4">
       <svg viewBox="0 0 720 250" className="w-full" role="img" aria-labelledby="hndl-title hndl-desc">
         <title id="hndl-title">Harvest now, decrypt later</title>
         <desc id="hndl-desc">

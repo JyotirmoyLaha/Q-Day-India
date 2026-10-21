@@ -30,6 +30,11 @@ const config: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   transpilePackages: ['@qday/cbom-engine'],
+  // /index used to be the Readiness Index, but on Vercel the static file for /index
+  // (index.html) collided with the home page. The index now lives at /readiness.
+  async redirects() {
+    return [{ source: '/index', destination: '/readiness', permanent: true }];
+  },
   async headers() {
     return [
       { source: '/:path*', headers: securityHeaders },
