@@ -16,7 +16,9 @@
     "validate:scan": "node scripts/validate-scan.mjs",
     "scan:build": "cd scanner && go build -o bin/qday-scan ./cmd/qday-scan",
     "scan": "cd scanner && go run ./cmd/qday-scan --targets ../targets/india.yaml --out ../data",
-    "go:test": "cd scanner && go vet ./... && go test ./..."
+    "go:test": "cd scanner && go vet ./... && go test ./...",
+    "dogfood": "node scripts/dogfood.mjs",
+    "set-owner": "node scripts/set-owner.mjs"
   },
   "devDependencies": {
     "ajv": "8.20.0",

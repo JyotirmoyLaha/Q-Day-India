@@ -6,5 +6,7 @@ export GOROOT="$V/go" GOPATH="$V/gopath" GOCACHE="$V/gocache" GOMODCACHE="$V/gop
 export npm_config_cache="$V/npm-cache" npm_config_store_dir="$V/pnpm-store" PNPM_HOME="$V/pnpm-home"
 export XDG_CACHE_HOME="$V/cache" XDG_DATA_HOME="$V/data" XDG_STATE_HOME="$V/state" XDG_CONFIG_HOME="$V/config"
 export TMP="$V/tmp" TEMP="$V/tmp" TMPDIR="$V/tmp" NEXT_TELEMETRY_DISABLED=1
+# Tools that write into the Windows profile (Go telemetry, Node compile cache) are redirected too.
+export APPDATA="$V/appdata/roaming" LOCALAPPDATA="$V/appdata/local" NODE_COMPILE_CACHE="$V/cache/node-compile"
 export PATH="$V/go/bin:$V/gopath/bin:$V/bin/node_modules/.bin:$PNPM_HOME:$PATH"
-mkdir -p "$V/tmp" "$V/cache" "$V/data" "$V/state" "$V/config"
+mkdir -p "$V/tmp" "$V/cache" "$V/data" "$V/state" "$V/config" "$V/appdata/roaming" "$V/appdata/local"

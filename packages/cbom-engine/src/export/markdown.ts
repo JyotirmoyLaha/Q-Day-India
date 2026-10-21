@@ -23,7 +23,7 @@ export function toMarkdown(report: ScanReport): string {
   out.push(`# QuantumBOM report — ${report.source.name}`);
   out.push('');
   out.push(
-    `Scanned ${date} with ${report.tool.name} ${report.tool.version}. ${report.stats.filesScanned} files analysed, ${report.findings.length} findings.`,
+    `Scanned ${date} with ${report.tool.name} ${report.tool.version}. ${report.stats.filesScanned} files analysed, ${report.findings.length} findings${report.stats.suppressed ? ` (${report.stats.suppressed} suppressed with quantumbom:ignore)` : ''}.`,
   );
   out.push('');
   out.push('## Scores');

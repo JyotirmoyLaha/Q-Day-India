@@ -1,0 +1,84 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  scanner:
+    name: Go scanner
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
+        with:
+          go-version: '1.27.3'
+          cache-dependency-path: scanner/go.sum
+      - name: gofmt
+        working-directory: scanner
+        run: test -z "$(gofmt -l .)" || (gofmt -l . && exit 1)
+      - name: go vet
+        working-directory: scanner
+        run: go vet ./...
+      - name: go test (offline; live tests need QDAY_LIVE_TESTS=1)
+        working-directory: scanner
+        run: go test ./...
+      - name: Build
+        working-directory: scanner
+        run: go build -o bin/qday-scan ./cmd/qday-scan
+
+  web:
+    name: Engine + web app
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Validate scan data against schemas/scan.schema.json
+        run: node scripts/validate-scan.mjs
+      - name: Engine tests (fixtures, CycloneDX 1.6 + SARIF schema validation)
+        run: pnpm --filter @qday/cbom-engine test
+      - name: Engine typecheck
+        run: pnpm --filter @qday/cbom-engine typecheck
+      - name: Action bundle is up to date
+        run: |
+          pnpm --filter @qday/cbom-engine build
+          git diff --exit-code -- action/dist || (echo "::error::action/dist is stale — run 'pnpm --filter @qday/cbom-engine build' and commit" && exit 1)
+      - name: Web lint
+        run: pnpm --filter web lint
+      - name: Web typecheck
+        run: pnpm --filter web typecheck
+      - name: Web tests (unit, a11y/axe, SSRF, wording)
+        run: pnpm --filter web test
+      - name: Build
+        run: pnpm --filter web build
+
+  dogfood:
+    name: QuantumBOM on this repo
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - uses: actions/checkout@v7
+      - id: qb
+        uses: ./action
+        with:
+          # Fixtures intentionally contain weak crypto and throw-away test keys.
+          exclude: 'packages/cbom-engine/test/fixtures/**,scanner/internal/scan/scan_test.go,**/*.test.ts,**/*.test.tsx,apps/web/test/**'
+          upload-sarif: ${{ github.event_name == 'push' && 'true' || 'false' }}
+          fail-above: '60'
+      - run: echo "Quantum Exposure ${{ steps.qb.outputs.exposure }}, Crypto-Agility ${{ steps.qb.outputs.agility }}, ${{ steps.qb.outputs.findings }} findings"

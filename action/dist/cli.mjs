@@ -1,17 +1,17 @@
 import { createRequire as __qdCreateRequire } from 'node:module'; const require = __qdCreateRequire(import.meta.url);
 
-// src/cli.ts
+// packages/cbom-engine/src/cli.ts
 import { existsSync } from "node:fs";
 import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, join as join2, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-// src/node.ts
+// packages/cbom-engine/src/node.ts
 import { readFile, readdir, stat } from "node:fs/promises";
 import { createRequire } from "node:module";
 import { join, relative, sep } from "node:path";
 
-// scripts/wasm-files.mjs
+// packages/cbom-engine/scripts/wasm-files.mjs
 var WASM_FILES = {
   "web-tree-sitter.wasm": "web-tree-sitter/web-tree-sitter.wasm",
   "tree-sitter-python.wasm": "tree-sitter-python/tree-sitter-python.wasm",
@@ -22,7 +22,7 @@ var WASM_FILES = {
   "tree-sitter-go.wasm": "tree-sitter-go/tree-sitter-go.wasm"
 };
 
-// ../../node_modules/.pnpm/web-tree-sitter@0.27.1/node_modules/web-tree-sitter/web-tree-sitter.js
+// node_modules/.pnpm/web-tree-sitter@0.27.1/node_modules/web-tree-sitter/web-tree-sitter.js
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
 var Edit = class {
@@ -4065,7 +4065,7 @@ var Query = class {
   }
 };
 
-// src/files.ts
+// packages/cbom-engine/src/files.ts
 var MAX_FILE_BYTES = 512 * 1024;
 var MAX_FILES = 3e3;
 var SKIP_DIRS = /* @__PURE__ */ new Set([
@@ -4199,7 +4199,7 @@ function commentPrefixes(path) {
   return ["#", "//"];
 }
 
-// src/matchers/treesitter.ts
+// packages/cbom-engine/src/matchers/treesitter.ts
 var CALL_QUERIES = {
   python: "(call function: (_) @callee arguments: (_) @args) @call",
   javascript: "(call_expression function: (_) @callee arguments: (_) @args) @call (new_expression constructor: (_) @callee) @call",
@@ -4383,7 +4383,7 @@ function queryHits(rule, tree, lang, langName) {
   return hits;
 }
 
-// src/der.ts
+// packages/cbom-engine/src/der.ts
 function readNode(b, pos) {
   const tag = b[pos];
   let len = b[pos + 1];
@@ -4611,7 +4611,7 @@ function opensshPrivateKeyInfo(der) {
   return { ...sshPublicKeyInfo(pub), encrypted: cipher !== "none" };
 }
 
-// src/matchers/pem.ts
+// packages/cbom-engine/src/matchers/pem.ts
 var PEM_RE = /-----BEGIN ([A-Z0-9 ]+)-----([\s\S]*?)-----END \1-----/g;
 var SSH_PUB_RE = /(?:^|\s)(ssh-rsa|ssh-dss|ssh-ed25519|ecdsa-sha2-nistp(?:256|384|521)|sk-ssh-ed25519@openssh\.com|sk-ecdsa-sha2-nistp256@openssh\.com) (AAAA[A-Za-z0-9+/=]+)/g;
 var PQ = /^(ML-KEM|ML-DSA|SLH-DSA)/;
@@ -4775,7 +4775,7 @@ function scanKeyMaterial(file, text) {
   return out3;
 }
 
-// src/matchers/manifest.ts
+// packages/cbom-engine/src/matchers/manifest.ts
 var lineOf = (text, index) => text.slice(0, index).split("\n").length;
 function findLine(text, needle) {
   const i2 = text.indexOf(needle);
@@ -4852,7 +4852,7 @@ function versionBelow(v, threshold) {
   return false;
 }
 
-// src/scores.ts
+// packages/cbom-engine/src/scores.ts
 var RISK_WEIGHTS = {
   // Key agreement / KEM protect data in transit (harvest-now-decrypt-later) and
   // long-lived signatures/keys anchor trust for years, so they weigh most.
@@ -4904,7 +4904,7 @@ function computeScores(findings, filesScanned) {
   };
 }
 
-// generated/rules.json
+// packages/cbom-engine/generated/rules.json
 var rules_default = [
   {
     id: "nginx-ecdh-curve",
@@ -7949,7 +7949,7 @@ var rules_default = [
   }
 ];
 
-// generated/fixes.json
+// packages/cbom-engine/generated/fixes.json
 var fixes_default = {
   "c-openssl-pq": {
     id: "c-openssl-pq",
@@ -8716,14 +8716,15 @@ var fixes_default = {
   }
 };
 
-// src/rules.ts
+// packages/cbom-engine/src/rules.ts
 var RULES = rules_default;
 var FIXES = fixes_default;
 var getFix = (id) => id ? FIXES[id] : void 0;
 
-// src/engine.ts
+// packages/cbom-engine/src/engine.ts
 var ENGINE_VERSION = "1.0.0";
 var TOOL_NAME = "QuantumBOM (Q-Day India)";
+var SUPPRESS = /quantumbom:ignore/;
 var GRAMMAR_FILE = {
   python: "tree-sitter-python.wasm",
   javascript: "tree-sitter-javascript.wasm",
@@ -8827,13 +8828,20 @@ var Engine = class _Engine {
     if (c?.kind === "key" || text.includes("-----BEGIN ") || /(?:^|\s)(ssh-rsa|ssh-ed25519|ssh-dss|ecdsa-sha2-nistp\d+) AAAA/.test(text))
       out3.push(...scanKeyMaterial(path, text));
     const seen = /* @__PURE__ */ new Set();
+    this.lastSuppressed = 0;
     return out3.filter((f) => {
       const k = `${f.ruleId}:${f.line}:${f.column}`;
       if (seen.has(k)) return false;
       seen.add(k);
+      if (SUPPRESS.test(lines[f.line - 1] ?? "") || SUPPRESS.test(lines[f.line - 2] ?? "")) {
+        this.lastSuppressed++;
+        return false;
+      }
       return true;
     }).sort((a, b) => a.line - b.line || a.column - b.column || a.ruleId.localeCompare(b.ruleId));
   }
+  /** Findings suppressed with `quantumbom:ignore` in the last scanFile call. */
+  lastSuppressed = 0;
   finding(rule, variant, file, node, snippet, keySize, parameter) {
     const v = variant ?? {};
     return {
@@ -8972,7 +8980,7 @@ var Engine = class _Engine {
     const started = Date.now();
     const maxFiles = o.maxFiles ?? MAX_FILES;
     const excludes = (o.exclude ?? []).map((g) => globToRegExp(g.includes("/") || g.startsWith("**") ? g : `**/${g}`));
-    const stats = { filesSeen: 0, filesScanned: 0, skipped: {}, bytesScanned: 0, durationMs: 0, byLanguage: {} };
+    const stats = { filesSeen: 0, filesScanned: 0, skipped: {}, bytesScanned: 0, durationMs: 0, byLanguage: {}, suppressed: 0 };
     const findings = [];
     const warnings = [];
     const skip = (r) => stats.skipped[r] = (stats.skipped[r] ?? 0) + 1;
@@ -9004,6 +9012,7 @@ var Engine = class _Engine {
       stats.byLanguage[langKey] = (stats.byLanguage[langKey] ?? 0) + 1;
       try {
         const fs2 = await this.scanFile({ path, content: f.content });
+        stats.suppressed += this.lastSuppressed;
         if (fs2.length) {
           findings.push(...fs2);
           o.onFindings?.(fs2, path);
@@ -9029,7 +9038,7 @@ var Engine = class _Engine {
 };
 var createEngine = (opts) => Engine.create(opts);
 
-// src/node.ts
+// packages/cbom-engine/src/node.ts
 var require2 = createRequire(import.meta.url);
 function nodeWasmLocator(wasmDir) {
   return async (file) => {
@@ -9067,7 +9076,7 @@ async function* walk(root, engine) {
   }
 }
 
-// src/algorithms.ts
+// packages/cbom-engine/src/algorithms.ts
 var META = [
   [/^ML-KEM-512/i, () => ({ nist: 1, oid: "2.16.840.1.101.3.4.4.1" })],
   [/^ML-KEM-768/i, () => ({ nist: 3, oid: "2.16.840.1.101.3.4.4.2" })],
@@ -9129,7 +9138,7 @@ var CRYPTO_FUNCTIONS = {
   rng: ["generate"]
 };
 
-// src/export/cyclonedx.ts
+// packages/cbom-engine/src/export/cyclonedx.ts
 function uuid(seed) {
   let h1 = 2166136261;
   let h2 = 16777619;
@@ -9236,7 +9245,7 @@ function toCycloneDX(report) {
   };
 }
 
-// src/export/sarif.ts
+// packages/cbom-engine/src/export/sarif.ts
 var LEVEL = {
   HIGH: "warning",
   CLASSICAL_BROKEN: "error",
@@ -9326,7 +9335,7 @@ ${fix.replacement}` : RISK_TEXT[sample.quantumRisk],
   };
 }
 
-// src/export/markdown.ts
+// packages/cbom-engine/src/export/markdown.ts
 var HEADINGS = {
   HIGH: "Not quantum-safe (Shor) \u2014 migration recommended",
   CLASSICAL_BROKEN: "Already weak today \u2014 replace now",
@@ -9346,7 +9355,7 @@ function toMarkdown(report) {
   out3.push(`# QuantumBOM report \u2014 ${report.source.name}`);
   out3.push("");
   out3.push(
-    `Scanned ${date} with ${report.tool.name} ${report.tool.version}. ${report.stats.filesScanned} files analysed, ${report.findings.length} findings.`
+    `Scanned ${date} with ${report.tool.name} ${report.tool.version}. ${report.stats.filesScanned} files analysed, ${report.findings.length} findings${report.stats.suppressed ? ` (${report.stats.suppressed} suppressed with quantumbom:ignore)` : ""}.`
   );
   out3.push("");
   out3.push("## Scores");
@@ -9410,7 +9419,7 @@ function toMarkdown(report) {
   return out3.join("\n") + "\n";
 }
 
-// src/cli.ts
+// packages/cbom-engine/src/cli.ts
 function parseArgs(argv) {
   const a = { dir: ".", exclude: [], quiet: false };
   const rest = [...argv];

@@ -33,7 +33,7 @@ const report: ScanReport = {
   tool: { name: 'QuantumBOM', version: '1.0.0' },
   scannedAt: '2026-10-21T10:00:00Z',
   source: { kind: 'github', name: 'acme/bank', ref: 'main@abc1234' },
-  stats: { filesSeen: 10, filesScanned: 5, skipped: {}, bytesScanned: 1000, durationMs: 1200, byLanguage: { python: 4 } },
+  stats: { filesSeen: 10, filesScanned: 5, skipped: {}, bytesScanned: 1000, durationMs: 1200, byLanguage: { python: 4 }, suppressed: 0 },
   findings,
   scores: computeScores(findings, 5),
   warnings: [],

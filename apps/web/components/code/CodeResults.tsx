@@ -61,6 +61,7 @@ export function CodeResults({ report, shared = false }: { report: ScanReport; sh
             {report.source.ref ? `${report.source.ref} · ` : ''}scanned {formatDate(report.scannedAt)} · {report.stats.filesScanned} files analysed
             {report.stats.filesSeen > report.stats.filesScanned ? ` of ${report.stats.filesSeen}` : ''} in {(report.stats.durationMs / 1000).toFixed(1)} s ·{' '}
             {report.findings.length} findings
+            {report.stats.suppressed ? ` (${report.stats.suppressed} suppressed)` : ''}
           </p>
         </div>
         <div className="flex flex-wrap gap-2">

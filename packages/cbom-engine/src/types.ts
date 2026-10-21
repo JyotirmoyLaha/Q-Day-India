@@ -114,6 +114,8 @@ export type ScanStats = {
   bytesScanned: number;
   durationMs: number;
   byLanguage: Record<string, number>;
+  /** Findings suppressed with an inline `quantumbom:ignore` comment. */
+  suppressed: number;
 };
 
 export type ScoreInput = { label: string; value: string | number };

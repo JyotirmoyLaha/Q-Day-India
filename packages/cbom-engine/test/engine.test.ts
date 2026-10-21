@@ -250,3 +250,17 @@ describe('limits and filters', () => {
     console.log(`1000-file scan: ${ms} ms`);
   });
 });
+
+describe('inline suppression', () => {
+  it('drops findings marked quantumbom:ignore on the same or previous line and counts them', async () => {
+    const content = [
+      "const a = crypto.createHash('md5'); // quantumbom:ignore — legacy ETag, not security relevant",
+      '// quantumbom:ignore (probe intentionally offers legacy TLS)',
+      "const b = crypto.createHash('sha1');",
+      "const c = crypto.createHash('md5');",
+    ].join('\n');
+    const r = await engine.scan([{ path: 'x.js', content }], { source: { kind: 'paste', name: 'x' } });
+    expect(r.findings.map((f) => f.line)).toEqual([4]);
+    expect(r.stats.suppressed).toBe(2);
+  });
+});

@@ -198,6 +198,8 @@ export async function scanHost(host: string, ip: string, o: ProbeOptions = {}): 
   const p2 = await run({ minVersion: 'TLSv1.3', ecdhCurve: 'X25519MLKEM768' });
   const p3 = await run({ minVersion: 'TLSv1.3', ecdhCurve: 'SecP256r1MLKEM768:SecP384r1MLKEM1024' });
   const p4 = await run({ minVersion: 'TLSv1.3', maxVersion: 'TLSv1.3', ecdhCurve: GROUPS_DEFAULT });
+  // P5 deliberately offers only TLS 1.0/1.1 to detect servers that still accept them.
+  // quantumbom:ignore — measurement probe, not a production TLS setting
   const p5 = await run({ minVersion: 'TLSv1', maxVersion: 'TLSv1.1', ciphers: 'DEFAULT@SECLEVEL=0' });
   // P3 offered both alternative hybrids; when it succeeded, find out which one.
   const p3b = p3.ok ? await run({ minVersion: 'TLSv1.3', ecdhCurve: 'SecP384r1MLKEM1024' }) : p3;

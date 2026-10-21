@@ -5,5 +5,7 @@ $env:GOROOT = "$V\go"; $env:GOPATH = "$V\gopath"; $env:GOCACHE = "$V\gocache"; $
 $env:npm_config_cache = "$V\npm-cache"; $env:npm_config_store_dir = "$V\pnpm-store"; $env:PNPM_HOME = "$V\pnpm-home"
 $env:XDG_CACHE_HOME = "$V\cache"; $env:XDG_DATA_HOME = "$V\data"; $env:XDG_STATE_HOME = "$V\state"; $env:XDG_CONFIG_HOME = "$V\config"
 $env:TMP = "$V\tmp"; $env:TEMP = "$V\tmp"; $env:NEXT_TELEMETRY_DISABLED = '1'
+# Tools that write into the Windows profile (Go telemetry, Node compile cache) are redirected too.
+$env:APPDATA = "$V\appdata\roaming"; $env:LOCALAPPDATA = "$V\appdata\local"; $env:NODE_COMPILE_CACHE = "$V\cache\node-compile"
 $env:PATH = "$V\go\bin;$V\gopath\bin;$V\bin\node_modules\.bin;$env:PNPM_HOME;$env:PATH"
-foreach ($d in 'tmp','cache','data','state','config') { New-Item -ItemType Directory -Force (Join-Path $V $d) | Out-Null }
+foreach ($d in 'tmp', 'cache', 'data', 'state', 'config', 'appdata\roaming', 'appdata\local') { New-Item -ItemType Directory -Force (Join-Path $V $d) | Out-Null }

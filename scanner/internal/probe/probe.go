@@ -5,9 +5,10 @@ package probe
 
 import (
 	"context"
-	"crypto/ecdsa"
-	"crypto/ed25519"
-	"crypto/rsa"
+	// The key packages are imported only to inspect certificate key types and sizes.
+	"crypto/ecdsa"   // quantumbom:ignore
+	"crypto/ed25519" // quantumbom:ignore
+	"crypto/rsa"     // quantumbom:ignore
 	"crypto/tls"
 	"crypto/x509"
 	"errors"

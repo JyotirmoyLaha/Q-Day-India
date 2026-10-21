@@ -39,7 +39,7 @@ const f = (over: Partial<Finding>): Finding => ({
 });
 const codeReport = (findings: Finding[]): ScanReport => ({
   tool: { name: 'q', version: '1' }, scannedAt: '2026-10-21T00:00:00Z', source: { kind: 'zip', name: 'bank-app' },
-  stats: { filesSeen: 3, filesScanned: 3, skipped: {}, bytesScanned: 1, durationMs: 1, byLanguage: {} }, findings,
+  stats: { filesSeen: 3, filesScanned: 3, skipped: {}, bytesScanned: 1, durationMs: 1, byLanguage: {}, suppressed: 0 }, findings,
   scores: computeScores(findings, 3), warnings: [],
 });
 

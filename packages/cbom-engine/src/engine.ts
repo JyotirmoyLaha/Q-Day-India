@@ -12,6 +12,8 @@ import { RULES } from './rules';
 export const ENGINE_VERSION = '1.0.0';
 export const TOOL_NAME = 'QuantumBOM (Q-Day India)';
 
+const SUPPRESS = /quantumbom:ignore/;
+
 export type WasmLocator = (file: string) => string | Uint8Array | Promise<string | Uint8Array>;
 
 export type EngineOptions = {
@@ -161,15 +163,24 @@ export class Engine {
       out.push(...scanKeyMaterial(path, text));
 
     const seen = new Set<string>();
+    this.lastSuppressed = 0;
     return out
       .filter((f) => {
         const k = `${f.ruleId}:${f.line}:${f.column}`;
         if (seen.has(k)) return false;
         seen.add(k);
+        // Inline suppression: "quantumbom:ignore" on the same line or the line above.
+        if (SUPPRESS.test(lines[f.line - 1] ?? '') || SUPPRESS.test(lines[f.line - 2] ?? '')) {
+          this.lastSuppressed++;
+          return false;
+        }
         return true;
       })
       .sort((a, b) => a.line - b.line || a.column - b.column || a.ruleId.localeCompare(b.ruleId));
   }
+
+  /** Findings suppressed with `quantumbom:ignore` in the last scanFile call. */
+  lastSuppressed = 0;
 
   private finding(rule: Rule, variant: Variant | undefined, file: string, node: { row: number; col: number }, snippet: string, keySize?: number, parameter?: string): Finding {
     const v: Partial<Variant> = variant ?? {};
@@ -313,7 +324,7 @@ export class Engine {
     const started = Date.now();
     const maxFiles = o.maxFiles ?? MAX_FILES;
     const excludes = (o.exclude ?? []).map((g) => globToRegExp(g.includes('/') || g.startsWith('**') ? g : `**/${g}`));
-    const stats: ScanStats = { filesSeen: 0, filesScanned: 0, skipped: {}, bytesScanned: 0, durationMs: 0, byLanguage: {} };
+    const stats: ScanStats = { filesSeen: 0, filesScanned: 0, skipped: {}, bytesScanned: 0, durationMs: 0, byLanguage: {}, suppressed: 0 };
     const findings: Finding[] = [];
     const warnings: string[] = [];
     const skip = (r: keyof ScanStats['skipped']) => (stats.skipped[r] = (stats.skipped[r] ?? 0) + 1);
@@ -346,6 +357,7 @@ export class Engine {
       stats.byLanguage[langKey] = (stats.byLanguage[langKey] ?? 0) + 1;
       try {
         const fs = await this.scanFile({ path, content: f.content });
+        stats.suppressed += this.lastSuppressed;
         if (fs.length) {
           findings.push(...fs);
           o.onFindings?.(fs, path);

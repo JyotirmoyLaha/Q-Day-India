@@ -1,0 +1,100 @@
+name: 'Q-Day India QuantumBOM'
+description: 'Find quantum-vulnerable cryptography, upload SARIF to Code Scanning and publish a CycloneDX 1.6 CBOM.'
+author: 'Q-Day India'
+branding:
+  icon: 'shield'
+  color: 'green'
+
+inputs:
+  path:
+    description: 'Directory to scan (relative to the workspace).'
+    default: '.'
+  exclude:
+    description: 'Comma-separated globs to exclude, e.g. "test/fixtures/**,docs/**".'
+    default: ''
+  fail-above:
+    description: 'Fail the job if Quantum Exposure (0–100) is above this value. Empty = never fail.'
+    default: ''
+  upload-sarif:
+    description: 'Upload SARIF to GitHub Code Scanning (needs `security-events: write`).'
+    default: 'true'
+  sarif-category:
+    description: 'Code Scanning category for the SARIF upload.'
+    default: 'quantumbom'
+  artifact-name:
+    description: 'Name of the uploaded CBOM artifact.'
+    default: 'quantumbom-cbom'
+  output-dir:
+    description: 'Where to write quantumbom.cdx.json, quantumbom.sarif, quantumbom.md and quantumbom.json.'
+    default: 'quantumbom-output'
+
+outputs:
+  exposure:
+    description: 'Quantum Exposure score (0–100).'
+    value: ${{ steps.scan.outputs.exposure }}
+  agility:
+    description: 'Crypto-Agility score (0–100).'
+    value: ${{ steps.scan.outputs.agility }}
+  findings:
+    description: 'Number of findings.'
+    value: ${{ steps.scan.outputs.findings }}
+  cbom:
+    description: 'Path to the CycloneDX 1.6 CBOM.'
+    value: ${{ steps.scan.outputs.cbom }}
+  sarif:
+    description: 'Path to the SARIF file.'
+    value: ${{ steps.scan.outputs.sarif }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Run QuantumBOM
+      id: scan
+      shell: bash
+      env:
+        INPUT_PATH: ${{ inputs.path }}
+        INPUT_EXCLUDE: ${{ inputs.exclude }}
+        OUT: ${{ inputs.output-dir }}
+        REPO: ${{ github.repository }}
+      run: |
+        set -euo pipefail
+        mkdir -p "$OUT"
+        args=(scan "$INPUT_PATH" --name "$REPO" --cbom "$OUT/quantumbom.cdx.json" --sarif "$OUT/quantumbom.sarif" --md "$OUT/quantumbom.md" --json "$OUT/quantumbom.json")
+        if [ -n "$INPUT_EXCLUDE" ]; then args+=(--exclude "$INPUT_EXCLUDE"); fi
+        node "$GITHUB_ACTION_PATH/dist/cli.mjs" "${args[@]}"
+        node -e '
+          const r = require(process.argv[1]);
+          const out = require("fs").createWriteStream(process.env.GITHUB_OUTPUT, { flags: "a" });
+          out.write(`exposure=${r.scores.exposure}\nagility=${r.scores.agility}\nfindings=${r.findings.length}\n`);
+        ' "$PWD/$OUT/quantumbom.json"
+        echo "cbom=$OUT/quantumbom.cdx.json" >> "$GITHUB_OUTPUT"
+        echo "sarif=$OUT/quantumbom.sarif" >> "$GITHUB_OUTPUT"
+        # Job summary: everything up to the per-finding details.
+        sed -n '1,/^## Not quantum-safe\|^## Already weak\|^## Fixes/p' "$OUT/quantumbom.md" | head -n 60 >> "$GITHUB_STEP_SUMMARY"
+
+    - name: Upload SARIF to Code Scanning
+      if: inputs.upload-sarif == 'true'
+      uses: github/codeql-action/upload-sarif@v4
+      with:
+        sarif_file: ${{ steps.scan.outputs.sarif }}
+        category: ${{ inputs.sarif-category }}
+
+    - name: Upload CBOM artifact
+      uses: actions/upload-artifact@v7
+      with:
+        name: ${{ inputs.artifact-name }}
+        path: ${{ inputs.output-dir }}
+        if-no-files-found: error
+
+    - name: Check exposure threshold
+      if: inputs.fail-above != ''
+      shell: bash
+      env:
+        EXPOSURE: ${{ steps.scan.outputs.exposure }}
+        LIMIT: ${{ inputs.fail-above }}
+      run: |
+        if [ "$EXPOSURE" -gt "$LIMIT" ]; then
+          echo "::error title=Quantum Exposure too high::Quantum Exposure is $EXPOSURE (threshold $LIMIT). See the Code Scanning alerts and the CBOM artifact for fixes."
+          exit 1
+        fi
+        echo "Quantum Exposure $EXPOSURE is within the threshold $LIMIT."
