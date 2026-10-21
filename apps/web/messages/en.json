@@ -15,7 +15,14 @@
     "skip": "Skip to content",
     "menu": "Menu",
     "theme": "Toggle colour theme",
-    "check": "Check a website"
+    "check": "Check a website",
+    "tools": "Tools",
+    "toolsDesc": {
+      "check": "Live post-quantum TLS grade for any public site",
+      "code": "Find vulnerable crypto in a repo, privately in-browser",
+      "org": "TLS grade + code inventory with a migration plan",
+      "qday": "Is your data's secrecy period longer than Q-Day?"
+    }
   },
   "home": {
     "checkSite": "Check a website",
