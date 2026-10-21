@@ -1,0 +1,121 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://qday-india.vercel.app/schemas/scan.schema.json",
+  "title": "Q-Day India scan file",
+  "description": "Output of qday-scan (data/scans/YYYY-MM-DD.json and data/latest.json). See PROJECT_SPEC.md §10.1.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["scannedAt", "scannerVersion", "goVersion", "results"],
+  "properties": {
+    "scannedAt": { "type": "string", "format": "date-time" },
+    "scannerVersion": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+" },
+    "goVersion": { "type": "string" },
+    "results": { "type": "array", "items": { "$ref": "#/definitions/siteResult" } }
+  },
+  "definitions": {
+    "sector": {
+      "enum": ["banking", "payments", "government", "stock_broking", "insurance", "healthcare", "telecom", "ecommerce", "education", "media", "other"]
+    },
+    "grade": { "enum": ["A+", "A", "B", "C", "D", "F", null] },
+    "probeOutcome": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ok"],
+      "properties": { "ok": { "type": "boolean" }, "detail": { "type": "string" } }
+    },
+    "siteResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["host", "org", "sector", "verified", "shelfLifeYears", "reachable", "grade", "hygieneFlags", "hndlRisk"],
+      "properties": {
+        "host": { "type": "string", "pattern": "^[a-z0-9.-]+$" },
+        "org": { "type": "string", "minLength": 1 },
+        "sector": { "$ref": "#/definitions/sector" },
+        "subsector": { "type": "string" },
+        "verified": { "type": "boolean" },
+        "shelfLifeYears": { "type": "integer", "minimum": 0 },
+        "reachable": { "type": "boolean" },
+        "error": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["code", "detail"],
+          "properties": {
+            "code": { "enum": ["DNS_FAIL", "TIMEOUT", "TLS_FAIL", "REFUSED"] },
+            "detail": { "type": "string" }
+          }
+        },
+        "tls": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["maxVersion", "defaultGroup", "pqHybrid", "legacyEnabled", "cipherSuite"],
+          "properties": {
+            "maxVersion": { "enum": ["TLS1.3", "TLS1.2", "TLS1.1", "TLS1.0"] },
+            "defaultGroup": { "type": "string" },
+            "pqHybrid": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["x25519mlkem768"],
+              "properties": {
+                "x25519mlkem768": { "type": "boolean" },
+                "secp256r1mlkem768": { "type": "boolean" },
+                "secp384r1mlkem1024": { "type": "boolean" }
+              }
+            },
+            "legacyEnabled": { "type": "boolean" },
+            "cipherSuite": { "type": "string" },
+            "alpn": { "type": "string" }
+          }
+        },
+        "cert": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["keyAlgorithm", "keySize", "signatureAlgorithm", "issuer", "notAfter", "chainSignatureAlgorithms", "valid"],
+          "properties": {
+            "keyAlgorithm": { "type": "string" },
+            "keySize": { "type": "integer", "minimum": 0 },
+            "curve": { "type": "string" },
+            "signatureAlgorithm": { "type": "string" },
+            "issuer": { "type": "string" },
+            "notAfter": { "type": "string", "format": "date-time" },
+            "chainSignatureAlgorithms": { "type": "array", "items": { "type": "string" } },
+            "valid": { "type": "boolean" },
+            "validationError": { "type": "string" }
+          }
+        },
+        "http": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["hsts", "cdn"],
+          "properties": {
+            "hsts": { "type": "boolean" },
+            "server": { "type": "string" },
+            "cdn": { "enum": ["cloudflare", "akamai", "fastly", "cloudfront", "other", null] }
+          }
+        },
+        "probes": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["default", "pqOnly", "pqAlt", "tls13", "legacy", "head"],
+          "properties": {
+            "default": { "$ref": "#/definitions/probeOutcome" },
+            "pqOnly": { "$ref": "#/definitions/probeOutcome" },
+            "pqAlt": { "$ref": "#/definitions/probeOutcome" },
+            "tls13": { "$ref": "#/definitions/probeOutcome" },
+            "legacy": { "$ref": "#/definitions/probeOutcome" },
+            "head": { "$ref": "#/definitions/probeOutcome" }
+          }
+        },
+        "grade": { "$ref": "#/definitions/grade" },
+        "hygieneFlags": {
+          "type": "array",
+          "items": { "enum": ["RSA_LT_2048", "SHA1_IN_CHAIN", "CERT_EXPIRING_SOON", "NO_HSTS", "LEGACY_TLS", "CERT_INVALID"] }
+        },
+        "hndlRisk": { "type": "integer", "minimum": 0, "maximum": 100 }
+      },
+      "allOf": [
+        { "if": { "properties": { "reachable": { "const": true } } }, "then": { "required": ["tls", "cert"], "properties": { "grade": { "not": { "const": null } } } } },
+        { "if": { "properties": { "reachable": { "const": false } } }, "then": { "required": ["error"], "properties": { "grade": { "const": null } } } }
+      ]
+    }
+  }
+}

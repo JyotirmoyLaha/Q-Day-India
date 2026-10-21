@@ -1,0 +1,32 @@
+{
+  "$comment": "Shared parity cases for scanner/internal/grade (Go) and apps/web/lib/grading.ts (TypeScript). Both test suites load this file.",
+  "grades": [
+    { "name": "unreachable", "in": { "reachable": false, "certValid": false, "maxVersion": "", "defaultPQ": false, "pqOnly": false, "pqAlt": false, "tls13": false, "legacyTLS": false }, "grade": null },
+    { "name": "A+ pq default, no legacy", "in": { "reachable": true, "certValid": true, "maxVersion": "TLS1.3", "defaultPQ": true, "pqOnly": true, "pqAlt": false, "tls13": true, "legacyTLS": false }, "grade": "A+" },
+    { "name": "A pq default, legacy on", "in": { "reachable": true, "certValid": true, "maxVersion": "TLS1.3", "defaultPQ": true, "pqOnly": true, "pqAlt": false, "tls13": true, "legacyTLS": true }, "grade": "A" },
+    { "name": "B pq-only passes but not default", "in": { "reachable": true, "certValid": true, "maxVersion": "TLS1.3", "defaultPQ": false, "pqOnly": true, "pqAlt": false, "tls13": true, "legacyTLS": false }, "grade": "B" },
+    { "name": "B only alt hybrid", "in": { "reachable": true, "certValid": true, "maxVersion": "TLS1.3", "defaultPQ": true, "pqOnly": false, "pqAlt": true, "tls13": true, "legacyTLS": false }, "grade": "B" },
+    { "name": "C tls13 no pq", "in": { "reachable": true, "certValid": true, "maxVersion": "TLS1.3", "defaultPQ": false, "pqOnly": false, "pqAlt": false, "tls13": true, "legacyTLS": false }, "grade": "C" },
+    { "name": "C tls13 no pq legacy", "in": { "reachable": true, "certValid": true, "maxVersion": "TLS1.3", "defaultPQ": false, "pqOnly": false, "pqAlt": false, "tls13": true, "legacyTLS": true }, "grade": "C" },
+    { "name": "D tls12 max", "in": { "reachable": true, "certValid": true, "maxVersion": "TLS1.2", "defaultPQ": false, "pqOnly": false, "pqAlt": false, "tls13": false, "legacyTLS": true }, "grade": "D" },
+    { "name": "F legacy only", "in": { "reachable": true, "certValid": true, "maxVersion": "TLS1.1", "defaultPQ": false, "pqOnly": false, "pqAlt": false, "tls13": false, "legacyTLS": true }, "grade": "F" },
+    { "name": "F tls10 only", "in": { "reachable": true, "certValid": true, "maxVersion": "TLS1.0", "defaultPQ": false, "pqOnly": false, "pqAlt": false, "tls13": false, "legacyTLS": true }, "grade": "F" },
+    { "name": "F invalid cert even with pq", "in": { "reachable": true, "certValid": false, "maxVersion": "TLS1.3", "defaultPQ": true, "pqOnly": true, "pqAlt": false, "tls13": true, "legacyTLS": false }, "grade": "F" }
+  ],
+  "hndl": [
+    { "grade": "A+", "sector": "government", "shelf": 25, "risk": 0 },
+    { "grade": "A", "sector": "banking", "shelf": 10, "risk": 0 },
+    { "grade": "B", "sector": "government", "shelf": 25, "risk": 30 },
+    { "grade": "B", "sector": "banking", "shelf": 10, "risk": 18 },
+    { "grade": "C", "sector": "government", "shelf": 25, "risk": 100 },
+    { "grade": "C", "sector": "banking", "shelf": 10, "risk": 60 },
+    { "grade": "D", "sector": "healthcare", "shelf": 25, "risk": 100 },
+    { "grade": "D", "sector": "media", "shelf": 1, "risk": 10 },
+    { "grade": "F", "sector": "ecommerce", "shelf": 3, "risk": 23 },
+    { "grade": "C", "sector": "telecom", "shelf": 5, "risk": 36 },
+    { "grade": "C", "sector": "insurance", "shelf": 40, "risk": 92 },
+    { "grade": "C", "sector": "education", "shelf": 0, "risk": 20 },
+    { "grade": null, "sector": "government", "shelf": 25, "risk": 0 }
+  ],
+  "shelfDefaults": { "banking": 10, "payments": 7, "government": 25, "stock_broking": 10, "insurance": 15, "healthcare": 25, "telecom": 5, "ecommerce": 3, "education": 5, "media": 1, "other": 10 }
+}

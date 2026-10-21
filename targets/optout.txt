@@ -1,0 +1,3 @@
+# Hosts whose owners asked not to be scanned. One hostname per line.
+# A leading dot opts out a whole domain, e.g. ".example.in" covers example.in and every subdomain.
+# To request an opt-out, open an issue labelled "opt-out" or email the maintainers (see /about/scanner).

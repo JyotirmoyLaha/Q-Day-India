@@ -1,0 +1,66 @@
+{
+  "host": "cloudflare.com",
+  "org": "cloudflare.com",
+  "sector": "other",
+  "verified": false,
+  "shelfLifeYears": 10,
+  "reachable": true,
+  "tls": {
+    "maxVersion": "TLS1.3",
+    "defaultGroup": "X25519MLKEM768",
+    "pqHybrid": {
+      "x25519mlkem768": true,
+      "secp256r1mlkem768": false,
+      "secp384r1mlkem1024": false
+    },
+    "legacyEnabled": true,
+    "cipherSuite": "TLS_AES_128_GCM_SHA256",
+    "alpn": "h2"
+  },
+  "cert": {
+    "keyAlgorithm": "ECDSA",
+    "keySize": 256,
+    "curve": "P-256",
+    "signatureAlgorithm": "ECDSA-SHA256",
+    "issuer": "CN=WE1,O=Google Trust Services,C=US",
+    "notAfter": "2026-12-04T23:29:33Z",
+    "chainSignatureAlgorithms": [
+      "ECDSA-SHA384",
+      "SHA256-RSA"
+    ],
+    "valid": true
+  },
+  "http": {
+    "hsts": true,
+    "server": "cloudflare",
+    "cdn": "cloudflare"
+  },
+  "probes": {
+    "default": {
+      "ok": true,
+      "detail": "TLS1.3 X25519MLKEM768"
+    },
+    "pqOnly": {
+      "ok": true
+    },
+    "pqAlt": {
+      "ok": false,
+      "detail": "TLS_FAIL"
+    },
+    "tls13": {
+      "ok": true
+    },
+    "legacy": {
+      "ok": true,
+      "detail": "TLS1.1"
+    },
+    "head": {
+      "ok": true
+    }
+  },
+  "grade": "A",
+  "hygieneFlags": [
+    "LEGACY_TLS"
+  ],
+  "hndlRisk": 0
+}

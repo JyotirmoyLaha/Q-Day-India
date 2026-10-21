@@ -1,0 +1,12 @@
+.venv
+node_modules
+pnpm-lock.yaml
+data
+action/dist
+**/.next
+**/generated
+**/test/fixtures
+**/schemas/vendor
+apps/web/public/tree-sitter
+*.md
+targets/india.yaml

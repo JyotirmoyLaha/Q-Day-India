@@ -1,0 +1,1273 @@
+{
+  "scannedAt": "2026-10-21T15:34:27Z",
+  "scannerVersion": "1.0.0",
+  "goVersion": "go1.27.3",
+  "results": [
+    {
+      "host": "licindia.in",
+      "org": "Life Insurance Corporation of India",
+      "sector": "insurance",
+      "subsector": "life_insurer",
+      "verified": false,
+      "shelfLifeYears": 15,
+      "reachable": true,
+      "tls": {
+        "maxVersion": "TLS1.3",
+        "defaultGroup": "X25519MLKEM768",
+        "pqHybrid": {
+          "x25519mlkem768": true,
+          "secp256r1mlkem768": false,
+          "secp384r1mlkem1024": false
+        },
+        "legacyEnabled": false,
+        "cipherSuite": "TLS_AES_256_GCM_SHA384",
+        "alpn": "h2"
+      },
+      "cert": {
+        "keyAlgorithm": "RSA",
+        "keySize": 2048,
+        "signatureAlgorithm": "SHA384-RSA",
+        "issuer": "CN=EM OV TLS CA - G2A-1,O=eMudhra Technologies Limited,C=IN",
+        "notAfter": "2026-12-28T11:16:07Z",
+        "chainSignatureAlgorithms": [
+          "SHA384-RSA",
+          "SHA256-RSA",
+          "SHA256-RSA"
+        ],
+        "valid": true
+      },
+      "http": {
+        "hsts": true,
+        "server": "v/7.0.6/6.6.9/v103ccu1-www",
+        "cdn": "other"
+      },
+      "probes": {
+        "default": {
+          "ok": true,
+          "detail": "TLS1.3 X25519MLKEM768"
+        },
+        "pqOnly": {
+          "ok": true
+        },
+        "pqAlt": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        },
+        "tls13": {
+          "ok": true
+        },
+        "legacy": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        },
+        "head": {
+          "ok": true
+        }
+      },
+      "grade": "A+",
+      "hygieneFlags": [],
+      "hndlRisk": 0
+    },
+    {
+      "host": "paytm.com",
+      "org": "Paytm",
+      "sector": "payments",
+      "subsector": "upi_app",
+      "verified": false,
+      "shelfLifeYears": 7,
+      "reachable": true,
+      "tls": {
+        "maxVersion": "TLS1.3",
+        "defaultGroup": "X25519MLKEM768",
+        "pqHybrid": {
+          "x25519mlkem768": true,
+          "secp256r1mlkem768": false,
+          "secp384r1mlkem1024": false
+        },
+        "legacyEnabled": false,
+        "cipherSuite": "TLS_AES_128_GCM_SHA256",
+        "alpn": "h2"
+      },
+      "cert": {
+        "keyAlgorithm": "ECDSA",
+        "keySize": 256,
+        "curve": "P-256",
+        "signatureAlgorithm": "ECDSA-SHA256",
+        "issuer": "CN=GeoTrust TLS ECC CA G1,OU=www.digicert.com,O=DigiCert Inc,C=US",
+        "notAfter": "2027-03-10T23:59:59Z",
+        "chainSignatureAlgorithms": [
+          "ECDSA-SHA256"
+        ],
+        "valid": true
+      },
+      "http": {
+        "hsts": true,
+        "server": "cloudflare",
+        "cdn": "cloudflare"
+      },
+      "probes": {
+        "default": {
+          "ok": true,
+          "detail": "TLS1.3 X25519MLKEM768"
+        },
+        "pqOnly": {
+          "ok": true
+        },
+        "pqAlt": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        },
+        "tls13": {
+          "ok": true
+        },
+        "legacy": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        },
+        "head": {
+          "ok": true
+        }
+      },
+      "grade": "A+",
+      "hygieneFlags": [],
+      "hndlRisk": 0
+    },
+    {
+      "host": "uidai.gov.in",
+      "org": "Unique Identification Authority of India",
+      "sector": "government",
+      "subsector": "identity",
+      "verified": false,
+      "shelfLifeYears": 25,
+      "reachable": true,
+      "tls": {
+        "maxVersion": "TLS1.3",
+        "defaultGroup": "X25519",
+        "pqHybrid": {
+          "x25519mlkem768": false,
+          "secp256r1mlkem768": false,
+          "secp384r1mlkem1024": false
+        },
+        "legacyEnabled": false,
+        "cipherSuite": "TLS_AES_256_GCM_SHA384",
+        "alpn": "http/1.1"
+      },
+      "cert": {
+        "keyAlgorithm": "RSA",
+        "keySize": 2048,
+        "signatureAlgorithm": "SHA384-RSA",
+        "issuer": "CN=EM OV TLS CA - G2A-1,O=eMudhra Technologies Limited,C=IN",
+        "notAfter": "2027-01-13T01:14:06Z",
+        "chainSignatureAlgorithms": [
+          "SHA384-RSA",
+          "SHA256-RSA",
+          "SHA256-RSA"
+        ],
+        "valid": true
+      },
+      "http": {
+        "hsts": false,
+        "cdn": null
+      },
+      "probes": {
+        "default": {
+          "ok": true,
+          "detail": "TLS1.3 X25519"
+        },
+        "pqOnly": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        },
+        "pqAlt": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        },
+        "tls13": {
+          "ok": true
+        },
+        "legacy": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        },
+        "head": {
+          "ok": true
+        }
+      },
+      "grade": "C",
+      "hygieneFlags": [
+        "NO_HSTS"
+      ],
+      "hndlRisk": 100
+    },
+    {
+      "host": "www.aiims.edu",
+      "org": "AIIMS New Delhi",
+      "sector": "healthcare",
+      "subsector": "hospital",
+      "verified": false,
+      "shelfLifeYears": 25,
+      "reachable": true,
+      "tls": {
+        "maxVersion": "TLS1.2",
+        "defaultGroup": "P-256",
+        "pqHybrid": {
+          "x25519mlkem768": false,
+          "secp256r1mlkem768": false,
+          "secp384r1mlkem1024": false
+        },
+        "legacyEnabled": true,
+        "cipherSuite": "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384"
+      },
+      "cert": {
+        "keyAlgorithm": "RSA",
+        "keySize": 2048,
+        "signatureAlgorithm": "SHA256-RSA",
+        "issuer": "CN=YR1,O=Let's Encrypt,C=US",
+        "notAfter": "2027-01-05T10:55:54Z",
+        "chainSignatureAlgorithms": [
+          "SHA256-RSA",
+          "SHA256-RSA"
+        ],
+        "valid": true
+      },
+      "http": {
+        "hsts": false,
+        "server": "nginx",
+        "cdn": null
+      },
+      "probes": {
+        "default": {
+          "ok": true,
+          "detail": "TLS1.2 P-256"
+        },
+        "pqOnly": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        },
+        "pqAlt": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        },
+        "tls13": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        },
+        "legacy": {
+          "ok": true,
+          "detail": "TLS1.1"
+        },
+        "head": {
+          "ok": true
+        }
+      },
+      "grade": "D",
+      "hygieneFlags": [
+        "LEGACY_TLS",
+        "NO_HSTS"
+      ],
+      "hndlRisk": 100
+    },
+    {
+      "host": "www.airtel.in",
+      "org": "Bharti Airtel",
+      "sector": "telecom",
+      "subsector": "mobile_operator",
+      "verified": false,
+      "shelfLifeYears": 5,
+      "reachable": true,
+      "tls": {
+        "maxVersion": "TLS1.3",
+        "defaultGroup": "X25519MLKEM768",
+        "pqHybrid": {
+          "x25519mlkem768": true,
+          "secp256r1mlkem768": false,
+          "secp384r1mlkem1024": false
+        },
+        "legacyEnabled": false,
+        "cipherSuite": "TLS_AES_256_GCM_SHA384",
+        "alpn": "h2"
+      },
+      "cert": {
+        "keyAlgorithm": "RSA",
+        "keySize": 2048,
+        "signatureAlgorithm": "SHA256-RSA",
+        "issuer": "CN=YR2,O=Let's Encrypt,C=US",
+        "notAfter": "2026-12-22T04:31:56Z",
+        "chainSignatureAlgorithms": [
+          "SHA256-RSA",
+          "SHA256-RSA"
+        ],
+        "valid": true
+      },
+      "http": {
+        "hsts": true,
+        "server": "Apache",
+        "cdn": null
+      },
+      "probes": {
+        "default": {
+          "ok": true,
+          "detail": "TLS1.3 X25519MLKEM768"
+        },
+        "pqOnly": {
+          "ok": true
+        },
+        "pqAlt": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        },
+        "tls13": {
+          "ok": true
+        },
+        "legacy": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        },
+        "head": {
+          "ok": true
+        }
+      },
+      "grade": "A+",
+      "hygieneFlags": [],
+      "hndlRisk": 0
+    },
+    {
+      "host": "www.axisbank.com",
+      "org": "Axis Bank",
+      "sector": "banking",
+      "subsector": "private_bank",
+      "verified": false,
+      "shelfLifeYears": 10,
+      "reachable": true,
+      "tls": {
+        "maxVersion": "TLS1.3",
+        "defaultGroup": "X25519MLKEM768",
+        "pqHybrid": {
+          "x25519mlkem768": true,
+          "secp256r1mlkem768": false,
+          "secp384r1mlkem1024": false
+        },
+        "legacyEnabled": false,
+        "cipherSuite": "TLS_AES_256_GCM_SHA384",
+        "alpn": "h2"
+      },
+      "cert": {
+        "keyAlgorithm": "RSA",
+        "keySize": 2048,
+        "signatureAlgorithm": "SHA256-RSA",
+        "issuer": "CN=GeoTrust TLS RSA CA G1,OU=www.digicert.com,O=DigiCert Inc,C=US",
+        "notAfter": "2027-01-15T23:59:59Z",
+        "chainSignatureAlgorithms": [
+          "SHA256-RSA"
+        ],
+        "valid": true
+      },
+      "http": {
+        "hsts": false,
+        "server": "AkamaiGHost",
+        "cdn": "akamai"
+      },
+      "probes": {
+        "default": {
+          "ok": true,
+          "detail": "TLS1.3 X25519MLKEM768"
+        },
+        "pqOnly": {
+          "ok": true
+        },
+        "pqAlt": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        },
+        "tls13": {
+          "ok": true
+        },
+        "legacy": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        },
+        "head": {
+          "ok": true
+        }
+      },
+      "grade": "A+",
+      "hygieneFlags": [
+        "NO_HSTS"
+      ],
+      "hndlRisk": 0
+    },
+    {
+      "host": "www.digilocker.gov.in",
+      "org": "DigiLocker",
+      "sector": "government",
+      "subsector": "identity",
+      "verified": false,
+      "shelfLifeYears": 25,
+      "reachable": true,
+      "tls": {
+        "maxVersion": "TLS1.3",
+        "defaultGroup": "X25519MLKEM768",
+        "pqHybrid": {
+          "x25519mlkem768": true,
+          "secp256r1mlkem768": true
+        },
+        "legacyEnabled": false,
+        "cipherSuite": "TLS_AES_128_GCM_SHA256",
+        "alpn": "h2"
+      },
+      "cert": {
+        "keyAlgorithm": "RSA",
+        "keySize": 2048,
+        "signatureAlgorithm": "SHA256-RSA",
+        "issuer": "CN=RapidSSL TLS RSA CA G1,OU=www.digicert.com,O=DigiCert Inc,C=US",
+        "notAfter": "2027-02-19T23:59:59Z",
+        "chainSignatureAlgorithms": [
+          "SHA256-RSA",
+          "SHA256-RSA"
+        ],
+        "valid": true
+      },
+      "http": {
+        "hsts": true,
+        "server": "DigiLocker",
+        "cdn": "cloudfront"
+      },
+      "probes": {
+        "default": {
+          "ok": true,
+          "detail": "TLS1.3 X25519MLKEM768"
+        },
+        "pqOnly": {
+          "ok": true
+        },
+        "pqAlt": {
+          "ok": true
+        },
+        "tls13": {
+          "ok": true
+        },
+        "legacy": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        },
+        "head": {
+          "ok": true
+        }
+      },
+      "grade": "A+",
+      "hygieneFlags": [],
+      "hndlRisk": 0
+    },
+    {
+      "host": "www.flipkart.com",
+      "org": "Flipkart",
+      "sector": "ecommerce",
+      "subsector": "marketplace",
+      "verified": false,
+      "shelfLifeYears": 3,
+      "reachable": true,
+      "tls": {
+        "maxVersion": "TLS1.3",
+        "defaultGroup": "X25519MLKEM768",
+        "pqHybrid": {
+          "x25519mlkem768": true,
+          "secp256r1mlkem768": false,
+          "secp384r1mlkem1024": false
+        },
+        "legacyEnabled": false,
+        "cipherSuite": "TLS_AES_256_GCM_SHA384",
+        "alpn": "h2"
+      },
+      "cert": {
+        "keyAlgorithm": "ECDSA",
+        "keySize": 256,
+        "curve": "P-256",
+        "signatureAlgorithm": "ECDSA-SHA384",
+        "issuer": "CN=DigiCert Global G3 TLS ECC SHA384 2020 CA1,O=DigiCert Inc,C=US",
+        "notAfter": "2026-12-20T23:59:59Z",
+        "chainSignatureAlgorithms": [
+          "ECDSA-SHA384"
+        ],
+        "valid": true
+      },
+      "http": {
+        "hsts": false,
+        "cdn": null
+      },
+      "probes": {
+        "default": {
+          "ok": true,
+          "detail": "TLS1.3 X25519MLKEM768"
+        },
+        "pqOnly": {
+          "ok": true
+        },
+        "pqAlt": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        },
+        "tls13": {
+          "ok": true
+        },
+        "legacy": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        },
+        "head": {
+          "ok": true
+        }
+      },
+      "grade": "A+",
+      "hygieneFlags": [
+        "NO_HSTS"
+      ],
+      "hndlRisk": 0
+    },
+    {
+      "host": "www.hdfcbank.com",
+      "org": "HDFC Bank",
+      "sector": "banking",
+      "subsector": "private_bank",
+      "verified": false,
+      "shelfLifeYears": 10,
+      "reachable": true,
+      "tls": {
+        "maxVersion": "TLS1.3",
+        "defaultGroup": "X25519MLKEM768",
+        "pqHybrid": {
+          "x25519mlkem768": true,
+          "secp256r1mlkem768": false,
+          "secp384r1mlkem1024": false
+        },
+        "legacyEnabled": false,
+        "cipherSuite": "TLS_AES_128_GCM_SHA256",
+        "alpn": "h2"
+      },
+      "cert": {
+        "keyAlgorithm": "RSA",
+        "keySize": 2048,
+        "signatureAlgorithm": "SHA256-RSA",
+        "issuer": "CN=GeoTrust TLS RSA CA G1,OU=www.digicert.com,O=DigiCert Inc,C=US",
+        "notAfter": "2027-01-15T23:59:59Z",
+        "chainSignatureAlgorithms": [
+          "SHA256-RSA",
+          "SHA256-RSA"
+        ],
+        "valid": true
+      },
+      "http": {
+        "hsts": false,
+        "server": "cloudflare",
+        "cdn": "cloudflare"
+      },
+      "probes": {
+        "default": {
+          "ok": true,
+          "detail": "TLS1.3 X25519MLKEM768"
+        },
+        "pqOnly": {
+          "ok": true
+        },
+        "pqAlt": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        },
+        "tls13": {
+          "ok": true
+        },
+        "legacy": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        },
+        "head": {
+          "ok": true
+        }
+      },
+      "grade": "A+",
+      "hygieneFlags": [
+        "NO_HSTS"
+      ],
+      "hndlRisk": 0
+    },
+    {
+      "host": "www.icicibank.com",
+      "org": "ICICI Bank",
+      "sector": "banking",
+      "subsector": "private_bank",
+      "verified": false,
+      "shelfLifeYears": 10,
+      "reachable": true,
+      "tls": {
+        "maxVersion": "TLS1.3",
+        "defaultGroup": "X25519MLKEM768",
+        "pqHybrid": {
+          "x25519mlkem768": true,
+          "secp256r1mlkem768": false,
+          "secp384r1mlkem1024": false
+        },
+        "legacyEnabled": false,
+        "cipherSuite": "TLS_AES_256_GCM_SHA384",
+        "alpn": "h2"
+      },
+      "cert": {
+        "keyAlgorithm": "RSA",
+        "keySize": 2048,
+        "signatureAlgorithm": "SHA256-RSA",
+        "issuer": "CN=Sectigo Public Server Authentication CA OV R36,O=Sectigo Limited,C=GB",
+        "notAfter": "2027-04-28T23:59:59Z",
+        "chainSignatureAlgorithms": [
+          "SHA384-RSA",
+          "SHA384-RSA"
+        ],
+        "valid": true
+      },
+      "http": {
+        "hsts": false,
+        "cdn": null
+      },
+      "probes": {
+        "default": {
+          "ok": true,
+          "detail": "TLS1.3 X25519MLKEM768"
+        },
+        "pqOnly": {
+          "ok": true
+        },
+        "pqAlt": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        },
+        "tls13": {
+          "ok": true
+        },
+        "legacy": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        },
+        "head": {
+          "ok": true
+        }
+      },
+      "grade": "A+",
+      "hygieneFlags": [
+        "NO_HSTS"
+      ],
+      "hndlRisk": 0
+    },
+    {
+      "host": "www.iitb.ac.in",
+      "org": "IIT Bombay",
+      "sector": "education",
+      "subsector": "iit",
+      "verified": false,
+      "shelfLifeYears": 5,
+      "reachable": false,
+      "error": {
+        "code": "TLS_FAIL",
+        "detail": "read tcp 10.138.29.94:63452-\u003e103.21.124.133:443: wsarecv: An existing connection was forcibly closed by the remote host."
+      },
+      "probes": {
+        "default": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        },
+        "pqOnly": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        },
+        "pqAlt": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        },
+        "tls13": {
+          "ok": true
+        },
+        "legacy": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        },
+        "head": {
+          "ok": false
+        }
+      },
+      "grade": null,
+      "hygieneFlags": [],
+      "hndlRisk": 0
+    },
+    {
+      "host": "www.incometax.gov.in",
+      "org": "Income Tax Department",
+      "sector": "government",
+      "subsector": "tax",
+      "verified": false,
+      "shelfLifeYears": 25,
+      "reachable": true,
+      "tls": {
+        "maxVersion": "TLS1.3",
+        "defaultGroup": "X25519MLKEM768",
+        "pqHybrid": {
+          "x25519mlkem768": true,
+          "secp256r1mlkem768": false,
+          "secp384r1mlkem1024": false
+        },
+        "legacyEnabled": false,
+        "cipherSuite": "TLS_AES_256_GCM_SHA384",
+        "alpn": "h2"
+      },
+      "cert": {
+        "keyAlgorithm": "ECDSA",
+        "keySize": 256,
+        "curve": "P-256",
+        "signatureAlgorithm": "ECDSA-SHA384",
+        "issuer": "CN=DigiCert Global G3 TLS ECC SHA384 2020 CA1,O=DigiCert Inc,C=US",
+        "notAfter": "2026-12-31T23:59:59Z",
+        "chainSignatureAlgorithms": [
+          "ECDSA-SHA384"
+        ],
+        "valid": true
+      },
+      "http": {
+        "hsts": true,
+        "cdn": "akamai"
+      },
+      "probes": {
+        "default": {
+          "ok": true,
+          "detail": "TLS1.3 X25519MLKEM768"
+        },
+        "pqOnly": {
+          "ok": true
+        },
+        "pqAlt": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        },
+        "tls13": {
+          "ok": true
+        },
+        "legacy": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        },
+        "head": {
+          "ok": true
+        }
+      },
+      "grade": "A+",
+      "hygieneFlags": [],
+      "hndlRisk": 0
+    },
+    {
+      "host": "www.india.gov.in",
+      "org": "National Portal of India",
+      "sector": "government",
+      "subsector": "central_portal",
+      "verified": false,
+      "shelfLifeYears": 25,
+      "reachable": true,
+      "tls": {
+        "maxVersion": "TLS1.3",
+        "defaultGroup": "X25519MLKEM768",
+        "pqHybrid": {
+          "x25519mlkem768": true,
+          "secp256r1mlkem768": false,
+          "secp384r1mlkem1024": false
+        },
+        "legacyEnabled": false,
+        "cipherSuite": "TLS_AES_256_GCM_SHA384",
+        "alpn": "h2"
+      },
+      "cert": {
+        "keyAlgorithm": "RSA",
+        "keySize": 2048,
+        "signatureAlgorithm": "SHA256-RSA",
+        "issuer": "CN=YR1,O=Let's Encrypt,C=US",
+        "notAfter": "2026-10-27T08:08:13Z",
+        "chainSignatureAlgorithms": [
+          "SHA256-RSA",
+          "SHA256-RSA"
+        ],
+        "valid": true
+      },
+      "http": {
+        "hsts": false,
+        "cdn": null
+      },
+      "probes": {
+        "default": {
+          "ok": true,
+          "detail": "TLS1.3 X25519MLKEM768"
+        },
+        "pqOnly": {
+          "ok": true
+        },
+        "pqAlt": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        },
+        "tls13": {
+          "ok": true
+        },
+        "legacy": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        },
+        "head": {
+          "ok": true
+        }
+      },
+      "grade": "A+",
+      "hygieneFlags": [
+        "CERT_EXPIRING_SOON",
+        "NO_HSTS"
+      ],
+      "hndlRisk": 0
+    },
+    {
+      "host": "www.npci.org.in",
+      "org": "National Payments Corporation of India",
+      "sector": "payments",
+      "subsector": "payment_network",
+      "verified": false,
+      "shelfLifeYears": 7,
+      "reachable": true,
+      "tls": {
+        "maxVersion": "TLS1.3",
+        "defaultGroup": "X25519MLKEM768",
+        "pqHybrid": {
+          "x25519mlkem768": true,
+          "secp256r1mlkem768": false,
+          "secp384r1mlkem1024": false
+        },
+        "legacyEnabled": false,
+        "cipherSuite": "TLS_AES_256_GCM_SHA384",
+        "alpn": "h2"
+      },
+      "cert": {
+        "keyAlgorithm": "ECDSA",
+        "keySize": 256,
+        "curve": "P-256",
+        "signatureAlgorithm": "ECDSA-SHA384",
+        "issuer": "CN=DigiCert Global G3 TLS ECC SHA384 2020 CA1,O=DigiCert Inc,C=US",
+        "notAfter": "2026-12-18T23:59:59Z",
+        "chainSignatureAlgorithms": [
+          "ECDSA-SHA384"
+        ],
+        "valid": true
+      },
+      "http": {
+        "hsts": true,
+        "cdn": null
+      },
+      "probes": {
+        "default": {
+          "ok": true,
+          "detail": "TLS1.3 X25519MLKEM768"
+        },
+        "pqOnly": {
+          "ok": true
+        },
+        "pqAlt": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        },
+        "tls13": {
+          "ok": true
+        },
+        "legacy": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        },
+        "head": {
+          "ok": true
+        }
+      },
+      "grade": "A+",
+      "hygieneFlags": [],
+      "hndlRisk": 0
+    },
+    {
+      "host": "www.nseindia.com",
+      "org": "National Stock Exchange of India",
+      "sector": "stock_broking",
+      "subsector": "exchange",
+      "verified": false,
+      "shelfLifeYears": 10,
+      "reachable": true,
+      "tls": {
+        "maxVersion": "TLS1.3",
+        "defaultGroup": "X25519MLKEM768",
+        "pqHybrid": {
+          "x25519mlkem768": true,
+          "secp256r1mlkem768": false,
+          "secp384r1mlkem1024": false
+        },
+        "legacyEnabled": false,
+        "cipherSuite": "TLS_AES_256_GCM_SHA384",
+        "alpn": "h2"
+      },
+      "cert": {
+        "keyAlgorithm": "ECDSA",
+        "keySize": 256,
+        "curve": "P-256",
+        "signatureAlgorithm": "ECDSA-SHA384",
+        "issuer": "CN=DigiCert Global G3 TLS ECC SHA384 2020 CA1,O=DigiCert Inc,C=US",
+        "notAfter": "2027-05-06T23:59:59Z",
+        "chainSignatureAlgorithms": [
+          "ECDSA-SHA384"
+        ],
+        "valid": true
+      },
+      "probes": {
+        "default": {
+          "ok": true,
+          "detail": "TLS1.3 X25519MLKEM768"
+        },
+        "pqOnly": {
+          "ok": true
+        },
+        "pqAlt": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        },
+        "tls13": {
+          "ok": true
+        },
+        "legacy": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        },
+        "head": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        }
+      },
+      "grade": "A+",
+      "hygieneFlags": [],
+      "hndlRisk": 0
+    },
+    {
+      "host": "www.onlinesbi.sbi",
+      "org": "State Bank of India",
+      "sector": "banking",
+      "subsector": "public_bank",
+      "verified": false,
+      "shelfLifeYears": 10,
+      "reachable": true,
+      "tls": {
+        "maxVersion": "TLS1.3",
+        "defaultGroup": "X25519",
+        "pqHybrid": {
+          "x25519mlkem768": false,
+          "secp256r1mlkem768": false,
+          "secp384r1mlkem1024": false
+        },
+        "legacyEnabled": false,
+        "cipherSuite": "TLS_AES_128_GCM_SHA256",
+        "alpn": "http/1.1"
+      },
+      "cert": {
+        "keyAlgorithm": "RSA",
+        "keySize": 2048,
+        "signatureAlgorithm": "SHA256-RSA",
+        "issuer": "CN=DigiCert EV RSA CA G2,O=DigiCert Inc,C=US",
+        "notAfter": "2026-11-29T23:59:59Z",
+        "chainSignatureAlgorithms": [
+          "SHA256-RSA",
+          "SHA256-RSA"
+        ],
+        "valid": true
+      },
+      "http": {
+        "hsts": true,
+        "cdn": null
+      },
+      "probes": {
+        "default": {
+          "ok": true,
+          "detail": "TLS1.3 X25519"
+        },
+        "pqOnly": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        },
+        "pqAlt": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        },
+        "tls13": {
+          "ok": true
+        },
+        "legacy": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        },
+        "head": {
+          "ok": true
+        }
+      },
+      "grade": "C",
+      "hygieneFlags": [],
+      "hndlRisk": 60
+    },
+    {
+      "host": "www.phonepe.com",
+      "org": "PhonePe",
+      "sector": "payments",
+      "subsector": "upi_app",
+      "verified": false,
+      "shelfLifeYears": 7,
+      "reachable": true,
+      "tls": {
+        "maxVersion": "TLS1.3",
+        "defaultGroup": "X25519MLKEM768",
+        "pqHybrid": {
+          "x25519mlkem768": true,
+          "secp256r1mlkem768": false,
+          "secp384r1mlkem1024": false
+        },
+        "legacyEnabled": false,
+        "cipherSuite": "TLS_AES_128_GCM_SHA256",
+        "alpn": "h2"
+      },
+      "cert": {
+        "keyAlgorithm": "RSA",
+        "keySize": 2048,
+        "signatureAlgorithm": "SHA256-RSA",
+        "issuer": "CN=Go Daddy Secure Certificate Authority - G2,OU=http://certs.godaddy.com/repository/,O=GoDaddy.com\\, Inc.,L=Scottsdale,ST=Arizona,C=US",
+        "notAfter": "2026-12-03T09:12:59Z",
+        "chainSignatureAlgorithms": [
+          "SHA256-RSA",
+          "SHA256-RSA"
+        ],
+        "valid": true
+      },
+      "http": {
+        "hsts": false,
+        "server": "cloudflare",
+        "cdn": "cloudflare"
+      },
+      "probes": {
+        "default": {
+          "ok": true,
+          "detail": "TLS1.3 X25519MLKEM768"
+        },
+        "pqOnly": {
+          "ok": true
+        },
+        "pqAlt": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        },
+        "tls13": {
+          "ok": true
+        },
+        "legacy": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        },
+        "head": {
+          "ok": true
+        }
+      },
+      "grade": "A+",
+      "hygieneFlags": [
+        "NO_HSTS"
+      ],
+      "hndlRisk": 0
+    },
+    {
+      "host": "www.rbi.org.in",
+      "org": "Reserve Bank of India",
+      "sector": "banking",
+      "subsector": "regulator",
+      "verified": false,
+      "shelfLifeYears": 10,
+      "reachable": true,
+      "tls": {
+        "maxVersion": "TLS1.3",
+        "defaultGroup": "X25519MLKEM768",
+        "pqHybrid": {
+          "x25519mlkem768": true,
+          "secp256r1mlkem768": true
+        },
+        "legacyEnabled": false,
+        "cipherSuite": "TLS_AES_256_GCM_SHA384",
+        "alpn": "h2"
+      },
+      "cert": {
+        "keyAlgorithm": "RSA",
+        "keySize": 2048,
+        "signatureAlgorithm": "SHA256-RSA",
+        "issuer": "CN=GeoTrust TLS RSA CA G1,OU=www.digicert.com,O=DigiCert Inc,C=US",
+        "notAfter": "2027-03-30T23:59:59Z",
+        "chainSignatureAlgorithms": [
+          "SHA256-RSA",
+          "SHA256-RSA"
+        ],
+        "valid": true
+      },
+      "http": {
+        "hsts": true,
+        "cdn": "other"
+      },
+      "probes": {
+        "default": {
+          "ok": true,
+          "detail": "TLS1.3 X25519MLKEM768"
+        },
+        "pqOnly": {
+          "ok": true
+        },
+        "pqAlt": {
+          "ok": true
+        },
+        "tls13": {
+          "ok": true
+        },
+        "legacy": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        },
+        "head": {
+          "ok": true
+        }
+      },
+      "grade": "A+",
+      "hygieneFlags": [],
+      "hndlRisk": 0
+    },
+    {
+      "host": "www.thehindu.com",
+      "org": "The Hindu",
+      "sector": "media",
+      "subsector": "newspaper",
+      "verified": false,
+      "shelfLifeYears": 1,
+      "reachable": true,
+      "tls": {
+        "maxVersion": "TLS1.3",
+        "defaultGroup": "X25519MLKEM768",
+        "pqHybrid": {
+          "x25519mlkem768": true,
+          "secp256r1mlkem768": false,
+          "secp384r1mlkem1024": false
+        },
+        "legacyEnabled": true,
+        "cipherSuite": "TLS_AES_128_GCM_SHA256",
+        "alpn": "h2"
+      },
+      "cert": {
+        "keyAlgorithm": "ECDSA",
+        "keySize": 256,
+        "curve": "P-256",
+        "signatureAlgorithm": "ECDSA-SHA256",
+        "issuer": "CN=WE1,O=Google Trust Services,C=US",
+        "notAfter": "2027-01-14T05:54:08Z",
+        "chainSignatureAlgorithms": [
+          "ECDSA-SHA384",
+          "SHA256-RSA"
+        ],
+        "valid": true
+      },
+      "http": {
+        "hsts": true,
+        "server": "cloudflare",
+        "cdn": "cloudflare"
+      },
+      "probes": {
+        "default": {
+          "ok": true,
+          "detail": "TLS1.3 X25519MLKEM768"
+        },
+        "pqOnly": {
+          "ok": true
+        },
+        "pqAlt": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        },
+        "tls13": {
+          "ok": true
+        },
+        "legacy": {
+          "ok": true,
+          "detail": "TLS1.1"
+        },
+        "head": {
+          "ok": true
+        }
+      },
+      "grade": "A",
+      "hygieneFlags": [
+        "LEGACY_TLS"
+      ],
+      "hndlRisk": 0
+    },
+    {
+      "host": "zerodha.com",
+      "org": "Zerodha",
+      "sector": "stock_broking",
+      "subsector": "broker",
+      "verified": false,
+      "shelfLifeYears": 10,
+      "reachable": true,
+      "tls": {
+        "maxVersion": "TLS1.3",
+        "defaultGroup": "X25519MLKEM768",
+        "pqHybrid": {
+          "x25519mlkem768": true,
+          "secp256r1mlkem768": false,
+          "secp384r1mlkem1024": false
+        },
+        "legacyEnabled": false,
+        "cipherSuite": "TLS_AES_128_GCM_SHA256",
+        "alpn": "h2"
+      },
+      "cert": {
+        "keyAlgorithm": "ECDSA",
+        "keySize": 256,
+        "curve": "P-256",
+        "signatureAlgorithm": "ECDSA-SHA256",
+        "issuer": "CN=WE1,O=Google Trust Services,C=US",
+        "notAfter": "2026-12-16T22:51:46Z",
+        "chainSignatureAlgorithms": [
+          "ECDSA-SHA384",
+          "SHA256-RSA"
+        ],
+        "valid": true
+      },
+      "http": {
+        "hsts": true,
+        "server": "cloudflare",
+        "cdn": "cloudflare"
+      },
+      "probes": {
+        "default": {
+          "ok": true,
+          "detail": "TLS1.3 X25519MLKEM768"
+        },
+        "pqOnly": {
+          "ok": true
+        },
+        "pqAlt": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        },
+        "tls13": {
+          "ok": true
+        },
+        "legacy": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        },
+        "head": {
+          "ok": true
+        }
+      },
+      "grade": "A+",
+      "hygieneFlags": [],
+      "hndlRisk": 0
+    }
+  ]
+}

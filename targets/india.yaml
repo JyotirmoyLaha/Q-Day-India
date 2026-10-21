@@ -1,0 +1,23 @@
+# Q-Day India target list. Every entry is drafted from public knowledge and is
+# `verified: false` until a maintainer confirms the hostname belongs to the org.
+# sector: banking | payments | government | stock_broking | insurance | healthcare | telecom | ecommerce | education | media
+- {host: www.onlinesbi.sbi, org: State Bank of India, sector: banking, subsector: public_bank, notes: retail banking login host, verified: false}
+- {host: www.hdfcbank.com, org: HDFC Bank, sector: banking, subsector: private_bank, verified: false}
+- {host: www.icicibank.com, org: ICICI Bank, sector: banking, subsector: private_bank, verified: false}
+- {host: www.axisbank.com, org: Axis Bank, sector: banking, subsector: private_bank, verified: false}
+- {host: www.rbi.org.in, org: Reserve Bank of India, sector: banking, subsector: regulator, verified: false}
+- {host: www.npci.org.in, org: National Payments Corporation of India, sector: payments, subsector: payment_network, verified: false}
+- {host: www.phonepe.com, org: PhonePe, sector: payments, subsector: upi_app, verified: false}
+- {host: paytm.com, org: Paytm, sector: payments, subsector: upi_app, verified: false}
+- {host: www.india.gov.in, org: National Portal of India, sector: government, subsector: central_portal, verified: false}
+- {host: uidai.gov.in, org: Unique Identification Authority of India, sector: government, subsector: identity, verified: false}
+- {host: www.incometax.gov.in, org: Income Tax Department, sector: government, subsector: tax, verified: false}
+- {host: www.digilocker.gov.in, org: DigiLocker, sector: government, subsector: identity, verified: false}
+- {host: www.nseindia.com, org: National Stock Exchange of India, sector: stock_broking, subsector: exchange, verified: false}
+- {host: zerodha.com, org: Zerodha, sector: stock_broking, subsector: broker, verified: false}
+- {host: licindia.in, org: Life Insurance Corporation of India, sector: insurance, subsector: life_insurer, verified: false}
+- {host: www.aiims.edu, org: AIIMS New Delhi, sector: healthcare, subsector: hospital, verified: false}
+- {host: www.airtel.in, org: Bharti Airtel, sector: telecom, subsector: mobile_operator, verified: false}
+- {host: www.flipkart.com, org: Flipkart, sector: ecommerce, subsector: marketplace, verified: false}
+- {host: www.iitb.ac.in, org: IIT Bombay, sector: education, subsector: iit, verified: false}
+- {host: www.thehindu.com, org: The Hindu, sector: media, subsector: newspaper, verified: false}

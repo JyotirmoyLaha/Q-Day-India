@@ -7,19 +7,19 @@ Progress view for the autonomous build (PROJECT_SPEC.md §0). `[x]` = done and v
 - [x] Spike: web-tree-sitter 0.27 + grammar WASMs load and run predicates under Node
 - [x] Spike: Node 24.11 / OpenSSL 3.5.4 PQ-only handshake (`ecdhCurve: 'X25519MLKEM768'`) against cloudflare.com
 - [x] Spike: Go 1.27 exposes `ConnectionState.CurveID` and the X25519MLKEM768 / SecP256r1MLKEM768 / SecP384r1MLKEM1024 constants
-- [ ] PLAN.md, DECISIONS.md, CHANGELOG.md, README stub, .gitignore, pnpm workspace, root tooling (Prettier, ESLint, TS base config)
+- [x] PLAN.md, DECISIONS.md, CHANGELOG.md, README stub, .gitignore, pnpm workspace, root tooling (Prettier, ESLint, TS base config)
 
 ## M1 — Scanner core (Go)
-- [ ] `scanner/` module, `go.mod` pinned, `yaml.v3` targets loader + opt-out list
-- [ ] Probes P1–P5 (TLS) + H1 (HEAD) with timeouts, 300 ms gap, 1 retry, error codes
-- [ ] Certificate analysis (key alg/size, sig alg, issuer, notAfter, chain sig algs, chain validation)
-- [ ] Grading (§5.4), hygiene flags, HNDL risk (§5.5) — unit tests + shared parity cases (`schemas/grading-cases.json`)
-- [ ] Worker pool (8 hosts), deterministic sorted output, `data/scans/DATE.json` + `data/latest.json`
-- [ ] CLI `qday-scan --targets ... --out ... --date ...` and `--host X --json`
-- [ ] `schemas/scan.schema.json` + validator script (ajv)
-- [ ] Live integration tests behind `QDAY_LIVE_TESTS=1` (cloudflare.com positive, negative fixture) + recorded fixtures for offline tests
-- [ ] 20-host seed list (`verified: false`)
-- [ ] Done-when: `qday-scan --host cloudflare.com --json` ⇒ `x25519mlkem768: true`, grade A/A+; tests pass; output validates
+- [x] `scanner/` module, `go.mod` pinned, `yaml.v3` targets loader + opt-out list
+- [x] Probes P1–P5 (TLS) + H1 (HEAD) with timeouts, 300 ms gap, 1 retry, error codes
+- [x] Certificate analysis (key alg/size, sig alg, issuer, notAfter, chain sig algs, chain validation)
+- [x] Grading (§5.4), hygiene flags, HNDL risk (§5.5) — unit tests + shared parity cases (`schemas/grading-cases.json`)
+- [x] Worker pool (8 hosts), deterministic sorted output, `data/scans/DATE.json` + `data/latest.json`
+- [x] CLI `qday-scan --targets ... --out ... --date ...` and `--host X --json`
+- [x] `schemas/scan.schema.json` + validator script (ajv)
+- [x] Live integration tests behind `QDAY_LIVE_TESTS=1` (cloudflare.com positive, negative fixture) + recorded fixtures for offline tests
+- [x] 20-host seed list (`verified: false`)
+- [x] Done-when: `qday-scan --host cloudflare.com --json` ⇒ `x25519mlkem768: true`, grade A/A+; tests pass; output validates
 
 ## M2 — Weekly pipeline + Index UI
 - [ ] `.github/workflows/weekly-scan.yml` (cron `17 3 * * 1` + dispatch, schema validation, commit `scan: DATE`)

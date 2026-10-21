@@ -1,0 +1,67 @@
+{
+  "host": "www.aiims.edu",
+  "org": "AIIMS New Delhi",
+  "sector": "healthcare",
+  "verified": false,
+  "shelfLifeYears": 25,
+  "reachable": true,
+  "tls": {
+    "maxVersion": "TLS1.2",
+    "defaultGroup": "P-256",
+    "pqHybrid": {
+      "x25519mlkem768": false,
+      "secp256r1mlkem768": false,
+      "secp384r1mlkem1024": false
+    },
+    "legacyEnabled": true,
+    "cipherSuite": "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384"
+  },
+  "cert": {
+    "keyAlgorithm": "RSA",
+    "keySize": 2048,
+    "signatureAlgorithm": "SHA256-RSA",
+    "issuer": "CN=YR1,O=Let's Encrypt,C=US",
+    "notAfter": "2027-01-05T10:55:54Z",
+    "chainSignatureAlgorithms": [
+      "SHA256-RSA",
+      "SHA256-RSA"
+    ],
+    "valid": true
+  },
+  "http": {
+    "hsts": false,
+    "server": "nginx",
+    "cdn": null
+  },
+  "probes": {
+    "default": {
+      "ok": true,
+      "detail": "TLS1.2 P-256"
+    },
+    "pqOnly": {
+      "ok": false,
+      "detail": "TLS_FAIL"
+    },
+    "pqAlt": {
+      "ok": false,
+      "detail": "TLS_FAIL"
+    },
+    "tls13": {
+      "ok": false,
+      "detail": "TLS_FAIL"
+    },
+    "legacy": {
+      "ok": true,
+      "detail": "TLS1.1"
+    },
+    "head": {
+      "ok": true
+    }
+  },
+  "grade": "D",
+  "hygieneFlags": [
+    "LEGACY_TLS",
+    "NO_HSTS"
+  ],
+  "hndlRisk": 100
+}
