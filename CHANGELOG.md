@@ -2,6 +2,15 @@
 
 All notable changes to this project are documented here. Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Changed
+- `/api/badge` now uses the Node.js runtime (Next 16 deprecates Edge); still served from build-time data and CDN-cached.
+- Removed the unused `bin` entry from `@qday/cbom-engine` (the CLI ships as `action/dist/cli.mjs`).
+
+### Fixed
+- CI: `.wasm` file modes normalised in the bundle; `actions: read` permission for SARIF upload.
+
 ## [1.0.0] — 2026-10-21
 
 First complete build (milestones M1–M8). See BUILD_REPORT.md.

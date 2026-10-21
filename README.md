@@ -85,7 +85,7 @@ See [action/README.md](action/README.md).
 ![quantum exposure](https://qday-india.vercel.app/api/badge?repo=OWNER/NAME)
 ```
 
-Badges are served from the latest weekly data at the edge. Viewing one never triggers a scan.
+Badges are served from the latest weekly data and cached by the CDN. Viewing one never triggers a scan.
 
 ## Methodology (summary)
 

@@ -1,9 +1,10 @@
-// README badge (§7.3). Edge runtime, served from build-time scan data — never scans.
+// README badge (§7.3). Served from build-time scan data — never scans. Node runtime (Edge is
+// deprecated in Next 16); responses are cached at Vercel's CDN via Cache-Control.
 import badges from '@/generated/badges.json';
 import repos from '@/generated/repos.json';
 import { badgeFor, type BadgeData } from '@/lib/badge';
 
-export const runtime = 'edge';
+export const runtime = 'nodejs';
 
 const data = { hosts: badges, repos } as unknown as BadgeData;
 

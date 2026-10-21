@@ -14,7 +14,7 @@ Autonomous build of PROJECT_SPEC.md, milestones M1–M8, completed on **2026-10-
 | **Schemas** | Scan output JSON Schema + validator; Go/TS grading parity cases | `schemas/`, `scripts/validate-scan.mjs` |
 | **QuantumBOM engine** | web-tree-sitter (Python, JS/TS/TSX, Java, Go) + regex (Kotlin/Scala, C/C++, C#, Rust, PHP, configs) + PEM/OpenSSH key parser + manifest analysis. 82 YAML rules, 31 dated Markdown fix guides, Exposure/Agility scores, CycloneDX 1.6 / SARIF 2.1.0 / Markdown exporters, inline `quantumbom:ignore`, bundled CLI | `packages/cbom-engine/` |
 | **Website** | Next.js 16: `/`, `/index`, `/site/[host]` (495 static pages), `/check`, `/code`, `/org`, `/qday`, `/report` → `/report/2026-10`, `/learn`, `/about`, `/about/scanner`, 404, sitemap, robots. Light/dark themes, i18n message catalogue, production CSP | `apps/web/` |
-| **APIs** | `GET/POST /api/scan` (Node runtime, SSRF guard, OpenSSL ≥ 3.5 gate, 15 s budget, token bucket, 24 h cache), `GET /api/badge?host=…/?repo=…` (edge, build-time data) | `apps/web/app/api/` |
+| **APIs** | `GET/POST /api/scan` (Node runtime, SSRF guard, OpenSSL ≥ 3.5 gate, 15 s budget, token bucket, 24 h cache), `GET /api/badge?host=…/?repo=…` (build-time data, CDN-cached) | `apps/web/app/api/` |
 | **GitHub Action** | Composite action: bundled CLI → SARIF upload → CBOM artifact → job summary → optional threshold. Dogfooded in CI | `action/` |
 | **Workflows** | `ci.yml` (Go + engine + web + bundle freshness + dogfood), `weekly-scan.yml` (Mon 03:17 UTC, validate, commit `scan: DATE`), `on-demand.yml` (issue label `scan-request` → scan → reply) | `.github/workflows/` |
 | **Docs** | README, action README, PLAN, DECISIONS, CHANGELOG, this report | repo root |
