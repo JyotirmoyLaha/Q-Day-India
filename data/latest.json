@@ -1,5 +1,5 @@
 {
-  "scannedAt": "2026-11-02T11:15:10Z",
+  "scannedAt": "2026-11-09T11:38:23Z",
   "scannerVersion": "1.0.0",
   "goVersion": "go1.27.3",
   "results": [
@@ -45,7 +45,7 @@
         },
         "pqOnly": {
           "ok": false,
-          "detail": "TIMEOUT"
+          "detail": "TLS_FAIL"
         },
         "pqAlt": {
           "ok": false,
@@ -259,7 +259,9 @@
         }
       },
       "grade": "C",
-      "hygieneFlags": [],
+      "hygieneFlags": [
+        "CERT_EXPIRING_SOON"
+      ],
       "hndlRisk": 100
     },
     {
@@ -461,7 +463,7 @@
       },
       "http": {
         "hsts": true,
-        "server": "BandhanBank_Cloud1",
+        "server": "BandhanBank_Cloud2",
         "cdn": null
       },
       "probes": {
@@ -562,7 +564,7 @@
         },
         "pqAlt": {
           "ok": false,
-          "detail": "TIMEOUT"
+          "detail": "TLS_FAIL"
         },
         "tls13": {
           "ok": true
@@ -1159,13 +1161,11 @@
         "keyAlgorithm": "RSA",
         "keySize": 2048,
         "signatureAlgorithm": "SHA256-RSA",
-        "issuer": "CN=Sectigo Public Server Authentication CA DV R36,O=Sectigo Limited,C=GB",
-        "notAfter": "2026-11-12T23:59:59Z",
+        "issuer": "CN=Amazon RSA 2048 S20,O=Amazon,C=US",
+        "notAfter": "2027-05-22T06:05:41Z",
         "chainSignatureAlgorithms": [
           "SHA256-RSA",
-          "SHA384-RSA",
-          "SHA384-RSA",
-          "SHA384-RSA"
+          "SHA256-RSA"
         ],
         "valid": true
       },
@@ -1201,7 +1201,6 @@
       },
       "grade": "D",
       "hygieneFlags": [
-        "CERT_EXPIRING_SOON",
         "LEGACY_TLS"
       ],
       "hndlRisk": 56
@@ -1669,6 +1668,7 @@
       },
       "grade": "D",
       "hygieneFlags": [
+        "CERT_EXPIRING_SOON",
         "NO_HSTS"
       ],
       "hndlRisk": 100
@@ -1826,8 +1826,8 @@
         "keyAlgorithm": "RSA",
         "keySize": 2048,
         "signatureAlgorithm": "SHA256-RSA",
-        "issuer": "CN=YR1,O=Let's Encrypt,C=US",
-        "notAfter": "2026-11-25T04:53:22Z",
+        "issuer": "CN=YR2,O=Let's Encrypt,C=US",
+        "notAfter": "2027-02-03T04:08:33Z",
         "chainSignatureAlgorithms": [
           "SHA256-RSA",
           "SHA256-RSA"
@@ -1888,15 +1888,39 @@
       "subsector": "tax",
       "verified": true,
       "shelfLifeYears": 25,
-      "reachable": false,
-      "error": {
-        "code": "TLS_FAIL",
-        "detail": "read tcp 10.1.0.18:51000-\u003e43.239.61.139:443: read: connection reset by peer"
+      "reachable": true,
+      "tls": {
+        "maxVersion": "TLS1.2",
+        "defaultGroup": "P-256",
+        "pqHybrid": {
+          "x25519mlkem768": false,
+          "secp256r1mlkem768": false,
+          "secp384r1mlkem1024": false
+        },
+        "legacyEnabled": false,
+        "cipherSuite": "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+        "alpn": "http/1.1"
+      },
+      "cert": {
+        "keyAlgorithm": "RSA",
+        "keySize": 2048,
+        "signatureAlgorithm": "SHA256-RSA",
+        "issuer": "CN=Entrust OV TLS Issuing RSA CA 2,O=Entrust Limited,C=CA",
+        "notAfter": "2026-11-13T23:59:59Z",
+        "chainSignatureAlgorithms": [
+          "SHA384-RSA",
+          "SHA384-RSA"
+        ],
+        "valid": true
+      },
+      "http": {
+        "hsts": true,
+        "cdn": null
       },
       "probes": {
         "default": {
-          "ok": false,
-          "detail": "TLS_FAIL"
+          "ok": true,
+          "detail": "TLS1.2 P-256"
         },
         "pqOnly": {
           "ok": false,
@@ -1904,23 +1928,25 @@
         },
         "pqAlt": {
           "ok": false,
-          "detail": "TIMEOUT"
+          "detail": "TLS_FAIL"
         },
         "tls13": {
           "ok": false,
-          "detail": "TIMEOUT"
+          "detail": "TLS_FAIL"
         },
         "legacy": {
           "ok": false,
-          "detail": "TIMEOUT"
+          "detail": "TLS_FAIL"
         },
         "head": {
-          "ok": false
+          "ok": true
         }
       },
-      "grade": null,
-      "hygieneFlags": [],
-      "hndlRisk": 0
+      "grade": "D",
+      "hygieneFlags": [
+        "CERT_EXPIRING_SOON"
+      ],
+      "hndlRisk": 100
     },
     {
       "host": "eprocure.gov.in",
@@ -2011,12 +2037,12 @@
       "cert": {
         "keyAlgorithm": "RSA",
         "keySize": 2048,
-        "signatureAlgorithm": "SHA256-RSA",
-        "issuer": "CN=GlobalSign GCC R3 EV TLS CA 2025,O=GlobalSign nv-sa,C=BE",
-        "notAfter": "2026-11-23T06:06:04Z",
+        "signatureAlgorithm": "SHA384-RSA",
+        "issuer": "CN=GlobalSign GCC R46 EV TLS CA 2025,O=GlobalSign nv-sa,C=BE",
+        "notAfter": "2027-05-13T09:02:08Z",
         "chainSignatureAlgorithms": [
-          "SHA256-RSA",
-          "SHA256-RSA"
+          "SHA384-RSA",
+          "SHA384-RSA"
         ],
         "valid": true
       },
@@ -2197,7 +2223,7 @@
       "reachable": false,
       "error": {
         "code": "TIMEOUT",
-        "detail": "dial tcp 117.240.232.230:443: i/o timeout"
+        "detail": "dial tcp 115.113.188.30:443: i/o timeout"
       },
       "grade": null,
       "hygieneFlags": [],
@@ -2597,8 +2623,8 @@
         "keySize": 256,
         "curve": "P-256",
         "signatureAlgorithm": "ECDSA-SHA384",
-        "issuer": "CN=YE1,O=Let's Encrypt,C=US",
-        "notAfter": "2026-12-05T12:14:13Z",
+        "issuer": "CN=YE2,O=Let's Encrypt,C=US",
+        "notAfter": "2027-02-02T14:55:56Z",
         "chainSignatureAlgorithms": [
           "ECDSA-SHA384",
           "ECDSA-SHA384",
@@ -2653,8 +2679,7 @@
         "defaultGroup": "X25519MLKEM768",
         "pqHybrid": {
           "x25519mlkem768": true,
-          "secp256r1mlkem768": false,
-          "secp384r1mlkem1024": false
+          "secp256r1mlkem768": true
         },
         "legacyEnabled": false,
         "cipherSuite": "TLS_AES_128_GCM_SHA256",
@@ -2680,8 +2705,7 @@
           "ok": true
         },
         "pqAlt": {
-          "ok": false,
-          "detail": "TIMEOUT"
+          "ok": true
         },
         "tls13": {
           "ok": true
@@ -3755,7 +3779,7 @@
         "maxVersion": "TLS1.3",
         "defaultGroup": "X25519MLKEM768",
         "pqHybrid": {
-          "x25519mlkem768": false,
+          "x25519mlkem768": true,
           "secp256r1mlkem768": false,
           "secp384r1mlkem1024": false
         },
@@ -3776,14 +3800,18 @@
         ],
         "valid": true
       },
+      "http": {
+        "hsts": true,
+        "server": "v/7.0.6/6.6.9/v102nyc1-www",
+        "cdn": "other"
+      },
       "probes": {
         "default": {
           "ok": true,
           "detail": "TLS1.3 X25519MLKEM768"
         },
         "pqOnly": {
-          "ok": false,
-          "detail": "TIMEOUT"
+          "ok": true
         },
         "pqAlt": {
           "ok": false,
@@ -3797,13 +3825,12 @@
           "detail": "TLS_FAIL"
         },
         "head": {
-          "ok": false,
-          "detail": "TIMEOUT"
+          "ok": true
         }
       },
-      "grade": "C",
+      "grade": "A+",
       "hygieneFlags": [],
-      "hndlRisk": 68
+      "hndlRisk": 0
     },
     {
       "host": "maharashtra.gov.in",
@@ -4232,7 +4259,7 @@
         "keySize": 2048,
         "signatureAlgorithm": "SHA256-RSA",
         "issuer": "CN=Sectigo Public Server Authentication CA OV R36,O=Sectigo Limited,C=GB",
-        "notAfter": "2026-11-03T23:59:59Z",
+        "notAfter": "2027-05-20T23:59:59Z",
         "chainSignatureAlgorithms": [
           "SHA384-RSA",
           "SHA384-RSA",
@@ -4271,7 +4298,6 @@
       },
       "grade": "C",
       "hygieneFlags": [
-        "CERT_EXPIRING_SOON",
         "NO_HSTS"
       ],
       "hndlRisk": 32
@@ -4286,7 +4312,7 @@
       "reachable": false,
       "error": {
         "code": "TIMEOUT",
-        "detail": "dial tcp 103.58.114.193:443: i/o timeout"
+        "detail": "dial tcp 103.57.226.193:443: i/o timeout"
       },
       "grade": null,
       "hygieneFlags": [],
@@ -5197,7 +5223,7 @@
       "reachable": false,
       "error": {
         "code": "TIMEOUT",
-        "detail": "dial tcp 164.100.141.48:443: i/o timeout"
+        "detail": "dial tcp 117.250.67.148:443: i/o timeout"
       },
       "grade": null,
       "hygieneFlags": [],
@@ -5538,7 +5564,7 @@
       "reachable": false,
       "error": {
         "code": "TLS_FAIL",
-        "detail": "read tcp 10.1.0.18:34612-\u003e164.100.83.176:443: read: connection reset by peer"
+        "detail": "read tcp 10.1.0.111:47280-\u003e164.100.83.176:443: read: connection reset by peer"
       },
       "probes": {
         "default": {
@@ -6138,6 +6164,10 @@
         ],
         "valid": true
       },
+      "http": {
+        "hsts": true,
+        "cdn": null
+      },
       "probes": {
         "default": {
           "ok": true,
@@ -6159,8 +6189,7 @@
           "detail": "TLS_FAIL"
         },
         "head": {
-          "ok": false,
-          "detail": "TIMEOUT"
+          "ok": true
         }
       },
       "grade": "C",
@@ -6174,14 +6203,64 @@
       "subsector": "mobile_operator",
       "verified": true,
       "shelfLifeYears": 5,
-      "reachable": false,
-      "error": {
-        "code": "TIMEOUT",
-        "detail": "dial tcp 218.248.6.241:443: i/o timeout"
+      "reachable": true,
+      "tls": {
+        "maxVersion": "TLS1.3",
+        "defaultGroup": "X25519",
+        "pqHybrid": {
+          "x25519mlkem768": false,
+          "secp256r1mlkem768": false,
+          "secp384r1mlkem1024": false
+        },
+        "legacyEnabled": false,
+        "cipherSuite": "TLS_AES_256_GCM_SHA384",
+        "alpn": "http/1.1"
       },
-      "grade": null,
-      "hygieneFlags": [],
-      "hndlRisk": 0
+      "cert": {
+        "keyAlgorithm": "RSA",
+        "keySize": 2048,
+        "signatureAlgorithm": "SHA256-RSA",
+        "issuer": "CN=GeoTrust TLS RSA CA G1,OU=www.digicert.com,O=DigiCert Inc,C=US",
+        "notAfter": "2027-03-27T23:59:59Z",
+        "chainSignatureAlgorithms": [
+          "SHA256-RSA"
+        ],
+        "valid": true
+      },
+      "http": {
+        "hsts": false,
+        "server": "Apache",
+        "cdn": null
+      },
+      "probes": {
+        "default": {
+          "ok": true,
+          "detail": "TLS1.3 X25519"
+        },
+        "pqOnly": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        },
+        "pqAlt": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        },
+        "tls13": {
+          "ok": true
+        },
+        "legacy": {
+          "ok": false,
+          "detail": "TLS_FAIL"
+        },
+        "head": {
+          "ok": true
+        }
+      },
+      "grade": "C",
+      "hygieneFlags": [
+        "NO_HSTS"
+      ],
+      "hndlRisk": 36
     },
     {
       "host": "prasarbharati.gov.in",
@@ -6324,6 +6403,7 @@
       },
       "grade": "C",
       "hygieneFlags": [
+        "CERT_EXPIRING_SOON",
         "NO_HSTS"
       ],
       "hndlRisk": 100
@@ -7096,7 +7176,7 @@
         "curve": "P-256",
         "signatureAlgorithm": "ECDSA-SHA256",
         "issuer": "CN=WE1,O=Google Trust Services,C=US",
-        "notAfter": "2027-01-31T10:38:00Z",
+        "notAfter": "2027-01-31T13:44:58Z",
         "chainSignatureAlgorithms": [
           "ECDSA-SHA384",
           "SHA256-RSA"
@@ -7555,7 +7635,7 @@
       "reachable": false,
       "error": {
         "code": "TLS_FAIL",
-        "detail": "read tcp 10.1.0.18:57514-\u003e103.194.45.1:443: read: connection reset by peer"
+        "detail": "read tcp 10.1.0.111:56796-\u003e103.194.45.1:443: read: connection reset by peer"
       },
       "probes": {
         "default": {
@@ -7759,7 +7839,7 @@
       },
       "http": {
         "hsts": true,
-        "server": "nginx/1.18.0 (Ubuntu)",
+        "server": "nginx/1.28.3",
         "cdn": null
       },
       "probes": {
@@ -7869,7 +7949,7 @@
         "maxVersion": "TLS1.3",
         "defaultGroup": "X25519MLKEM768",
         "pqHybrid": {
-          "x25519mlkem768": false,
+          "x25519mlkem768": true,
           "secp256r1mlkem768": false,
           "secp384r1mlkem1024": false
         },
@@ -7892,7 +7972,7 @@
       },
       "http": {
         "hsts": false,
-        "server": "v/7.0.6/6.6.9/v104sjc1-www",
+        "server": "v/7.0.6/6.6.9/v107nyc1-www",
         "cdn": "other"
       },
       "probes": {
@@ -7901,16 +7981,14 @@
           "detail": "TLS1.3 X25519MLKEM768"
         },
         "pqOnly": {
-          "ok": false,
-          "detail": "TIMEOUT"
+          "ok": true
         },
         "pqAlt": {
           "ok": false,
           "detail": "TLS_FAIL"
         },
         "tls13": {
-          "ok": false,
-          "detail": "TIMEOUT"
+          "ok": true
         },
         "legacy": {
           "ok": false,
@@ -7920,11 +7998,11 @@
           "ok": true
         }
       },
-      "grade": "C",
+      "grade": "A+",
       "hygieneFlags": [
         "NO_HSTS"
       ],
-      "hndlRisk": 100
+      "hndlRisk": 0
     },
     {
       "host": "wb.gov.in",
@@ -8339,7 +8417,7 @@
         "maxVersion": "TLS1.3",
         "defaultGroup": "X25519MLKEM768",
         "pqHybrid": {
-          "x25519mlkem768": false,
+          "x25519mlkem768": true,
           "secp256r1mlkem768": false,
           "secp384r1mlkem1024": false
         },
@@ -8360,37 +8438,39 @@
         ],
         "valid": true
       },
+      "http": {
+        "hsts": true,
+        "server": "v/7.0.6/6.6.9/v101nyc1-www",
+        "cdn": "other"
+      },
       "probes": {
         "default": {
           "ok": true,
           "detail": "TLS1.3 X25519MLKEM768"
         },
         "pqOnly": {
-          "ok": false,
-          "detail": "TIMEOUT"
+          "ok": true
         },
         "pqAlt": {
           "ok": false,
           "detail": "TLS_FAIL"
         },
         "tls13": {
-          "ok": false,
-          "detail": "TIMEOUT"
+          "ok": true
         },
         "legacy": {
           "ok": false,
           "detail": "TLS_FAIL"
         },
         "head": {
-          "ok": false,
-          "detail": "TIMEOUT"
+          "ok": true
         }
       },
-      "grade": "C",
+      "grade": "A+",
       "hygieneFlags": [
         "CERT_EXPIRING_SOON"
       ],
-      "hndlRisk": 36
+      "hndlRisk": 0
     },
     {
       "host": "www.adityabirlacapital.com",
@@ -8468,7 +8548,7 @@
         "maxVersion": "TLS1.3",
         "defaultGroup": "X25519MLKEM768",
         "pqHybrid": {
-          "x25519mlkem768": false,
+          "x25519mlkem768": true,
           "secp256r1mlkem768": false,
           "secp384r1mlkem1024": false
         },
@@ -8490,7 +8570,7 @@
       },
       "http": {
         "hsts": true,
-        "server": "v/7.0.6/6.6.9/v101sjc1-www",
+        "server": "v/7.0.6/6.6.9/v100nyc1-www",
         "cdn": "other"
       },
       "probes": {
@@ -8499,8 +8579,7 @@
           "detail": "TLS1.3 X25519MLKEM768"
         },
         "pqOnly": {
-          "ok": false,
-          "detail": "TIMEOUT"
+          "ok": true
         },
         "pqAlt": {
           "ok": false,
@@ -8517,9 +8596,9 @@
           "ok": true
         }
       },
-      "grade": "C",
+      "grade": "A+",
       "hygieneFlags": [],
-      "hndlRisk": 68
+      "hndlRisk": 0
     },
     {
       "host": "www.aicte.gov.in",
@@ -8930,8 +9009,7 @@
         "defaultGroup": "X25519MLKEM768",
         "pqHybrid": {
           "x25519mlkem768": true,
-          "secp256r1mlkem768": false,
-          "secp384r1mlkem1024": false
+          "secp256r1mlkem768": true
         },
         "legacyEnabled": true,
         "cipherSuite": "TLS_AES_128_GCM_SHA256",
@@ -8952,7 +9030,7 @@
       "http": {
         "hsts": true,
         "server": "Server",
-        "cdn": "other"
+        "cdn": "cloudfront"
       },
       "probes": {
         "default": {
@@ -8963,8 +9041,7 @@
           "ok": true
         },
         "pqAlt": {
-          "ok": false,
-          "detail": "TLS_FAIL"
+          "ok": true
         },
         "tls13": {
           "ok": true
@@ -9452,8 +9529,8 @@
       "shelfLifeYears": 25,
       "reachable": false,
       "error": {
-        "code": "TIMEOUT",
-        "detail": "dial tcp [2001:df6:9500::2:4222]:443: i/o timeout"
+        "code": "DNS_FAIL",
+        "detail": "DNS lookup failed: lookup www.ap.gov.in: i/o timeout"
       },
       "grade": null,
       "hygieneFlags": [],
@@ -10124,7 +10201,7 @@
         "keySize": 2048,
         "signatureAlgorithm": "SHA256-RSA",
         "issuer": "CN=GeoTrust TLS RSA CA G1,OU=www.digicert.com,O=DigiCert Inc,C=US",
-        "notAfter": "2026-11-09T23:59:59Z",
+        "notAfter": "2027-05-19T23:59:59Z",
         "chainSignatureAlgorithms": [
           "SHA256-RSA"
         ],
@@ -10158,9 +10235,7 @@
         }
       },
       "grade": "A+",
-      "hygieneFlags": [
-        "CERT_EXPIRING_SOON"
-      ],
+      "hygieneFlags": [],
       "hndlRisk": 0
     },
     {
@@ -10771,7 +10846,7 @@
         "curve": "P-256",
         "signatureAlgorithm": "ECDSA-SHA384",
         "issuer": "CN=DigiCert Global G3 TLS ECC SHA384 2020 CA1,O=DigiCert Inc,C=US",
-        "notAfter": "2026-11-21T23:59:59Z",
+        "notAfter": "2027-05-20T23:59:59Z",
         "chainSignatureAlgorithms": [
           "ECDSA-SHA384"
         ],
@@ -11736,10 +11811,6 @@
         ],
         "valid": true
       },
-      "http": {
-        "hsts": true,
-        "cdn": null
-      },
       "probes": {
         "default": {
           "ok": true,
@@ -11761,7 +11832,8 @@
           "detail": "TLS_FAIL"
         },
         "head": {
-          "ok": true
+          "ok": false,
+          "detail": "TIMEOUT"
         }
       },
       "grade": "C",
@@ -11949,7 +12021,7 @@
         },
         "tls13": {
           "ok": false,
-          "detail": "TLS_FAIL"
+          "detail": "TIMEOUT"
         },
         "legacy": {
           "ok": false,
@@ -13062,8 +13134,8 @@
       "shelfLifeYears": 25,
       "reachable": false,
       "error": {
-        "code": "TIMEOUT",
-        "detail": "dial tcp 164.100.77.87:443: i/o timeout"
+        "code": "REFUSED",
+        "detail": "dial tcp 164.100.77.87:443: connect: connection refused"
       },
       "grade": null,
       "hygieneFlags": [],
@@ -13211,7 +13283,7 @@
         "maxVersion": "TLS1.3",
         "defaultGroup": "X25519MLKEM768",
         "pqHybrid": {
-          "x25519mlkem768": false,
+          "x25519mlkem768": true,
           "secp256r1mlkem768": false,
           "secp384r1mlkem1024": false
         },
@@ -13232,35 +13304,37 @@
         ],
         "valid": true
       },
+      "http": {
+        "hsts": true,
+        "server": "v/7.0.6/6.6.9/v100nyc1-www",
+        "cdn": "other"
+      },
       "probes": {
         "default": {
           "ok": true,
           "detail": "TLS1.3 X25519MLKEM768"
         },
         "pqOnly": {
-          "ok": false,
-          "detail": "TIMEOUT"
+          "ok": true
         },
         "pqAlt": {
           "ok": false,
           "detail": "TLS_FAIL"
         },
         "tls13": {
-          "ok": false,
-          "detail": "TIMEOUT"
+          "ok": true
         },
         "legacy": {
           "ok": false,
           "detail": "TLS_FAIL"
         },
         "head": {
-          "ok": false,
-          "detail": "TIMEOUT"
+          "ok": true
         }
       },
-      "grade": "C",
+      "grade": "A+",
       "hygieneFlags": [],
-      "hndlRisk": 100
+      "hndlRisk": 0
     },
     {
       "host": "www.edelweisslife.in",
@@ -13361,7 +13435,7 @@
       },
       "http": {
         "hsts": true,
-        "server": "CloudFront",
+        "server": "Apache",
         "cdn": "cloudfront"
       },
       "probes": {
@@ -13543,7 +13617,7 @@
         "curve": "P-256",
         "signatureAlgorithm": "ECDSA-SHA256",
         "issuer": "CN=WE1,O=Google Trust Services,C=US",
-        "notAfter": "2026-12-10T07:05:04Z",
+        "notAfter": "2027-02-07T09:45:52Z",
         "chainSignatureAlgorithms": [
           "ECDSA-SHA384",
           "SHA256-RSA"
@@ -14136,6 +14210,11 @@
         ],
         "valid": true
       },
+      "http": {
+        "hsts": true,
+        "server": "v/7.0.6/6.6.9/v101nyc1-www",
+        "cdn": "other"
+      },
       "probes": {
         "default": {
           "ok": true,
@@ -14149,16 +14228,14 @@
           "detail": "TLS_FAIL"
         },
         "tls13": {
-          "ok": false,
-          "detail": "TIMEOUT"
+          "ok": true
         },
         "legacy": {
           "ok": false,
           "detail": "TLS_FAIL"
         },
         "head": {
-          "ok": false,
-          "detail": "TIMEOUT"
+          "ok": true
         }
       },
       "grade": "A+",
@@ -14225,7 +14302,9 @@
         }
       },
       "grade": "C",
-      "hygieneFlags": [],
+      "hygieneFlags": [
+        "CERT_EXPIRING_SOON"
+      ],
       "hndlRisk": 56
     },
     {
@@ -15436,7 +15515,9 @@
         }
       },
       "grade": "A+",
-      "hygieneFlags": [],
+      "hygieneFlags": [
+        "CERT_EXPIRING_SOON"
+      ],
       "hndlRisk": 0
     },
     {
@@ -16174,9 +16255,9 @@
       "reachable": true,
       "tls": {
         "maxVersion": "TLS1.3",
-        "defaultGroup": "X25519",
+        "defaultGroup": "X25519MLKEM768",
         "pqHybrid": {
-          "x25519mlkem768": false,
+          "x25519mlkem768": true,
           "secp256r1mlkem768": false,
           "secp384r1mlkem1024": false
         },
@@ -16188,8 +16269,8 @@
         "keyAlgorithm": "RSA",
         "keySize": 2048,
         "signatureAlgorithm": "SHA256-RSA",
-        "issuer": "CN=YR1,O=Let's Encrypt,C=US",
-        "notAfter": "2026-12-05T04:39:27Z",
+        "issuer": "CN=YR2,O=Let's Encrypt,C=US",
+        "notAfter": "2027-02-02T11:31:57Z",
         "chainSignatureAlgorithms": [
           "SHA256-RSA",
           "SHA256-RSA"
@@ -16204,11 +16285,10 @@
       "probes": {
         "default": {
           "ok": true,
-          "detail": "TLS1.3 X25519"
+          "detail": "TLS1.3 X25519MLKEM768"
         },
         "pqOnly": {
-          "ok": false,
-          "detail": "TLS_FAIL"
+          "ok": true
         },
         "pqAlt": {
           "ok": false,
@@ -16225,11 +16305,11 @@
           "ok": true
         }
       },
-      "grade": "C",
+      "grade": "A+",
       "hygieneFlags": [
         "NO_HSTS"
       ],
-      "hndlRisk": 32
+      "hndlRisk": 0
     },
     {
       "host": "www.iiitm.ac.in",
@@ -16661,7 +16741,7 @@
       "probes": {
         "default": {
           "ok": true,
-          "detail": "TLS1.2 P-256 (compatibility handshake: the server rejected the default ClientHello)"
+          "detail": "TLS1.2 P-256"
         },
         "pqOnly": {
           "ok": false,
@@ -16677,7 +16757,7 @@
         },
         "legacy": {
           "ok": false,
-          "detail": "TIMEOUT"
+          "detail": "TLS_FAIL"
         },
         "head": {
           "ok": false,
@@ -17090,7 +17170,7 @@
       "reachable": false,
       "error": {
         "code": "TIMEOUT",
-        "detail": "dial tcp 117.205.73.165:443: i/o timeout"
+        "detail": "context deadline exceeded"
       },
       "grade": null,
       "hygieneFlags": [],
@@ -17196,7 +17276,7 @@
       },
       "http": {
         "hsts": true,
-        "server": "Apache/2.4.58 (Ubuntu)",
+        "server": "Apache",
         "cdn": null
       },
       "probes": {
@@ -18109,8 +18189,8 @@
         "valid": true
       },
       "http": {
-        "hsts": true,
-        "cdn": "fastly"
+        "hsts": false,
+        "cdn": null
       },
       "probes": {
         "default": {
@@ -18136,7 +18216,9 @@
         }
       },
       "grade": "A+",
-      "hygieneFlags": [],
+      "hygieneFlags": [
+        "NO_HSTS"
+      ],
       "hndlRisk": 0
     },
     {
@@ -18278,7 +18360,7 @@
         "maxVersion": "TLS1.3",
         "defaultGroup": "X25519MLKEM768",
         "pqHybrid": {
-          "x25519mlkem768": false,
+          "x25519mlkem768": true,
           "secp256r1mlkem768": false,
           "secp384r1mlkem1024": false
         },
@@ -18289,15 +18371,20 @@
       "cert": {
         "keyAlgorithm": "RSA",
         "keySize": 2048,
-        "signatureAlgorithm": "SHA384-RSA",
-        "issuer": "CN=EM OV TLS CA - G2A-1,O=eMudhra Technologies Limited,C=IN",
-        "notAfter": "2027-01-13T23:51:51Z",
+        "signatureAlgorithm": "SHA256-RSA",
+        "issuer": "CN=Sectigo Public Server Authentication CA OV R36,O=Sectigo Limited,C=GB",
+        "notAfter": "2027-05-19T23:59:59Z",
         "chainSignatureAlgorithms": [
           "SHA384-RSA",
-          "SHA256-RSA",
-          "SHA256-RSA"
+          "SHA384-RSA",
+          "SHA384-RSA"
         ],
         "valid": true
+      },
+      "http": {
+        "hsts": true,
+        "server": "v/7.0.6/6.6.9/v106nyc1-www",
+        "cdn": "other"
       },
       "probes": {
         "default": {
@@ -18305,8 +18392,7 @@
           "detail": "TLS1.3 X25519MLKEM768"
         },
         "pqOnly": {
-          "ok": false,
-          "detail": "TIMEOUT"
+          "ok": true
         },
         "pqAlt": {
           "ok": false,
@@ -18320,13 +18406,12 @@
           "detail": "TLS_FAIL"
         },
         "head": {
-          "ok": false,
-          "detail": "TIMEOUT"
+          "ok": true
         }
       },
-      "grade": "C",
+      "grade": "A+",
       "hygieneFlags": [],
-      "hndlRisk": 100
+      "hndlRisk": 0
     },
     {
       "host": "www.indiatoday.in",
@@ -19418,12 +19503,13 @@
       "cert": {
         "keyAlgorithm": "RSA",
         "keySize": 2048,
-        "signatureAlgorithm": "SHA256-RSA",
-        "issuer": "CN=GlobalSign GCC R3 EV TLS CA 2025,O=GlobalSign nv-sa,C=BE",
-        "notAfter": "2026-11-11T06:06:04Z",
+        "signatureAlgorithm": "SHA384-RSA",
+        "issuer": "CN=GlobalSign GCC R46 EV TLS CA 2025,O=GlobalSign nv-sa,C=BE",
+        "notAfter": "2027-05-09T07:26:36Z",
         "chainSignatureAlgorithms": [
-          "SHA256-RSA",
-          "SHA256-RSA"
+          "SHA384-RSA",
+          "SHA384-RSA",
+          "SHA384-RSA"
         ],
         "valid": true
       },
@@ -19456,9 +19542,7 @@
         }
       },
       "grade": "A+",
-      "hygieneFlags": [
-        "CERT_EXPIRING_SOON"
-      ],
+      "hygieneFlags": [],
       "hndlRisk": 0
     },
     {
@@ -19470,15 +19554,15 @@
       "shelfLifeYears": 10,
       "reachable": true,
       "tls": {
-        "maxVersion": "TLS1.2",
-        "defaultGroup": "P-256",
+        "maxVersion": "TLS1.3",
+        "defaultGroup": "X25519",
         "pqHybrid": {
           "x25519mlkem768": false,
           "secp256r1mlkem768": false,
           "secp384r1mlkem1024": false
         },
-        "legacyEnabled": true,
-        "cipherSuite": "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
+        "legacyEnabled": false,
+        "cipherSuite": "TLS_AES_128_GCM_SHA256",
         "alpn": "h2"
       },
       "cert": {
@@ -19500,7 +19584,7 @@
       "probes": {
         "default": {
           "ok": true,
-          "detail": "TLS1.2 P-256"
+          "detail": "TLS1.3 X25519"
         },
         "pqOnly": {
           "ok": false,
@@ -19511,20 +19595,18 @@
           "detail": "TLS_FAIL"
         },
         "tls13": {
-          "ok": false,
-          "detail": "TLS_FAIL"
+          "ok": true
         },
         "legacy": {
-          "ok": true,
-          "detail": "TLS1.1"
+          "ok": false,
+          "detail": "TLS_FAIL"
         },
         "head": {
           "ok": true
         }
       },
-      "grade": "D",
+      "grade": "C",
       "hygieneFlags": [
-        "LEGACY_TLS",
         "NO_HSTS"
       ],
       "hndlRisk": 56
@@ -19553,8 +19635,8 @@
         "keyAlgorithm": "RSA",
         "keySize": 2048,
         "signatureAlgorithm": "SHA256-RSA",
-        "issuer": "CN=Amazon RSA 2048 M04,O=Amazon,C=US",
-        "notAfter": "2027-01-01T23:59:59Z",
+        "issuer": "CN=Amazon RSA 2048 S25,O=Amazon,C=US",
+        "notAfter": "2027-05-20T00:24:10Z",
         "chainSignatureAlgorithms": [
           "SHA256-RSA",
           "SHA256-RSA"
@@ -20001,7 +20083,7 @@
         "curve": "P-256",
         "signatureAlgorithm": "ECDSA-SHA256",
         "issuer": "CN=WE1,O=Google Trust Services,C=US",
-        "notAfter": "2026-12-05T04:35:43Z",
+        "notAfter": "2027-02-02T05:27:22Z",
         "chainSignatureAlgorithms": [
           "ECDSA-SHA384",
           "SHA256-RSA"
@@ -20055,7 +20137,7 @@
         "maxVersion": "TLS1.3",
         "defaultGroup": "X25519",
         "pqHybrid": {
-          "x25519mlkem768": false,
+          "x25519mlkem768": true,
           "secp256r1mlkem768": false,
           "secp384r1mlkem1024": false
         },
@@ -20086,8 +20168,7 @@
           "detail": "TLS1.3 X25519"
         },
         "pqOnly": {
-          "ok": false,
-          "detail": "TLS_FAIL"
+          "ok": true
         },
         "pqAlt": {
           "ok": false,
@@ -20104,11 +20185,11 @@
           "ok": true
         }
       },
-      "grade": "C",
+      "grade": "B",
       "hygieneFlags": [
         "NO_HSTS"
       ],
-      "hndlRisk": 60
+      "hndlRisk": 18
     },
     {
       "host": "www.licious.in",
@@ -20772,7 +20853,7 @@
         "valid": true
       },
       "http": {
-        "hsts": false,
+        "hsts": true,
         "cdn": "cloudfront"
       },
       "probes": {
@@ -20798,9 +20879,7 @@
         }
       },
       "grade": "A+",
-      "hygieneFlags": [
-        "NO_HSTS"
-      ],
+      "hygieneFlags": [],
       "hndlRisk": 0
     },
     {
@@ -21192,7 +21271,9 @@
         }
       },
       "grade": "A+",
-      "hygieneFlags": [],
+      "hygieneFlags": [
+        "CERT_EXPIRING_SOON"
+      ],
       "hndlRisk": 0
     },
     {
@@ -21476,7 +21557,7 @@
         "keySize": 2048,
         "signatureAlgorithm": "SHA256-RSA",
         "issuer": "CN=YR2,O=Let's Encrypt,C=US",
-        "notAfter": "2026-11-25T03:45:07Z",
+        "notAfter": "2027-02-03T02:49:08Z",
         "chainSignatureAlgorithms": [
           "SHA256-RSA",
           "SHA256-RSA"
@@ -21576,7 +21657,9 @@
         }
       },
       "grade": "A+",
-      "hygieneFlags": [],
+      "hygieneFlags": [
+        "CERT_EXPIRING_SOON"
+      ],
       "hndlRisk": 0
     },
     {
@@ -22373,63 +22456,14 @@
       "subsector": "general_insurer",
       "verified": true,
       "shelfLifeYears": 15,
-      "reachable": true,
-      "tls": {
-        "maxVersion": "TLS1.3",
-        "defaultGroup": "P-256",
-        "pqHybrid": {
-          "x25519mlkem768": false,
-          "secp256r1mlkem768": false,
-          "secp384r1mlkem1024": false
-        },
-        "legacyEnabled": false,
-        "cipherSuite": "TLS_AES_256_GCM_SHA384",
-        "alpn": "http/1.1"
+      "reachable": false,
+      "error": {
+        "code": "DNS_FAIL",
+        "detail": "DNS lookup failed: lookup www.newindia.co.in: i/o timeout"
       },
-      "cert": {
-        "keyAlgorithm": "RSA",
-        "keySize": 2048,
-        "signatureAlgorithm": "SHA256-RSA",
-        "issuer": "CN=GlobalSign GCC R3 EV TLS CA 2025,O=GlobalSign nv-sa,C=BE",
-        "notAfter": "2027-02-03T07:31:18Z",
-        "chainSignatureAlgorithms": [
-          "SHA256-RSA",
-          "SHA256-RSA"
-        ],
-        "valid": true
-      },
-      "http": {
-        "hsts": true,
-        "server": "Apache",
-        "cdn": null
-      },
-      "probes": {
-        "default": {
-          "ok": true,
-          "detail": "TLS1.3 P-256"
-        },
-        "pqOnly": {
-          "ok": false,
-          "detail": "TLS_FAIL"
-        },
-        "pqAlt": {
-          "ok": false,
-          "detail": "DNS_FAIL"
-        },
-        "tls13": {
-          "ok": true
-        },
-        "legacy": {
-          "ok": false,
-          "detail": "TLS_FAIL"
-        },
-        "head": {
-          "ok": true
-        }
-      },
-      "grade": "C",
+      "grade": null,
       "hygieneFlags": [],
-      "hndlRisk": 68
+      "hndlRisk": 0
     },
     {
       "host": "www.news18.com",
@@ -22520,8 +22554,8 @@
         "keySize": 256,
         "curve": "P-256",
         "signatureAlgorithm": "ECDSA-SHA384",
-        "issuer": "CN=YE2,O=Let's Encrypt,C=US",
-        "notAfter": "2026-12-09T12:00:20Z",
+        "issuer": "CN=YE1,O=Let's Encrypt,C=US",
+        "notAfter": "2027-02-06T12:19:47Z",
         "chainSignatureAlgorithms": [
           "ECDSA-SHA384",
           "ECDSA-SHA384",
@@ -22876,7 +22910,8 @@
           "detail": "TLS_FAIL"
         },
         "tls13": {
-          "ok": true
+          "ok": false,
+          "detail": "TLS_FAIL"
         },
         "legacy": {
           "ok": false,
@@ -22886,7 +22921,7 @@
           "ok": true
         }
       },
-      "grade": "C",
+      "grade": "D",
       "hygieneFlags": [
         "NO_HSTS"
       ],
@@ -23077,7 +23112,7 @@
         },
         "legacy": {
           "ok": false,
-          "detail": "TIMEOUT"
+          "detail": "TLS_FAIL"
         },
         "head": {
           "ok": true
@@ -23299,7 +23334,7 @@
         "maxVersion": "TLS1.3",
         "defaultGroup": "X25519MLKEM768",
         "pqHybrid": {
-          "x25519mlkem768": false,
+          "x25519mlkem768": true,
           "secp256r1mlkem768": false,
           "secp384r1mlkem1024": false
         },
@@ -23321,7 +23356,7 @@
       },
       "http": {
         "hsts": true,
-        "server": "v/7.0.6/6.6.9/v101sjc1-www",
+        "server": "v/7.0.6/6.6.9/v106nyc1-www",
         "cdn": "other"
       },
       "probes": {
@@ -23330,8 +23365,7 @@
           "detail": "TLS1.3 X25519MLKEM768"
         },
         "pqOnly": {
-          "ok": false,
-          "detail": "TIMEOUT"
+          "ok": true
         },
         "pqAlt": {
           "ok": false,
@@ -23348,9 +23382,9 @@
           "ok": true
         }
       },
-      "grade": "C",
+      "grade": "A+",
       "hygieneFlags": [],
-      "hndlRisk": 68
+      "hndlRisk": 0
     },
     {
       "host": "www.npci.org.in",
@@ -23440,7 +23474,7 @@
         "keySize": 2048,
         "signatureAlgorithm": "SHA256-RSA",
         "issuer": "CN=WR3,O=Google Trust Services,C=US",
-        "notAfter": "2026-12-13T16:44:15Z",
+        "notAfter": "2027-02-04T01:59:39Z",
         "chainSignatureAlgorithms": [
           "SHA256-RSA",
           "SHA256-RSA"
@@ -23549,7 +23583,7 @@
       "reachable": false,
       "error": {
         "code": "TLS_FAIL",
-        "detail": "read tcp 10.1.0.18:51424-\u003e20.219.187.119:443: read: connection reset by peer"
+        "detail": "read tcp 10.1.0.111:54634-\u003e20.219.187.119:443: read: connection reset by peer"
       },
       "probes": {
         "default": {
@@ -23991,7 +24025,7 @@
         "keySize": 2048,
         "signatureAlgorithm": "SHA256-RSA",
         "issuer": "CN=GeoTrust TLS RSA CA G1,OU=www.digicert.com,O=DigiCert Inc,C=US",
-        "notAfter": "2027-01-05T23:59:59Z",
+        "notAfter": "2027-05-24T23:59:59Z",
         "chainSignatureAlgorithms": [
           "SHA256-RSA"
         ],
@@ -25463,8 +25497,8 @@
         "keyAlgorithm": "RSA",
         "keySize": 2048,
         "signatureAlgorithm": "SHA256-RSA",
-        "issuer": "CN=Amazon RSA 2048 M04,O=Amazon,C=US",
-        "notAfter": "2026-12-22T23:59:59Z",
+        "issuer": "CN=Amazon RSA 2048 S21,O=Amazon,C=US",
+        "notAfter": "2027-05-25T03:14:11Z",
         "chainSignatureAlgorithms": [
           "SHA256-RSA",
           "SHA256-RSA"
@@ -25823,7 +25857,7 @@
         },
         "legacy": {
           "ok": false,
-          "detail": "TIMEOUT"
+          "detail": "TLS_FAIL"
         },
         "head": {
           "ok": true
@@ -26053,7 +26087,7 @@
         "curve": "P-256",
         "signatureAlgorithm": "ECDSA-SHA384",
         "issuer": "CN=DigiCert Global G3 TLS ECC SHA384 2020 CA1,O=DigiCert Inc,C=US",
-        "notAfter": "2026-11-10T23:59:59Z",
+        "notAfter": "2027-03-29T23:59:59Z",
         "chainSignatureAlgorithms": [
           "ECDSA-SHA384"
         ],
@@ -26087,9 +26121,7 @@
         }
       },
       "grade": "A+",
-      "hygieneFlags": [
-        "CERT_EXPIRING_SOON"
-      ],
+      "hygieneFlags": [],
       "hndlRisk": 0
     },
     {
@@ -27312,7 +27344,9 @@
         }
       },
       "grade": "D",
-      "hygieneFlags": [],
+      "hygieneFlags": [
+        "CERT_EXPIRING_SOON"
+      ],
       "hndlRisk": 68
     },
     {
@@ -27648,7 +27682,9 @@
         }
       },
       "grade": "C",
-      "hygieneFlags": [],
+      "hygieneFlags": [
+        "CERT_EXPIRING_SOON"
+      ],
       "hndlRisk": 100
     },
     {
@@ -27877,7 +27913,7 @@
         "curve": "P-256",
         "signatureAlgorithm": "ECDSA-SHA256",
         "issuer": "CN=WE1,O=Google Trust Services,C=US",
-        "notAfter": "2026-12-06T08:47:00Z",
+        "notAfter": "2027-02-03T11:31:05Z",
         "chainSignatureAlgorithms": [
           "ECDSA-SHA384",
           "SHA256-RSA"
@@ -28592,7 +28628,9 @@
         }
       },
       "grade": "A+",
-      "hygieneFlags": [],
+      "hygieneFlags": [
+        "CERT_EXPIRING_SOON"
+      ],
       "hndlRisk": 0
     },
     {
@@ -28705,7 +28743,7 @@
         },
         "pqAlt": {
           "ok": false,
-          "detail": "TIMEOUT"
+          "detail": "TLS_FAIL"
         },
         "tls13": {
           "ok": true
@@ -28876,7 +28914,7 @@
         "curve": "P-256",
         "signatureAlgorithm": "ECDSA-SHA256",
         "issuer": "CN=WE1,O=Google Trust Services,C=US",
-        "notAfter": "2026-12-05T05:50:49Z",
+        "notAfter": "2027-02-02T11:30:41Z",
         "chainSignatureAlgorithms": [
           "ECDSA-SHA384",
           "SHA256-RSA"
